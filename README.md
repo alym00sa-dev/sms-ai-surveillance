@@ -1,9 +1,6 @@
 # Can AI turn messy text messages into safe disease reports?
 
 A benchmark and test harness for AI-assisted **SMS disease surveillance in Nigeria**.
-
-> **Status: research prototype.** Everything here uses *synthetic* (made-up) messages. Nothing was tested on real patients or real health reports, and nothing here is clinical advice or a production system.
-
 ---
 
 ## 1. The short version
