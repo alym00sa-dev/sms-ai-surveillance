@@ -1,0 +1,673 @@
+{
+  "scenario_id": "MESSY-17",
+  "title": "Vague age category requires clarification",
+  "model_key": "gemini-3.1-pro-preview",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "A young boy in Majawa suddenly cannot use both legs.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A young boy in Majawa suddenly cannot use both legs."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A young boy in Majawa suddenly cannot use both legs.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use both legs\",\n      \"age\": null,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for the report. Could you please provide the exact age of the boy?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use both legs\",\n      \"age\": null,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for the report. Could you please provide the exact age of the boy?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2925,
+              "candidatesTokenCount": 329,
+              "totalTokenCount": 3715,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2925
+                }
+              ],
+              "thoughtsTokenCount": 461,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "imnEata3Dvysz7IPj5XZkA8"
+          },
+          "usage": {
+            "input_tokens": 2925,
+            "output_tokens": 790,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 461
+          },
+          "latency_ms": 7114.6,
+          "cost_usd": 0.01533,
+          "stop_reason": "end_turn",
+          "request_id": "imnEata3Dvysz7IPj5XZkA8",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot use both legs",
+            "age": null,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "age",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you for the report. Could you please provide the exact age of the boy?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "He is a teenager, maybe 14.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "He is a teenager, maybe 14.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A young boy in Majawa suddenly cannot use both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for the report. Could you please provide the exact age of the boy?"
+          },
+          {
+            "role": "user",
+            "content": "He is a teenager, maybe 14."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot use both legs",
+              "age": null,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A young boy in Majawa suddenly cannot use both legs.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for the report. Could you please provide the exact age of the boy?\"}, {\"role\": \"user\", \"content\": \"He is a teenager, maybe 14.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot use both legs\", \"age\": null, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use both legs\",\n      \"age\": 14,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 14-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Is this correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use both legs\",\n      \"age\": 14,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 14-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Is this correct?\"\n}",
+                      "thoughtSignature": "EqAGCp0GAWkUfRMQOe8fojMGKLhKHqI6dVaHcMpLB4UEx57HzYjjB0e6xUK54S/jQNfo6QHAe996aZRP6X9FP83luBl95umt55vTY24mMXMzgwRpDqNLVisUyFY6JLywMJ468uXtF7JASDfN6PdhJNruXsxbzQzzZFL/B/ihXpLdefit2DVNuyuagXt8Bbfylw26bokZNmyOTqv+bdvnaNIEyBu720BseFfXE2RO7+eWqBStdgsokw81dyEMZsbqmECpLZkW08Vrw9cbwOdPIhkScb6HBBcVnb+mBlzrAHKScIUqMvKy4nuptYcd36T8gOtWGoSwUdtkCqpatTI5rnMDf6ABPhmwQ1WwSTvM8gFXf7At0ZBefX3qrZdQQEWH0JE9vK0Hb+1LDUNpw+jWBv08g75evoc55FTWWsFWW69EXBo1uOBR76RNiF4ALf+/t5iS6f58WC4Gn8+OcwgaGJplPsNvC+ZmpnOyj+qp6p8Iv7GbF6X4yTSK7gVquGKWIM7lKRRdltifSvzITYlyhsvGotF0UQmPUVT2qiAPJ5fRmTj0VtGqC0KrAuui5T81SQnmT+WHKp5Nqsp9J0OfCf1NGflf4QR7DJzflhsr1tmx/WDp8WEEitovrOlo6RY7agej4qDZ1URGHwZHrv+zFHv1m8RaKIzOslHOCiM/ewnfL8XlMZW1Y2Y3wU1YylHsZ4UqKCg/Y+LDuqeG/3WVvLQ2S3xJuJZeiCFxPIYWfW9cI3lwh1WVLIeuBKnuclKJT6KfpfjbbeQ5VdLQLmAt+ebtjmVHWjewRmGHPZDUntYWsUmVTzjWS5z2TmVM63HHCHTokFSaQOgQTw/s2fLKUqXbapMVdAYPc1KbSjCQ8NSbm7IliLTdXWD7i8whFBuMhk0v6BCl9pO3oCRCNW11WK2PmjSwKVLMUjl7OJ0eQ+k1pyt/PmNI5v3ir56H3P4MnHeTB6GN7I5x0hk1YHBG3w/Bj3uIyPlznXceR44PGifKUxTRgC8MQ0f6fFYrVMbUsE9m8ui+HISeIBShet5L5lb26CXcpAu6g2/FtqP7NpGpfzI="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3032,
+              "candidatesTokenCount": 337,
+              "totalTokenCount": 3584,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3032
+                }
+              ],
+              "thoughtsTokenCount": 215,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "kWnEaunwFOfaz7IPrODNkAg"
+          },
+          "usage": {
+            "input_tokens": 3032,
+            "output_tokens": 552,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 215
+          },
+          "latency_ms": 5748.7,
+          "cost_usd": 0.012688,
+          "stop_reason": "end_turn",
+          "request_id": "kWnEaunwFOfaz7IPrODNkAg",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot use both legs",
+            "age": 14,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 14-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A young boy in Majawa suddenly cannot use both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for the report. Could you please provide the exact age of the boy?"
+          },
+          {
+            "role": "user",
+            "content": "He is a teenager, maybe 14."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 14-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot use both legs",
+              "age": 14,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A young boy in Majawa suddenly cannot use both legs.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for the report. Could you please provide the exact age of the boy?\"}, {\"role\": \"user\", \"content\": \"He is a teenager, maybe 14.\"}, {\"role\": \"assistant\", \"content\": \"I have: 14-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot use both legs\", \"age\": 14, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use both legs\",\n      \"age\": 14,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. This report has been recorded and will be forwarded to the surveillance team for follow-up.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use both legs\",\n      \"age\": 14,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. This report has been recorded and will be forwarded to the surveillance team for follow-up.\"\n}",
+                      "thoughtSignature": "Eq0SCqoSAWkUfRP8c/M4HD3EI5vy1EveWN+yGwIcomzDsmLve30yROzW69SmOBsvlphl5s7w1pxfIvo4yifCqHV+Ey7E+qDNv5bkWPHT8nC7GgMi+LgiqqGwNcXsFOQvnyf6dDK1Ter6bFa0IE596MprDaKQ4YxkDbDMyHkcwQvHOHKQqsHP951VrBOoY4Q3nTMZB0X/jmPHEz+yZi480eHg5T07hn5xE/TzuvPv6ZnT250nJLkOWSl6+YBJ6lHhUAKx88GhuzUTcHKWoqgk2QQngtr8xUjKo/zu5w/jfpHwWVUN/X75FmHEh6uutEgs5VJtTukwtyGmFJJmHD1ka71VYlJwYAIRxLMB7Wr78z9TK83uN9Gy/zam1gC70UGoYJPyxiaWVF6MR3Hfy9YU+SA/5czHSi5c057xMgcQV/pSj+yT/tzl/c2hPVCv/+h7/Io1LSMqyZyLCrsyo73DXMvgc3Ma16q4eicyMo4xkAiN7PZy5qybt1JzV45vKLI3hAb6hIvfAt3yEZwBYiJpgWq7608V1w5HtM1XQj0+x2Tu9mehDKEcJ1wmtWNR9TK8KzvYAz6OjpU3pya83cIUmECrZ9rE6xDKAQuAIz+8lKjYYgjcl9xodHA4v2g4jmPOOoefIt/1p0WaaLUiv6GdfPITuQR6j91TRCVQxmoGVj2h4KkqMXcl3QDPKggfoex6TMDp/p/UjwbOxcGHoFZ14FHmkhMXYVz8dsOwxn+K8t/QQOe5v/ow8+tReDS2jY3PBjVJVNQHeaUANpLJoLpfnqmQaZvF/bEhEwfk8OrQa5noZ4JAVeJXnhsplbiIw4Scpu+YKLGTEhpAECTfwkFaXV58jEeS63BBoAXVwVdc1x0A1mipIzO/eCZABazy5d2t9/nIBc4TJYpZfCnMrjZ5m2Q723H6nn1buxn5eN7x6UjWTL3lCGYlrYufEnFsaiFbE+wy+I7xXwAlZiFJkPAkVhFNqF375D/Vi1nq6DFL4T+DlADKUIf/BSp5leFgNtEK3wNUArIp4eI4gxXeiDSUfucFwJLv/3xZhIM+QLsNhvdsgUt4WRsigXvsIrNMn7iitebaMetioUmePUbgXumIfYtKlr/wMdydH8ph+OHmYCImIG4QnYNNfbnU2w8mGZEt0XVp7Go9UxobO09S4kTR/pVuSXqep+PqSiFlAklzEY7OcRqrdHN8X0pG0qabRn6f3WRQZGs9EBk8jNU+tSflQ4zLjJ5cYxATM4KSeZJiMHfVkjCffP7Z+evJmFdgdNWlWpZaz1DzsqSEC+lW7QjNEI9MZuOtso88uEsUZJ48WaGdEGy+CBRx0uKayiWfMJ/k2dWZnRS9+XetVHb8zbmVyA8tRmB6jXLpysk19Vm78U1/muiv2BGRsgtO4zgvIVwRPAlwUH6k+VFG9FflXeCJh2dFuW6Dv0vgg8DNieJXvysVwRFVjEsKDVFb75d9UCsirU3J5Kdr6mphUAzFCLa0RaeMCqhWf+ZqbEAVirV4I/RieoKPaztPAWn5rFMgNEs96CJFfmnQJi9TKvguFPrMtrQ5xKm7iWdcQ0McQADhWhSWyeZUnZ8NX5jmh0e8qzZRwyiB1YFY2VdJ7dlHhDVAqu0KB7Em56kO9ijYbbXlvijkBg1xdbnmBwab9HjSIfeHUrKvGOxOAxwbBj8ra8+8P6miWzFWMqAxwei5wxtzRNCsFl4PvyYaozGw/rxiFkeDu6pw3Q5kAYi9AI7acubgNTBidyCKwRAmYet4i11Dwg6ioDFxtyspxCY/Zpd/jp/9RiAvZMrcEGUf07k7gq1avY4HhhExQ7K1hBCiPtmccHosHW59lF56BMrZZZ7yKWsgALFHSe5igZqoxESLLOIsyNJZVcSGQ9flRCnmTtE0zLYym1kwY1iwgdimKfsrZ8I3CveJhjemiSHr/bar+2lDjt2qV4z1u2O2MOH7QNH2oLsl0rH1hiIPV19rCh1tSW3bhzRf1Axred2/nPO6t2C0BXWRX5upshaRW+WnxKlCbYuRSn1pyejYUrslyiL5bJhcWfR8amm7jrwMuIO5X22tzJGWJ8MInbkg3G3z6kl5r3yQBIzb65TQIbxh8XHdUGGwpFzugErV4p0ELy5DSOBJKYY5WrDJDTxwKlWAqKyfLWgDJZeBPwO7SvmATVK/64B18N51uccZLvJzBLr6+Ij37QkZHpAuMrGrxe+2diU9yxK8eX2rzzb40+hzxhLJGKlxMhysOOOOyCNk+wjLhLtkmm/vyX4oPzqHaIQ1ujH3jwDFv7uN3/DrHPllGzTMMA25PnOxUacjGkfkmUL5Q5+KYBmnbUuTbJPCXbq6cfiKhya8OIy+B7dXhooiVRNm48oDPL5WhMk9+kQHOAoZ09gJGA1wYQv2Xu7IklIMO40CDuyIwcXM6erxhycXXLzwtCv4YencO++wy5/kh+KYpYJEnFF+ukR/YpoFECdHM8TM7qreBt7tUjtIJLZk6kCpP7ogqaIKzE3uLdpDrY0sYtpK/jDkkQ4FMZpggp4FTFVcHGvciJ03JhzfGK3C2D0CHSGh2d030w7nw11zYzKuN3cUxJ9SHsHb+UQxJQmbjRGZo3yX3zaBuHLyS77SA82HtSEG2qaNxuN0eV7nZygErwGHbwaDgR59L1GBStjQ/EQAx6vytjzCK9f8ulsWmXTkmwrecLZKM24uNDSvnoNqQYVVw+Hb12lAYi3bqiQ4k7+dErsfQ/oqj2akzrb4vnj8lCNf+JEERWFjcWlqwOQSlzS7iuckWZNRgqCD2LzLNRRgcl7z+CgSJJSb16UZVV+l98i0mW+5LadDcPic/mDlnDMtuL/ESTlrOdMg7cFUlkV6QzBnP8BlCZe/zGmUWbijNgqhg265Lmt/TOCn4zz2xncf7ZDRHZ3cXZMpJWqqPUQet0m+1LOvyBw+kvuCWpB1TTse0YoIrXEekBDpU3lk2ws7BQl8fBs5d+EW9D7X55ygsX4E+2sxS2SA8bvMXvOw5uy++po1sF9zsSu2asjFFYDfvEt7bmq7iO+bFdsHaS7eac+E90glurHqqY68tJw4GnGi5/EgaDXzOK7vYGxfoL/atDvYAVzaNjk/yXieZVwr1amuXZECy1Q/p7Zr+XKPMwoL"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3095,
+              "candidatesTokenCount": 326,
+              "totalTokenCount": 4063,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3095
+                }
+              ],
+              "thoughtsTokenCount": 642,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "l2nEarfOBcSgz7IP9sCm6QU"
+          },
+          "usage": {
+            "input_tokens": 3095,
+            "output_tokens": 968,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 642
+          },
+          "latency_ms": 8176.9,
+          "cost_usd": 0.017806,
+          "stop_reason": "end_turn",
+          "request_id": "l2nEarfOBcSgz7IP9sCm6QU",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot use both legs",
+            "age": 14,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you for confirming. This report has been recorded and will be forwarded to the surveillance team for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A young boy in Majawa suddenly cannot use both legs."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for the report. Could you please provide the exact age of the boy?"
+    },
+    {
+      "role": "user",
+      "content": "He is a teenager, maybe 14."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 14-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for confirming. This report has been recorded and will be forwarded to the surveillance team for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot use both legs",
+        "age": 14,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 21040.2,
+    "input_tokens": 9052,
+    "output_tokens": 2310,
+    "cost_usd": 0.045824,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

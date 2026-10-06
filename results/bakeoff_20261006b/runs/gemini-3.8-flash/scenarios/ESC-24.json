@@ -1,0 +1,742 @@
+{
+  "scenario_id": "ESC-24",
+  "title": "Important location remains unresolved after three attempts",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "A 6 year old boy suddenly cannot move both legs.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 6 year old boy suddenly cannot move both legs."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 6 year old boy suddenly cannot move both legs.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"settlement\",\n    \"lga\",\n    \"state\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Where is the child located? Please share the community, LGA, and State.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"settlement\",\n    \"lga\",\n    \"state\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Where is the child located? Please share the community, LGA, and State.\"\n}",
+                      "thoughtSignature": "EtcHCtQHAWkUfRPGtkQG4F5PWqmXakv+dEhdY7MNd3yxS5jClsBcla5/XlNC7cexTIREmdpifyneVP0mvrdyY/0+A8ftX9xwSLqfRXWojSc4hRKO/txIjK8iHRQpG64TJNUk6S4zWsLJ0Yc3zgUp63LZnOP+sTFc24ogK+V9pqm40DpGtA53OjTf+GMxAepHoBBsGIp7S9AFm/F9zS91ZvGwX72ToI0qw0xfYwKGurDleQTBgQNAbVWPzJAVxbPL4lyjlqPSf1yU8fADptgEqkwPytOLBB25uMv+J6D+4CKxUZWOrwa71uEvcyNaAJM/AFnvRjKYdmdIfc/Is5ASGB9YLNHOUvp/hfguhsfTXShtW0sGUL/f+Ri+CLhOfCJid99Z9IOexCq+/E2LYA2GIq4k7SsIAaXDPAJU6XLv1r5gIl4u61TROas7zcYevPLyXR99w5RiituSXr+r12eV1+E+TQRvLuXVTAtMxDtUlkQVaxd3tcbjU//5vmwFnVNdavz/pTsyiQfBHO+dO4ep0sybrE1ed8eUYXoprZT86b9hEMs1sH2rMTJnU2O9kgxyhnituHzSZ49RRCfPFAbk49KqHH92xi3OhHxGUraNyA+iuZTnAVYuzfWfCcxoKzsM+YNp5SnqNUhUb+Em4+1M28P3HITbiW3VrMyvBGNohCfHtCl5gaRrEiICiMHti089ABuuoSfIv/5SgSMIrl0tquTlTSRY4blYg6H1H0mHqB4w6QV3Y1ats0AeZgvo/TkTWsnDSRUmwb/Sc7Cs7M1rneLZdkBOGjRXgcxsCjiS5mZU9KfkyXKlxzlUJe8/J74IU+4wYohw057ZGrD1ddgDXPl61voEHbVjWOFiJapxzwSWurKBXxXHoi4gv9bD3vNY8wy966q0hkFcaWAbugmLqxNhzwXB8o4kobDZtOWcF6BaTyx6NAB6mB67N/he7Yekl3JoxFRQ94fkwKICXqToQWXQZmefH/h/zs4OjYVKUZqwKDyBjM7d02suy9VKWKhoKb6Z09/UDtFb0sf0zXbwzdn+v6wH7ydJOmMlxQCqoHQnb0coL0N8HgpMJ/fQvY+xWKvVjnz/U858c8KS+qeB7gu5cbZLhUaUxAgYGlO7901lIInl02PcOF/4kTADWlXRtEkWUE3AQ1tiqoyKHZaOUBgZ2Q4B0NXD4aMxTal/TpJebFIb+T83C9ibY5LY9swm8zzLi3H7WpqXr9wmfweYSANvkCRk8M6pX4KUoxwBz+N5W4PytzfRYNd9Au3QPzVkAD56N4PDP0dREJsxbDTJpmN7c92Jr7ZtrWE="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2793,
+              "candidatesTokenCount": 268,
+              "totalTokenCount": 3302,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2793
+                }
+              ],
+              "thoughtsTokenCount": 241,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "AWjEauSBCe-Bz7IPo7GvqQM"
+          },
+          "usage": {
+            "input_tokens": 2793,
+            "output_tokens": 509,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 241
+          },
+          "latency_ms": 5290.3,
+          "cost_usd": 0.0040035,
+          "stop_reason": "end_turn",
+          "request_id": "AWjEauSBCe-Bz7IPo7GvqQM",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move both legs",
+            "age": 6,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "settlement",
+          "lga",
+          "state"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Where is the child located? Please share the community, LGA, and State."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Around here.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CLARIFY",
+      "sender_message": "Around here.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 6 year old boy suddenly cannot move both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Where is the child located? Please share the community, LGA, and State."
+          },
+          {
+            "role": "user",
+            "content": "Around here."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move both legs",
+              "age": 6,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 6 year old boy suddenly cannot move both legs.\"}, {\"role\": \"assistant\", \"content\": \"Where is the child located? Please share the community, LGA, and State.\"}, {\"role\": \"user\", \"content\": \"Around here.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move both legs\", \"age\": 6, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Could you please name the specific village or town, LGA, and State where the child is located?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Could you please name the specific village or town, LGA, and State where the child is located?\"\n}",
+                      "thoughtSignature": "ErQJCrEJAWkUfRPS1OG3P02cavij+c2OjRXS08GBgFsEBn/hcEiC5YuLGAt0VkAowznux+w39ADsD5zbpfMMGs+HoIRXnJAp91/tqiKxUSNIlR9TqGpdXt5ITymGIy8M7OYMIgvodHu7DtRYoJXJ9n4Uqahr0bMt4lGdr+IsprAShWr4XL1FB/sIT+JVRTzOqwsDCQ7jBTNHDKuz1MZsk8hN/1qaVm1WqigqthdGD77SQ/vYFOCSrFck+5RHuAKXPsxNYnBHEienMTcE86xfPpJkz967nRaEt/uIvDSNEtn+J55KsVDjDl2gL8KLOaBToool+azATUHZdpLk6taXzlAquNHwM6ov2MZV3Z/UtHzVQ0z1nmEB0UFHrSPWHTD8p3JiaBQFp3TM4mgS3F5GoFaygUk9Cx7wo6hPLozzRfkE1IUlp9MIOZ2YoVC00qkVOpVTVPJncTj0aKtq/RfGALMcXNZY/ZtYnQzyZO9ixR8SqdUuNHjviBa8LXCkmn/l8FqS3OHDXkBzk+fTGHn5DGJZFvp+JFw/HklC22OpwPUPp+KhE3m/inv7NQ/1qdcbdF2NUWk+LDoVRJjmJuQM9NoJdWQ8g2panBEeVTgeog/d4I+DQLeqdZhTTtq8Ro2QQjonDs6WLS/66BjHYpEYvfC3mXdnGIUDLsLQ2RiUjLYCCW0DVImvgrrCJHj/ksfVQjJFQ1FJ/zPKjTL4LEzo75PXH43GP8faGLFrP/gxt9kdlfxBQ7gTsQ5NkXmO0xnjgM8y63LUqeJWx/5sZtmEHqFIRB4H6an1NcOTRWHm6G6U5qVnIjuFB8aJpeMNdN9JBW5e768wh8TUnODd+Bn+e2KNDF1O1QtsGCx9H4oMa2440J3x0BYnyyjogcoCJY3Md/JekiDYhLmKKqxBhZXvEUaFRt/j0BsUCftDfIYpKAhjDkxqnrArWeJtbI247zSUCOIbyGkCmcUktTbMeYvOASAxZvyn9ypQCSHBz6FbtsWZiqmEGszTySjnxBAnhI7WxK1QBk/3Eqa5XSKYvbH3Rt27B9I3Oz8BtiSzBOzzdJREnRqBJSuFz8nC+OA/5UTH2M5kC+tlgUJZ9HV1k+dDPm7zOYlw+Oba3CHknP9TZHP1ysIDlK3FjQ4kk+gMFBI0ILZAfniVcHaBFBgO2ae5+5MKr0iXLr39T5ONeSnv5S3OL/mbE1/c8601rQkfYGmHC4E6LY1mD7hExlz39gqoejmu50Lgr4ClSdyLkFVZGMGROY7tHXPHfLjaIyGs/nMgL+rc1K+fnakXvfMJkMzwrLofdZcyQwDVSOK4HPVIFSmS/8dbo8vASh78QPbDBKbZuyExCXx0hlIOMLGWtPR08c1YrQ5nQjj17iWdtk9oTPYBllVNmFVYMIwPqA4gdxw8MAMszmwM5FhX5s2wbBTBQK35VJMKZ3BTqklcv9d3XHhtZbNV6NLDdO25/ggoe1PvaAuZRt0pixccJ7MW8U4zHqm/UcgArPxtRiqYlhL1erD2x922OH5/T81q+mMDn1b64rxbVxMFWy5q4HO+5W+vsSZ2LpUJkBNiuX13UzFM+GJVhqkHmSRNj5xOSncSjvzZGNygbBCefA=="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2882,
+              "candidatesTokenCount": 272,
+              "totalTokenCount": 3455,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2882
+                }
+              ],
+              "thoughtsTokenCount": 301,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "BmjEapqRHPrmz7IPooSPmAk"
+          },
+          "usage": {
+            "input_tokens": 2882,
+            "output_tokens": 573,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 301
+          },
+          "latency_ms": 4493.7,
+          "cost_usd": 0.00431025,
+          "stop_reason": "end_turn",
+          "request_id": "BmjEapqRHPrmz7IPooSPmAk",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move both legs",
+            "age": 6,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Could you please name the specific village or town, LGA, and State where the child is located?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Near my house.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CLARIFY",
+      "sender_message": "Near my house.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 6 year old boy suddenly cannot move both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Where is the child located? Please share the community, LGA, and State."
+          },
+          {
+            "role": "user",
+            "content": "Around here."
+          },
+          {
+            "role": "assistant",
+            "content": "Could you please name the specific village or town, LGA, and State where the child is located?"
+          },
+          {
+            "role": "user",
+            "content": "Near my house."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move both legs",
+              "age": 6,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 6 year old boy suddenly cannot move both legs.\"}, {\"role\": \"assistant\", \"content\": \"Where is the child located? Please share the community, LGA, and State.\"}, {\"role\": \"user\", \"content\": \"Around here.\"}, {\"role\": \"assistant\", \"content\": \"Could you please name the specific village or town, LGA, and State where the child is located?\"}, {\"role\": \"user\", \"content\": \"Near my house.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move both legs\", \"age\": 6, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Please tell us the specific village or town, LGA, and State where the child is located so health workers can find him.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Please tell us the specific village or town, LGA, and State where the child is located so health workers can find him.\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2927,
+              "candidatesTokenCount": 277,
+              "totalTokenCount": 4507,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2927
+                }
+              ],
+              "thoughtsTokenCount": 1303,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "CmjEau7VOcnrz7IP4s2TwAE"
+          },
+          "usage": {
+            "input_tokens": 2927,
+            "output_tokens": 1580,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 1303
+          },
+          "latency_ms": 11983.2,
+          "cost_usd": 0.008120249999999999,
+          "stop_reason": "end_turn",
+          "request_id": "CmjEau7VOcnrz7IP4s2TwAE",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move both legs",
+            "age": 6,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Please tell us the specific village or town, LGA, and State where the child is located so health workers can find him."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "I do not know the village name.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 3
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 3,
+      "gold_action": "ESCALATE",
+      "sender_message": "I do not know the village name.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 6 year old boy suddenly cannot move both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Where is the child located? Please share the community, LGA, and State."
+          },
+          {
+            "role": "user",
+            "content": "Around here."
+          },
+          {
+            "role": "assistant",
+            "content": "Could you please name the specific village or town, LGA, and State where the child is located?"
+          },
+          {
+            "role": "user",
+            "content": "Near my house."
+          },
+          {
+            "role": "assistant",
+            "content": "Please tell us the specific village or town, LGA, and State where the child is located so health workers can find him."
+          },
+          {
+            "role": "user",
+            "content": "I do not know the village name."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move both legs",
+              "age": 6,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 3,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 6 year old boy suddenly cannot move both legs.\"}, {\"role\": \"assistant\", \"content\": \"Where is the child located? Please share the community, LGA, and State.\"}, {\"role\": \"user\", \"content\": \"Around here.\"}, {\"role\": \"assistant\", \"content\": \"Could you please name the specific village or town, LGA, and State where the child is located?\"}, {\"role\": \"user\", \"content\": \"Near my house.\"}, {\"role\": \"assistant\", \"content\": \"Please tell us the specific village or town, LGA, and State where the child is located so health workers can find him.\"}, {\"role\": \"user\", \"content\": \"I do not know the village name.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move both legs\", \"age\": 6, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 3, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ESCALATE\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": true,\n    \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. Your report of a 6-year-old boy unable to move both legs has been forwarded to surveillance officers for further assistance.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ESCALATE\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": true,\n    \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. Your report of a 6-year-old boy unable to move both legs has been forwarded to surveillance officers for further assistance.\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2980,
+              "candidatesTokenCount": 292,
+              "totalTokenCount": 3738,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2980
+                }
+              ],
+              "thoughtsTokenCount": 466,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "FmjEao6ZOKjpz7IPvoHFkAU"
+          },
+          "usage": {
+            "input_tokens": 2980,
+            "output_tokens": 758,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 466
+          },
+          "latency_ms": 6425.7,
+          "cost_usd": 0.0050775,
+          "stop_reason": "end_turn",
+          "request_id": "FmjEao6ZOKjpz7IPvoHFkAU",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ESCALATE",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move both legs",
+            "age": 6,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": true,
+          "reason": "FAILED_CLARIFICATION_WITH_VALID_SIGNAL"
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. Your report of a 6-year-old boy unable to move both legs has been forwarded to surveillance officers for further assistance."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 3,
+      "clarification_attempts_after": 3
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 6 year old boy suddenly cannot move both legs."
+    },
+    {
+      "role": "assistant",
+      "content": "Where is the child located? Please share the community, LGA, and State."
+    },
+    {
+      "role": "user",
+      "content": "Around here."
+    },
+    {
+      "role": "assistant",
+      "content": "Could you please name the specific village or town, LGA, and State where the child is located?"
+    },
+    {
+      "role": "user",
+      "content": "Near my house."
+    },
+    {
+      "role": "assistant",
+      "content": "Please tell us the specific village or town, LGA, and State where the child is located so health workers can find him."
+    },
+    {
+      "role": "user",
+      "content": "I do not know the village name."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Your report of a 6-year-old boy unable to move both legs has been forwarded to surveillance officers for further assistance."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot move both legs",
+        "age": 6,
+        "sex": "male",
+        "state": null,
+        "lga": null,
+        "settlement": null
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 28192.9,
+    "input_tokens": 11582,
+    "output_tokens": 3420,
+    "cost_usd": 0.021511,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  }
+}

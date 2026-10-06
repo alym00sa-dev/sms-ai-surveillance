@@ -1,0 +1,673 @@
+{
+  "scenario_id": "CLAR-07",
+  "title": "Missing age, resolved on second turn",
+  "model_key": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs, cannot stand\",\n      \"age\": null,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\"age\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have a boy in Majawa, Kafin Hausa, Jigawa whose both legs suddenly became weak and he cannot stand. How old is the boy?\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5a29bc756f8fed8f5b",
+            "object": "chat.completion",
+            "created": 1791258929,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs, cannot stand\",\n      \"age\": null,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\"age\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have a boy in Majawa, Kafin Hausa, Jigawa whose both legs suddenly became weak and he cannot stand. How old is the boy?\"\n}",
+                  "reasoning_content": "The report: \"A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak.\"\n\nThis is an AFP-relevant signal: sudden weakness in both legs in a boy. Location resolved: Jigawa, Kafin Hausa, Majawa. Missing: age. Sex = male (boy). Symptom present.\n\nMissing information: age. So CLARIFY for age. One focused question per turn.\n\nAction: CLARIFY, target: age, attempt_number 1.\n\nResponse: short SMS asking for the child's age."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3471,
+              "completion_tokens": 426,
+              "total_tokens": 3897,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 116
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3471,
+            "output_tokens": 426,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 116
+          },
+          "latency_ms": 4627.6,
+          "cost_usd": 0.0151227,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5a29bc756f8fed8f5b",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weakness in both legs, cannot stand",
+            "age": null,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "age",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. I have a boy in Majawa, Kafin Hausa, Jigawa whose both legs suddenly became weak and he cannot stand. How old is the boy?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "He is 5.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "He is 5.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have a boy in Majawa, Kafin Hausa, Jigawa whose both legs suddenly became weak and he cannot stand. How old is the boy?"
+          },
+          {
+            "role": "user",
+            "content": "He is 5."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weakness in both legs, cannot stand",
+              "age": null,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have a boy in Majawa, Kafin Hausa, Jigawa whose both legs suddenly became weak and he cannot stand. How old is the boy?\"}, {\"role\": \"user\", \"content\": \"He is 5.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weakness in both legs, cannot stand\", \"age\": null, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs, cannot stand\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and he cannot stand. Is this correct?\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5a3bc574f5a50e7e67",
+            "object": "chat.completion",
+            "created": 1791258934,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs, cannot stand\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and he cannot stand. Is this correct?\"\n}",
+                  "reasoning_content": "The conversation: user reported a boy in Kafin Hausa, Majawa village, sudden leg weakness, cannot stand. Assistant asked age. User said \"He is 5.\"\n\nNow all required fields are present: symptom, age (5), sex (male), state (Jigawa), LGA (Kafin Hausa), settlement (Majawa). Location resolver RESOLVED.\n\nAction: CONFIRM — present summary and ask to confirm. Classification AFP_SUSPECTED. Priority NORMAL. Confirmation status PENDING."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3599,
+              "completion_tokens": 419,
+              "total_tokens": 4018,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 107
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3599,
+            "output_tokens": 419,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 107
+          },
+          "latency_ms": 4211.1,
+          "cost_usd": 0.015373800000000002,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5a3bc574f5a50e7e67",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weakness in both legs, cannot stand",
+            "age": 5,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and he cannot stand. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have a boy in Majawa, Kafin Hausa, Jigawa whose both legs suddenly became weak and he cannot stand. How old is the boy?"
+          },
+          {
+            "role": "user",
+            "content": "He is 5."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and he cannot stand. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weakness in both legs, cannot stand",
+              "age": 5,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have a boy in Majawa, Kafin Hausa, Jigawa whose both legs suddenly became weak and he cannot stand. How old is the boy?\"}, {\"role\": \"user\", \"content\": \"He is 5.\"}, {\"role\": \"assistant\", \"content\": \"I have: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and he cannot stand. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weakness in both legs, cannot stand\", \"age\": 5, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs, cannot stand\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report has been recorded: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and unable to stand. Health workers will follow up.\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5a4c0f71669578061b",
+            "object": "chat.completion",
+            "created": 1791258938,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs, cannot stand\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report has been recorded: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and unable to stand. Health workers will follow up.\"\n}",
+                  "reasoning_content": "The sender confirmed the summary. So action = ACCEPT, confirmation status = CONFIRMED."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3670,
+              "completion_tokens": 343,
+              "total_tokens": 4013,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 18
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3670,
+            "output_tokens": 343,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 18
+          },
+          "latency_ms": 3158.4,
+          "cost_usd": 0.0145395,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5a4c0f71669578061b",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weakness in both legs, cannot stand",
+            "age": 5,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. The report has been recorded: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and unable to stand. Health workers will follow up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. I have a boy in Majawa, Kafin Hausa, Jigawa whose both legs suddenly became weak and he cannot stand. How old is the boy?"
+    },
+    {
+      "role": "user",
+      "content": "He is 5."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and he cannot stand. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. The report has been recorded: a 5-year-old boy in Majawa village, Kafin Hausa LGA, Jigawa State, with sudden weakness in both legs and unable to stand. Health workers will follow up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden weakness in both legs, cannot stand",
+        "age": 5,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 11997.1,
+    "input_tokens": 10740,
+    "output_tokens": 1188,
+    "cost_usd": 0.045036,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

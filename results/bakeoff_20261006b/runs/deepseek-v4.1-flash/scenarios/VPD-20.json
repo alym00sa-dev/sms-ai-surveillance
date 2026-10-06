@@ -1,0 +1,249 @@
+{
+  "scenario_id": "VPD-20",
+  "title": "Meningitis-like fever and neck stiffness",
+  "model_key": "deepseek-v4.1-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "OTHER_VPD",
+      "sender_message": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto North",
+              "settlement": "Sokoto town",
+              "listed": true
+            },
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto South",
+              "settlement": "Sokoto town",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Sokoto town",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "settlement": "Sokoto town"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto North",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                },
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto South",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [
+                "lga"
+              ],
+              "requires": [
+                "lga"
+              ],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 15 year old in Sokoto town suddenly developed fever and a stiff neck.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Sokoto town\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"settlement\": \"Sokoto town\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"unresolved_fields\": [\"lga\"], \"requires\": [\"lga\"], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden fever and stiff neck\",\n      \"age\": 15,\n      \"sex\": \"unknown\",\n      \"state\": \"Sokoto\",\n      \"lga\": null,\n      \"settlement\": \"Sokoto town\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Sokoto town\",\n      \"inferred_fields\": [\"state\", \"settlement\"],\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. Recorded: 15-year-old, Sokoto town, Sokoto State, with sudden fever and stiff neck (possible meningitis, not AFP). This will be passed to surveillance staff.\"\n}",
+          "raw_response": {
+            "id": "e95356b7-aws_uw2",
+            "object": "chat.completion",
+            "created": 1791254217,
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden fever and stiff neck\",\n      \"age\": 15,\n      \"sex\": \"unknown\",\n      \"state\": \"Sokoto\",\n      \"lga\": null,\n      \"settlement\": \"Sokoto town\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Sokoto town\",\n      \"inferred_fields\": [\"state\", \"settlement\"],\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. Recorded: 15-year-old, Sokoto town, Sokoto State, with sudden fever and stiff neck (possible meningitis, not AFP). This will be passed to surveillance staff.\"\n}",
+                  "reasoning_content": "The report: 15-year-old in Sokoto town with fever and stiff neck. This suggests meningitis — a priority VPD (meningitis is a vaccine-preventable disease / epidemic-prone). Not AFP. So classification OTHER_VPD, action OTHER_VPD, stop.\n\nLocation: ambiguous LGA. But since OTHER_VPD, we preserve signal and stop. Should we still ask clarification? No — do not begin disease-specific follow-up. Preserve the signal and stop.\n\nState = Sokoto (resolved part), lga = null (ambiguous), settlement = \"Sokoto town\".\n\nAge 15, sex unknown.\n\nPriority: NORMAL (no high-priority rule supplied).\n\nResponse: short, preserve signal, stop.\n\nmissing_information: [] probably. But lga unresolved... Since we stop, list maybe. I'll leave missing_information empty or include lga? I'll leave empty since we're not pursuing. Actually maybe include \"lga\" as unresolved. Hmm. Keep it simple: [] since we stop.\n\nLet me output.\n\nconfirmation status: NOT_READY.\n\nclarification: target null, attempt_number 0.\n\nescalation: required false.\n\nResponse: \"Thank you. This sounds like possible meningitis (fever with stiff neck) in a 15-year-old in Sokoto town, Sokoto State. This has been recorded and will be passed to surveillance staff.\" Keep short."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2916,
+              "completion_tokens": 590,
+              "total_tokens": 3506,
+              "prompt_tokens_details": {
+                "cached_tokens": 2560
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 291
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 356,
+            "output_tokens": 590,
+            "cache_read_input_tokens": 2560,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 291
+          },
+          "latency_ms": 1800.3,
+          "cost_usd": 0.0015828,
+          "stop_reason": "end_turn",
+          "request_id": "e95356b7-aws_uw2",
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "OTHER_VPD",
+        "other_vpd": true,
+        "action": "OTHER_VPD",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden fever and stiff neck",
+            "age": 15,
+            "sex": "unknown",
+            "state": "Sokoto",
+            "lga": null,
+            "settlement": "Sokoto town"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Sokoto town",
+            "inferred_fields": [
+              "state",
+              "settlement"
+            ],
+            "confidence": "medium"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. Recorded: 15-year-old, Sokoto town, Sokoto State, with sudden fever and stiff neck (possible meningitis, not AFP). This will be passed to surveillance staff."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Recorded: 15-year-old, Sokoto town, Sokoto State, with sudden fever and stiff neck (possible meningitis, not AFP). This will be passed to surveillance staff."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden fever and stiff neck",
+        "age": 15,
+        "sex": "unknown",
+        "state": "Sokoto",
+        "lga": null,
+        "settlement": "Sokoto town"
+      }
+    ]
+  },
+  "gold_actions": [
+    "OTHER_VPD"
+  ],
+  "model_actions": [
+    "OTHER_VPD"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 1800.3,
+    "input_tokens": 356,
+    "output_tokens": 590,
+    "cost_usd": 0.001583,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

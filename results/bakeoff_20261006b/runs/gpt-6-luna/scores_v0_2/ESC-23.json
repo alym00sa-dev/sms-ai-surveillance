@@ -1,0 +1,477 @@
+{
+  "scenario_id": "ESC-23",
+  "model": "gpt-6-luna",
+  "termination": {
+    "reason": "PREMATURE_TERMINAL",
+    "detail": "NOT_RELEVANT; expected=CLARIFY"
+  },
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 11181.6,
+    "input_tokens": 379,
+    "output_tokens": 981,
+    "cost_usd": 0.001423,
+    "clarification_turns": 2,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 2
+  },
+  "scorer_version": "v0.2",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "ESC-23",
+    "model": "gpt-6-luna",
+    "scores": {
+      "classification": 0,
+      "extraction_state": 2,
+      "action": 0,
+      "conversation_quality": 2,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 8,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": false
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "CORRECT",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT",
+      "no_fabricated_information": "CORRECT"
+    },
+    "notes": [
+      "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+      "classification: turn 2: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+      "classification: turn 3: classification NOT_RELEVANT (expected UNINTELLIGIBLE)",
+      "action: turn 3: NOT_RELEVANT where CLARIFY expected",
+      "action: scenario ended PREMATURE_TERMINAL"
+    ],
+    "scorer_version": "v0.2",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 8,
+  "rubric": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_escalate_without_valid_signal",
+      "cursor": 3,
+      "route": "DIMENSION",
+      "dimension": "escalation_priority",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_stop_after_clarification_limit",
+      "cursor": 3,
+      "route": "DIMENSION",
+      "dimension": "escalation_priority",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "68 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "87 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "108 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "what the symptom is",
+          "the child's age",
+          "the location (village or community, LGA, or state)"
+        ],
+        "assistant_message": "What happened to the child? Please describe the problem or symptoms."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.03,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.96
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 471,
+        "output_tokens": 47
+      },
+      "latency_ms": 64.5,
+      "cost_usd": 1.9782e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [],
+        "assistant_message": "What happened to the child? Please describe the problem or symptoms."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 414,
+        "output_tokens": 47
+      },
+      "latency_ms": 79.4,
+      "cost_usd": 1.7388e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "What happened to the child? Please describe the problem or symptoms."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.02,
+        "CORRECT": 0.97,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.96,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 408,
+        "output_tokens": 47
+      },
+      "latency_ms": 112.6,
+      "cost_usd": 1.7136000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "What happened to the child? Please describe the problem or symptoms."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 408,
+        "output_tokens": 47
+      },
+      "latency_ms": 92.3,
+      "cost_usd": 1.7136000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "what the symptom is",
+          "the child's age",
+          "the location (village or community, LGA, or state)"
+        ],
+        "assistant_message": "I still can’t tell what is wrong. What specific problem or symptom does the child have?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.97,
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.02
+      },
+      "confidence": 0.96,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 477,
+        "output_tokens": 47
+      },
+      "latency_ms": 118.9,
+      "cost_usd": 2.0034e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [],
+        "assistant_message": "I still can’t tell what is wrong. What specific problem or symptom does the child have?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 420,
+        "output_tokens": 47
+      },
+      "latency_ms": 80.9,
+      "cost_usd": 1.764e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I still can’t tell what is wrong. What specific problem or symptom does the child have?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.06,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.94
+      },
+      "confidence": 0.91,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 414,
+        "output_tokens": 47
+      },
+      "latency_ms": 79.9,
+      "cost_usd": 1.7388e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I still can’t tell what is wrong. What specific problem or symptom does the child have?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 414,
+        "output_tokens": 47
+      },
+      "latency_ms": 95.4,
+      "cost_usd": 1.7388e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I’m unable to identify a specific health problem from the messages, so I can’t record a surveillance report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.66,
+        "PARTIAL": 0.22,
+        "INCORRECT": 0.12
+      },
+      "confidence": 0.49,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 417,
+        "output_tokens": 47
+      },
+      "latency_ms": 71.2,
+      "cost_usd": 1.7514e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I’m unable to identify a specific health problem from the messages, so I can’t record a surveillance report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 417,
+        "output_tokens": 47
+      },
+      "latency_ms": 81.1,
+      "cost_usd": 1.7514e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "final_action": "NOT_RELEVANT",
+        "message": "I’m unable to identify a specific health problem from the messages, so I can’t record a surveillance report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.98,
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 424,
+        "output_tokens": 45
+      },
+      "latency_ms": 102.9,
+      "cost_usd": 1.7808e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "no_fabricated_information",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "sender_message": "you know the child problem",
+        "assistant_message": "I’m unable to identify a specific health problem from the messages, so I can’t record a surveillance report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.04,
+        "CORRECT": 0.96
+      },
+      "confidence": 0.94,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 435,
+        "output_tokens": 48
+      },
+      "latency_ms": 80.9,
+      "cost_usd": 1.827e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 3,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+    "classification: turn 2: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+    "classification: turn 3: classification NOT_RELEVANT (expected UNINTELLIGIBLE)",
+    "action: turn 3: NOT_RELEVANT where CLARIFY expected",
+    "action: scenario ended PREMATURE_TERMINAL"
+  ]
+}

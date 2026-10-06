@@ -1,0 +1,456 @@
+{
+  "scenario_id": "AFP-02",
+  "title": "Infer higher-level location from settlement",
+  "model_key": "gemini-3.1-pro-preview",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "Girl 9 years in Majawa suddenly cannot use her left leg.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Girl 9 years in Majawa suddenly cannot use her left leg."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Girl 9 years in Majawa suddenly cannot use her left leg.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use her left leg\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: a 9-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use her left leg. Is this correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use her left leg\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: a 9-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use her left leg. Is this correct?\"\n}",
+                      "thoughtSignature": "EusECugEAWkUfRMCnFKBqQHiP+VnbU0Vef6dUxQ+S28w6IFPTImPyqrxr85DgTuDDsI4a3sZBrb5Jwq3eImTnLBpjIYknCzaMScRDmb9elcdlq5DC6wzrpf2LvWprkuEuqAn+IJ6uU+5yHzm15tZbUr6yVCbRFe1UVf27U/zMOl5JSNRuDuL8TvpoWOskU9l+Toh2+j0MOMSzSLH0THAnjZA7aAA42z1AnRuBZ2vzWLb7eCR+kO+SRZpcFSssUlXNh8I8pMzTh3wiGaC1rs5UsLi4mxUI7gbUFofxFVavwxdVeFkYWPlyqmoORpTAsdq+EhDWF7bzye20DKtqg8QC0OiyUhC59Mh5Dpgsjzca8woCghZMAAM4IKaWczfMjim7KffaxpedMnoe9W5uPWNtNAW+ys9QPHHNe0YOYGOlMGh9gsmrHEQLl886pQslfz2iQg4rQ+RBK9/88/dQKmKZ3iweHZHMXMyZX6DP0B0lRHb/5APi/hnohgvRYBfye8rvbuWhE7qQtoS7+39hXsirfCT7k6Ax8fgKCWh4D/m3u1oZjkU1L4qEWZnXSUNdBNNq6qTakignnQsCPmdXSfitN++A06JSyAKplxlfmomQMtSypCux7jSKuZgdAbwV+ZSXfTG9z4mAyCrDkzpFWkktJBMVVeKv5Fki/VCIqFiyl7lADDYVLL54XuLrU2v7ZhCFJmDr+chK1QKjFfAVT8M0TwW6yKa5lRUq9FYNB3pd/8Ea1zckvS3L0S4nQEWQUsUDsCnV+LH0kNHFrBDrVCxTeUkH0kETPPigSfGHKSfNy/VeRf4WMjW5LWNYI46ag=="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2927,
+              "candidatesTokenCount": 338,
+              "totalTokenCount": 3405,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2927
+                }
+              ],
+              "thoughtsTokenCount": 140,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "e2jEaqvoIcXRz7IPn4T30Qc"
+          },
+          "usage": {
+            "input_tokens": 2927,
+            "output_tokens": 478,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 140
+          },
+          "latency_ms": 4742.9,
+          "cost_usd": 0.01159,
+          "stop_reason": "end_turn",
+          "request_id": "e2jEaqvoIcXRz7IPn4T30Qc",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot use her left leg",
+            "age": 9,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: a 9-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use her left leg. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "left",
+                "one"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Girl 9 years in Majawa suddenly cannot use her left leg."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: a 9-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use her left leg. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot use her left leg",
+              "age": 9,
+              "sex": "female",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Girl 9 years in Majawa suddenly cannot use her left leg.\"}, {\"role\": \"assistant\", \"content\": \"I have: a 9-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use her left leg. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot use her left leg\", \"age\": 9, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use her left leg\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for reporting. This information has been recorded and will be shared with the surveillance team for follow-up.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot use her left leg\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for reporting. This information has been recorded and will be shared with the surveillance team for follow-up.\"\n}",
+                      "thoughtSignature": "EsAFCr0FAWkUfROE9zij9FobU7SUqF2Q1rmv+m9PeqV0yZvADHMcryJStoA7WeUH75CYso4Hv0fJO3nTIuToP5TMRm4/4c60M/clvEIpXtSMKLZZ0ki/DFrLNEd3s5j4CMovDD6S+xvvjYQ0jsTN9OzyNw1MW46ea+gSJaXocsxLzglv87tOshXm+xFXONhCGeveNpAa9Zvw+M0MHTLa3Zl4Xd03C5oNMdOsPeQcVcxQSIPKgD2PaigQp7v2YBm2akY48LG/O6xnDrBs3YJm1UdchcWZfPHTN8StfBSoABi5b/DznF/ugJnYUaycCScC2Gbc+jLx/61pwhzBg5biN+OIBKz5hQ1biLfeavMFLdrn517IVAZpz+vdyCnNvv1s5L1QAlyKONUsLwiCMXKL+G2d6yX4YDgXkxaNwlWFfad/DfzaeYAxJqPtUn9XvU+66KpuMPJVDQkbsP0lIJJwvJSjjrxkVlPA/t4knu/ILhlr9nP5MVif16l/iHkbmtrwuNI183XwcN964/D3jZZ2e7dXXdfPOjiaGA5460112gSu0S+rShyS/nxGeZQiKPeMqhR0J9iCieWHM/CfBk/6mqMQrfl+6BezEZ5CrgIW5ExCHnC2E8dEWdYyh6rI7XY5xQPPb3TBZjCC57Rmk/IwDAgJ5rvi6u2OoJubI/sAQ4uPPMdVGq4b8B7B+Tr0X+fX2FIZiVyJUsgeYqTGRZQbr7+tgZ+vpXjzyQv6Rgv9oFw1q8NYWdgjCh5jzuO3n9xni0BZilnHwAGqgN34m265e9tccZzdUh70ojD0ppZr1U27W6aQ0w+F63ljprVEF+P8xKPpzco+VgPgnEtVkOO59mOq6XVGRFb2sUaMFZR5EsxSqo0/0HRvXxzlyLrXccsHVpey8L1y2G7r8k8Rd0czEOB4mxgQbeMZ7LVrCt35AHqut9M="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3050,
+              "candidatesTokenCount": 326,
+              "totalTokenCount": 3545,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3050
+                }
+              ],
+              "thoughtsTokenCount": 169,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "gGjEasz0E4fRz7IP4PHe6Qc"
+          },
+          "usage": {
+            "input_tokens": 3050,
+            "output_tokens": 495,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 169
+          },
+          "latency_ms": 5764.5,
+          "cost_usd": 0.01204,
+          "stop_reason": "end_turn",
+          "request_id": "gGjEasz0E4fRz7IP4PHe6Qc",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot use her left leg",
+            "age": 9,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you for reporting. This information has been recorded and will be shared with the surveillance team for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Girl 9 years in Majawa suddenly cannot use her left leg."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: a 9-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use her left leg. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for reporting. This information has been recorded and will be shared with the surveillance team for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot use her left leg",
+        "age": 9,
+        "sex": "female",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 10507.4,
+    "input_tokens": 5977,
+    "output_tokens": 973,
+    "cost_usd": 0.02363,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

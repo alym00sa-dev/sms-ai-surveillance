@@ -1,0 +1,503 @@
+{
+  "scenario_id": "DUP-26",
+  "title": "Likely duplicate, but still accept",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "Boy around 7 in Majawa, both legs suddenly weak.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Boy around 7 in Majawa, both legs suddenly weak."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [
+          {
+            "case_id": "CASE-1001",
+            "age": 7,
+            "sex": "male",
+            "settlement": "Majawa",
+            "lga": "Kafin Hausa",
+            "state": "Jigawa",
+            "symptom": "sudden weakness in both legs",
+            "reported_at": "2 hours earlier"
+          }
+        ],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy around 7 in Majawa, both legs suddenly weak.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1001\", \"age\": 7, \"sex\": \"male\", \"settlement\": \"Majawa\", \"lga\": \"Kafin Hausa\", \"state\": \"Jigawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"2 hours earlier\"}], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"both legs suddenly weak\",\"age\":7,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":true,\"duplicate_candidate_ids\":[\"CASE-1001\"],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: boy around 7 years, Majawa, Kafin Hausa, Jigawa, both legs suddenly weak. Is this correct?\"}",
+          "raw_response": {
+            "id": "p46QPte-7ArivV-a461b71ccc2b76fd",
+            "object": "chat.completion",
+            "created": 1791258766,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"both legs suddenly weak\",\"age\":7,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":true,\"duplicate_candidate_ids\":[\"CASE-1001\"],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: boy around 7 years, Majawa, Kafin Hausa, Jigawa, both legs suddenly weak. Is this correct?\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy around 7 in Majawa, both legs suddenly weak.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1001\", \"age\": 7, \"sex\": \"male\", \"settlement\": \"Majawa\", \"lga\": \"Kafin Hausa\", \"state\": \"Jigawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"2 hours earlier\"}], \"location_resolver\": ...}\n\nWe need to process. User reports boy around 7 in Majawa, both legs suddenly weak. That's AFP suspected. Age ~7, sex male, settlement Majawa, LGA Kafin Hausa, state Jigawa resolved.\n\nCandidate prior reports: CASE-1001 with same info reported 2 hours earlier. Potential duplicate.\n\nWe must preserve signal, flag potential duplicate but continue.\n\nWe need to extract info. Symptom: both legs suddenly weak. Age around 7 => age 7? Could be approximate. Preserve uncertainty? It says around 7. Could keep age 7? Probably approximate. Might keep 7 with note? The field is age numeric. Could use 7. Possibly preserve uncertainty in response.\n\nWe have enough info to CONFIRM? The principles: Once enough information exists for surveillance staff to reasonably identify and follow up, do NOT immediately ACCEPT. First use CONFIRM. Present concise structured summary and ask sender to confirm or correct.\n\nSo action should be CONFIRM.\n\nClassification AFP_SUSPECTED. other_vpd false. priority NORMAL.\n\nCases array with case_id case_1. Need symptom, age, sex, state, lga, settlement.\n\nSymptom: \"both legs suddenly weak\" or \"sudden weakness in both legs\". Use similar.\n\nAge: 7? Around 7. Could be 7. Maybe keep 7.\n\nSex male.\n\nState Jigawa, lga Kafin Hausa, settlement Majawa.\n\nlocation_resolution: raw_location Majawa, inferred_fields [\"lga\",\"state\"]? Actually resolved includes all. inferred_fields maybe lga, state. confidence high.\n\nmissing_information []? Possibly none.\n\npotential_duplicate true? Candidate prior reports matches. Should flag potential duplicate. duplicate_candidate_ids [\"CASE-1001\"].\n\nescalation required false.\n\nclarification target null, attempt_number 0.\n\nconfirmation status PENDING.\n\nresponse: I have: 7-year-old boy in Majawa, Kafin Hausa, Jigawa, with sudden weakness in both legs. Is this correct? Possibly mention around 7.\n\nWe must ask short clear for SMS.\n\nWe should not invent missing info. We have all.\n\nShould we ask clarification about exact age? \"around 7\" maybe approximate acceptable. Could keep as 7.\n\nThe principle: preserve uncertainty such as approximate age. In summary we can say around 7.\n\nMaybe keep age as 7 but response mentions around 7.\n\nThe JSON expects age numeric. Could be 7.\n\nPotential duplicate: flag.\n\nAlso need to ensure cases array.\n\nWe have current_case_state cases empty. So create case_1.\n\nWe should also consider that we have candidate prior reports. Should we link? potential_duplicate true.\n\nOutput JSON.\n\nCheck output contract: cases with fields case_id, symptom, age, sex, state, lga, settlement.\n\nlocation_resolution array with case_id, raw_location, inferred_fields, confidence.\n\nmissing_information [].\n\npotential_duplicate false? Actually we have duplicate candidate. Should set true.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status PENDING.\n\nresponse short.\n\nLet's produce.\n\nPotential nuance: The location resolver says unresolved_fields [] requires [] . So fine.\n\nShould we use age 7 or null? Might be approximate. Could keep 7.\n\nIf we want preserve uncertainty, maybe age is 7 but we note around. Might be okay.\n\nAlternative: Could ask clarification for exact age? But enough info for surveillance? Age around 7 is sufficient probably. Might still confirm.\n\nThe guidelines: Extract information already provided before asking follow-up. Ask only for info still needed. We have symptom, age approx, sex, location. Probably enough.\n\nWe should confirm.\n\nEnsure response is short appropriate for SMS.\n\nLet's output JSON.\n\nCheck enum values: classification AFP_SUSPECTED, action CONFIRM, priority NORMAL, sex male.\n\nlocation confidence high.\n\nclarification target null.\n\nconfirmation status PENDING.\n\nOkay.\n\nPotential duplicate flag: potential_duplicate true, duplicate_candidate_ids [\"CASE-1001\"].\n\nProceed.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2790,
+              "total_tokens": 3948,
+              "completion_tokens": 1158,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 272,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 278,
+            "output_tokens": 1158,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 14977.5,
+          "cost_usd": 0.0027134999999999998,
+          "stop_reason": "end_turn",
+          "request_id": "p46QPte-7ArivV-a461b71ccc2b76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "both legs suddenly weak",
+            "age": 7,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": true,
+        "duplicate_candidate_ids": [
+          "CASE-1001"
+        ],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: boy around 7 years, Majawa, Kafin Hausa, Jigawa, both legs suddenly weak. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Boy around 7 in Majawa, both legs suddenly weak."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: boy around 7 years, Majawa, Kafin Hausa, Jigawa, both legs suddenly weak. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "both legs suddenly weak",
+              "age": 7,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [
+          {
+            "case_id": "CASE-1001",
+            "age": 7,
+            "sex": "male",
+            "settlement": "Majawa",
+            "lga": "Kafin Hausa",
+            "state": "Jigawa",
+            "symptom": "sudden weakness in both legs",
+            "reported_at": "2 hours earlier"
+          }
+        ],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy around 7 in Majawa, both legs suddenly weak.\"}, {\"role\": \"assistant\", \"content\": \"I have: boy around 7 years, Majawa, Kafin Hausa, Jigawa, both legs suddenly weak. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"both legs suddenly weak\", \"age\": 7, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1001\", \"age\": 7, \"sex\": \"male\", \"settlement\": \"Majawa\", \"lga\": \"Kafin Hausa\", \"state\": \"Jigawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"2 hours earlier\"}], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ACCEPT\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"both legs suddenly weak\",\"age\":7,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":true,\"duplicate_candidate_ids\":[\"CASE-1001\"],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"CONFIRMED\"},\"response\":\"Thank you, the report for the 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden weakness in both legs is recorded for follow-up.\"}",
+          "raw_response": {
+            "id": "p46QUNi-7ArivV-a461b77a8f2476fd",
+            "object": "chat.completion",
+            "created": 1791258782,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ACCEPT\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"both legs suddenly weak\",\"age\":7,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":true,\"duplicate_candidate_ids\":[\"CASE-1001\"],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"CONFIRMED\"},\"response\":\"Thank you, the report for the 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden weakness in both legs is recorded for follow-up.\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy around 7 in Majawa, both legs suddenly weak.\"}, {\"role\": \"assistant\", \"content\": \"I have: boy around 7 years, Majawa, Kafin Hausa, Jigawa, both legs suddenly weak. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"both legs suddenly weak\", \"age\": 7, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1001\", \"age\": 7, \"sex\": \"male\", \"settlement\": \"Majawa\", \"lga\": \"Kafin Hausa\", \"state\": \"Jigawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"2 hours earlier\"}], \"location_resolver\": ...}\n\nWe need to output JSON. The user confirmed. So we should ACCEPT. Classification AFP_SUSPECTED? Symptom both legs suddenly weak in boy around 7. That's AFP suspected. Yes.\n\nWe need to check duplicate. Candidate prior reports: case_id CASE-1001 same age sex settlement lga state symptom sudden weakness in both legs reported 2 hours earlier. This is potential duplicate. Should flag potential_duplicate true? The instructions: Potential duplicate reports should be flagged, not discarded or automatically merged. Duplicate status is internal metadata and does not need to be surfaced to community informant.\n\nSo potential_duplicate: true? Might need duplicate_candidate_ids: [\"CASE-1001\"].\n\nWe have cases array with case_1.\n\nlocation_resolution: need to include? The example shows location_resolution array with case_id, raw_location, inferred_fields, confidence. The current_case_state has state etc. The location resolver shows resolved Majawa. We could provide location_resolution with case_id case_1, raw_location \"Majawa\", inferred_fields [\"lga\",\"state\"], confidence high.\n\nMissing_information [].\n\nEscalation required false.\n\nClarification target null, attempt_number 0.\n\nConfirmation status? After accept? The confirmation status maybe CONFIRMED? The output contract shows confirmation status enum NOT_READY, PENDING, CONFIRMED. After acceptance, maybe CONFIRMED? The action is ACCEPT. Confirmation status could be CONFIRMED. Probably set to CONFIRMED.\n\nResponse: short clear appropriate for SMS. Should acknowledge acceptance. Possibly \"Thank you, the report is recorded for follow-up.\" Should not mention duplicate to user.\n\nWe need to ensure fields match schema. classification: AFP_SUSPECTED. other_vpd false. action ACCEPT. priority NORMAL.\n\ncases: case_id case_1, symptom \"both legs suddenly weak\", age 7, sex male, state Jigawa, lga Kafin Hausa, settlement Majawa.\n\nlocation_resolution: array with one entry.\n\npotential_duplicate true, duplicate_candidate_ids [\"CASE-1001\"].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status? If action ACCEPT, confirmation status should be CONFIRMED? Possibly PENDING? The rule: Before ACCEPT, present summary and ask confirm. After confirmation, ACCEPT. So confirmation status should be CONFIRMED.\n\nResponse: \"Thank you, the report for the 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden weakness in both legs is recorded for follow-up.\" Keep short.\n\nCheck policy: Use ACCEPT only after sender explicitly confirms. Yes user said \"Yes, that is correct.\"\n\nWe must preserve uncertainty? Age around 7, we have age 7. Original said around 7. Could be approximate. Might keep age 7. Maybe note approximate? Could keep as 7. Might be okay.\n\nPotential duplicate flag. Should we keep potential_duplicate true? Might be duplicate. Yes.\n\nOutput JSON only.\n\nMake sure JSON valid.\n\nLet's produce final."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2904,
+              "total_tokens": 3965,
+              "completion_tokens": 1061,
+              "prompt_tokens_details": {
+                "cached_tokens": 2528,
+                "created_cache_tokens": 368,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 376,
+            "output_tokens": 1061,
+            "cache_read_input_tokens": 2528,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 14666.0,
+          "cost_usd": 0.0026079,
+          "stop_reason": "end_turn",
+          "request_id": "p46QUNi-7ArivV-a461b77a8f2476fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "both legs suddenly weak",
+            "age": 7,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": true,
+        "duplicate_candidate_ids": [
+          "CASE-1001"
+        ],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you, the report for the 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden weakness in both legs is recorded for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Boy around 7 in Majawa, both legs suddenly weak."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: boy around 7 years, Majawa, Kafin Hausa, Jigawa, both legs suddenly weak. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you, the report for the 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden weakness in both legs is recorded for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "both legs suddenly weak",
+        "age": 7,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 29643.5,
+    "input_tokens": 654,
+    "output_tokens": 2219,
+    "cost_usd": 0.005321,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

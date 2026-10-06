@@ -1,0 +1,856 @@
+{
+  "scenario_id": "ESC-25",
+  "title": "Conflicting case identity/location cannot be safely resolved",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "7 year old boy with sudden weak legs somewhere near Majawa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[],\"missing_information\":[\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?\"}",
+          "raw_response": {
+            "id": "p46PmbX-7ArivV-a461b42189b676fd",
+            "object": "chat.completion",
+            "created": 1791258644,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[],\"missing_information\":[\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}\n\nWe need to convert natural language to surveillance signal for AFP. Symptom: sudden weak legs. Age 7, sex male. Location: somewhere near Majawa. Resolver says UNRESOLVED, Majawa is only nearby reference not specific location. Unresolved fields state, lga, settlement. Requires [].\n\nWe need to extract information already provided before asking follow-up. We have symptom: sudden weak legs -> likely AFP suspected. Age 7, sex male. Location not resolved. Need location. Also settlement/village? The resolver says Majawa is only nearby reference, not specific location. So we need to ask for specific location. Also need state, LGA, settlement.\n\nWe have one case. No prior cases. Need to ask clarification. At most one focused question per turn. Ask about location? Could ask for specific village/town and LGA/state.\n\nWe should create case with symptom, age, sex, state null, lga null, settlement null? Possibly settlement could be unknown. The raw location is near Majawa but not specific. Perhaps we can keep settlement null.\n\nWe need to follow output contract. Classification AFP_SUSPECTED? Possibly yes. The symptom sudden weak legs in 7 year old boy suggests AFP. So classification AFP_SUSPECTED. Action CLARIFY because location missing. priority NORMAL.\n\nMissing information: location (state, lga, settlement). Clarification target location? Could be location. Attempt number 1? Clarification attempts 0 currently. This is first clarification. So attempt_number =1? The field clarification.attempt_number maybe counts attempts made? The current clarification_attempts is 0. After we ask, attempt_number should be 1? Might be 1. Let's set clarification.attempt_number =1.\n\nWe need cases array with case_id case_1. symptom = \"sudden weak legs\". age 7. sex male. state null, lga null, settlement null.\n\nlocation_resolution? Might be empty or include raw_location? Location resolver gave raw_location Majawa unresolved. Could include location_resolution with case_id, raw_location \"Majawa\", inferred_fields [] confidence low? Might be empty.\n\nMissing_information array: list fields? Could be [\"state\",\"lga\",\"settlement\"] or [\"location\"]. Use missing_information []? Probably list missing fields. Might be empty list but we need to indicate missing. The schema says missing_information: []. Could populate with strings. Not specified enum. Might be list of field names. We'll put [\"state\",\"lga\",\"settlement\"].\n\nPotential duplicate false.\n\nEscalation required false.\n\nConfirmation status NOT_READY? Or PENDING? Since we are clarifying, confirmation status NOT_READY.\n\nResponse short clear appropriate for SMS. Ask for specific location.\n\nWe need ask only one focused clarification question. Possibly: \"Can you tell me the exact village/town and LGA where the boy lives?\" That's one question.\n\nWe must not ask for information already provided. Age, sex, symptom provided.\n\nWe should preserve uncertainty. Use symptom exactly as reported.\n\nWe must follow location resolver: status UNRESOLVED, Majawa is only nearby reference not specific location. So we should not fill settlement with Majawa. Keep null.\n\nThus output JSON.\n\nCheck output contract fields: classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nclarification target: location? Could be settlement? Possibly location. Use \"location\". Attempt_number 1.\n\nconfirmation status: NOT_READY? Could be NOT_READY. The example uses PENDING for confirm. For clarify, maybe NOT_READY.\n\nResponse: \"I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state he is from?\"\n\nThat's okay.\n\nMake sure JSON valid.\n\nPotential duplicate false.\n\nduplicate_candidate_ids [].\n\nlocation_resolution array maybe empty because no resolution. Could include entry with confidence low? The schema example shows location_resolution with inferred_fields. Might leave empty.\n\nBetter to include location_resolution with raw_location Majawa and confidence low? Might be okay. But resolver says status UNRESOLVED, match_level none. Might not include.\n\nI'll include empty.\n\nMissing_information: [\"state\",\"lga\",\"settlement\"].\n\nLet's produce final output."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2663,
+              "total_tokens": 3877,
+              "completion_tokens": 1214,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 144,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 151,
+            "output_tokens": 1214,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 20445.1,
+          "cost_usd": 0.00275305,
+          "stop_reason": "end_turn",
+          "request_id": "p46PmbX-7ArivV-a461b42189b676fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Actually it may be a different child in another village. I am not sure which child or village I was told about.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "Actually it may be a different child in another village. I am not sure which child or village I was told about.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?"
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[],\"missing_information\":[\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":2},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?\"}",
+          "raw_response": {
+            "id": "p46Pshx-fdNmn-a461b4a15ff476fd",
+            "object": "chat.completion",
+            "created": 1791258665,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[],\"missing_information\":[\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":2},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}\n\nWe need to interpret. User first said 7 year old boy with sudden weak legs somewhere near Majawa. Assistant asked for exact village/town and LGA/state. User now says Actually it may be a different child in another village. I am not sure which child or village I was told about.\n\nSo uncertainty increased. We have symptom sudden weak legs, age 7, sex male. Location unresolved. Now user uncertain which child or village.\n\nWe need to decide classification. Possibly AFP_SUSPECTED? Symptom suggests AFP. But location unknown, and user uncertain which child. We have clarification attempts =1. We asked location. User responded with uncertainty about child/village.\n\nWe need to extract information. The user says may be different child in another village, not sure which child or village I was told about.\n\nThis is ambiguous. We might need to clarify symptom? Could be still AFP suspected. But we have uncertainty about case identity.\n\nWe could ask for clarification: which child? Or ask to confirm if they have any specific info.\n\nWe have up to 3 unsuccessful clarification attempts. Clarification attempts currently 1. The last attempt was asking for exact village/town and LGA/state. User didn't provide, instead said uncertain.\n\nNow we need to decide action. Could be CLARIFY again. Ask for clarification about the child details? Could ask: Do you have any more details about the child with sudden weak legs, such as village name or age?\n\nWe need to preserve case state. The case currently has symptom, age, sex. Location null. User says may be different child in another village. Could be we should not assume same case? Might be they are uncertain. Could be we should ask for clarification about whether they can provide any specific details.\n\nWe should not invent. We have a plausible surveillance signal: sudden weak legs in 7-year-old boy. That's AFP suspected. Location is unresolved but user says near Majawa but not specific. Resolver says Majawa is only nearby reference, not specific location.\n\nNow user says may be different child in another village, not sure which child or village.\n\nWe could ask: Can you confirm if you know the village name or any other details about the child? That's a clarification.\n\nWe must ask at most one focused clarification question per turn.\n\nWe also need to maintain structured case state across turns. Might need to keep case_1 as is.\n\nClassification? Probably AFP_SUSPECTED still, because symptom suggests AFP. But user uncertain. Could be HEALTH_RELATED_UNCLEAR? The symptom is clear: sudden weak legs. That's AFP suspicion. Uncertainty about location/identity.\n\nWe should not escalate yet. Clarification attempts =1. We can do up to 3. So we can CLARIFY.\n\nWe need to decide clarification target. Probably location or symptom? The user uncertain which child. Could ask: Do you know the name of the village where the child lives, or any other details to identify the case?\n\nThe guidance: Extract information already provided before asking any follow-up. Ask only for information still needed.\n\nWe still need location (state, LGA, settlement). Also we might need confirm it's same child.\n\nMaybe we should ask: Can you provide the village/town name where the child with sudden weak legs was reported?\n\nWe must keep response short, clear, appropriate for SMS.\n\nWe have location_resolver status UNRESOLVED. So we cannot fill.\n\nMissing information: location. Possibly also confidence about case identity.\n\nPotential duplicate? No.\n\nClassification remains AFP_SUSPECTED.\n\nAction = CLARIFY.\n\nClarification attempt number? We had 1 attempt. Now this is second attempt? Clarification_attempts in current_case_state is 1. The assistant previously asked. Now user replied. We are about to ask again. So attempt_number should be 2? The field clarification.attempt_number should reflect number of attempts made? The previous attempt was 1. Now we are making second. Might be attempt_number =2.\n\nWe need to output JSON with cases array. Keep case_1 with same info.\n\nlocation_resolution: probably empty array? Could include raw_location? The resolver mentions Majawa unresolved. Could we include location_resolution entry? The schema shows location_resolution array with case_id, raw_location, inferred_fields, confidence. Since unresolved, maybe empty.\n\nMissing_information: location? Could be [\"state\",\"lga\",\"settlement\"].\n\nPotential_duplicate false.\n\nEscalation required false.\n\nClarification target = location? Or other? Maybe location.\n\nThe user says \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\" So they are uncertain. Could be we need to clarify identity. Could ask for any identifying details.\n\nMaybe we should ask: Are you able to confirm the village name for the child with sudden weak legs you heard about?\n\nWe must not ask multiple questions.\n\nLet's produce response: \"I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?\"\n\nThat is focused.\n\nWe should preserve case state. Age 7, sex male, symptom sudden weak legs.\n\nClassification AFP_SUSPECTED, other_vpd false, action CLARIFY, priority NORMAL.\n\nMissing_information: state, lga, settlement maybe.\n\nClarification target: location.\n\nAttempt_number: 2? The previous attempt was 1. Now we are making second attempt. Could be attempt_number =2.\n\nConfirmation status? Not ready.\n\nLet's output.\n\nAlso need to consider if user uncertainty means we should not continue? The guidance: If necessary information remains unresolved after repeated clarification attempts, escalate only when conversation already contains plausible surveillance-relevant health signal. We have plausible signal. Could continue clarifying.\n\nWe have 3 attempts max. We have used 1. Now second.\n\nWe should not change case_id.\n\nMake sure JSON fields match.\n\nOutput shape:\n\nclassification\nother_vpd\naction\npriority\ncases\nlocation_resolution\nmissing_information\npotential_duplicate\nduplicate_candidate_ids\nescalation\nclarification\nconfirmation\nresponse\n\nLet's craft.\n\ncases: [{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}]\n\nlocation_resolution: [] maybe? Could include raw_location Majawa with confidence low? Resolver says unresolved. Maybe leave empty.\n\nmissing_information: [\"state\",\"lga\",\"settlement\"] or [\"location\"].\n\nBetter to list specific fields: state, lga, settlement.\n\nclarification: {\"target\":\"location\",\"attempt_number\":2}\n\nconfirmation: {\"status\":\"NOT_READY\"}\n\nresponse: \"I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?\"\n\nMake sure short.\n\nPossibly we should also ask about confirming child? Might be better to ask if they can confirm the child details.\n\nBut location is key.\n\nThe user says may be different child in another village. Could be they are retracting? Might be we need to ask if they have any specific details at all.\n\nLet's keep location.\n\nAlternative: target = other? Hmm.\n\nGuidance: Ask only for information that is still needed. Location is needed.\n\nOk.\n\nReturn JSON.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2789,
+              "total_tokens": 4729,
+              "completion_tokens": 1940,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 272,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 277,
+            "output_tokens": 1940,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 29153.9,
+          "cost_usd": 0.0038861499999999997,
+          "stop_reason": "end_turn",
+          "request_id": "p46Pshx-fdNmn-a461b4a15ff476fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?"
+      },
+      "reply": {
+        "kind": "NEUTRAL",
+        "text": "I don't know.",
+        "reason": null,
+        "detail": null,
+        "events": [
+          "OFF_TARGET_CLARIFY"
+        ],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "I don't know.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?"
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}, {\"role\": \"assistant\", \"content\": \"I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?\"\n}",
+          "raw_response": {
+            "id": "p46Q2MJ-fdNmn-a461b5578a0776fd",
+            "object": "chat.completion",
+            "created": 1791258694,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?\"\n}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}, {\"role\": \"assistant\", \"content\": \"I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}\n\nWe need to decide action. We have a case with symptom sudden weak legs, age 7, sex male. Location unresolved. User says \"I don't know.\" Clarification attempts: 2. The assistant asked twice. Now user says I don't know. Clarification attempts count? The conversation shows assistant asked twice. Clarification attempts =2 in state. Now we have third attempt? The policy: agent may make up to 3 unsuccessful clarification attempts. After 3 unsuccessful clarification attempts: ESCALATE only if conversation already contains enough meaningful information to indicate plausible surveillance-relevant health signal, but important detail needed for follow-up remains unresolved.\n\nWe have plausible signal: AFP suspected. Age 7, sudden weak legs. Location missing. We have already asked twice. Now user says I don't know. That's third unsuccessful attempt? Let's count: first clarification attempt was assistant asking for exact village/town and LGA/state. User replied \"Actually it may be a different child...\" That's unsuccessful. Second clarification attempt was assistant asking for village/town name. User replied \"I don't know.\" That's unsuccessful. That's 2 attempts? The state says clarification_attempts:2. Probably counts attempts made. Now we need to decide next action.\n\nWe have a plausible signal but location unknown. Could we escalate? Policy: After 3 unsuccessful clarification attempts: ESCALATE only if conversation already contains enough meaningful information to indicate a plausible surveillance-relevant health signal, but an important detail needed for follow-up remains unresolved.\n\nWe have only 2 attempts so far. We could make a third attempt? The user says I don't know. Might be third attempt unsuccessful. The policy says agent may make up to 3 unsuccessful clarification attempts. After 3 unsuccessful clarification attempts: escalate only if plausible signal... So we could attempt one more clarification? But user already said I don't know. Might be futile. Could ask for any other details? Maybe ask for state? But user said unsure which child or village. Could be different child. Possibly we have uncertainty about case identity.\n\nWe have case_1 with symptom sudden weak legs, age 7 male. But user now says may be different child in another village, not sure which child or village. So information is uncertain. Could be HEALTH_RELATED_UNCLEAR? The classification options: AFP_SUSPECTED, OTHER_VPD, HEALTH_RELATED_UNCLEAR, NOT_RELEVANT, UNINTELLIGIBLE.\n\nWe have a plausible AFP signal but the sender is uncertain about which child/village. We have not established location. Could we escalate with reason FAILED_CLARIFICATION_WITH_VALID_SIGNAL? Need 3 unsuccessful attempts. We have 2 attempts. Could we do a third clarification attempt asking for any additional info? Might be unhelpful.\n\nAlternative: classification = HEALTH_RELATED_UNCLEAR? Because sender is unsure which child or village. The information is vague.\n\nPolicy: Preserve uncertainty. Do not turn suspected conditions into confirmed diagnoses. If necessary information remains unresolved after repeated clarification attempts, escalate only when conversation already contains a plausible surveillance-relevant health signal.\n\nWe have plausible signal but location missing. Could escalate now? The attempt count is 2. Could we count current turn as third attempt? The assistant's previous message was clarification. User responded \"I don't know.\" That is unsuccessful. So we have 2 attempts made. We could make a third attempt now? The policy says agent may make up to 3 unsuccessful clarification attempts. After 3 unsuccessful... So we can make up to 3. We have done 2. We could do a third. But user said I don't know, and previously said may be different child. Maybe asking again is useless.\n\nWe could ask for any other distinguishing info? Could ask if they can provide state? But they said I don't know.\n\nPossibly we should escalate now because information is too uncertain. The case state has symptom, age, sex, but location null, and sender uncertain about identity. Might be better to classify as HEALTH_RELATED_UNCLEAR and action CLARIFY? Or ESCALATE?\n\nLet's read policy: Use CLARIFY when report is potentially relevant and one important piece of information can reasonably be obtained through another question. Use ESCALATE when AI should stop conversation and hand off to human because plausible surveillance signal has already been established and important information needed for follow-up cannot be safely resolved.\n\nWe have plausible signal. Important info needed: location. Can't resolve. Could escalate after 3 attempts. We have 2 attempts. Could we do one more? Might be asking \"Could you provide state?\" But user said I don't know.\n\nBetter to escalate? The policy says after 3 unsuccessful clarification attempts: ESCALATE only if... So we need 3 attempts. We have 2. Hmm.\n\nCould we consider the case as unclear because sender is unsure which child? The initial report was 7 year old boy with sudden weak legs somewhere near Majawa. Then user says may be different child in another village, not sure which child or village. So the original case may be invalid. Could we treat as HEALTH_RELATED_UNCLEAR? The symptom is present but identity uncertain.\n\nThe guidance: Preserve uncertainty. Do not turn suspected conditions into confirmed diagnoses. If sender corrects information, update.\n\nUser says actually it may be a different child... I am not sure which child or village I was told about. That is a correction? It introduces uncertainty. We could update case to reflect uncertainty? Maybe we should set symptom unknown? No.\n\nAlternative interpretation: The user is withdrawing the report. They don't know. Could be NOT_RELEVANT? Not exactly.\n\nMaybe best action is CLARIFY with a final attempt asking for any approximate location or state. Could ask: \"Can you tell me the state where you heard about this?\" That's one more attempt.\n\nClarification attempt number would become 3. If user again says I don't know, then next turn escalate.\n\nPolicy says we can make up to 3 unsuccessful clarification attempts. We have made 2. We can make a third now.\n\nThe current case state has settlement null, state null, lga null. Location resolver unresolved. Could ask for state.\n\nBut user said \"I don't know.\" Might repeat.\n\nPossibly we should escalate now with reason FAILED_CLARIFICATION_WITH_VALID_SIGNAL because we have tried twice and user is uncertain. But policy says after 3 unsuccessful attempts. We have only 2. Hmm.\n\nLet's count attempts: First assistant message: \"I have a 7-year-old boy... Can you tell me exact village/town and LGA/state where he lives?\" That's attempt 1.\n\nUser responded with uncertainty.\n\nSecond assistant message: \"I understand you are unsure... Can you provide village/town name...\" That's attempt 2.\n\nUser responded \"I don't know.\"\n\nSo 2 attempts unsuccessful.\n\nWe could attempt a third with different phrasing: maybe ask for state only, or ask if they can provide any other detail like when it happened. But location is critical for AFP surveillance.\n\nThe policy says ask at most one focused clarification question per turn. We can ask.\n\nGiven the user says I don't know, further clarification likely fails. Might be better to escalate now? The rule says after 3 unsuccessful attempts. Could we consider the current turn as the third attempt? No, the third attempt is what we are about to do.\n\nPerhaps we should go to ESCALATE now because we have a plausible signal and important detail cannot be resolved safely, and we have already made 2 attempts, and user says I don't know, indicating further attempts will fail. Could we escalate early? The policy says may make up to 3 attempts. It doesn't forbid escalating earlier.\n\nBut escalation reason FAILED_CLARIFICATION_WITH_VALID_SIGNAL requires 3 unsuccessful attempts? It says after 3 unsuccessful clarification attempts: ESCALATE only if... So escalation after 3 attempts.\n\nAlternative classification: HEALTH_RELATED_UNCLEAR with action CLARIFY? Might be okay.\n\nLet's see similar scenarios. The user is uncertain which child. Could be we should not keep case as is. Maybe we should mark missing_information and ask for clarification.\n\nThe current case state has symptom, age, sex. Missing state, lga, settlement. Could we also note uncertainty about case identity.\n\nMaybe best is to CLARIFY one more time asking for state or any location detail. Attempt number would be 3? Actually attempt_number in clarification field should be incremented? The state shows clarification_attempts:2. If we ask again, attempt_number would be 3? Hmm.\n\nThe output requires clarification.attempt_number. Probably should reflect attempts made so far? Or attempts for this turn? Might be current count.\n\nGiven policy, we can make up to 3 unsuccessful attempts. So we can do third.\n\nLet's ask: \"Can you recall the state or LGA where you heard about the child with sudden weak legs?\" That's focused.\n\nBut user previously said \"I don't know.\" Might still be I don't know.\n\nAlternative: Could we mark as HEALTH_RELATED_UNCLEAR because sender is unsure which child? The symptom may be real but identity uncertain. Could be we should not pursue.\n\nThe policy: Preserve uncertainty. Do not turn suspected conditions into confirmed diagnoses. If necessary information remains unresolved after repeated clarification attempts, escalate only when conversation already contains a plausible surveillance-relevant health signal.\n\nWe have plausible signal. Location unresolved. Could escalate after 3 attempts.\n\nI think the safest is to do one more clarification attempt asking for state/LGA, as we haven't reached 3 yet. If user again says I don't know, next turn escalate.\n\nSo action = CLARIFY, classification = AFP_SUSPECTED (still plausible), priority NORMAL, clarification target = location, attempt_number = 3? Wait attempt_number should be current attempt number? The field clarification.attempt_number. In previous state clarification_attempts:2. So next attempt is 3. Could set attempt_number to 3? Or 2? Hmm.\n\nThe output schema: clarification { target, attempt_number }. Probably attempt_number is number of attempts made so far. Might be 2? Actually we are about to make third. Could set attempt_number to 3? Might be confusing.\n\nSimplify: Use CLARIFY, target location, attempt_number 3? Let's assume attempt_number increments with each clarification attempt we make. We have made 2 attempts. Now we are making third. So attempt_number = 3? Or attempt_number = 2? Let's set attempt_number to 3 to reflect this is third attempt.\n\nAlso missing_information: [\"state\",\"lga\",\"settlement\"]? Could list.\n\nPotential duplicate false.\n\nResponse should be short, clear, appropriate for SMS. Ask one focused question.\n\nWe should not ask for exact village/town again. Maybe ask for state.\n\nThe user said they don't know which child or village. Maybe ask: \"Do you know the state where this was reported?\" That's focused.\n\nLet's produce output:\n\nclassification: AFP_SUSPECTED\nother_vpd: false\naction: CLARIFY\npriority: NORMAL\ncases: same as before\nlocation_resolution: []? Could keep empty.\nmissing_information: [\"state\",\"lga\",\"settlement\"]\nclarification: target location, attempt_number 3? Or 2? Might be 3.\n\nLet's see previous assistant messages: they asked for exact village/town and LGA/state, then asked for village/town name. So target location.\n\nNow ask: \"Can you tell me the state where you heard about the child with sudden weak legs?\" That's focused.\n\nResponse: \"I understand you're unsure. Can you tell me the state where you heard about the child with sudden weak legs?\"\n\nThat is okay.\n\nAlternatively, could ask for clarification about case identity: \"Are you sure there is a child with sudden weak legs, or are you unsure if the report is accurate?\" Hmm.\n\nBetter to ask for location.\n\nLet's produce JSON.\n\nWe need cases array with case_id case_1, symptom \"sudden weak legs\", age 7, sex male, state null, lga null, settlement null.\n\nlocation_resolution: maybe empty.\n\nmissing_information: [\"state\",\"lga\",\"settlement\"]\n\npotential_duplicate false\n\nescalation required false\n\nclarification target location, attempt_number 3? The state says clarification_attempts 2. If we make third, attempt_number should be 3? Might be 3.\n\nconfirmation status NOT_READY? Could be PENDING? For CLARIFY, confirmation status maybe NOT_READY.\n\nThe schema shows confirmation status enum NOT_READY, PENDING, CONFIRMED. We'll set NOT_READY.\n\nresponse as above.\n\nLet's output.\n\nPotential nuance: User said \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\" That suggests the case may be invalid. Could we update case to reflect uncertainty? Could set symptom to null? No.\n\nMaybe we should keep case but note uncertainty.\n\nI think CLARIFY is appropriate.\n\nAlternative interpretation: Could classify as HEALTH_RELATED_UNCLEAR because sender is unsure which child. The policy says preserve uncertainty. Might be better to classify as HEALTH_RELATED_UNCLEAR with action CLARIFY? Classification AFP_SUSPECTED requires suspicion. We have suspicion but identity uncertain.\n\nHmm.\n\nGiven the guidelines, I think AFP_SUSPECTED is still appropriate because symptom is reported, even if location uncertain. We are still trying to clarify.\n\nLet's proceed with CLARIFY.\n\nFinal JSON."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2842,
+              "total_tokens": 6207,
+              "completion_tokens": 3365,
+              "prompt_tokens_details": {
+                "cached_tokens": 2608,
+                "created_cache_tokens": 224,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 234,
+            "output_tokens": 3365,
+            "cache_read_input_tokens": 2608,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 43297.9,
+          "cost_usd": 0.0060422,
+          "stop_reason": "end_turn",
+          "request_id": "p46Q2MJ-fdNmn-a461b5578a0776fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?"
+      },
+      "reply": {
+        "kind": "NEUTRAL",
+        "text": "I don't know.",
+        "reason": null,
+        "detail": null,
+        "events": [
+          "OFF_TARGET_CLARIFY"
+        ],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 3
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "I don't know.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?"
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 3,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}, {\"role\": \"assistant\", \"content\": \"I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}, {\"role\": \"assistant\", \"content\": \"I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 3, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ESCALATE\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}], \"location_resolution\": [], \"missing_information\": [\"state\", \"lga\", \"settlement\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": true, \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"}, \"clarification\": {\"target\": null, \"attempt_number\": 3}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I have a report of a 7-year-old boy with sudden weak legs but no confirmed location. I will escalate this for human follow-up.\"}",
+          "raw_response": {
+            "id": "p46QFEp-fdNmn-a461b6662da676fd",
+            "object": "chat.completion",
+            "created": 1791258738,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ESCALATE\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}], \"location_resolution\": [], \"missing_information\": [\"state\", \"lga\", \"settlement\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": true, \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"}, \"clarification\": {\"target\": null, \"attempt_number\": 3}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I have a report of a 7-year-old boy with sudden weak legs but no confirmed location. I will escalate this for human follow-up.\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}, {\"role\": \"assistant\", \"content\": \"I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}, {\"role\": \"assistant\", \"content\": \"I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 3, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}\n\nWe need to decide classification, action.\n\nWe have AFP suspected: sudden weak legs in 7 year old boy. Symptom present. Age, sex present. Location unknown. User says not sure which child or village. Clarification attempts: 3 unsuccessful clarification attempts. According to policy: clarification attempt unsuccessful when sender's reply does not resolve info requested. After 3 unsuccessful clarification attempts: escalate only if conversation already contains enough meaningful information to indicate plausible surveillance-relevant health signal, but important detail needed for follow-up remains unresolved. Do NOT escalate solely because sender failed to provide meaningful info. If no plausible surveillance signal has been established, stop using appropriate non-escalation classification/action.\n\nWe have plausible surveillance signal: AFP suspected. Important detail needed for follow-up remains unresolved: location. We have 3 unsuccessful clarification attempts. So we should ESCALATE with reason FAILED_CLARIFICATION_WITH_VALID_SIGNAL? Or AMBIGUOUS_LOCATION? The policy says after 3 unsuccessful clarification attempts: ESCALATE only if conversation already contains enough meaningful information to indicate plausible surveillance-relevant health signal, but important detail needed for follow-up cannot be safely resolved.\n\nWe have plausible signal. Important detail location missing. So escalate.\n\nBut also user says \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\" So uncertainty about case identity. Might be that case is not reliable. Still we have a signal.\n\nShould we escalate? The clarification attempts count is 3. The last user said \"I don't know.\" So we have attempted to get location. We could also have missing information about location. The policy says use ESCALATE when AI should stop conversation and hand off to human because plausible surveillance signal has already been established and important information needed for follow-up cannot be safely resolved.\n\nYes.\n\nClassification: AFP_SUSPECTED\nother_vpd: false\naction: ESCALATE\npriority: NORMAL\n\ncases: we have case_1 with symptom, age 7, sex male, state null, lga null, settlement null. Should we keep settlement? The resolver says Majawa is only nearby reference not specific location. So settlement null.\n\nmissing_information: likely location. The output requires missing_information array. Probably list fields missing: state, lga, settlement.\n\npotential_duplicate false.\n\nescalation required true, reason FAILED_CLARIFICATION_WITH_VALID_SIGNAL? Could be AMBIGUOUS_LOCATION? The location is unresolved, but user doesn't know. The reason enum: FAILED_CLARIFICATION_WITH_VALID_SIGNAL, AMBIGUOUS_LOCATION, CONFLICTING_INFORMATION, UNABLE_TO_CLASSIFY, OTHER. The clarification failed with valid signal. So use FAILED_CLARIFICATION_WITH_VALID_SIGNAL.\n\nclarification target? After escalate, clarification attempt_number? The clarification attempts count is 3. We might set clarification attempt_number =3? The spec says clarification {target:null, attempt_number:0}. Possibly keep.\n\nconfirmation status? Probably NOT_READY.\n\nresponse: should be short, clear, appropriate for SMS. Should we say escalating? Probably say \"I need to pass this to a human for follow-up...\"\n\nThe policy says keep user-facing response short, clear. For escalation, we may say something like \"I don't have enough location details to follow up. I will pass this to a supervisor.\" Might be okay.\n\nMake sure JSON output matches schema.\n\nWe need location_resolution array. It may be empty. Current case_state has no location resolution. The resolver status UNRESOLVED. Could include location_resolution with case_id and raw_location? The example shows location_resolution with inferred fields. Maybe we can provide empty.\n\nWe must preserve case state. Cases array contains case_1 with symptom \"sudden weak legs\", age 7, sex male, state null, lga null, settlement null.\n\nMissing_information: []? Might list fields. The spec says missing_information array. Could be [\"state\",\"lga\",\"settlement\"]. Might be okay.\n\nLet's see policy: \"Use CLARIFY when report is potentially relevant and one important piece of information can reasonably be obtained through another question.\" We already did 3 attempts.\n\nAfter 3 unsuccessful clarification attempts: ESCALATE only if conversation already contains enough meaningful information to indicate plausible surveillance-relevant health signal, but important detail needed for follow-up remains unresolved.\n\nWe have plausible signal.\n\nThus action ESCALATE.\n\nClassification AFP_SUSPECTED.\n\npriority NORMAL.\n\nescalation required true, reason FAILED_CLARIFICATION_WITH_VALID_SIGNAL.\n\nclarification target null? Might be location.\n\nconfirmation status NOT_READY? Or PENDING? Probably NOT_READY.\n\nresponse: need short. Maybe \"I have a report of a 7-year-old boy with sudden weak legs but no location confirmed. I will escalate for human follow-up.\"\n\nEnsure JSON valid.\n\nCheck enum values: escalation reason FAILED_CLARIFICATION_WITH_VALID_SIGNAL is allowed.\n\nconfirmation status allowed: NOT_READY, PENDING, CONFIRMED. Use NOT_READY.\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nlocation_resolution: we could provide entry for case_1 with raw_location \"Majawa\", inferred_fields [], confidence low? The resolver says unresolved. Hmm.\n\nMaybe leave empty.\n\nThe output contract requires cases array, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nProvide.\n\nPotential nuance: User says \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\" That introduces uncertainty about case identity. Could we consider case invalid? The symptom still reported but user uncertain. Might be HEALTH_RELATED_UNCLEAR? But we have initial report of 7 year old boy with sudden weak legs near Majawa. Then user says may be different child. That's conflicting information. Could be we have conflicting information. Might still escalate.\n\nAlternative interpretation: After 3 unsuccessful clarification attempts and user says \"I don't know\", we could classify as HEALTH_RELATED_UNCLEAR and action NOT_RELEVANT? No, signal is plausible.\n\nPolicy says do NOT escalate solely because sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using appropriate non-escalation classification/action.\n\nWe have plausible signal. So escalate is appropriate.\n\nMake sure we don't ask further question. Escalate means stop conversation.\n\nResponse should not ask question.\n\nEnsure we preserve case state.\n\nPotential issue: case state currently has settlement null. The resolver notes Majawa is only nearby reference not specific location. Should we set settlement to null? Yes.\n\nMissing information: state, lga, settlement.\n\nLet's output.\n\nMake sure JSON keys match exactly.\n\nCheck sample output shape: classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nClarification object has target and attempt_number. Provide target null, attempt_number 3? The clarification_attempts count is 3. Could set attempt_number 3. Might be okay.\n\nLet's produce final JSON."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2895,
+              "total_tokens": 4937,
+              "completion_tokens": 2042,
+              "prompt_tokens_details": {
+                "cached_tokens": 2656,
+                "created_cache_tokens": 224,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 239,
+            "output_tokens": 2042,
+            "cache_read_input_tokens": 2656,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 29212.6,
+          "cost_usd": 0.00407625,
+          "stop_reason": "end_turn",
+          "request_id": "p46QFEp-fdNmn-a461b6662da676fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ESCALATE",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": true,
+          "reason": "FAILED_CLARIFICATION_WITH_VALID_SIGNAL"
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I have a report of a 7-year-old boy with sudden weak legs but no confirmed location. I will escalate this for human follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 3,
+      "clarification_attempts_after": 3
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+    },
+    {
+      "role": "assistant",
+      "content": "I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?"
+    },
+    {
+      "role": "user",
+      "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+    },
+    {
+      "role": "assistant",
+      "content": "I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?"
+    },
+    {
+      "role": "user",
+      "content": "I don't know."
+    },
+    {
+      "role": "assistant",
+      "content": "I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?"
+    },
+    {
+      "role": "user",
+      "content": "I don't know."
+    },
+    {
+      "role": "assistant",
+      "content": "I have a report of a 7-year-old boy with sudden weak legs but no confirmed location. I will escalate this for human follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden weak legs",
+        "age": 7,
+        "sex": "male",
+        "state": null,
+        "lga": null,
+        "settlement": null
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 122109.5,
+    "input_tokens": 901,
+    "output_tokens": 8561,
+    "cost_usd": 0.016758,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  }
+}

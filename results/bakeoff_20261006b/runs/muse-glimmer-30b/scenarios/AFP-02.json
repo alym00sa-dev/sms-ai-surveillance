@@ -1,0 +1,478 @@
+{
+  "scenario_id": "AFP-02",
+  "title": "Infer higher-level location from settlement",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "Girl 9 years in Majawa suddenly cannot use her left leg.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Girl 9 years in Majawa suddenly cannot use her left leg."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Girl 9 years in Majawa suddenly cannot use her left leg.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CONFIRM\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot use her left leg\", \"age\": 9, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"PENDING\"}, \"response\": \"I have: 9-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to use her left leg. Is this correct?\"}",
+          "raw_response": {
+            "id": "p46GLWS-fdNmn-a46190b96c6976fd",
+            "object": "chat.completion",
+            "created": 1791257194,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CONFIRM\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot use her left leg\", \"age\": 9, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"PENDING\"}, \"response\": \"I have: 9-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to use her left leg. Is this correct?\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Girl 9 years in Majawa suddenly cannot use her left leg.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}\n\nWe need to extract info. Symptom: suddenly cannot use left leg -> sudden weakness in left leg. That's AFP suspected? Acute flaccid paralysis: sudden weakness. Yes.\n\nAge 9, sex female (Girl). State Jigawa, LGA Kafin Hausa, settlement Majawa.\n\nWe have enough info to create a usable AFP surveillance alert? Need symptom, age, sex, state, LGA, settlement. We have all. Could we CONFIRM? The guidelines: Once enough information exists for surveillance staff to reasonably identify and follow up, do NOT immediately ACCEPT. First use CONFIRM. Present concise structured summary and ask sender to confirm or correct.\n\nSo classification AFP_SUSPECTED, other_vpd false, action CONFIRM, priority NORMAL.\n\nCases array with case_id case_1. symptom: \"suddenly cannot use her left leg\" or paraphrase. Probably keep as reported. Age 9, sex female, state Jigawa, lga Kafin Hausa, settlement Majawa.\n\nlocation_resolution: raw_location Majawa, inferred_fields [\"lga\",\"state\"]? It resolved settlement, state, lga. Inferred fields maybe lga and state? The raw is Majawa, inferred state and lga. Confidence high.\n\nmissing_information [].\n\npotential_duplicate false.\n\nclarification attempt_number 0.\n\nconfirmation status PENDING.\n\nresponse: concise structured summary: I have: 9-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to use left leg. Is this correct?\n\nWe should ask for confirmation.\n\nMake sure JSON shape matches.\n\nOutput JSON only.\n\nCheck fields: classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nlocation_resolution array with case_id, raw_location, inferred_fields, confidence.\n\nWe have confidence high.\n\nLet's produce.\n\nPotential nuance: symptom extraction: \"suddenly cannot use her left leg\". That's okay.\n\nCould also ask for onset time? Not required per extraction list. Information to extract: symptom, age, sex, state, LGA, settlement/village/location. We have all.\n\nThus CONFIRM.\n\nMake sure case_id = case_1.\n\nAlso clarification target null, attempt_number 0.\n\nescalation required false reason null.\n\nconfirmation status PENDING.\n\nReturn JSON.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2723,
+              "total_tokens": 3669,
+              "completion_tokens": 946,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 208,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 211,
+            "output_tokens": 946,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 15867.9,
+          "cost_usd": 0.0023720499999999997,
+          "stop_reason": "end_turn",
+          "request_id": "p46GLWS-fdNmn-a46190b96c6976fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot use her left leg",
+            "age": 9,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 9-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to use her left leg. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "left",
+                "one"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Girl 9 years in Majawa suddenly cannot use her left leg."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 9-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to use her left leg. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot use her left leg",
+              "age": 9,
+              "sex": "female",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Girl 9 years in Majawa suddenly cannot use her left leg.\"}, {\"role\": \"assistant\", \"content\": \"I have: 9-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to use her left leg. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot use her left leg\", \"age\": 9, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ACCEPT\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot use her left leg\", \"age\": 9, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"CONFIRMED\"}, \"response\": \"Thank you. The report for 9-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to use left leg is recorded for follow-up.\"}",
+          "raw_response": {
+            "id": "p46GRCe-7ArivV-a461911caf0a76fd",
+            "object": "chat.completion",
+            "created": 1791257210,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ACCEPT\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot use her left leg\", \"age\": 9, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"CONFIRMED\"}, \"response\": \"Thank you. The report for 9-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to use left leg is recorded for follow-up.\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Girl 9 years in Majawa suddenly cannot use her left leg.\"}, {\"role\": \"assistant\", \"content\": \"I have: 9-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to use her left leg. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot use her left leg\", \"age\": 9, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {...}}\n\nWe need to output JSON. The user confirmed. So we should ACCEPT.\n\nWe have classification AFP_SUSPECTED? Symptom sudden inability to use left leg. That's acute flaccid paralysis suspected. Age 9. Sex female. Location resolved.\n\nWe need to present structured summary? The action is ACCEPT after explicit confirmation. The rule: Use ACCEPT only after sender explicitly confirms final structured interpretation. We have confirmation. So action ACCEPT.\n\nWe need cases array with same info. Possibly symptom wording: \"suddenly cannot use her left leg\" vs \"sudden inability to use her left leg\". Use current case state symptom: \"suddenly cannot use her left leg\". That's fine.\n\nWe need location_resolution array? The example shows location_resolution with case_id, raw_location, inferred_fields, confidence. We have resolver info. Possibly we need to include location_resolution. The current_case_state doesn't include location_resolution. We might need to populate it based on resolver. The output contract requires cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nWe need to fill confirmation status? Probably CONFIRMED. The confirmation object status: PENDING / CONFIRMED / NOT_READY. After acceptance, maybe CONFIRMED.\n\nThe response should be short, clear for SMS. After acceptance, maybe thank and confirm submission? The previous assistant asked \"Is this correct?\" User said yes. Now we should accept. Response maybe \"Thank you. The report for 9-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to use left leg has been recorded for follow-up.\"\n\nWe must return only JSON.\n\nFields:\n\nclassification: \"AFP_SUSPECTED\"\nother_vpd: false\naction: \"ACCEPT\"\npriority: \"NORMAL\"\n\ncases: [{\"case_id\":\"case_1\",\"symptom\":\"suddenly cannot use her left leg\",\"age\":9,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}]\n\nlocation_resolution: we need to provide array. Could be empty? Better provide entry. raw_location \"Majawa\", inferred_fields [\"lga\",\"state\"]? Actually resolver resolved settlement, lga, state. Could say inferred_fields [\"lga\",\"state\"] confidence high. Use case_id case_1.\n\nmissing_information: [] (all info present)\n\npotential_duplicate: false\nduplicate_candidate_ids: []\n\nescalation: {\"required\": false, \"reason\": null}\n\nclarification: {\"target\": null, \"attempt_number\": 0}\n\nconfirmation: {\"status\": \"CONFIRMED\"}\n\nresponse: short.\n\nMake sure JSON valid.\n\nCheck sex enum: female ok.\n\nAge integer.\n\nSymptom string.\n\nPotential nuance: symptom should be \"sudden inability to use left leg\" or \"suddenly cannot use her left leg\". Use current case state symptom.\n\nThe assistant previously said \"sudden inability to use her left leg\". The case state says \"suddenly cannot use her left leg\". Keep case state.\n\nWe should ensure location_resolution matches resolver. The resolver mentions raw_text \"Majawa\", status RESOLVED, match_level settlement, resolved state Jigawa lga Kafin Hausa settlement Majawa. Unresolved_fields [].\n\nSo confidence high.\n\nOutput JSON.\n\nNo commentary.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2844,
+              "total_tokens": 3951,
+              "completion_tokens": 1107,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "created_cache_tokens": 2832,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 2844,
+            "output_tokens": 1107,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 18708.6,
+          "cost_usd": 0.0026559,
+          "stop_reason": "end_turn",
+          "request_id": "p46GRCe-7ArivV-a461911caf0a76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot use her left leg",
+            "age": 9,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. The report for 9-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to use left leg is recorded for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Girl 9 years in Majawa suddenly cannot use her left leg."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 9-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to use her left leg. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. The report for 9-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to use left leg is recorded for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot use her left leg",
+        "age": 9,
+        "sex": "female",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 34576.5,
+    "input_tokens": 3055,
+    "output_tokens": 2053,
+    "cost_usd": 0.005028,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

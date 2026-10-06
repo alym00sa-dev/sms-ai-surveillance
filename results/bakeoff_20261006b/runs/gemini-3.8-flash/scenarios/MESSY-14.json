@@ -1,0 +1,455 @@
+{
+  "scenario_id": "MESSY-14",
+  "title": "Typo-heavy AFP text",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "7yr boi majwa kafn hausa cnt move rite leg sudden",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7yr boi majwa kafn hausa cnt move rite leg sudden"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "majwa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7yr boi majwa kafn hausa cnt move rite leg sudden\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"majwa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden inability to move right leg\",\"age\":7,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"majwa kafn hausa\",\"inferred_fields\":[\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have recorded: 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden inability to move his right leg. Is this correct?\"}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden inability to move right leg\",\"age\":7,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"majwa kafn hausa\",\"inferred_fields\":[\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have recorded: 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden inability to move his right leg. Is this correct?\"}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2929,
+              "candidatesTokenCount": 198,
+              "totalTokenCount": 3545,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2929
+                }
+              ],
+              "thoughtsTokenCount": 418,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "gmfEavyxBt-Az7IP7Ya-iQg"
+          },
+          "usage": {
+            "input_tokens": 2929,
+            "output_tokens": 616,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 418
+          },
+          "latency_ms": 5976.3,
+          "cost_usd": 0.00450675,
+          "stop_reason": "end_turn",
+          "request_id": "gmfEavyxBt-Az7IP7Ya-iQg",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden inability to move right leg",
+            "age": 7,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "majwa kafn hausa",
+            "inferred_fields": [
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have recorded: 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden inability to move his right leg. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "one",
+                "right"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7yr boi majwa kafn hausa cnt move rite leg sudden"
+          },
+          {
+            "role": "assistant",
+            "content": "I have recorded: 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden inability to move his right leg. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden inability to move right leg",
+              "age": 7,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "majwa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7yr boi majwa kafn hausa cnt move rite leg sudden\"}, {\"role\": \"assistant\", \"content\": \"I have recorded: 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden inability to move his right leg. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden inability to move right leg\", \"age\": 7, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"majwa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden inability to move right leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"majwa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. The report has been accepted and submitted for surveillance follow-up.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden inability to move right leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"majwa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. The report has been accepted and submitted for surveillance follow-up.\"\n}",
+                      "thoughtSignature": "ErEGCq4GAWkUfRMot9yCHBm2cPERtoF9OFyvETR+MVQEzztkXCsg+Nm7sPkB9OwquDkD2TbVzBBQiRG3JFwaWk/1wMcyG5MhLrbF2RdQBvERuXIy1J4bxk4ACba4E6jJs7hvdtx4sfo8+NaM5nEbxNeMVjm8l0R45vnohD3s4iv+xmV9yIBtnmkLXQLXpsRC6AgbLf+B8pvElXS3gf2KG6nhGBTN2lR+bwdfo2l0Kb8sg3OFxoSvB8tzIArsmpyshuVXAORSemeBthCBBly12kxYcfIClaL0r5uYFCwwTNQdu2jyB6URNW3x1WXE4V9KdVLV9jO1DrLzTSu46m8R0HBLPvnXV2EE2Y9BIexsUM9lHfcynYHSllQpw9BNN0gsXNCPOl6tdehGLU4cGwoBTJSXk6lX/LlXvJ+/Cndh214ShRSNZuHUXHGUuSF3z9AIGfLZ4SJ+gty3PA/1w8t2tJO0eU9G10C2qGOSD2LOKse0/jQs7sY5OXi+6lNeZQQtK858FYFxspjUT8H1rhNYE7Zf/tvwF/lT3WJ01vVf32TLk2gpRCoFwP8Bh/q9OQc7wQtJFpxTSjKcgIj7Pbq+TenOvbchIrjGBqvchPwGBK+xq64lCndKvDJ1J4votUUTpXnyUu+XwvE8DpoZSjhZ+yP/mYIASuGElG2MJpMZu6dXTZ+IN3nsNrpxsLjTJ8U83m4tfu8EktoISiO5dk+MY+sjJxbSa42xuZuIGde/G3HnDD80wu94h2XfRGPwmR6IFvCnj5DdyJgalBkiN3E2qJMV/WJcjdiBzOz9ahiN4q/YL2jv25csPvARuWCkTcUJvyxQXH2X31h+aq1bM1RKuGFB7KOK5ndkDIdiC3uxDKg4n5Vvd6pYFnSr6O+/CsJiRlByBBDukpILV9uL1fjvBaRXh7jNxfbR/8qVOMmFzF44rh+vBJee/FAhrMPpthQdAB8x+88QJlt4JyCuk/y6phjVKU11e1HnK+i8OeLKAzp2bAAdycKxuXs2q3gOLi4clcXdqZwj52kpbV2g/HKkFlykqC9sxpE5A0BCiS8hDdJisFGiPLMInNUVRdXscUwfikaP/g=="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3052,
+              "candidatesTokenCount": 321,
+              "totalTokenCount": 3546,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3052
+                }
+              ],
+              "thoughtsTokenCount": 173,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "iGfEao_nA9Xtz7IP567dgQ8"
+          },
+          "usage": {
+            "input_tokens": 3052,
+            "output_tokens": 494,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 173
+          },
+          "latency_ms": 4592.5,
+          "cost_usd": 0.004141499999999999,
+          "stop_reason": "end_turn",
+          "request_id": "iGfEao_nA9Xtz7IP567dgQ8",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden inability to move right leg",
+            "age": 7,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "majwa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you for confirming. The report has been accepted and submitted for surveillance follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "7yr boi majwa kafn hausa cnt move rite leg sudden"
+    },
+    {
+      "role": "assistant",
+      "content": "I have recorded: 7-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden inability to move his right leg. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for confirming. The report has been accepted and submitted for surveillance follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden inability to move right leg",
+        "age": 7,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 10568.8,
+    "input_tokens": 5981,
+    "output_tokens": 1110,
+    "cost_usd": 0.008648,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

@@ -1,0 +1,2275 @@
+{
+  "scenario_id": "ESC-25",
+  "title": "Conflicting case identity/location cannot be safely resolved",
+  "model_key": "gpt-6-luna",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "7 year old boy with sudden weak legs somewhere near Majawa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gpt-6-luna",
+            "max_output_tokens": 16000,
+            "store": false,
+            "text": {
+              "format": {
+                "type": "json_schema",
+                "name": "surveillance_turn",
+                "strict": true,
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"somewhere near Majawa\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"state\",\"LGA\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place.\"}",
+          "raw_response": {
+            "id": "resp_020527c31ae12f6c016ac46430b1f887d0870dc764fbabf7c4",
+            "object": "response",
+            "created_at": 1791255600,
+            "status": "completed",
+            "access_programs": null,
+            "background": false,
+            "billing": {
+              "payer": "developer"
+            },
+            "completed_at": 1791255603,
+            "error": null,
+            "frequency_penalty": 0.0,
+            "incomplete_details": null,
+            "instructions": "You are an AI intake agent for a community disease-surveillance reporting system in Nigeria.\n\nYour primary task is to convert natural-language community reports into usable surveillance signals for Acute Flaccid Paralysis (AFP), while preserving relevant reports of other vaccine-preventable or priority diseases.\n\nYou are a surveillance intake agent, not a clinician.\n\nGENERAL PRINCIPLES\n\n1. Detect and structure reported symptoms. Do not diagnose disease.\n2. Extract information already provided before asking any follow-up question.\n3. Ask only for information that is still needed.\n4. Ask at most one focused clarification question per turn.\n5. Maintain structured case state across turns.\n6. Later information may update or override earlier information when the sender clearly corrects it.\n7. Preserve all previously established information that has not been corrected.\n8. Support more than one reported child/case in the same conversation. Keep separate people as separate case records; never collapse them into one.\n9. Never invent missing information.\n10. Use the location_resolver supplied with each turn for geography (see LOCATION RESOLVER). Never guess a location the resolver does not establish.\n11. Preserve uncertainty. Do not turn suspected conditions into confirmed diagnoses.\n12. If a message appears to describe another relevant disease or syndrome rather than AFP, preserve the signal and stop. Do not begin a disease-specific follow-up conversation.\n13. If necessary information remains unresolved after repeated clarification attempts, escalate only when the conversation already contains a plausible surveillance-relevant health signal.\n14. Potential duplicate reports should be flagged, not discarded or automatically merged.\n15. Keep the user-facing response short, clear, and appropriate for SMS.\n16. Before ACCEPT, present a concise structured summary of the complete interpreted AFP case state and ask the sender to confirm or correct it.\n17. If the sender corrects any information during confirmation, update the relevant case state, preserve unaffected fields, and present a new confirmation summary before ACCEPT.\n\nINFORMATION TO EXTRACT\n\nFor each AFP-related case, attempt to establish:\n\n- symptom\n- age\n- sex\n- state\n- LGA\n- settlement / village / location\n\nLocation fields may be inferred from other location information when the inference is reliable.\n\nLOCATION RESOLVER\n\nEach turn includes a location_resolver object produced by a deterministic resolver that reads only the sender's messages. Treat it as authoritative for geography.\n\n- status RESOLVED: candidates contains exactly one place. Fill state, lga and settlement from it when the sender's report refers to that place. Do not ask the sender for geography the resolver already establishes. Check mentions[].unresolved_fields: if settlement is listed, a more specific place may still be needed.\n- status AMBIGUOUS: the name matches more than one place. `candidates` lists those the fixture names and may be empty when the fixture only declares the ambiguity. Do not choose or guess a place. Leave the fields listed in requires as null and ask one focused question for them. Use the confirmed parts (resolved) if any.\n- status UNRESOLVED: no usable location is established. Leave state, lga and settlement null unless the sender stated them, and ask for the location when it is still needed. A place mentioned only as nearby is not a location.\n\nIf the resolver and your reading of the sender's words disagree, follow the resolver. Never invent geography.\n\nMULTIPLE CASES\n\nA single conversation may contain more than one child/case.\n\nMaintain each person as a separate case record.\n\nNew information may apply to:\n- one specific case;\n- multiple cases; or\n- all cases in the current conversation.\n\nApply the update only to the case(s) it refers to.\n\nDo not require the sender to start a new conversation simply because more than one child is being reported.\n\nACCEPTANCE AND CONFIRMATION RULE\n\nOnce enough information exists for surveillance staff to reasonably identify and follow up the reported case(s), do NOT immediately ACCEPT.\n\nFirst use CONFIRM.\n\nDuring CONFIRM:\n- present a concise structured summary of all case information you intend to submit;\n- distinguish multiple cases clearly, for example with numbered case summaries;\n- preserve uncertainty such as approximate age;\n- ask the sender whether the summary is correct or whether anything should be corrected.\n\nUse ACCEPT only after the sender explicitly confirms the structured summary.\n\nIf the sender corrects information instead of confirming:\n- apply the correction as an override to the relevant field(s);\n- preserve unaffected information;\n- use CONFIRM again with the updated summary.\n\nDECISION DEFINITIONS\n\nclassification must be exactly one of:\n\n- AFP_SUSPECTED\n- OTHER_VPD\n- HEALTH_RELATED_UNCLEAR\n- NOT_RELEVANT\n- UNINTELLIGIBLE\n\naction must be exactly one of:\n\n- ACCEPT\n- CLARIFY\n- CONFIRM\n- ESCALATE\n- OTHER_VPD\n- NOT_RELEVANT\n\npriority must be exactly one of:\n\n- NORMAL\n- HIGH\n\nUse CLARIFY when the report is potentially relevant and one important piece of information can reasonably be obtained through another question.\n\nUse CONFIRM when enough information exists to create a usable AFP surveillance alert but the sender has not yet confirmed the agent's structured interpretation.\n\nUse ACCEPT only after the sender explicitly confirms the final structured interpretation.\n\nUse ESCALATE when the AI should stop the conversation and hand off to a human because a plausible surveillance signal has already been established and important information needed for follow-up cannot be safely resolved.\n\nUse OTHER_VPD when a non-AFP but surveillance-relevant disease or syndrome is recognized. Preserve the information and stop rather than starting another disease-specific conversation.\n\nUse NOT_RELEVANT when the message is clearly outside the surveillance use case, or when repeated clarification never establishes a plausible surveillance-relevant health signal.\n\nPRIORITY\n\nPriority is independent from action.\n\nUse NORMAL unless an explicitly defined high-priority rule is supplied.\n\nDo not infer or invent high-priority rules.\n\nCLARIFICATION AND ESCALATION POLICY\n\nA clarification attempt is unsuccessful when the sender's reply does not resolve the information requested.\n\nThe agent may make up to 3 unsuccessful clarification attempts.\n\nAfter 3 unsuccessful clarification attempts:\n\n- ESCALATE only if the conversation already contains enough meaningful information to indicate a plausible surveillance-relevant health signal, but an important detail needed for follow-up remains unresolved.\n\n- Do NOT escalate solely because the sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using the appropriate non-escalation classification/action.\n\nConfirmation turns do not count as clarification attempts.\n\nOTHER VPD\n\nIf the message appears to describe another surveillance-relevant disease or syndrome:\n\n- classification = OTHER_VPD\n- other_vpd = true\n- action = OTHER_VPD\n\nPreserve the signal and stop.\n\nDo not begin a disease-specific follow-up conversation.\n\nFor non-other-VPD messages:\n\n- other_vpd = false\n\nDUPLICATES\n\nA report may be valid and also potentially duplicate another report.\n\nIf a report resembles a prior report, flag it as a potential duplicate but continue to preserve the new surveillance signal.\n\nNever automatically delete, suppress, or merge a report because it appears duplicative.\n\nDuplicate status is internal metadata and does not need to be surfaced to the community informant.\n\nOUTPUT\n\nReturn only the required structured JSON output.\n\nDo not include commentary outside the JSON.\n\nOUTPUT CONTRACT\n\n## Required JSON output shape\n\nUse a `cases` array for all case state. A single-case report contains one item; a multi-case conversation can contain multiple items.\n\n```json\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n\n  \"missing_information\": [],\n\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n\n  \"response\": \"I have: 7-year-old boy in Majawa, Kafin Hausa, Jigawa, with sudden weakness in both legs. Is this correct?\"\n}\n```\n\n### Multi-case example\n\n```json\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Gwadabawa\",\n      \"symptom\": \"both legs became weak suddenly today\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"age\": 8,\n      \"sex\": \"female\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Gwadabawa\",\n      \"symptom\": \"legs became weak suddenly today\"\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\"required\": false, \"reason\": null},\n  \"clarification\": {\"target\": null, \"attempt_number\": 1},\n  \"confirmation\": {\"status\": \"PENDING\"},\n  \"response\": \"I have: 1) boy, age 5, Gwadabawa, both legs became weak suddenly today; 2) girl, age 8, Gwadabawa, legs became weak suddenly today. Is this correct?\"\n}\n```\n\n---\n\n## Allowed enum values\n\n### classification\n\n```text\nAFP_SUSPECTED\nOTHER_VPD\nHEALTH_RELATED_UNCLEAR\nNOT_RELEVANT\nUNINTELLIGIBLE\n```\n\n### action\n\n```text\nACCEPT\nCLARIFY\nCONFIRM\nESCALATE\nOTHER_VPD\nNOT_RELEVANT\n```\n\n### priority\n\n```text\nNORMAL\nHIGH\n```\n\n### sex\n\n```text\nmale\nfemale\nunknown\n```\n\n### location confidence\n\n```text\nhigh\nmedium\nlow\n```\n\n### clarification target\n\n```text\nsymptom\nage\nsex\nlocation\nstate\nlga\nsettlement\nother\nnull\n```\n\n### escalation reason\n\n```text\nFAILED_CLARIFICATION_WITH_VALID_SIGNAL\nAMBIGUOUS_LOCATION\nCONFLICTING_INFORMATION\nUNABLE_TO_CLASSIFY\nOTHER\nnull\n```\n\n### confirmation status\n\n```text\nNOT_READY\nPENDING\nCONFIRMED\n```\n\n---\n\n## State-update semantics\n\nTreat later sender information as an update to current case state.\n\nRules:\n\n1. If a later statement explicitly corrects an earlier value, the later value overrides it.\n2. Do not retain both superseded and corrected values as if both were current truth.\n3. Preserve all unrelated fields unless they are also corrected.\n4. In multi-case conversations, apply updates only to the case(s) referenced by the sender.\n5. If a correction is received during confirmation, return `action = CONFIRM` again with the updated summary.\n6. Use `action = ACCEPT` only after explicit confirmation of the latest summary.\n\n---\n\n## Null handling\n\nUse JSON `null` for missing values.\n\nDo not use empty strings or `\"N/A\"`.\n\n`sex = \"unknown\"` is allowed as an explicit enum value when sex cannot be established.\n",
+            "max_output_tokens": 16000,
+            "max_tool_calls": null,
+            "model": "gpt-6-luna",
+            "moderation": null,
+            "output": [
+              {
+                "id": "rs_020527c31ae12f6c016ac46431239887d0a7ad6a493508e4a1",
+                "type": "reasoning",
+                "content": [],
+                "encrypted_content": "gAAAAABqxGQzEO86NsR-9qXnV1wR5YbVVrW_kDeFfk49LCCOXsKyy7mrv4vkNo2czuhBRchLhIAZRpQoaQpeUkLpU5g9XQdYGCISCrw7rUBzGk0IX41zCZ3mTDNlzM1PSXBZ2mGAtIk575KuLEjpSbJ_E9RsZmB9RmXhxiCNzAXgZJUpGNWaN9hJvmbKyVabP_vcDKytFuuPraEtuKUu2rR6tQTI2dluzqrtk14QdIEc-yJJTfg2G5p0bh4jfMAzUvpcm3zB_AUKrtuxXk-XRkNO_2zY6QfZMRDp6-gO2QaKeNUDJmlxT0H1HjMhfZXxyTWw_RM6oJ42IJJ1TqlANOFSbJHyrfi09thVikIzOLm-EhfbpEMps-pjDEUCMihtw-Ri2EwUH-Jej3GggnUevHfKNOKz1ycDCzmqPLDsXDIALRuim-F-l9td4xlixrUFPoRtyiEUcTM2jQPVF6NZSUrDZniCl6dG-CL4ELrJJEEdK92eg_zOE11N296KP_XzTEY_p2fWcb8oJSGswBntCNRPJSiiQ8UcObtMu77JFIB07FX5N5YX5Cq98drdcjcCK9oEF5PpSaE-N82o_dl_ziywczp5yY2asdXeiXL3iPZOJ4AoqQuq0XsYo185wCRLHVIMOuk9FIyQblsP2x23XzngXtAtgmzIswNMJcFTEnKfgb1RUrpbw71ci93ZVCotJUWIpQVhCYCPUdU5MQSzY5-ZzIAZN-leXJdZE7kTt2ap-G6wEY-RuMj68XLa9WG53QgwcyjhXTstXVR1ZQzk4vlxCNlFQCaoSVkGjcXA-H1ckbMcPgTEdn1dPzHTqyTWiUHF3LKOXCntEuylMvzjNs26G6VRS9XyXxGo2JkJUUwEmQJa32O_h5Qjxorfbc35oqSkuOBIMg5vqp8nVRwg2YfceDnlJizHfcd0XZE8BjPXF4tOth7edl3kGkv0X582eXD8WVWzMDx-7kYuNy7pv0eDJUIkgLY3sxNt-F_zjuVIGHW_Acw94JsDSoAnFGYa27g-hwqOSRojiSMX7VnyY7w0x0IJ4MgJ5rNjIG0KP0KzbWNhT-SF1gShWhD7sNMGijawVfUjUdrC78Ize_ObIDg9XPre_oShYs45AveP2l_Z4csDR_WVtgTWg-mVIe2RQye1z6alyb3C1T1Pbl59MQFgNiF2xDtXZgNX49_eBobKqlFYOCMQ6jTd3vi57MEhyq2rgHhtWZrsTm5cXKjZcFmlTWIEiMoQMnxhKuIcOg1dtVuVUduua1YggTaZTJRLCC5RvshrsZ-z8oKfw3ltkn3PVq3kOIlWYNnnggpy_t9qErEdiDgS0xxhYoyhHyL0OJpNXHo1X2yCChYgm87v3OyH2Yc3-35XA9rRkaomPiWbz1_eMbTPvxvvZXR9175AwpOk33205PGwaKS6DgktfmnV_mUF3bCDn_53g-mVM3JTti3f-W3iPXKZYtBBTrdyCpm76jVUdCjVlloRPbYaz3p5ZcsPnE8cSqfwoGX1TKsRDEoCiuDB85FH4mdXsqR83wqxV295X8jtnVNk-U4DXr7PmKqr84tiIQPN5IA25AIhDOXvFFP7oqJnJjMnDtMOajpNifafwMN43Vr31UL9WGubiD6M_bLi0hkkC1e14JoRCQ85tSd1d8hbiGRC-0Ilm8MatrnQeC8UuLczixrxG24WZQy92iM3UgNJc67kAmmrQqYpgdr79Xzh_4y5FwBXWLVNcUtmKDHl08MJEaKgzXgcGnE9WUUHEjc8hYkvBls8jrx-gEs_4t6VfywajjW7Pgto0NJANL6T2gZDQSWKUhBBINRBLVmUuXgw2mfHdTkqki02WyRpB-fGxOewZoH-NqF5MYdl97gpGstH4bXyRBbpGXA8hJDV6gkdCFrEm7QIuOaBslN9_Vg1-8_qhUTc71Pz-ylVZLEuQIUH59ZWVrns7YxJhzki_NHfAqCZyR7gqa7PdEp0A58=",
+                "summary": []
+              },
+              {
+                "id": "msg_020527c31ae12f6c016ac4643274cc87d08e25ed586ceab4b1",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"somewhere near Majawa\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"state\",\"LGA\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place.\"}"
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0.0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "medium",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": false,
+            "temperature": 1.0,
+            "text": {
+              "format": {
+                "type": "json_schema",
+                "description": null,
+                "name": "surveillance_turn",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "classification": {
+                      "type": "string",
+                      "enum": [
+                        "AFP_SUSPECTED",
+                        "OTHER_VPD",
+                        "HEALTH_RELATED_UNCLEAR",
+                        "NOT_RELEVANT",
+                        "UNINTELLIGIBLE"
+                      ]
+                    },
+                    "other_vpd": {
+                      "type": "boolean"
+                    },
+                    "action": {
+                      "type": "string",
+                      "enum": [
+                        "ACCEPT",
+                        "CLARIFY",
+                        "CONFIRM",
+                        "ESCALATE",
+                        "OTHER_VPD",
+                        "NOT_RELEVANT"
+                      ]
+                    },
+                    "priority": {
+                      "type": "string",
+                      "enum": [
+                        "NORMAL",
+                        "HIGH"
+                      ]
+                    },
+                    "cases": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "case_id": {
+                            "type": "string"
+                          },
+                          "symptom": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "age": {
+                            "anyOf": [
+                              {
+                                "type": "integer"
+                              },
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "sex": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "male",
+                                  "female",
+                                  "unknown"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "state": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "lga": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "settlement": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "case_id",
+                          "symptom",
+                          "age",
+                          "sex",
+                          "state",
+                          "lga",
+                          "settlement"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "location_resolution": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "case_id": {
+                            "type": "string"
+                          },
+                          "raw_location": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "inferred_fields": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "confidence": {
+                            "type": "string",
+                            "enum": [
+                              "high",
+                              "medium",
+                              "low"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "case_id",
+                          "raw_location",
+                          "inferred_fields",
+                          "confidence"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "missing_information": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "potential_duplicate": {
+                      "type": "boolean"
+                    },
+                    "duplicate_candidate_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "escalation": {
+                      "type": "object",
+                      "properties": {
+                        "required": {
+                          "type": "boolean"
+                        },
+                        "reason": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "FAILED_CLARIFICATION_WITH_VALID_SIGNAL",
+                                "AMBIGUOUS_LOCATION",
+                                "CONFLICTING_INFORMATION",
+                                "UNABLE_TO_CLASSIFY",
+                                "OTHER"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "required",
+                        "reason"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "clarification": {
+                      "type": "object",
+                      "properties": {
+                        "target": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "symptom",
+                                "age",
+                                "sex",
+                                "location",
+                                "state",
+                                "lga",
+                                "settlement",
+                                "other"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "attempt_number": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "target",
+                        "attempt_number"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "confirmation": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "NOT_READY",
+                            "PENDING",
+                            "CONFIRMED"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "response": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "classification",
+                    "other_vpd",
+                    "action",
+                    "priority",
+                    "cases",
+                    "location_resolution",
+                    "missing_information",
+                    "potential_duplicate",
+                    "duplicate_candidate_ids",
+                    "escalation",
+                    "clarification",
+                    "confirmation",
+                    "response"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": true
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 3147,
+              "input_tokens_details": {
+                "cache_write_tokens": 162,
+                "cached_tokens": 2982
+              },
+              "output_tokens": 300,
+              "output_tokens_details": {
+                "reasoning_tokens": 107
+              },
+              "total_tokens": 3447
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage": {
+            "input_tokens": 165,
+            "output_tokens": 300,
+            "cache_read_input_tokens": 2982,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 107
+          },
+          "latency_ms": 3475.1,
+          "cost_usd": 0.00046469999999999997,
+          "stop_reason": "end_turn",
+          "request_id": "resp_020527c31ae12f6c016ac46430b1f887d0870dc764fbabf7c4",
+          "model": "gpt-6-luna",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "somewhere near Majawa",
+            "inferred_fields": [],
+            "confidence": "low"
+          }
+        ],
+        "missing_information": [
+          "state",
+          "LGA",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Actually it may be a different child in another village. I am not sure which child or village I was told about.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "Actually it may be a different child in another village. I am not sure which child or village I was told about.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place."
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gpt-6-luna",
+            "max_output_tokens": 16000,
+            "store": false,
+            "text": {
+              "format": {
+                "type": "json_schema",
+                "name": "surveillance_turn",
+                "strict": true,
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place.\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"specific child/case identity\",\"settlement or village\",\"LGA\",\"state\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":2},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Can you find out which village or settlement the 7-year-old boy with sudden weak legs lives in?\"}",
+          "raw_response": {
+            "id": "resp_085676da9c939a12016ac4643428e887d080a7cde42afd7e84",
+            "object": "response",
+            "created_at": 1791255604,
+            "status": "completed",
+            "access_programs": null,
+            "background": false,
+            "billing": {
+              "payer": "developer"
+            },
+            "completed_at": 1791255609,
+            "error": null,
+            "frequency_penalty": 0.0,
+            "incomplete_details": null,
+            "instructions": "You are an AI intake agent for a community disease-surveillance reporting system in Nigeria.\n\nYour primary task is to convert natural-language community reports into usable surveillance signals for Acute Flaccid Paralysis (AFP), while preserving relevant reports of other vaccine-preventable or priority diseases.\n\nYou are a surveillance intake agent, not a clinician.\n\nGENERAL PRINCIPLES\n\n1. Detect and structure reported symptoms. Do not diagnose disease.\n2. Extract information already provided before asking any follow-up question.\n3. Ask only for information that is still needed.\n4. Ask at most one focused clarification question per turn.\n5. Maintain structured case state across turns.\n6. Later information may update or override earlier information when the sender clearly corrects it.\n7. Preserve all previously established information that has not been corrected.\n8. Support more than one reported child/case in the same conversation. Keep separate people as separate case records; never collapse them into one.\n9. Never invent missing information.\n10. Use the location_resolver supplied with each turn for geography (see LOCATION RESOLVER). Never guess a location the resolver does not establish.\n11. Preserve uncertainty. Do not turn suspected conditions into confirmed diagnoses.\n12. If a message appears to describe another relevant disease or syndrome rather than AFP, preserve the signal and stop. Do not begin a disease-specific follow-up conversation.\n13. If necessary information remains unresolved after repeated clarification attempts, escalate only when the conversation already contains a plausible surveillance-relevant health signal.\n14. Potential duplicate reports should be flagged, not discarded or automatically merged.\n15. Keep the user-facing response short, clear, and appropriate for SMS.\n16. Before ACCEPT, present a concise structured summary of the complete interpreted AFP case state and ask the sender to confirm or correct it.\n17. If the sender corrects any information during confirmation, update the relevant case state, preserve unaffected fields, and present a new confirmation summary before ACCEPT.\n\nINFORMATION TO EXTRACT\n\nFor each AFP-related case, attempt to establish:\n\n- symptom\n- age\n- sex\n- state\n- LGA\n- settlement / village / location\n\nLocation fields may be inferred from other location information when the inference is reliable.\n\nLOCATION RESOLVER\n\nEach turn includes a location_resolver object produced by a deterministic resolver that reads only the sender's messages. Treat it as authoritative for geography.\n\n- status RESOLVED: candidates contains exactly one place. Fill state, lga and settlement from it when the sender's report refers to that place. Do not ask the sender for geography the resolver already establishes. Check mentions[].unresolved_fields: if settlement is listed, a more specific place may still be needed.\n- status AMBIGUOUS: the name matches more than one place. `candidates` lists those the fixture names and may be empty when the fixture only declares the ambiguity. Do not choose or guess a place. Leave the fields listed in requires as null and ask one focused question for them. Use the confirmed parts (resolved) if any.\n- status UNRESOLVED: no usable location is established. Leave state, lga and settlement null unless the sender stated them, and ask for the location when it is still needed. A place mentioned only as nearby is not a location.\n\nIf the resolver and your reading of the sender's words disagree, follow the resolver. Never invent geography.\n\nMULTIPLE CASES\n\nA single conversation may contain more than one child/case.\n\nMaintain each person as a separate case record.\n\nNew information may apply to:\n- one specific case;\n- multiple cases; or\n- all cases in the current conversation.\n\nApply the update only to the case(s) it refers to.\n\nDo not require the sender to start a new conversation simply because more than one child is being reported.\n\nACCEPTANCE AND CONFIRMATION RULE\n\nOnce enough information exists for surveillance staff to reasonably identify and follow up the reported case(s), do NOT immediately ACCEPT.\n\nFirst use CONFIRM.\n\nDuring CONFIRM:\n- present a concise structured summary of all case information you intend to submit;\n- distinguish multiple cases clearly, for example with numbered case summaries;\n- preserve uncertainty such as approximate age;\n- ask the sender whether the summary is correct or whether anything should be corrected.\n\nUse ACCEPT only after the sender explicitly confirms the structured summary.\n\nIf the sender corrects information instead of confirming:\n- apply the correction as an override to the relevant field(s);\n- preserve unaffected information;\n- use CONFIRM again with the updated summary.\n\nDECISION DEFINITIONS\n\nclassification must be exactly one of:\n\n- AFP_SUSPECTED\n- OTHER_VPD\n- HEALTH_RELATED_UNCLEAR\n- NOT_RELEVANT\n- UNINTELLIGIBLE\n\naction must be exactly one of:\n\n- ACCEPT\n- CLARIFY\n- CONFIRM\n- ESCALATE\n- OTHER_VPD\n- NOT_RELEVANT\n\npriority must be exactly one of:\n\n- NORMAL\n- HIGH\n\nUse CLARIFY when the report is potentially relevant and one important piece of information can reasonably be obtained through another question.\n\nUse CONFIRM when enough information exists to create a usable AFP surveillance alert but the sender has not yet confirmed the agent's structured interpretation.\n\nUse ACCEPT only after the sender explicitly confirms the final structured interpretation.\n\nUse ESCALATE when the AI should stop the conversation and hand off to a human because a plausible surveillance signal has already been established and important information needed for follow-up cannot be safely resolved.\n\nUse OTHER_VPD when a non-AFP but surveillance-relevant disease or syndrome is recognized. Preserve the information and stop rather than starting another disease-specific conversation.\n\nUse NOT_RELEVANT when the message is clearly outside the surveillance use case, or when repeated clarification never establishes a plausible surveillance-relevant health signal.\n\nPRIORITY\n\nPriority is independent from action.\n\nUse NORMAL unless an explicitly defined high-priority rule is supplied.\n\nDo not infer or invent high-priority rules.\n\nCLARIFICATION AND ESCALATION POLICY\n\nA clarification attempt is unsuccessful when the sender's reply does not resolve the information requested.\n\nThe agent may make up to 3 unsuccessful clarification attempts.\n\nAfter 3 unsuccessful clarification attempts:\n\n- ESCALATE only if the conversation already contains enough meaningful information to indicate a plausible surveillance-relevant health signal, but an important detail needed for follow-up remains unresolved.\n\n- Do NOT escalate solely because the sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using the appropriate non-escalation classification/action.\n\nConfirmation turns do not count as clarification attempts.\n\nOTHER VPD\n\nIf the message appears to describe another surveillance-relevant disease or syndrome:\n\n- classification = OTHER_VPD\n- other_vpd = true\n- action = OTHER_VPD\n\nPreserve the signal and stop.\n\nDo not begin a disease-specific follow-up conversation.\n\nFor non-other-VPD messages:\n\n- other_vpd = false\n\nDUPLICATES\n\nA report may be valid and also potentially duplicate another report.\n\nIf a report resembles a prior report, flag it as a potential duplicate but continue to preserve the new surveillance signal.\n\nNever automatically delete, suppress, or merge a report because it appears duplicative.\n\nDuplicate status is internal metadata and does not need to be surfaced to the community informant.\n\nOUTPUT\n\nReturn only the required structured JSON output.\n\nDo not include commentary outside the JSON.\n\nOUTPUT CONTRACT\n\n## Required JSON output shape\n\nUse a `cases` array for all case state. A single-case report contains one item; a multi-case conversation can contain multiple items.\n\n```json\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n\n  \"missing_information\": [],\n\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n\n  \"response\": \"I have: 7-year-old boy in Majawa, Kafin Hausa, Jigawa, with sudden weakness in both legs. Is this correct?\"\n}\n```\n\n### Multi-case example\n\n```json\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Gwadabawa\",\n      \"symptom\": \"both legs became weak suddenly today\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"age\": 8,\n      \"sex\": \"female\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Gwadabawa\",\n      \"symptom\": \"legs became weak suddenly today\"\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\"required\": false, \"reason\": null},\n  \"clarification\": {\"target\": null, \"attempt_number\": 1},\n  \"confirmation\": {\"status\": \"PENDING\"},\n  \"response\": \"I have: 1) boy, age 5, Gwadabawa, both legs became weak suddenly today; 2) girl, age 8, Gwadabawa, legs became weak suddenly today. Is this correct?\"\n}\n```\n\n---\n\n## Allowed enum values\n\n### classification\n\n```text\nAFP_SUSPECTED\nOTHER_VPD\nHEALTH_RELATED_UNCLEAR\nNOT_RELEVANT\nUNINTELLIGIBLE\n```\n\n### action\n\n```text\nACCEPT\nCLARIFY\nCONFIRM\nESCALATE\nOTHER_VPD\nNOT_RELEVANT\n```\n\n### priority\n\n```text\nNORMAL\nHIGH\n```\n\n### sex\n\n```text\nmale\nfemale\nunknown\n```\n\n### location confidence\n\n```text\nhigh\nmedium\nlow\n```\n\n### clarification target\n\n```text\nsymptom\nage\nsex\nlocation\nstate\nlga\nsettlement\nother\nnull\n```\n\n### escalation reason\n\n```text\nFAILED_CLARIFICATION_WITH_VALID_SIGNAL\nAMBIGUOUS_LOCATION\nCONFLICTING_INFORMATION\nUNABLE_TO_CLASSIFY\nOTHER\nnull\n```\n\n### confirmation status\n\n```text\nNOT_READY\nPENDING\nCONFIRMED\n```\n\n---\n\n## State-update semantics\n\nTreat later sender information as an update to current case state.\n\nRules:\n\n1. If a later statement explicitly corrects an earlier value, the later value overrides it.\n2. Do not retain both superseded and corrected values as if both were current truth.\n3. Preserve all unrelated fields unless they are also corrected.\n4. In multi-case conversations, apply updates only to the case(s) referenced by the sender.\n5. If a correction is received during confirmation, return `action = CONFIRM` again with the updated summary.\n6. Use `action = ACCEPT` only after explicit confirmation of the latest summary.\n\n---\n\n## Null handling\n\nUse JSON `null` for missing values.\n\nDo not use empty strings or `\"N/A\"`.\n\n`sex = \"unknown\"` is allowed as an explicit enum value when sex cannot be established.\n",
+            "max_output_tokens": 16000,
+            "max_tool_calls": null,
+            "model": "gpt-6-luna",
+            "moderation": null,
+            "output": [
+              {
+                "id": "rs_085676da9c939a12016ac46434a80087d081db0b7ab740befa",
+                "type": "reasoning",
+                "content": [],
+                "encrypted_content": "gAAAAABqxGQ5PWZfhgA8qZAPz97phtfCDQIOsTahZJT1fXaVx51pGVW0JNYvfbApE2ZrmJ3JF4wrgA3DYGRoNSCoDYi8mCQ-UTH57tsIwloK_tH2rTUbd3gAFk7oTsgeNj2xPIpf-THAymNa6_V5KfBDS9Ry2qz0uygW-AgGYgt6DU6K0nwvNNsuIQqt3hvjSRzUa-75xMz-V-AnsVjIVxEd44CHa391LpQzotKctE8J_bWk6zeXh4161rcVJjlntjvZgMvs3rOF8kK_wQHPseMOiAt3ikh46GLv-0LAnCREUptMXc8PIqsNZvFmNrMI8erRv9HGhIfwzVCGM2jSPigmgCiPhw31Yvr--hv2EGSyOW09GHBlbYll1VnAY9zH3RfvDAyTVs231mbWkVkt40O7kn0fq_YSe74AxuvReq7CSGhWB5JS8dYrDpRMwb2Jco8LZ0pFb26xUn-QWmL8j4f6cNgv-pSTA0P53F5EZ4hY7ML0ABrnnRWkV2gR5JEXlIdQ9Aevqeq--OA6kO9ChCcusGWAjTYpuC8UoQt8W3oANCYO7oT-ISS-QBG3skS5HHDlSZE9y-i4vnmkOI4iZjHNZLDF2LGnZL7p_6qW4y9eBYrVLjSfjx-uILQDZHXOGGm1ojchBZL9d1CCI7TkKsKE0ZSMyOCJaFLjE3FGVOiyFwVA7CAojyGpz7cgeGAGVo6_BOHbrR1g6pFP25BrxyxcVmaeQwIquopYhKANeNL_qLlaybMXJKpYHzvABzNts42S_PQfDUeXbNi4kXDGf7pUP65MdzjRVDZ0_lWU4uAYfhmlHAGYv08UWaxmPd1VLegYsivTnCZclDQrACyRcwKEn-ofJCv1uMYD74wItzdyAaP_bn0OiEhLfgZdKOsJnUEbf1m1mWVgbUyHbxRAxEiUJtdujxHbW71t8apWmuhZ_RvBxAwcgr0K85UcctEk1h2D2JjI7zJk9dj0W4pjD17tMjiMKO5izvYZDRyEE2lNvTE2Y7TwTdM1hCmlSYQ2fcJX4WsQcQrxypBthZmMAoGt7pIfqFD7yqabbCbJCzaG1PIJs0GHqxcekiKoBSZqk3ElSDVZiRrGAtPt9Isg5aVCRZXA4DdHPeaz83Pre7Muv7t6jeAUPvo28tFlKBnz3JyUxSiWfoUhXO7U7kGeOkY3YvTOujCIZz02D3STRLmZsyDFCEGZ_YDeHCl8A96KeJD5rde-LV7FX-C4OaYC42NDXFm6ffhVXe1nSuFsDilJVxbs0bnrD5Iqmd-FR5sXd2jr5VP8b7B99S9HR05-TlQXSEmzw-DRlxO10bScOLi4JXu3S3oKWLoUMiw7ksxo5nkVRd3rCxaHc-J7C75wp_P52KaWLOztFex9RDLetdI8QsGL-YtUO4AchI_zp6zYo3IyVNp_u4vkfLrTlv0gkmxnfh8Mv_Y7kQy_T6XpVsckmF1xgCxUVEaB-YuZrXceNQ2Aql4Vr_YWolrHBT22wJItMAHWpHmpj76K48a1pgN5RhiQsA5o9LQgIpk7s4_iHui9loJik4bcL2oRHSaPsfMsmaWMmC_APsRDP-D-5OKu6ufT33DwT6T7WNp6Q_gitbnUNBlJJpayH0IJSMnOwZqwWV7yU577rYgWc-CCzTNRTCKxz2qKRBNm7_abOW8IAcw1ZSzj9DKOuixcAMrCk0BZ0YYoT5VhotHVELOfEWljiWvM0BSclDTS74Da7gVIXDkpVi_85CYoD5CHsjyQA7KMg1Y8VtiJ8ONKoyxKd-TGbO0R2Kqe4o0H6GLRFmAZFJSE8vRJE4JsntWB9XiB--7K5AampWJ9oNYuuRrdiznEprOY9FuzVbtBdjD5qaa2ofsVyrPmZtjsGXkiz-NKLtHrnusKvyrSPxNUMA7Mng2Z3DsCenkM4Sx8nglFtqJcl9dJw1iGHFw3KIt9JhZcbDqiRpAM2dve39R0iM1MhZ8aMk6veS2KRGsIsCH1elWRNa3y-fkP0-KAAKwmRuSvhOU_WeQ8dsFoA06nxmdk_j9DLz0PMUs9VqQl3M55swsSgIgkHBd5cvGa0_kUC2n8XIO63IKJWpcZJvBRm5XAQdDx5XBp9h6wHegPmlEOGp0m0w8k68DIm4GknvkWHIw8IGJUsxJSg6ct4cT_uQbG96CrgVdSTFEN2FtD3uS0dFAya28ccEnO8ALaCVWioUTfhz-IalnDAoNgsoLDoEPeI-Txs77uCAFhakeXp6e3vADR012a_JFWkwgdOkLMLQVTxjkT3vfjzklwryZhzGmKqbHjgpqz7w9llPBYNUYnbwvP_88C20Vu_VMGuG6dHF3aJr_GP5kCRo7rzimQ1u477w159foZ0fvdR6K-Qj2OWxUdsurLYBD4OUO0F-5HFe6SHXs9g3eP8VpQU4xkWdWgb5iMKfSJG-UlTR2Xd6u3NUAOTwKqqVtro-AIjztlULKXC8s9YArkiZYgm_oWDIZPtjKbEDG1k6Y5UT4923vW8UErcQGMAqpVuaJ6oURDJeK8MpbrkmGB1dlodkDvcIZf-7zTAtpopFpmvRAnKlwEWsHaaHOBgCUCCi5UoSEhBban1KSJRpEp9gF2VqtVn1mhcudBfVA-aP6UehsFGK8fI0RrKAFDCf70XocMXmFfwRwj7c5Tx3oYYfc2sZ7YUtYvcfyO098ELjSS8VnhUYyeh9u5l9mKk8LRMU_yhVrry9lZisqoy7LHpm3E9oqiURVaRBz4LRI7vV9hKfo-60JY4WZQMCbOFu1fyIaEEfvoFXt8T_HE5Smzimk2vmIe3Rx1gjI2ryqZ0ahlFb5KWTpNslBFGvqZ4Y5kfBeWDm8_miiQPk7yqwjqFX7xMKVALhmrm7VsMjC4qOj71-Q5X_xcRhjCIgmDbCctmRYG1fAOUtfcB_JSLLsU7czmdbpPY-i0Rv1DFeAb9yFpE8ip1BQ8KXI2elqxSUeAQFKI42TP9Mg_quGpyVsfKr-LB3ZAmlpB3dpYHrYCo4pYWwOUFTjHZWAzYCDxTKyriNnxzml9E6t0POFCcn8Y0jjr-2rZCyN4JhvRQj6U5KsIYXrZZqlDgv2aORcnG1Wo5-cpynSImyP1Yoo9KUwoCDFwHKsfnBQzLxU7oPyU6mcMWS_o4mBBP6l1xnmmib1PsFmJG5yZK9wi_Ix7abo5wWXcvHoPoqjk4qBF1ImCGnw2CVIus8233a9-RirZk69wc9LOZjGS7Hxcw48hIrQo2FyOOt-9vLoTFxm7IUaxpVeMQqK7xKkvhwjcv_oxI31UlHHhQVvhPCC54LIh-cK4j8wded4Cc0vdpM8_06cmgY56T1s=",
+                "summary": []
+              },
+              {
+                "id": "msg_085676da9c939a12016ac46438170487d0b46789afeb1f2019",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"specific child/case identity\",\"settlement or village\",\"LGA\",\"state\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":2},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Can you find out which village or settlement the 7-year-old boy with sudden weak legs lives in?\"}"
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0.0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "medium",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": false,
+            "temperature": 1.0,
+            "text": {
+              "format": {
+                "type": "json_schema",
+                "description": null,
+                "name": "surveillance_turn",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "classification": {
+                      "type": "string",
+                      "enum": [
+                        "AFP_SUSPECTED",
+                        "OTHER_VPD",
+                        "HEALTH_RELATED_UNCLEAR",
+                        "NOT_RELEVANT",
+                        "UNINTELLIGIBLE"
+                      ]
+                    },
+                    "other_vpd": {
+                      "type": "boolean"
+                    },
+                    "action": {
+                      "type": "string",
+                      "enum": [
+                        "ACCEPT",
+                        "CLARIFY",
+                        "CONFIRM",
+                        "ESCALATE",
+                        "OTHER_VPD",
+                        "NOT_RELEVANT"
+                      ]
+                    },
+                    "priority": {
+                      "type": "string",
+                      "enum": [
+                        "NORMAL",
+                        "HIGH"
+                      ]
+                    },
+                    "cases": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "case_id": {
+                            "type": "string"
+                          },
+                          "symptom": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "age": {
+                            "anyOf": [
+                              {
+                                "type": "integer"
+                              },
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "sex": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "male",
+                                  "female",
+                                  "unknown"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "state": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "lga": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "settlement": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "case_id",
+                          "symptom",
+                          "age",
+                          "sex",
+                          "state",
+                          "lga",
+                          "settlement"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "location_resolution": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "case_id": {
+                            "type": "string"
+                          },
+                          "raw_location": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "inferred_fields": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "confidence": {
+                            "type": "string",
+                            "enum": [
+                              "high",
+                              "medium",
+                              "low"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "case_id",
+                          "raw_location",
+                          "inferred_fields",
+                          "confidence"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "missing_information": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "potential_duplicate": {
+                      "type": "boolean"
+                    },
+                    "duplicate_candidate_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "escalation": {
+                      "type": "object",
+                      "properties": {
+                        "required": {
+                          "type": "boolean"
+                        },
+                        "reason": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "FAILED_CLARIFICATION_WITH_VALID_SIGNAL",
+                                "AMBIGUOUS_LOCATION",
+                                "CONFLICTING_INFORMATION",
+                                "UNABLE_TO_CLASSIFY",
+                                "OTHER"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "required",
+                        "reason"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "clarification": {
+                      "type": "object",
+                      "properties": {
+                        "target": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "symptom",
+                                "age",
+                                "sex",
+                                "location",
+                                "state",
+                                "lga",
+                                "settlement",
+                                "other"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "attempt_number": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "target",
+                        "attempt_number"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "confirmation": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "NOT_READY",
+                            "PENDING",
+                            "CONFIRMED"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "response": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "classification",
+                    "other_vpd",
+                    "action",
+                    "priority",
+                    "cases",
+                    "location_resolution",
+                    "missing_information",
+                    "potential_duplicate",
+                    "duplicate_candidate_ids",
+                    "escalation",
+                    "clarification",
+                    "confirmation",
+                    "response"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": true
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 3269,
+              "input_tokens_details": {
+                "cache_write_tokens": 284,
+                "cached_tokens": 2982
+              },
+              "output_tokens": 471,
+              "output_tokens_details": {
+                "reasoning_tokens": 280
+              },
+              "total_tokens": 3740
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage": {
+            "input_tokens": 287,
+            "output_tokens": 471,
+            "cache_read_input_tokens": 2982,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 280
+          },
+          "latency_ms": 5648.4,
+          "cost_usd": 0.0005624,
+          "stop_reason": "end_turn",
+          "request_id": "resp_085676da9c939a12016ac4643428e887d080a7cde42afd7e84",
+          "model": "gpt-6-luna",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [],
+            "confidence": "low"
+          }
+        ],
+        "missing_information": [
+          "specific child/case identity",
+          "settlement or village",
+          "LGA",
+          "state"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Can you find out which village or settlement the 7-year-old boy with sudden weak legs lives in?"
+      },
+      "reply": {
+        "kind": "NEUTRAL",
+        "text": "I don't know.",
+        "reason": null,
+        "detail": null,
+        "events": [
+          "OFF_TARGET_CLARIFY"
+        ],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "I don't know.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place."
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          },
+          {
+            "role": "assistant",
+            "content": "Can you find out which village or settlement the 7-year-old boy with sudden weak legs lives in?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gpt-6-luna",
+            "max_output_tokens": 16000,
+            "store": false,
+            "text": {
+              "format": {
+                "type": "json_schema",
+                "name": "surveillance_turn",
+                "strict": true,
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place.\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}, {\"role\": \"assistant\", \"content\": \"Can you find out which village or settlement the 7-year-old boy with sudden weak legs lives in?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa (nearby reference only)\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"child identity\",\"settlement\",\"LGA\",\"state\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Could you check with the person who reported this which child and village or settlement they meant?\"}",
+          "raw_response": {
+            "id": "resp_02ec8fd9c24ea341016ac46439db6087d09e27cb5b4317926c",
+            "object": "response",
+            "created_at": 1791255609,
+            "status": "completed",
+            "access_programs": null,
+            "background": false,
+            "billing": {
+              "payer": "developer"
+            },
+            "completed_at": 1791255617,
+            "error": null,
+            "frequency_penalty": 0.0,
+            "incomplete_details": null,
+            "instructions": "You are an AI intake agent for a community disease-surveillance reporting system in Nigeria.\n\nYour primary task is to convert natural-language community reports into usable surveillance signals for Acute Flaccid Paralysis (AFP), while preserving relevant reports of other vaccine-preventable or priority diseases.\n\nYou are a surveillance intake agent, not a clinician.\n\nGENERAL PRINCIPLES\n\n1. Detect and structure reported symptoms. Do not diagnose disease.\n2. Extract information already provided before asking any follow-up question.\n3. Ask only for information that is still needed.\n4. Ask at most one focused clarification question per turn.\n5. Maintain structured case state across turns.\n6. Later information may update or override earlier information when the sender clearly corrects it.\n7. Preserve all previously established information that has not been corrected.\n8. Support more than one reported child/case in the same conversation. Keep separate people as separate case records; never collapse them into one.\n9. Never invent missing information.\n10. Use the location_resolver supplied with each turn for geography (see LOCATION RESOLVER). Never guess a location the resolver does not establish.\n11. Preserve uncertainty. Do not turn suspected conditions into confirmed diagnoses.\n12. If a message appears to describe another relevant disease or syndrome rather than AFP, preserve the signal and stop. Do not begin a disease-specific follow-up conversation.\n13. If necessary information remains unresolved after repeated clarification attempts, escalate only when the conversation already contains a plausible surveillance-relevant health signal.\n14. Potential duplicate reports should be flagged, not discarded or automatically merged.\n15. Keep the user-facing response short, clear, and appropriate for SMS.\n16. Before ACCEPT, present a concise structured summary of the complete interpreted AFP case state and ask the sender to confirm or correct it.\n17. If the sender corrects any information during confirmation, update the relevant case state, preserve unaffected fields, and present a new confirmation summary before ACCEPT.\n\nINFORMATION TO EXTRACT\n\nFor each AFP-related case, attempt to establish:\n\n- symptom\n- age\n- sex\n- state\n- LGA\n- settlement / village / location\n\nLocation fields may be inferred from other location information when the inference is reliable.\n\nLOCATION RESOLVER\n\nEach turn includes a location_resolver object produced by a deterministic resolver that reads only the sender's messages. Treat it as authoritative for geography.\n\n- status RESOLVED: candidates contains exactly one place. Fill state, lga and settlement from it when the sender's report refers to that place. Do not ask the sender for geography the resolver already establishes. Check mentions[].unresolved_fields: if settlement is listed, a more specific place may still be needed.\n- status AMBIGUOUS: the name matches more than one place. `candidates` lists those the fixture names and may be empty when the fixture only declares the ambiguity. Do not choose or guess a place. Leave the fields listed in requires as null and ask one focused question for them. Use the confirmed parts (resolved) if any.\n- status UNRESOLVED: no usable location is established. Leave state, lga and settlement null unless the sender stated them, and ask for the location when it is still needed. A place mentioned only as nearby is not a location.\n\nIf the resolver and your reading of the sender's words disagree, follow the resolver. Never invent geography.\n\nMULTIPLE CASES\n\nA single conversation may contain more than one child/case.\n\nMaintain each person as a separate case record.\n\nNew information may apply to:\n- one specific case;\n- multiple cases; or\n- all cases in the current conversation.\n\nApply the update only to the case(s) it refers to.\n\nDo not require the sender to start a new conversation simply because more than one child is being reported.\n\nACCEPTANCE AND CONFIRMATION RULE\n\nOnce enough information exists for surveillance staff to reasonably identify and follow up the reported case(s), do NOT immediately ACCEPT.\n\nFirst use CONFIRM.\n\nDuring CONFIRM:\n- present a concise structured summary of all case information you intend to submit;\n- distinguish multiple cases clearly, for example with numbered case summaries;\n- preserve uncertainty such as approximate age;\n- ask the sender whether the summary is correct or whether anything should be corrected.\n\nUse ACCEPT only after the sender explicitly confirms the structured summary.\n\nIf the sender corrects information instead of confirming:\n- apply the correction as an override to the relevant field(s);\n- preserve unaffected information;\n- use CONFIRM again with the updated summary.\n\nDECISION DEFINITIONS\n\nclassification must be exactly one of:\n\n- AFP_SUSPECTED\n- OTHER_VPD\n- HEALTH_RELATED_UNCLEAR\n- NOT_RELEVANT\n- UNINTELLIGIBLE\n\naction must be exactly one of:\n\n- ACCEPT\n- CLARIFY\n- CONFIRM\n- ESCALATE\n- OTHER_VPD\n- NOT_RELEVANT\n\npriority must be exactly one of:\n\n- NORMAL\n- HIGH\n\nUse CLARIFY when the report is potentially relevant and one important piece of information can reasonably be obtained through another question.\n\nUse CONFIRM when enough information exists to create a usable AFP surveillance alert but the sender has not yet confirmed the agent's structured interpretation.\n\nUse ACCEPT only after the sender explicitly confirms the final structured interpretation.\n\nUse ESCALATE when the AI should stop the conversation and hand off to a human because a plausible surveillance signal has already been established and important information needed for follow-up cannot be safely resolved.\n\nUse OTHER_VPD when a non-AFP but surveillance-relevant disease or syndrome is recognized. Preserve the information and stop rather than starting another disease-specific conversation.\n\nUse NOT_RELEVANT when the message is clearly outside the surveillance use case, or when repeated clarification never establishes a plausible surveillance-relevant health signal.\n\nPRIORITY\n\nPriority is independent from action.\n\nUse NORMAL unless an explicitly defined high-priority rule is supplied.\n\nDo not infer or invent high-priority rules.\n\nCLARIFICATION AND ESCALATION POLICY\n\nA clarification attempt is unsuccessful when the sender's reply does not resolve the information requested.\n\nThe agent may make up to 3 unsuccessful clarification attempts.\n\nAfter 3 unsuccessful clarification attempts:\n\n- ESCALATE only if the conversation already contains enough meaningful information to indicate a plausible surveillance-relevant health signal, but an important detail needed for follow-up remains unresolved.\n\n- Do NOT escalate solely because the sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using the appropriate non-escalation classification/action.\n\nConfirmation turns do not count as clarification attempts.\n\nOTHER VPD\n\nIf the message appears to describe another surveillance-relevant disease or syndrome:\n\n- classification = OTHER_VPD\n- other_vpd = true\n- action = OTHER_VPD\n\nPreserve the signal and stop.\n\nDo not begin a disease-specific follow-up conversation.\n\nFor non-other-VPD messages:\n\n- other_vpd = false\n\nDUPLICATES\n\nA report may be valid and also potentially duplicate another report.\n\nIf a report resembles a prior report, flag it as a potential duplicate but continue to preserve the new surveillance signal.\n\nNever automatically delete, suppress, or merge a report because it appears duplicative.\n\nDuplicate status is internal metadata and does not need to be surfaced to the community informant.\n\nOUTPUT\n\nReturn only the required structured JSON output.\n\nDo not include commentary outside the JSON.\n\nOUTPUT CONTRACT\n\n## Required JSON output shape\n\nUse a `cases` array for all case state. A single-case report contains one item; a multi-case conversation can contain multiple items.\n\n```json\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n\n  \"missing_information\": [],\n\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n\n  \"response\": \"I have: 7-year-old boy in Majawa, Kafin Hausa, Jigawa, with sudden weakness in both legs. Is this correct?\"\n}\n```\n\n### Multi-case example\n\n```json\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Gwadabawa\",\n      \"symptom\": \"both legs became weak suddenly today\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"age\": 8,\n      \"sex\": \"female\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Gwadabawa\",\n      \"symptom\": \"legs became weak suddenly today\"\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\"required\": false, \"reason\": null},\n  \"clarification\": {\"target\": null, \"attempt_number\": 1},\n  \"confirmation\": {\"status\": \"PENDING\"},\n  \"response\": \"I have: 1) boy, age 5, Gwadabawa, both legs became weak suddenly today; 2) girl, age 8, Gwadabawa, legs became weak suddenly today. Is this correct?\"\n}\n```\n\n---\n\n## Allowed enum values\n\n### classification\n\n```text\nAFP_SUSPECTED\nOTHER_VPD\nHEALTH_RELATED_UNCLEAR\nNOT_RELEVANT\nUNINTELLIGIBLE\n```\n\n### action\n\n```text\nACCEPT\nCLARIFY\nCONFIRM\nESCALATE\nOTHER_VPD\nNOT_RELEVANT\n```\n\n### priority\n\n```text\nNORMAL\nHIGH\n```\n\n### sex\n\n```text\nmale\nfemale\nunknown\n```\n\n### location confidence\n\n```text\nhigh\nmedium\nlow\n```\n\n### clarification target\n\n```text\nsymptom\nage\nsex\nlocation\nstate\nlga\nsettlement\nother\nnull\n```\n\n### escalation reason\n\n```text\nFAILED_CLARIFICATION_WITH_VALID_SIGNAL\nAMBIGUOUS_LOCATION\nCONFLICTING_INFORMATION\nUNABLE_TO_CLASSIFY\nOTHER\nnull\n```\n\n### confirmation status\n\n```text\nNOT_READY\nPENDING\nCONFIRMED\n```\n\n---\n\n## State-update semantics\n\nTreat later sender information as an update to current case state.\n\nRules:\n\n1. If a later statement explicitly corrects an earlier value, the later value overrides it.\n2. Do not retain both superseded and corrected values as if both were current truth.\n3. Preserve all unrelated fields unless they are also corrected.\n4. In multi-case conversations, apply updates only to the case(s) referenced by the sender.\n5. If a correction is received during confirmation, return `action = CONFIRM` again with the updated summary.\n6. Use `action = ACCEPT` only after explicit confirmation of the latest summary.\n\n---\n\n## Null handling\n\nUse JSON `null` for missing values.\n\nDo not use empty strings or `\"N/A\"`.\n\n`sex = \"unknown\"` is allowed as an explicit enum value when sex cannot be established.\n",
+            "max_output_tokens": 16000,
+            "max_tool_calls": null,
+            "model": "gpt-6-luna",
+            "moderation": null,
+            "output": [
+              {
+                "id": "rs_02ec8fd9c24ea341016ac4643a66c087d0aca949d165eed0cf",
+                "type": "reasoning",
+                "content": [],
+                "encrypted_content": "gAAAAABqxGRBmI1ZxHcB-t3f3qz4oqqT2pPJMCE7HB6cur75wGkNEXslcG8qKNpdT1HDDkySn5RlEG1jD9glHPmO4Pu3_qo4cX9yzcr_5rPjlPMFFEynTB13arGo_Cana0_BAoKjPD1z75TiHPsUJZYD5jAHyQWRRzpsGcRhT_aZySx28mFaDm2fmJJUw7fFcM_hZAk-OuOpZpu9JDYL_M0p3USjaJaUA9dqLR5PngaAJE1NKJ-f0UZstzorm3Mo_FECzUtsiqdKS_85x1JxikRPo9fxg_489JeabWEk0jXBE6dizxlgGQHNip9MvWVRJB-OlUEjFr4dkZovFnD8q04AU6keBP87s020-tPN2QzrS1YrMXDlVBvim2miwxMnnolF-x1r21S3ZNELNIzsxdaB6oaTj99ZzANVFhpKHtogxsKhnpFSKHq77GLeVbUln5hjVxbU04E0ptRTbQX4zAEUndc8qKRHqOta_oszkxOc7_I2jjq3FrCxQlUozP7E9FubrTtnWy3ncvEdzeIE8_yHEw1TUn9ucMiZJqrUPIBcesLaAYmqRE2u2JIwzZwlwqszI9SlIgfH4kcI43EVXFzou2PiurecQibBWAc8BWos-SWA4OXhHBtbhoV1WoBH7KwZcOzUKW_LAb_7LsBVHFeQuTWpnyS2wEx7l03JjfJKftffFX4pHtudAMHnBFlbH5dCt3kWIOcPho1zVvLVprUzBZIWRZsmbtJ5F98YCy04E2r7TQv5ZHBsj93qoM3DBUGB90fflrKMQNkav6L5nWi3_yjhTg28lLosKsEiRdXi3uzKzienRU5KJOt14U8P-cP0uJFbmYpX0dWFwHi1NXUC1wlgynIS5mb1sbZIk_pcBs2xipz6c1E2woPqtSOm-XPkK4Y2j3aCR1EHLwCq_pxTfKrZg17G2IcaGV-ZYsv96cP8Zh40HoW0fFbTZLee4_g4Czqo3ca1QlL9MHfD7iHlFuYdvYyiYlWN075xWFO4W4fJ4Q3DjXix3XAaIdZ0s-jQKQ4jDdKbrCFxQvMjNQyPgw9PSu5Ki5Pf3z_XT39gRPRO03Z0euqWRKYaMUVE8XwoevwDCwHwjhtMsjXis2tVa56fGiy1MaNkTHVZTqJRY4GBsFvHr-KzCWqW0m_9PrEVLJ2ll7WADWksa-wIobxxnNPGuPvOHJ0Mdd5Ev9yVQu3SYXmXMmkARc5U2Ucobf-WRwg1Gu7Nzmegj-UIDT2i03YjS2hIURKrZyKWiPGR8tTgGZC7yXQW3uvC6_gu-422ewnF9SSULkrwQfganAn61GPn79YamkyxErg2_dRt4LZl41MsDdeGjjE5oYBM2wPoK1clO90YgxUd0ljepNaxeFunmwwtB0plD8s-sILgZ5M1dmVHB8FeAzcRxyFY_L5U6IhZ1lfuFWtJqTTK93X9VtbSloUewDtxRauZDgGz-UxZAhCunnga_sYM6LlTq7kxf4IDvC3ry8jXLa4XDed7jLI7c4noaUz82cSW_7qIDY5McmpFAqyz0ZMRomXNCXvLV60oHonRFOrNHsAD2uPiO1-55hox8GeHELDNOv8ipOd6aZcEEj5596mWd4yK4m4cTcRPlTYj3owP10EDfgv-_EYakdlQpCegQen19r0Dz5FLDIfXj6kdOqLqsfyB7VZbrUWVrH13RvJoMGKnZuuGMQToV3VMvsBbdsFqHVVvt9t-kZbsXFysBmgjdRfwEakUN_UvBSKgMsEYDJJ2RystadsA3bxfKFZADi9IXYuyvJ9j1JL08F4BYgR_3GduuWnytqYC_yyk313xxhaMivSj6LBdeAylVUoBAAC-9FDs_-IWvlYbXv3DE9OMCeo1kYqauSrbv2Q3Aid5cYsE27Dzb-f52SLo0WQdX73UZifF5ft3hEKFm2gs12QvSh2cASdkYZUavbpXM_5gArGmpit96to5fJtpl7uIyVgSx7Ddg1X-uKkx85D5oQU9nnRIcHAiLqDy_j_Haiy7BnbkAToJvxM-XxzSJKJMGq_VKYs-FYlT7u0Z1e0J3IbD_GUDQnNr7hj2y2qgR4MwXkIsfD7jykMRaacgAiHes8fUPUcrgD8P-8yW1pcK_kwDliUNs4M9QIPkDC2scBPFfRtryeu7GMVvS9QQ3ZEorT76uKYgHRQgUBcjpTcwFlvmc8OLCu8kkoCSm5YHm6BLGqYTz9jawqwm75t6KWBCIERIHtpsuoXci7zTVBaAZKomxOvWoMN__Ild6AEgnjK_iY6SO7ISBiDVI8PgUU_3TiPRrAij59_1eI715d-KaqV2V6JxLeI4NwJyFp5Nw3JQ0Ni-LzLfqMMpvINbCtGmOyLWtDu2iOe-AQzHQZsYx9dWeX4TTJNMHDBDAX0tbIVbnPsOO9MNq1CBrkSpnyIJ56c5px-2yen9mK-6N8afYCFIUeZ4C_3EzzuRO0wV_6cFHLYV5lg9NuzuERrXopiMyPL7alHqylAY6vBXQi-M9cg1IL11j3Me1RNXgftVgQOw4BbtE5C9zxilID8zcWPa-QBkCgNQ8bm9F_qUN29imCnBWwoUXukGVjg4PGCZSmCAec6nq1Xc4acINssVAikGfJ1Z-ETDzAIbCVRHO0aS1vaGtVrx_OMAVquWdw-bioYBivYJUAZM4tq-ZvCv0rWl-plczUVLoGC9E96r1RK3cD9fgeb8FUsm9MvXyL7IKw2-YXn4Xh31itZvHXVJPP21j7s5L8ipyHLxkcscYs3_yvdxnC5GbkLPZ6otvp9BiecR50SwFJ5FA5nfwZn6uDgwGS8FyD5-8eDG_pSJcLMG3bVYIq_3UNJ1tXdN5tFXqoW_HzDBugr-PAdRSfzGURkd-ami4nt2UGD4u4z26LcKwGgdDRlqiDDcm8Z4T8rrn5-TostUCldfmr5lfSU2lgnQuS8JEydbhujUPnvE_kyzqCpDZN18Z9cpvEbBtW2XuGsYSgUpCTDuwUCdWz2ZIfRaj_WBxOndoUcXfegjtPp-7DKJ-DTpRl2xOWvE8JzMCtm-Z1CB60Cl-AoQH0Q7Ov-WDoK2Ag8UPdlUHNTv_OpVNV4mlrhitud1vyHTC2t5rPXaGd4NKYtkMWkNNkHtFdx8XBFf95c41WjYM_uxB4CW14KW3QhXpXZ09_PWKNOQwKknVk66--q_yAKkx7ODV2E-DtbDzwB-YbDsC94E1Gzm-aSeXWtQ3rcJGX-Z72I024OaFdNGZpT0EBm2FRjErod0ZdRxsVQUgtzaSYJRAMkYCzyt47IboimIv-Jf-7hX4rY7gY6fE2OdYNbvBQZ7hHZjugJhPmplB6n2LnPE3FkHRdQNKhdKbN0RXT5yJK8xqsOiLgdrsmyxKiwQPhOw5UrnoPrHsSnCm0RekbUB9egwLT_Tbiz4jTMtXrmPWNwb9QqzB5k5kZXx_KaGG7nscBUTz0swZy0uuFGr_5DIJfAiEau8VJ1-qt2Z8_Rz4s-4CMirNXWaRsPEoP82Aq5LB-TgNU6UFgWjOCF0uTklHuTqajkTx66Q6MdOwUG60AKdtfp6fXJrnKHcn0RcyhRjkRtaPAvCcWOjBIGsaU0fnfxt7dhy25uRGNACB-iB8ZUa-Aas1guIEivM9woPsRQIhkpzWJw_0Xn-9Y5LvnmC5K93ybQwlOib-3xvRa4Ng5jpG31wYYR31PyILUHRMCC-892vQsn027nCScJOgrsaQjsJNr8fRLQTxK0FBNRXiAqAZ2ysBMy3VP1C4R8jQa4fHvETepkYhh1I3tyCXrvTMVI2lppBt4J3L5m4qWLuG486ajzJRu_LWWE5pEibpGZeXFcj3nFi14cEdGZrXYjIv5vcXt5ADkN53WjaOJV4HPJZbXtiJAB_JlSOTd7xbejscUm2qwLRkPEEGPrhXqcnREq3lHsSfksrwP7jknczwf5cccrWO83SxNPglfXsAsX2Us17ido9zECYHkOm5rNbwVd8MxZnoOBEpJ1CEaybFJYyAYC2O6hMQNXijLTAVYuH121kbxC-GSVG4vRpmqhZ7t1qkcPJnkqXPjjg2XzmqQ8DmXBtybnSrMANZO2sNq6BKihG-SSHjSTpFUXTE9yPO57P8VwV2DyUnmUg8RX3Oq4rUTtECWMPAK32eZncpuDS-zsjAJw0EFNrmTWN0kWNLltJQEdFwap1l3FaoA2GtltmLSs5XZEu0uqMWJRueGJBYuPTGXaMQaHyshwQ01HVkdDpXgcmtnxzDARvzdprioOHhoEb-T3rHenx8sO_F6EO7_LU9X9GGUbRKEoctSnmsoQuFD9mxN6euyS-c2EjUpJ9O8wL0YYhiYc-icBIVRpRMHLTtOxvXW-3fxNXSNVAz0Nrs7BfVNsnrBN76C-aByrPyOJa1HstF9EbqCm1l0L9bGtxI9wcFLKCN24fy8JXTbkPni7nSuqajZeGEUuawjW9lMF5t9ZnYibBNBr3WTfPgWokttc1wlScTX6EED18si4JConm9u3ra_AUeKn5-6nzhs3gmL4TK4fZWocEm0zWLjMisFjwOoJ-t7dJ3g4e812qrGxMoSUzC2m9n0Z05Xr3EsLd_FGaBYLlwqN03E6qHYZydTDXX_7cbo_IJhsuI1zqRbSs66ir7CHgWXWSZTeKst12z3LrjDhi51Ifk6O_YlcgIyxPwmOoWQfOdS1oix-GUGLAMqogVC9RN95m5mN_1UUjZoId9xttCBzmc8DF64rNBTSACwT3zLbXQeJjLO85P1hZz7_nPKkZiQ46qtcvQDYNum9R87gBfMnUukCmt_Q_U39T0VVDsxwe8wXFJVNxg3SuNSoivO39anPqxraui_yXnE5aElfXXTygT8M7ZuwHRlo5df5ZQGm2MeJVTUv2KNfgf50HE8Q11OOkMgzqApHU8Cfg22sdavtNh1KDWE1Bca6jM6MBpBOQ7pZ88a0Hif6OXvElnvt7Ms4XOW7wCvJBuIq-tD2cRBXq7AuKWDBtnYozEpeYlPEpQMtdHqq4AifSCjJPjyc7jzB1Db179BMtOgblr8ttzBwYaSK3pd7zVyVPYT3_2zEdKeB11-U=",
+                "summary": []
+              },
+              {
+                "id": "msg_02ec8fd9c24ea341016ac4644029fc87d0a1096ea417aecde1",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa (nearby reference only)\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"child identity\",\"settlement\",\"LGA\",\"state\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Could you check with the person who reported this which child and village or settlement they meant?\"}"
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0.0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "medium",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": false,
+            "temperature": 1.0,
+            "text": {
+              "format": {
+                "type": "json_schema",
+                "description": null,
+                "name": "surveillance_turn",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "classification": {
+                      "type": "string",
+                      "enum": [
+                        "AFP_SUSPECTED",
+                        "OTHER_VPD",
+                        "HEALTH_RELATED_UNCLEAR",
+                        "NOT_RELEVANT",
+                        "UNINTELLIGIBLE"
+                      ]
+                    },
+                    "other_vpd": {
+                      "type": "boolean"
+                    },
+                    "action": {
+                      "type": "string",
+                      "enum": [
+                        "ACCEPT",
+                        "CLARIFY",
+                        "CONFIRM",
+                        "ESCALATE",
+                        "OTHER_VPD",
+                        "NOT_RELEVANT"
+                      ]
+                    },
+                    "priority": {
+                      "type": "string",
+                      "enum": [
+                        "NORMAL",
+                        "HIGH"
+                      ]
+                    },
+                    "cases": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "case_id": {
+                            "type": "string"
+                          },
+                          "symptom": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "age": {
+                            "anyOf": [
+                              {
+                                "type": "integer"
+                              },
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "sex": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "male",
+                                  "female",
+                                  "unknown"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "state": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "lga": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "settlement": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "case_id",
+                          "symptom",
+                          "age",
+                          "sex",
+                          "state",
+                          "lga",
+                          "settlement"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "location_resolution": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "case_id": {
+                            "type": "string"
+                          },
+                          "raw_location": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "inferred_fields": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "confidence": {
+                            "type": "string",
+                            "enum": [
+                              "high",
+                              "medium",
+                              "low"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "case_id",
+                          "raw_location",
+                          "inferred_fields",
+                          "confidence"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "missing_information": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "potential_duplicate": {
+                      "type": "boolean"
+                    },
+                    "duplicate_candidate_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "escalation": {
+                      "type": "object",
+                      "properties": {
+                        "required": {
+                          "type": "boolean"
+                        },
+                        "reason": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "FAILED_CLARIFICATION_WITH_VALID_SIGNAL",
+                                "AMBIGUOUS_LOCATION",
+                                "CONFLICTING_INFORMATION",
+                                "UNABLE_TO_CLASSIFY",
+                                "OTHER"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "required",
+                        "reason"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "clarification": {
+                      "type": "object",
+                      "properties": {
+                        "target": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "symptom",
+                                "age",
+                                "sex",
+                                "location",
+                                "state",
+                                "lga",
+                                "settlement",
+                                "other"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "attempt_number": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "target",
+                        "attempt_number"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "confirmation": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "NOT_READY",
+                            "PENDING",
+                            "CONFIRMED"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "response": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "classification",
+                    "other_vpd",
+                    "action",
+                    "priority",
+                    "cases",
+                    "location_resolution",
+                    "missing_information",
+                    "potential_duplicate",
+                    "duplicate_candidate_ids",
+                    "escalation",
+                    "clarification",
+                    "confirmation",
+                    "response"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": true
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 3316,
+              "input_tokens_details": {
+                "cache_write_tokens": 331,
+                "cached_tokens": 2982
+              },
+              "output_tokens": 705,
+              "output_tokens_details": {
+                "reasoning_tokens": 516
+              },
+              "total_tokens": 4021
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage": {
+            "input_tokens": 334,
+            "output_tokens": 705,
+            "cache_read_input_tokens": 2982,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 516
+          },
+          "latency_ms": 8119.0,
+          "cost_usd": 0.0006841,
+          "stop_reason": "end_turn",
+          "request_id": "resp_02ec8fd9c24ea341016ac46439db6087d09e27cb5b4317926c",
+          "model": "gpt-6-luna",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa (nearby reference only)",
+            "inferred_fields": [],
+            "confidence": "low"
+          }
+        ],
+        "missing_information": [
+          "child identity",
+          "settlement",
+          "LGA",
+          "state"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Could you check with the person who reported this which child and village or settlement they meant?"
+      },
+      "reply": {
+        "kind": "NEUTRAL",
+        "text": "I don't know.",
+        "reason": null,
+        "detail": null,
+        "events": [
+          "OFF_TARGET_CLARIFY"
+        ],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 3
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "I don't know.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place."
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          },
+          {
+            "role": "assistant",
+            "content": "Can you find out which village or settlement the 7-year-old boy with sudden weak legs lives in?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          },
+          {
+            "role": "assistant",
+            "content": "Could you check with the person who reported this which child and village or settlement they meant?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 3,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gpt-6-luna",
+            "max_output_tokens": 16000,
+            "store": false,
+            "text": {
+              "format": {
+                "type": "json_schema",
+                "name": "surveillance_turn",
+                "strict": true,
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place.\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}, {\"role\": \"assistant\", \"content\": \"Can you find out which village or settlement the 7-year-old boy with sudden weak legs lives in?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}, {\"role\": \"assistant\", \"content\": \"Could you check with the person who reported this which child and village or settlement they meant?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 3, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ESCALATE\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa (mentioned as nearby only)\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"Which child was reported\",\"Settlement or village\",\"LGA\",\"State\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":true,\"reason\":\"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"},\"clarification\":{\"target\":\"location\",\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"This report needs follow-up because the child’s identity and village are unclear. I’m passing it to a surveillance worker.\"}",
+          "raw_response": {
+            "id": "resp_0a4da3760ff22b82016ac46441f6c487d0b4718d27a89dfdfb",
+            "object": "response",
+            "created_at": 1791255617,
+            "status": "completed",
+            "access_programs": null,
+            "background": false,
+            "billing": {
+              "payer": "developer"
+            },
+            "completed_at": 1791255622,
+            "error": null,
+            "frequency_penalty": 0.0,
+            "incomplete_details": null,
+            "instructions": "You are an AI intake agent for a community disease-surveillance reporting system in Nigeria.\n\nYour primary task is to convert natural-language community reports into usable surveillance signals for Acute Flaccid Paralysis (AFP), while preserving relevant reports of other vaccine-preventable or priority diseases.\n\nYou are a surveillance intake agent, not a clinician.\n\nGENERAL PRINCIPLES\n\n1. Detect and structure reported symptoms. Do not diagnose disease.\n2. Extract information already provided before asking any follow-up question.\n3. Ask only for information that is still needed.\n4. Ask at most one focused clarification question per turn.\n5. Maintain structured case state across turns.\n6. Later information may update or override earlier information when the sender clearly corrects it.\n7. Preserve all previously established information that has not been corrected.\n8. Support more than one reported child/case in the same conversation. Keep separate people as separate case records; never collapse them into one.\n9. Never invent missing information.\n10. Use the location_resolver supplied with each turn for geography (see LOCATION RESOLVER). Never guess a location the resolver does not establish.\n11. Preserve uncertainty. Do not turn suspected conditions into confirmed diagnoses.\n12. If a message appears to describe another relevant disease or syndrome rather than AFP, preserve the signal and stop. Do not begin a disease-specific follow-up conversation.\n13. If necessary information remains unresolved after repeated clarification attempts, escalate only when the conversation already contains a plausible surveillance-relevant health signal.\n14. Potential duplicate reports should be flagged, not discarded or automatically merged.\n15. Keep the user-facing response short, clear, and appropriate for SMS.\n16. Before ACCEPT, present a concise structured summary of the complete interpreted AFP case state and ask the sender to confirm or correct it.\n17. If the sender corrects any information during confirmation, update the relevant case state, preserve unaffected fields, and present a new confirmation summary before ACCEPT.\n\nINFORMATION TO EXTRACT\n\nFor each AFP-related case, attempt to establish:\n\n- symptom\n- age\n- sex\n- state\n- LGA\n- settlement / village / location\n\nLocation fields may be inferred from other location information when the inference is reliable.\n\nLOCATION RESOLVER\n\nEach turn includes a location_resolver object produced by a deterministic resolver that reads only the sender's messages. Treat it as authoritative for geography.\n\n- status RESOLVED: candidates contains exactly one place. Fill state, lga and settlement from it when the sender's report refers to that place. Do not ask the sender for geography the resolver already establishes. Check mentions[].unresolved_fields: if settlement is listed, a more specific place may still be needed.\n- status AMBIGUOUS: the name matches more than one place. `candidates` lists those the fixture names and may be empty when the fixture only declares the ambiguity. Do not choose or guess a place. Leave the fields listed in requires as null and ask one focused question for them. Use the confirmed parts (resolved) if any.\n- status UNRESOLVED: no usable location is established. Leave state, lga and settlement null unless the sender stated them, and ask for the location when it is still needed. A place mentioned only as nearby is not a location.\n\nIf the resolver and your reading of the sender's words disagree, follow the resolver. Never invent geography.\n\nMULTIPLE CASES\n\nA single conversation may contain more than one child/case.\n\nMaintain each person as a separate case record.\n\nNew information may apply to:\n- one specific case;\n- multiple cases; or\n- all cases in the current conversation.\n\nApply the update only to the case(s) it refers to.\n\nDo not require the sender to start a new conversation simply because more than one child is being reported.\n\nACCEPTANCE AND CONFIRMATION RULE\n\nOnce enough information exists for surveillance staff to reasonably identify and follow up the reported case(s), do NOT immediately ACCEPT.\n\nFirst use CONFIRM.\n\nDuring CONFIRM:\n- present a concise structured summary of all case information you intend to submit;\n- distinguish multiple cases clearly, for example with numbered case summaries;\n- preserve uncertainty such as approximate age;\n- ask the sender whether the summary is correct or whether anything should be corrected.\n\nUse ACCEPT only after the sender explicitly confirms the structured summary.\n\nIf the sender corrects information instead of confirming:\n- apply the correction as an override to the relevant field(s);\n- preserve unaffected information;\n- use CONFIRM again with the updated summary.\n\nDECISION DEFINITIONS\n\nclassification must be exactly one of:\n\n- AFP_SUSPECTED\n- OTHER_VPD\n- HEALTH_RELATED_UNCLEAR\n- NOT_RELEVANT\n- UNINTELLIGIBLE\n\naction must be exactly one of:\n\n- ACCEPT\n- CLARIFY\n- CONFIRM\n- ESCALATE\n- OTHER_VPD\n- NOT_RELEVANT\n\npriority must be exactly one of:\n\n- NORMAL\n- HIGH\n\nUse CLARIFY when the report is potentially relevant and one important piece of information can reasonably be obtained through another question.\n\nUse CONFIRM when enough information exists to create a usable AFP surveillance alert but the sender has not yet confirmed the agent's structured interpretation.\n\nUse ACCEPT only after the sender explicitly confirms the final structured interpretation.\n\nUse ESCALATE when the AI should stop the conversation and hand off to a human because a plausible surveillance signal has already been established and important information needed for follow-up cannot be safely resolved.\n\nUse OTHER_VPD when a non-AFP but surveillance-relevant disease or syndrome is recognized. Preserve the information and stop rather than starting another disease-specific conversation.\n\nUse NOT_RELEVANT when the message is clearly outside the surveillance use case, or when repeated clarification never establishes a plausible surveillance-relevant health signal.\n\nPRIORITY\n\nPriority is independent from action.\n\nUse NORMAL unless an explicitly defined high-priority rule is supplied.\n\nDo not infer or invent high-priority rules.\n\nCLARIFICATION AND ESCALATION POLICY\n\nA clarification attempt is unsuccessful when the sender's reply does not resolve the information requested.\n\nThe agent may make up to 3 unsuccessful clarification attempts.\n\nAfter 3 unsuccessful clarification attempts:\n\n- ESCALATE only if the conversation already contains enough meaningful information to indicate a plausible surveillance-relevant health signal, but an important detail needed for follow-up remains unresolved.\n\n- Do NOT escalate solely because the sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using the appropriate non-escalation classification/action.\n\nConfirmation turns do not count as clarification attempts.\n\nOTHER VPD\n\nIf the message appears to describe another surveillance-relevant disease or syndrome:\n\n- classification = OTHER_VPD\n- other_vpd = true\n- action = OTHER_VPD\n\nPreserve the signal and stop.\n\nDo not begin a disease-specific follow-up conversation.\n\nFor non-other-VPD messages:\n\n- other_vpd = false\n\nDUPLICATES\n\nA report may be valid and also potentially duplicate another report.\n\nIf a report resembles a prior report, flag it as a potential duplicate but continue to preserve the new surveillance signal.\n\nNever automatically delete, suppress, or merge a report because it appears duplicative.\n\nDuplicate status is internal metadata and does not need to be surfaced to the community informant.\n\nOUTPUT\n\nReturn only the required structured JSON output.\n\nDo not include commentary outside the JSON.\n\nOUTPUT CONTRACT\n\n## Required JSON output shape\n\nUse a `cases` array for all case state. A single-case report contains one item; a multi-case conversation can contain multiple items.\n\n```json\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in both legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n\n  \"missing_information\": [],\n\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n\n  \"response\": \"I have: 7-year-old boy in Majawa, Kafin Hausa, Jigawa, with sudden weakness in both legs. Is this correct?\"\n}\n```\n\n### Multi-case example\n\n```json\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Gwadabawa\",\n      \"symptom\": \"both legs became weak suddenly today\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"age\": 8,\n      \"sex\": \"female\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Gwadabawa\",\n      \"symptom\": \"legs became weak suddenly today\"\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\"required\": false, \"reason\": null},\n  \"clarification\": {\"target\": null, \"attempt_number\": 1},\n  \"confirmation\": {\"status\": \"PENDING\"},\n  \"response\": \"I have: 1) boy, age 5, Gwadabawa, both legs became weak suddenly today; 2) girl, age 8, Gwadabawa, legs became weak suddenly today. Is this correct?\"\n}\n```\n\n---\n\n## Allowed enum values\n\n### classification\n\n```text\nAFP_SUSPECTED\nOTHER_VPD\nHEALTH_RELATED_UNCLEAR\nNOT_RELEVANT\nUNINTELLIGIBLE\n```\n\n### action\n\n```text\nACCEPT\nCLARIFY\nCONFIRM\nESCALATE\nOTHER_VPD\nNOT_RELEVANT\n```\n\n### priority\n\n```text\nNORMAL\nHIGH\n```\n\n### sex\n\n```text\nmale\nfemale\nunknown\n```\n\n### location confidence\n\n```text\nhigh\nmedium\nlow\n```\n\n### clarification target\n\n```text\nsymptom\nage\nsex\nlocation\nstate\nlga\nsettlement\nother\nnull\n```\n\n### escalation reason\n\n```text\nFAILED_CLARIFICATION_WITH_VALID_SIGNAL\nAMBIGUOUS_LOCATION\nCONFLICTING_INFORMATION\nUNABLE_TO_CLASSIFY\nOTHER\nnull\n```\n\n### confirmation status\n\n```text\nNOT_READY\nPENDING\nCONFIRMED\n```\n\n---\n\n## State-update semantics\n\nTreat later sender information as an update to current case state.\n\nRules:\n\n1. If a later statement explicitly corrects an earlier value, the later value overrides it.\n2. Do not retain both superseded and corrected values as if both were current truth.\n3. Preserve all unrelated fields unless they are also corrected.\n4. In multi-case conversations, apply updates only to the case(s) referenced by the sender.\n5. If a correction is received during confirmation, return `action = CONFIRM` again with the updated summary.\n6. Use `action = ACCEPT` only after explicit confirmation of the latest summary.\n\n---\n\n## Null handling\n\nUse JSON `null` for missing values.\n\nDo not use empty strings or `\"N/A\"`.\n\n`sex = \"unknown\"` is allowed as an explicit enum value when sex cannot be established.\n",
+            "max_output_tokens": 16000,
+            "max_tool_calls": null,
+            "model": "gpt-6-luna",
+            "moderation": null,
+            "output": [
+              {
+                "id": "rs_0a4da3760ff22b82016ac464427b7887d0a1339b72820122e2",
+                "type": "reasoning",
+                "content": [],
+                "encrypted_content": "gAAAAABqxGRGdseE7A90iaqfZGw3DEkbB_4EVifQGDQsLhvJ0Whp_aAZ-5EQzePgA9XmpW0-PItE-fv1EE7ARIeXdvYucCPDwh104sp6rLX2Vr9m0r_42NJ6Ft-8KrqMbkUu7E37oIlXM7WqMqZbmAApwue_j05_j7n1tJU1nJRTPkaxBT2s4nSNLbjE-V8bg1QdQS5KSo_YXvB6uw3R6xFmcj419w2HWPv2eyXQRghsEVQipt1PdzaF2bB_MvgKkPNXBEQuT7hMLUiFCtDyvC-sKBJLXK2urXyCeV3aFAdq8GNV2Ff4lS2GyGZCWvoSgW8c6fjRx1DBgrMgelr3jXvCfRgrT4Aus9g_p_yOS7SOjR83nfeosh9nE3oFoSNw5sImEF_-n4cOM_nYNRloFE3BqJoMkXqrBORuUvnjQPNAAqalwoySz8Ts6-aS9QwCK3wmMSWN-Cp70sWJGq4j_QVelgnJJmQXRriFlzVPo5GI4t1DJodLLGzycG6dVLL87ro7yf_wz-oF8RQmK9cNgpxbz_lOssZLAObaZLEvIu5zstMOESPTCpbBoW8IkDKsOBB9ZDQ2qpHgpLw68LqnDkOGx8YshSmvMnlmhHJxrPo_4Zl8N7sbhyth7SrekGZlYRRqSyQvNDeDHF3n3jhGBXzvWLsC7FmXxqTpRti16Xu0DGZEMOHB7ax6LinfXPiDEClLfUdn_spfczXuA8vnpcpIAaQ3cZjukzAEs5sAkP47Yg8CsDMQTovWNxhlhYouLhtXi18uoWO_ghvlABbGSN_sLHqAwfKmpWHJSuNDCw53siKewgyIrv-rkjeAw4ThnBTqmsTYF1E0qu1D5KhOp_P6-q1P3qhF_lVYv6qSOimNfaM-wa1YzYj4PtKuvylvrxW6DLVEpTC55F7mddulwka7PyE42bzfQKq-lMGnFhq5FysxlYh814_9fwp999D5lHnfeb_xt-jf3SCAl1-Ur6ke4FJuwcxT5GyJRsDcOQgAW6fuDntAuskucGw0_FT4LajIqcsuRXHbDs3wnSje1vX2W-TnwFOzV_euUVg4sFhV9svP_uqNtDowycNXIPhkxg81iBv8KwRYf-9N70Pu9IfuJZ5WcaVnIBkx_8KRgrj7oc-RO7K9xReEDrRh9l2fCKHaDJuGC_eAa7GnREf73XT5YWr0rYYcr9OZ4Txqb4C_qPEdYlTOEOiQqPyP9qoguVARWqp6iwCokeoFQsfi62oaTrOKkVXBuf9sC0NXphdNtl8a7jAPdb5bc4jGgmMCTKsccSDgf03Lvv15NIrIyjaoUAHGRG_p7-45-tPYgII0Y8hVig1tvvfLibCqNpQgJzzNsVvvyxrg63U8kLeUJYK-AePjHEWagFlKcZwmk-I2KITKddTxu9lSnNxTnsI0paECiYEB2IIXr-KvI85lQuPJv15XwdLO8A0-_riwy4ftom933ZvfNh51B_9f3Ybj2sLiOAcImcMxopDVy4Vkx4aoBDfEjhBvAoaxC5NUcEG747TJB6ZNrFSBPG1PcXQrPF687nt4dCkBf2czThYr4QXTLqLifEHKcDpPBYZI78gNjfTZcB5P6z86F2NOW9P9dsrKROKY1CkJGUX5YJnY8uACG6L6xF9d5yItTUqGVtr9flZW70jArtGPPkOt4Lslm2mF2T9yr5poAuEK-zEOS7_hckqsjJKR-T5c5YnEduCtPjdRkLe7h4FHqcCVupXieYvRccGTw_vaB5Or3KJSZkyibycQaQRHkWfZwxxRVvJw3nDcS3xYLe9HIs334yDtCTYD8FEvsly8TaOg0tS22EWtfWwc7CnQQCZuLZQcEbb3pMg5GdTxB3fPMNX01f3r21T-IDmb91cjdiueq2ble8Ofdo1n8kTfIXYwbCT41Z9Yzd3pgYbp9HMk37B_O0oSp23rumHuE6tYNgT-AZKNyWJeg6APZa8z2UkRJLtoiafoH4ATffbR_njDk2piy0ZomIwSKi-zL4bzdJYzV6wjJVEHCfj5itrAOSLotptcOwvSmLAwTdxsSAWVseQzUEAAoZYaBW-bfFOBNL3K2ty08ZuuG64Fjndrkm8VTCsWfxuTeVmfMgW-f9SjF3Af0PBKLFSKZzn6dKsNOazQwkV5bl6aJapNEr4Fa4S1CksIZJznOJjYmLRpvaTaX9clA5Pk_klmL_i3RWvweclEpIee1YgDMCft2Jh0R0Yi1uwv-xVy5NIUMQUUjX38VVe2Da-jxXzjyV8WTP8J3EAfu60ztYh7Pigf6x9HUZ0B0PNQBMY5d220FTxWXVUFYpUF96XG-6005qUfUfQodmRlwkv_-rucZc-7qWZLC17j-xdbszLn4A15Wz6BGXXlLaMEN77NoPI-1kqYxviHaaHJqKJdQlfqHxgPNiPpjvEde9sAT8zL15IPHf5afaSJ138o6EdvkxT5u0EYyOYudlObI0cLKLn2swDNkPJqoQ==",
+                "summary": []
+              },
+              {
+                "id": "msg_0a4da3760ff22b82016ac464447b6087d0911a833abd65aed9",
+                "type": "message",
+                "status": "completed",
+                "content": [
+                  {
+                    "type": "output_text",
+                    "annotations": [],
+                    "logprobs": [],
+                    "text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ESCALATE\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa (mentioned as nearby only)\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"Which child was reported\",\"Settlement or village\",\"LGA\",\"State\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":true,\"reason\":\"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"},\"clarification\":{\"target\":\"location\",\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"This report needs follow-up because the child’s identity and village are unclear. I’m passing it to a surveillance worker.\"}"
+                  }
+                ],
+                "phase": "final_answer",
+                "role": "assistant"
+              }
+            ],
+            "parallel_tool_calls": true,
+            "presence_penalty": 0.0,
+            "previous_response_id": null,
+            "prompt_cache_key": null,
+            "prompt_cache_retention": "24h",
+            "reasoning": {
+              "context": "all_turns",
+              "effort": "medium",
+              "mode": "standard",
+              "summary": null
+            },
+            "safety_identifier": null,
+            "service_tier": "default",
+            "store": false,
+            "temperature": 1.0,
+            "text": {
+              "format": {
+                "type": "json_schema",
+                "description": null,
+                "name": "surveillance_turn",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "classification": {
+                      "type": "string",
+                      "enum": [
+                        "AFP_SUSPECTED",
+                        "OTHER_VPD",
+                        "HEALTH_RELATED_UNCLEAR",
+                        "NOT_RELEVANT",
+                        "UNINTELLIGIBLE"
+                      ]
+                    },
+                    "other_vpd": {
+                      "type": "boolean"
+                    },
+                    "action": {
+                      "type": "string",
+                      "enum": [
+                        "ACCEPT",
+                        "CLARIFY",
+                        "CONFIRM",
+                        "ESCALATE",
+                        "OTHER_VPD",
+                        "NOT_RELEVANT"
+                      ]
+                    },
+                    "priority": {
+                      "type": "string",
+                      "enum": [
+                        "NORMAL",
+                        "HIGH"
+                      ]
+                    },
+                    "cases": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "case_id": {
+                            "type": "string"
+                          },
+                          "symptom": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "age": {
+                            "anyOf": [
+                              {
+                                "type": "integer"
+                              },
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "sex": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "male",
+                                  "female",
+                                  "unknown"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "state": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "lga": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "settlement": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "case_id",
+                          "symptom",
+                          "age",
+                          "sex",
+                          "state",
+                          "lga",
+                          "settlement"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "location_resolution": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "case_id": {
+                            "type": "string"
+                          },
+                          "raw_location": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "inferred_fields": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "confidence": {
+                            "type": "string",
+                            "enum": [
+                              "high",
+                              "medium",
+                              "low"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "case_id",
+                          "raw_location",
+                          "inferred_fields",
+                          "confidence"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "missing_information": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "potential_duplicate": {
+                      "type": "boolean"
+                    },
+                    "duplicate_candidate_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "escalation": {
+                      "type": "object",
+                      "properties": {
+                        "required": {
+                          "type": "boolean"
+                        },
+                        "reason": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "FAILED_CLARIFICATION_WITH_VALID_SIGNAL",
+                                "AMBIGUOUS_LOCATION",
+                                "CONFLICTING_INFORMATION",
+                                "UNABLE_TO_CLASSIFY",
+                                "OTHER"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "required",
+                        "reason"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "clarification": {
+                      "type": "object",
+                      "properties": {
+                        "target": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "symptom",
+                                "age",
+                                "sex",
+                                "location",
+                                "state",
+                                "lga",
+                                "settlement",
+                                "other"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "attempt_number": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "target",
+                        "attempt_number"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "confirmation": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "NOT_READY",
+                            "PENDING",
+                            "CONFIRMED"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "response": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "classification",
+                    "other_vpd",
+                    "action",
+                    "priority",
+                    "cases",
+                    "location_resolution",
+                    "missing_information",
+                    "potential_duplicate",
+                    "duplicate_candidate_ids",
+                    "escalation",
+                    "clarification",
+                    "confirmation",
+                    "response"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": true
+              },
+              "verbosity": "medium"
+            },
+            "tool_choice": "auto",
+            "tool_usage": {
+              "image_gen": {
+                "input_tokens": 0,
+                "input_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "output_tokens": 0,
+                "output_tokens_details": {
+                  "image_tokens": 0,
+                  "text_tokens": 0
+                },
+                "total_tokens": 0
+              },
+              "web_search": {
+                "num_requests": 0
+              }
+            },
+            "tools": [],
+            "top_logprobs": 0,
+            "top_p": 0.98,
+            "truncation": "disabled",
+            "usage": {
+              "input_tokens": 3360,
+              "input_tokens_details": {
+                "cache_write_tokens": 375,
+                "cached_tokens": 2982
+              },
+              "output_tokens": 371,
+              "output_tokens_details": {
+                "reasoning_tokens": 166
+              },
+              "total_tokens": 3731
+            },
+            "user": null,
+            "metadata": {}
+          },
+          "usage": {
+            "input_tokens": 378,
+            "output_tokens": 371,
+            "cache_read_input_tokens": 2982,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 166
+          },
+          "latency_ms": 4402.9,
+          "cost_usd": 0.0005215,
+          "stop_reason": "end_turn",
+          "request_id": "resp_0a4da3760ff22b82016ac46441f6c487d0b4718d27a89dfdfb",
+          "model": "gpt-6-luna",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ESCALATE",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa (mentioned as nearby only)",
+            "inferred_fields": [],
+            "confidence": "low"
+          }
+        ],
+        "missing_information": [
+          "Which child was reported",
+          "Settlement or village",
+          "LGA",
+          "State"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": true,
+          "reason": "FAILED_CLARIFICATION_WITH_VALID_SIGNAL"
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "This report needs follow-up because the child’s identity and village are unclear. I’m passing it to a surveillance worker."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 3,
+      "clarification_attempts_after": 3
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+    },
+    {
+      "role": "assistant",
+      "content": "Which settlement or village is the boy in, and what are its LGA and state? Majawa was mentioned only as a nearby place."
+    },
+    {
+      "role": "user",
+      "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+    },
+    {
+      "role": "assistant",
+      "content": "Can you find out which village or settlement the 7-year-old boy with sudden weak legs lives in?"
+    },
+    {
+      "role": "user",
+      "content": "I don't know."
+    },
+    {
+      "role": "assistant",
+      "content": "Could you check with the person who reported this which child and village or settlement they meant?"
+    },
+    {
+      "role": "user",
+      "content": "I don't know."
+    },
+    {
+      "role": "assistant",
+      "content": "This report needs follow-up because the child’s identity and village are unclear. I’m passing it to a surveillance worker."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden weak legs",
+        "age": 7,
+        "sex": "male",
+        "state": null,
+        "lga": null,
+        "settlement": null
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 21645.4,
+    "input_tokens": 1164,
+    "output_tokens": 1847,
+    "cost_usd": 0.002233,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  }
+}

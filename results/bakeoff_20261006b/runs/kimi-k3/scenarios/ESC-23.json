@@ -1,0 +1,658 @@
+{
+  "scenario_id": "ESC-23",
+  "title": "Repeated unclear messages with no established signal -> stop, do not escalate",
+  "model_key": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "child thing bad there",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [\"symptom\", \"age\", \"sex\", \"location\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5dcb6774009e8ec220",
+            "object": "chat.completion",
+            "created": 1791259167,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [\"symptom\", \"age\", \"sex\", \"location\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?\"\n}",
+                  "reasoning_content": "The message: \"child thing bad there\" — vague, possibly health-related. Classification: HEALTH_RELATED_UNCLEAR, action CLARIFY, target symptom, attempt 1. No cases yet — should I create a case? The message mentions \"child\" but no symptom detail. Probably keep cases empty or create case_1 with minimal info. The schema requires cases array; can be empty. I'll ask one focused question about what's wrong with the child."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3317,
+              "completion_tokens": 286,
+              "total_tokens": 3603,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 92
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3317,
+            "output_tokens": 286,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 92
+          },
+          "latency_ms": 3489.0,
+          "cost_usd": 0.0128169,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5dcb6774009e8ec220",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "location"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "the thing I said",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CLARIFY",
+      "sender_message": "the thing I said",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?"
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [\"symptom\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Please answer yes or no: is the child weak or unable to move the arms or legs?\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5dd94274d2906f749d",
+            "object": "chat.completion",
+            "created": 1791259171,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [\"symptom\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Please answer yes or no: is the child weak or unable to move the arms or legs?\"\n}",
+                  "reasoning_content": "Let me analyze this conversation.\n\nTurn 1: User says \"child thing bad there\" — very vague, possibly a health signal about a child but unclear.\nAssistant asked: \"What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?\"\nTurn 2: User says \"the thing I said\" — doesn't resolve the clarification.\n\nSo clarification attempts: the state says clarification_attempts: 1. The assistant already made one clarification attempt (asking what is wrong). The user's reply \"the thing I said\" did not resolve it — that's 1 unsuccessful attempt.\n\nNow I need to decide the action. Per policy: up to 3 unsuccessful clarification attempts allowed. We've had 1 unsuccessful attempt. So I can try again — attempt number 2.\n\nIs there a plausible surveillance-relevant health signal? \"child thing bad there\" suggests something wrong with a child, but it's extremely vague. Classification: HEALTH_RELATED_UNCLEAR seems appropriate — it mentions a child and something bad, health-related but unclear. Not UNINTELLIGIBLE entirely — there is some meaning (child, something bad). I'd go with HEALTH_RELATED_UNCLEAR.\n\nAction: CLARIFY, target symptom, attempt_number 2.\n\nThe response should be short, SMS-appropriate, and try a different approach since the first question didn't work. Maybe ask very simply: \"Is the child unable to walk or move arms/legs?\" But careful — we shouldn't lead too much? Actually asking a focused question is fine. Since the sender seems to have low literacy or language barrier, a simpler question might help: \"Please tell me: is the child weak or unable to move arms or legs? Or fever? Or rash?\"\n\nBut rule: ask at most one focused clarification question per turn. So one question. Perhaps: \"Is the child unable to move the arms or legs (weakness/paralysis)?\" That's focused on AFP-relevant symptom. Alternatively ask \"What is wrong with the child?\" again but simpler.\n\nGiven the first attempt asked with examples and failed, maybe simplify: \"Please answer yes or no: is the child's arms or legs weak or not moving?\" That's a focused single question.\n\nCases: no case established yet — cases array empty. Should I create a case with null fields? The output contract says cases array for all case state; a report contains items. Since nothing is established, keep cases empty. The example in the fixture shows current_case_state cases: []. I'll keep empty.\n\nmissing_information: symptom, age, sex, location... but since no case, maybe list [\"symptom\"] or keep empty. I'll list what is needed: symptom primarily. Let me put [\"symptom\"] since that's the target. Actually missing_information could include all required fields, but without a case record, I'll keep it minimal: [\"symptom\"].\n\nlocation_resolution: [] since resolver unresolved and no location mentioned.\n\nclarification: target \"symptom\", attempt_number 2 (this is the second attempt).\n\nconfirmation: NOT_READY.\n\nescalation: not required.\n\nclassification: HEALTH_RELATED_UNCLEAR. action: CLARIFY. priority: NORMAL.\n\nResponse: keep simple. \"Please tell me one thing: is the child unable to move the arms or legs, or too weak to stand/walk?\" Hmm that's compound. One focused question: \"Is the child weak or unable to move the arms or legs? Please answer yes or no.\"\n\nThat's one question. Good."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3371,
+              "completion_tokens": 889,
+              "total_tokens": 4260,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 717
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3371,
+            "output_tokens": 889,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 717
+          },
+          "latency_ms": 11854.2,
+          "cost_usd": 0.021103200000000003,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5dd94274d2906f749d",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Please answer yes or no: is the child weak or unable to move the arms or legs?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "you know the child problem",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CLARIFY",
+      "sender_message": "you know the child problem",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?"
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          },
+          {
+            "role": "assistant",
+            "content": "Please answer yes or no: is the child weak or unable to move the arms or legs?"
+          },
+          {
+            "role": "user",
+            "content": "you know the child problem"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}, {\"role\": \"assistant\", \"content\": \"Please answer yes or no: is the child weak or unable to move the arms or legs?\"}, {\"role\": \"user\", \"content\": \"you know the child problem\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"HEALTH_RELATED_UNCLEAR\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"location\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash.\"}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5e07c8726dbd62abb7",
+            "object": "chat.completion",
+            "created": 1791259183,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"HEALTH_RELATED_UNCLEAR\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"location\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash.\"}",
+                  "reasoning_content": "Let me analyze this conversation carefully.\n\nThe conversation so far:\n1. User: \"child thing bad there\" - vague, mentions a child with something bad\n2. Assistant asked: \"What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?\"\n3. User: \"the thing I said\" - doesn't resolve anything\n4. Assistant asked: \"Please answer yes or no: is the child weak or unable to move the arms or legs?\"\n5. User: \"you know the child problem\" - again doesn't resolve anything\n\nCurrent state:\n- clarification_attempts: 2 (two unsuccessful clarification attempts have already happened)\n- cases: [] (empty)\n- location_resolver: UNRESOLVED, no candidates, no mentions\n\nNow the user says \"you know the child problem\" - this is the third response that doesn't provide meaningful information.\n\nAccording to the policy:\n- A clarification attempt is unsuccessful when the sender's reply does not resolve the information requested.\n- The agent may make up to 3 unsuccessful clarification attempts.\n- After 3 unsuccessful clarification attempts:\n  - ESCALATE only if the conversation already contains enough meaningful information to indicate a plausible surveillance-relevant health signal, but an important detail needed for follow-up remains unresolved.\n  - Do NOT escalate solely because the sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using the appropriate non-escalation classification/action.\n\nSo what's the situation here? The user has mentioned \"child thing bad there\" - this is extremely vague. It mentions a child and something bad, but no symptom, no age, no sex, no location. The location resolver is UNRESOLVED with no mentions.\n\nIs there a \"plausible surveillance-relevant health signal\"? The message \"child thing bad there\" suggests a child has some problem, but it's so vague that it doesn't establish any specific health signal. There's no symptom described at all.\n\nHmm, this is a judgment call. Let me think about it:\n- \"child thing bad there\" - mentions a child and something bad. This is health-related but unclear. It could be classified as HEALTH_RELATED_UNCLEAR.\n- Two clarification attempts have failed. This third response (\"you know the child problem\") is also unhelpful - the user seems to think the agent already knows, but provides no new information.\n\nThis would be the 3rd unsuccessful clarification attempt if I try again. Wait, let me count:\n- clarification_attempts: 2 (already happened)\n- The current user message \"you know the child problem\" is a response to the 2nd clarification attempt.\n\nSo after this message, we have had 2 unsuccessful attempts. The policy says \"up to 3 unsuccessful clarification attempts.\" So I could make one more attempt (attempt 3).\n\nBut wait - should I make a 3rd attempt, or is this the point where I should stop?\n\nLet me re-read: \"The agent may make up to 3 unsuccessful clarification attempts. After 3 unsuccessful clarification attempts: ESCALATE only if... Do NOT escalate solely because the sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using the appropriate non-escalation classification/action.\"\n\nSo the current state is 2 unsuccessful attempts. I can make a 3rd attempt. The question is whether another attempt is reasonable.\n\nThe user's messages: \"child thing bad there\", \"the thing I said\", \"you know the child problem\". The user seems unable or unwilling to provide details. The pattern suggests further clarification is unlikely to succeed. However, the policy allows up to 3 attempts.\n\nHmm, but the decision about whether to CLARIFY again or stop. Let me think about what's most appropriate.\n\nOption A: One more CLARIFY attempt (attempt 3). Ask a very simple question.\nOption B: Stop now with NOT_RELEVANT since no plausible surveillance signal has been established.\n\nThe classification options:\n- HEALTH_RELATED_UNCLEAR: The report is health-related (child, something bad) but unclear.\n- NOT_RELEVANT: clearly outside the surveillance use case, or when repeated clarification never establishes a plausible surveillance-relevant health signal.\n\nActually, the NOT_RELEVANT definition says: \"Use NOT_RELEVANT when the message is clearly outside the surveillance use case, or when repeated clarification never establishes a plausible surveillance-relevant health signal.\"\n\nSo after repeated clarification that never establishes a plausible signal, NOT_RELEVANT is appropriate.\n\nHave we reached \"repeated clarification\" exhaustion? We've had 2 unsuccessful attempts. The policy allows up to 3. \n\nLet me think about whether a 3rd attempt makes sense. The user's last message \"you know the child problem\" suggests they believe the agent already has the information. There's a fundamental communication breakdown. \n\nGiven the policy allows up to 3 attempts, and we're at 2, I think one more focused attempt is reasonable. But I could also argue that the pattern of responses shows the user won't provide useful info.\n\nActually, let me reconsider. The instruction says \"Use CLARIFY when the report is potentially relevant and one important piece of information can reasonably be obtained through another question.\"\n\nIs the report potentially relevant? \"child thing bad there\" - it's about a child with something bad. It's potentially health-related. But can one important piece of information \"reasonably be obtained through another question\"? Given the user's responses so far (\"the thing I said\", \"you know the child problem\"), it seems unlikely. The user is not engaging with the questions.\n\nHmm, but the policy explicitly allows 3 attempts before stopping. We've only done 2. I think the intended behavior here, given the strict 3-attempt policy, is to either:\n1. Make the 3rd attempt now, OR\n2. Recognize that this message is the response to the 2nd attempt and now we've effectively had... wait.\n\nLet me recount carefully:\n- Attempt 1: Assistant asked \"What is wrong with the child?\" → User replied \"the thing I said\" (unsuccessful)\n- Attempt 2: Assistant asked \"Please answer yes or no: is the child weak or unable to move the arms or legs?\" → User replied \"you know the child problem\" (unsuccessful)\n\nSo clarification_attempts = 2 matches. Now the agent needs to decide the next action.\n\nThe 3rd attempt would be the last allowed. After that, if unsuccessful, we stop (no escalation since no plausible signal).\n\nGiven the user's pattern, should I make a 3rd attempt or stop now? \n\nThe policy says \"The agent may make up to 3 unsuccessful clarification attempts.\" This is permissive (\"may\"), not mandatory. The CLARIFY definition says to use it when information \"can reasonably be obtained through another question.\" Given two failed attempts where the user explicitly deflects (\"the thing I said\", \"you know the child problem\"), it seems the user cannot or will not provide the information. \n\nHowever, I want to be careful. The user might be someone with limited literacy or language barriers. One more very simple attempt might help. But the user's responses suggest they think the agent already knows, which is a deeper confusion.\n\nLet me think about the classification. Is there a \"plausible surveillance-relevant health signal\"? \n\n\"child thing bad there\" - this mentions a child and something bad. There's no symptom. The location resolver found nothing. This is extremely thin. I would classify this as HEALTH_RELATED_UNCLEAR at best - it's health-related (a child with a problem) but completely unclear.\n\nFor escalation: ESCALATE requires \"a plausible surveillance signal has already been established.\" Has one been established? I don't think so. \"child thing bad there\" is too vague to be a plausible AFP signal or any specific surveillance signal. There's no symptom of paralysis, no fever, no rash, nothing specific.\n\nSo escalation is NOT appropriate. The policy explicitly says: \"Do NOT escalate solely because the sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using the appropriate non-escalation classification/action.\"\n\nSo the choice is between:\n1. CLARIFY (3rd attempt) - one more try\n2. NOT_RELEVANT - stop because repeated clarification never establishes a plausible signal\n\nGiven that we're at 2 attempts and the policy allows 3, but the user is clearly not providing useful information... \n\nHmm, I think the safest interpretation aligned with the policy: The policy allows up to 3 attempts. We haven't exhausted them. But the CLARIFY criterion requires that info \"can reasonably be obtained.\" \n\nActually, I think there's a reasonable argument for one more attempt with an extremely simple question, since we haven't hit the 3-attempt limit yet. The 3-attempt limit seems designed to give the benefit of the doubt. If I stop at 2, I'm not using the full allowance.\n\nBut on the other hand, the responses \"the thing I said\" and \"you know the child problem\" are not just failures to answer - they indicate the user believes they've already communicated the problem. This is a fundamental misunderstanding that another question may not resolve.\n\nLet me look at this from the perspective of what produces the best surveillance outcome and follows the policy most faithfully.\n\nThe policy structure:\n- Up to 3 unsuccessful attempts allowed\n- After 3: escalate only if valid signal exists; otherwise stop with non-escalation action\n\nI think the cleanest reading: we've had 2 unsuccessful attempts. The current user message doesn't resolve anything. I can either make attempt #3 or decide it's futile.\n\nI'll go with one final CLARIFY attempt (attempt 3), asking the simplest possible question. Actually wait - let me reconsider whether this is futile.\n\nActually, thinking about it more - the user's messages show a pattern of non-response. \"you know the child problem\" - the user thinks the agent knows. This is the kind of situation where continued automated clarification is unlikely to help. \n\nBut the policy is quite explicit about the 3-attempt allowance. And the CLARIFY action is for \"potentially relevant\" reports. Is \"child thing bad there\" potentially relevant? It's about a child with something bad - it could be AFP, could be anything. It's health-related but unclear.\n\nDecision: I'll make one more attempt (attempt 3) with a very simple, direct question. This respects the 3-attempt policy. If that fails, then NOT_RELEVANT (no escalation since no valid signal).\n\nHmm, wait. But actually, let me reconsider. Is it better to stop now?\n\nThe definition of NOT_RELEVANT includes \"when repeated clarification never establishes a plausible surveillance-relevant health signal.\" We've had 2 rounds of clarification. \"Repeated\" could mean 2+. \n\nBut the explicit numeric policy says \"up to 3 unsuccessful clarification attempts.\" This suggests the system is designed to tolerate up to 3. Stopping at 2 would be premature unless the situation is clearly futile.\n\nI think the most policy-faithful action is CLARIFY with attempt_number 3. This is the final allowed attempt. I'll ask the simplest possible question - maybe trying to get any concrete detail.\n\nActually, let me reconsider one more time. The user's last message \"you know the child problem\" is a response indicating they won't or can't clarify. Making a 3rd attempt that will almost certainly fail just delays the inevitable. But the policy explicitly permits 3 attempts, and there's no strong reason to cut it short at 2 unless futility is clear.\n\nIs futility clear? The user has twice deflected. But people sometimes do respond to a third, differently-phrased question. For instance, asking them to describe what they see, or asking a very concrete question.\n\nI'll go with CLARIFY, attempt 3. The question should be very simple. Given the previous question was a yes/no about weakness and they didn't answer, maybe I should try something even more basic, or try a different angle.\n\nActually, let me think about what to ask. The previous attempts:\n1. Open-ended: \"What is wrong?\" → failed\n2. Yes/no about weakness → failed\n\nFor attempt 3, maybe ask them to describe what they see the child doing, or ask where the child is. Actually, since the core issue is no symptom information, and the user keeps saying \"you know,\" maybe I should acknowledge that I don't have information and ask them to tell me in their own words, or ask a very concrete question.\n\nAlternatively, maybe ask for the location since that's concrete: \"Where is the child?\" But the primary missing info is symptom.\n\nHmm. Given the user seems to think the agent already knows, I might say: \"I don't have any details yet. Please tell me: what is the child's problem?\" But that's similar to attempt 1.\n\nLet me try a different approach - maybe ask them to describe what they see: \"I want to help but I don't know the child's problem yet. Please tell me what you see — for example, can the child walk? Does the child have fever?\"\n\nActually, for SMS simplicity and given communication difficulties, maybe the simplest: \"I don't know the child's problem. Please tell me one thing: what is wrong with the child's body?\"\n\nLet me settle on the response. I'll make it very simple and acknowledge that I don't have the information.\n\nWait, but I should double check: is classification HEALTH_RELATED_UNCLEAR appropriate? Yes - the report is about a child's health problem but unclear. It's not UNINTELLIGIBLE (we can understand they're talking about a child with a problem). It's not AFP_SUSPECTED (no paralysis symptom). It's not OTHER_VPD (no specific disease). It's not NOT_RELEVANT yet if we're still trying to clarify.\n\nSo:\n- classification: HEALTH_RELATED_UNCLEAR\n- action: CLARIFY\n- clarification: target = symptom, attempt_number = 3\n- cases: [] (no case established - no symptom, no details)\n- priority: NORMAL\n- escalation: not required\n- confirmation: NOT_READY\n- missing_information: symptom, age, sex, location (everything)\n\nHmm, actually, should cases be empty? There's a mention of \"a child\" but no details. I think keeping cases empty is fine since we have no usable information. Or I could create a case with null fields. The schema requires cases array but it can be empty. Given we have essentially nothing (just \"a child\" with \"something bad\"), I'll keep it empty or create a minimal case. \n\nLooking at the output contract, cases can be an array. With no real information, I think an empty array is most honest. But one could argue a case should be started. Let me keep it empty since we don't even have a symptom.\n\nActually, let me reconsider whether to CLARIFY or stop. \n\nThe user's three messages: \"child thing bad there\" → \"the thing I said\" → \"you know the child problem\". \n\nThe trajectory is clear: the user is not going to provide details through this Q&A. They believe the agent already knows. Two well-formed attempts (one open-ended, one yes/no) both failed. \n\nThe policy says CLARIFY when info \"can reasonably be obtained through another question.\" At this point, it's questionable whether it can reasonably be obtained. But the policy also explicitly allows 3 attempts.\n\nI'm torn. Let me go with the 3rd attempt since the policy explicitly allows it and it's the more conservative choice for surveillance (gives one more chance to capture a potential signal). The attempt_number would be 3.\n\nHmm, but actually, wait. Let me reconsider the counting once more. clarification_attempts = 2 in the input. This means 2 attempts have been made. If I CLARIFY now, that's attempt 3. If the user fails again, then we've had 3 unsuccessful attempts and we stop.\n\nYes, CLARIFY with attempt_number = 3 is correct.\n\nActually, let me reconsider whether this should be NOT_RELEVANT now. The risk of CLARIFY is that we're asking a 3rd question to someone who clearly isn't engaging. But the policy's 3-attempt structure suggests the designers wanted to allow 3 tries. I'll honor that.\n\nLet me reconsider the response text. It should be short, clear, SMS-appropriate. Given the communication difficulty, very simple language.\n\nSomething like: \"I do not know the child's problem yet. Please tell me: is the child weak in the arms or legs? Answer yes or no.\"\n\nBut we already asked yes/no about weakness and they didn't answer. Maybe try a different framing. Perhaps ask what part of the body is affected, or ask them to describe.\n\nMaybe: \"I want to help, but I have no details about the child. Please tell me one thing you see wrong with the child's body (for example: cannot walk, fever, rash).\"\n\nThat's reasonable. Let me make it shorter: \"I don't know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, fever, or rash.\"\n\nHmm, that's decent. Let me finalize.\n\nActually, one more consideration: should I ask about location instead? No - symptom is the most fundamental missing piece. Without a symptom, there's no signal at all. Target = symptom.\n\nFinal output:\n- classification: HEALTH_RELATED_UNCLEAR\n- other_vpd: false\n- action: CLARIFY\n- priority: NORMAL\n- cases: []\n- location_resolution: []\n- missing_information: [\"symptom\", \"age\", \"sex\", \"location\"]\n- potential_duplicate: false\n- duplicate_candidate_ids: []\n- escalation: {required: false, reason: null}\n- clarification: {target: \"symptom\", attempt_number: 3}\n- confirmation: {status: \"NOT_READY\"}\n- response: simple question\n\nLet me write the response text carefully. The user seems to have limited engagement. Keep it very simple.\n\n\"I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash.\"\n\nThat's good. Short and clear."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3417,
+              "completion_tokens": 3895,
+              "total_tokens": 7312,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 3758
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3417,
+            "output_tokens": 3895,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 3758
+          },
+          "latency_ms": 49182.4,
+          "cost_usd": 0.0618084,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5e07c8726dbd62abb7",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "location"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "same thing",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 3
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 3,
+      "gold_action": "NOT_RELEVANT",
+      "sender_message": "same thing",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?"
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          },
+          {
+            "role": "assistant",
+            "content": "Please answer yes or no: is the child weak or unable to move the arms or legs?"
+          },
+          {
+            "role": "user",
+            "content": "you know the child problem"
+          },
+          {
+            "role": "assistant",
+            "content": "I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash."
+          },
+          {
+            "role": "user",
+            "content": "same thing"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 3,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}, {\"role\": \"assistant\", \"content\": \"Please answer yes or no: is the child weak or unable to move the arms or legs?\"}, {\"role\": \"user\", \"content\": \"you know the child problem\"}, {\"role\": \"assistant\", \"content\": \"I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash.\"}, {\"role\": \"user\", \"content\": \"same thing\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 3, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"NOT_RELEVANT\",\"other_vpd\":false,\"action\":\"NOT_RELEVANT\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I could not get the child's problem. Please send a new report saying what is wrong (for example: weak legs, cannot walk, fever, rash), the child's age, and the village or town. If the child is sick now, please go to the nearest health facility.\"}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5ec7a576ddbf61b19f",
+            "object": "chat.completion",
+            "created": 1791259232,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"NOT_RELEVANT\",\"other_vpd\":false,\"action\":\"NOT_RELEVANT\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I could not get the child's problem. Please send a new report saying what is wrong (for example: weak legs, cannot walk, fever, rash), the child's age, and the village or town. If the child is sick now, please go to the nearest health facility.\"}",
+                  "reasoning_content": "Let me analyze this conversation.\n\nThe user has sent multiple vague messages:\n1. \"child thing bad there\" - vague, mentions a child\n2. \"the thing I said\" - doesn't clarify\n3. \"you know the child problem\" - doesn't clarify\n4. \"same thing\" - doesn't clarify\n\nThe assistant has made 3 clarification attempts already (clarification_attempts: 3). The user has never provided any meaningful health information - no symptom, no age, no sex, no location.\n\nAccording to the policy:\n- After 3 unsuccessful clarification attempts:\n  - ESCALATE only if the conversation already contains enough meaningful information to indicate a plausible surveillance-relevant health signal, but an important detail needed for follow-up remains unresolved.\n  - Do NOT escalate solely because the sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using the appropriate non-escalation classification/action.\n\nHere, there's no plausible surveillance signal. The only thing established is that something is wrong with a child (\"child thing bad there\") - but no symptom, no location, nothing actionable. Is \"child thing bad there\" a plausible surveillance-relevant health signal? It's extremely vague. It mentions a child and something bad, but nothing about a health condition specifically. I would say no plausible surveillance signal has been established.\n\nSo the correct action is NOT_RELEVANT (since repeated clarification never established a plausible surveillance-relevant health signal).\n\nClassification: The message is health-related possibly but unclear. Options:\n- HEALTH_RELATED_UNCLEAR - the message might be health-related but we can't tell\n- NOT_RELEVANT - clearly outside the surveillance use case, or repeated clarification never establishes a plausible signal\n- UNINTELLIGIBLE - can't understand at all\n\nThe guidance says: \"Use NOT_RELEVANT when the message is clearly outside the surveillance use case, or when repeated clarification never establishes a plausible surveillance-relevant health signal.\"\n\nSo classification = NOT_RELEVANT, action = NOT_RELEVANT.\n\nActually, wait - could HEALTH_RELATED_UNCLEAR be a classification with NOT_RELEVANT action? The instruction says to use NOT_RELEVANT classification/action when repeated clarification never establishes a plausible surveillance-relevant health signal. So NOT_RELEVANT/NOT_RELEVANT seems right.\n\nEscalation: required = false, reason = null. We do not escalate because no plausible signal.\n\nClarification: attempt_number = 3, target = symptom (the last target was symptom). Or null since we're stopping. I'll set target to null and attempt_number 3 since clarification is over. Actually, maybe keep target \"symptom\" with attempt_number 3 to reflect the history. The schema allows null. Since we're not asking another clarification, I'll use null with attempt_number 3.\n\nCases: empty array since no case info established.\n\nResponse: short SMS-appropriate message indicating we couldn't understand and to report again with details, or directing to health facility. Something like: \"I am sorry, I could not understand the child's problem. Please report again with details of the illness (for example: weak legs, fever, rash) and the child's age and village, or take the child to the nearest health facility.\"\n\nPriority: NORMAL.\n\nMissing information: symptom, age, sex, location - but cases array is empty. I could list missing_information as [\"symptom\", \"age\", \"sex\", \"location\"] or empty. Since no case exists, I'll list them to reflect what's missing... Actually missing_information likely pertains to cases. With no cases, empty array seems fine. But it could be informative to note symptom etc. I'll keep it empty since no case record exists. Hmm, either way. I'll go with empty.\n\nPotential duplicate: false, no candidates.\n\nConfirmation: NOT_READY.\n\nResponse message should be SMS-appropriate, short, clear."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3475,
+              "completion_tokens": 935,
+              "total_tokens": 4410,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 787
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3475,
+            "output_tokens": 935,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 787
+          },
+          "latency_ms": 11817.9,
+          "cost_usd": 0.022005,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5ec7a576ddbf61b19f",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "NOT_RELEVANT",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Sorry, I could not get the child's problem. Please send a new report saying what is wrong (for example: weak legs, cannot walk, fever, rash), the child's age, and the village or town. If the child is sick now, please go to the nearest health facility."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 3,
+      "clarification_attempts_after": 3
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "child thing bad there"
+    },
+    {
+      "role": "assistant",
+      "content": "Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?"
+    },
+    {
+      "role": "user",
+      "content": "the thing I said"
+    },
+    {
+      "role": "assistant",
+      "content": "Please answer yes or no: is the child weak or unable to move the arms or legs?"
+    },
+    {
+      "role": "user",
+      "content": "you know the child problem"
+    },
+    {
+      "role": "assistant",
+      "content": "I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash."
+    },
+    {
+      "role": "user",
+      "content": "same thing"
+    },
+    {
+      "role": "assistant",
+      "content": "Sorry, I could not get the child's problem. Please send a new report saying what is wrong (for example: weak legs, cannot walk, fever, rash), the child's age, and the village or town. If the child is sick now, please go to the nearest health facility."
+    }
+  ],
+  "final_state": {
+    "cases": []
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 76343.5,
+    "input_tokens": 13580,
+    "output_tokens": 6005,
+    "cost_usd": 0.117734,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  }
+}

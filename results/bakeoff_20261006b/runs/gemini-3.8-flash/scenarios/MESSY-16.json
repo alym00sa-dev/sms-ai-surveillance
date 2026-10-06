@@ -1,0 +1,456 @@
+{
+  "scenario_id": "MESSY-16",
+  "title": "Mixed relevant and irrelevant details",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Wamakko",
+              "settlement": "Wamakko",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Wamakko",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Wamakko",
+                "settlement": "Wamakko"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Wamakko",
+                  "settlement": "Wamakko",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Wamakko\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move her left arm properly\",\n      \"age\": 3,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Wamakko\",\n      \"settlement\": \"Wamakko\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Wamakko\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, who suddenly cannot move her left arm properly. Is this correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move her left arm properly\",\n      \"age\": 3,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Wamakko\",\n      \"settlement\": \"Wamakko\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Wamakko\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, who suddenly cannot move her left arm properly. Is this correct?\"\n}",
+                      "thoughtSignature": "EpwKCpkKAWkUfROE6DFeZCP7yW3agJwzSs/1f+YTnRweV0wtIQuIBxsEuOhObiTE8pVtJPExo3z0k/8bDdG1kJd/6a6Cz2+NWaRMY2pXNxw0m4ZROhDaPJW+/lHt9RM119cXHFFbxJKkCpd83NSdOqyRsHHMiw6Y2v3KjH7d1VS7Sy+Gmt1mDLNmfMtNJfHabq76oR0iQrENcE9aJnVb1jn8zWuOQ134cfmbSwjbHo/TeUm0J1IwGxis6yZDvLZ8vJL1UJlSD6Entorfhqz9ZPBZy9VHJQEkqLcXGCL2iQ22LgZcNAgKtQ2FNuWs+pjrZI9J1DVInsvITZf2SJdMJFbxtql0SAufFHHBt86INpv1nYXbLSBBKy0+b+LsatWhTUtKZARdvlqW1EV0Ydhs15ZkMiNy5tZlGi9uVtJwfsHlgQc80m6oqrP2wtXvu1z6qqakO4Hp+XamVGs08ZxdkWQhzHTFaxsM2gpbfU4Z/s68j+vRBsWLec/43m1d/8pumgodiFkKwAPJlWrCAKJL8qX9I3aDkzSaUvUguggvL5fHB4tBh/AC9xg/ZwGBmc4i9BdOvGHZju7G0RkDGPHhSMIeWOSrEnYOiXgTLwOGoZ4vIG9tzkzYS3/xoroyxnTKumiSd+v6py0VOKPX2JFfAqpkpwS7sKGYboITVnBN35bhORbk3NMFg0O95mUhMUpxv9B9jCoferccc4lTBr+c5P76e0HaZWch0lZd8HlAiXW41jcYNjPqizI/t1HRhbmDTbrSyPqIZHXEe1Z5434A2/Oohr3nwmUm99Hu5H+ycSdsu19xh6LOQFOJiEzHkgP/2dHbC7Nua1ztCH6xwai9mqa/upwxvI+wXZv9TloDrCxyctVtdoyOR/yH9likjO7LwBgk/l6uKsgDAeo51JBlBnKbasJgS5ismY3KcT4b4gpHQfo827fxkwM7x/hVXi/pgC99QfaRvtYApxzjcOVJ/1x3NWqxtT0bz3grkwbQqgI2KM1/oG28HR44B9AXxveurrjqXcZrrHxvDUposCKcUD0dOde6ORoiPWpd2hYiu+B+B8HmOZVqo1CFOpWspPvIp9B3R2PFzXspT/Tb38+T4kT9DT3RBJO56Gnix3FLbESNDVtyXgb/VDvsBH4u/CFhT5m5yn662FCs9XFXCzkyTsCbZMaDWNV+B8hrChAgJcvbaJ5Ve+/naIHZ7FKkcVKiV/eCm7uFRXKaHn6h6LBTcf4d1JNJdNy7gWSMAeVfiCcvEP2SR5zHPEjzomv9hgZtql+VhAIaRyJrqzi1z/vdWRevgC0txk/dtOYf10zME4rBeZeqw1NgTnpsOwt+guJ0doIy83Ce3QndudI6UB2hiIZ/eBvDA1k+Y2371FIy04UfImKGNtcOJ3EGTbVT1+YI3QfzR9iAROXQ0fklmrwBC3v7uvdIBjqco0HzDO4bHF+qPFDrrooqJoBDnhRhIca33iWp5v7RsJJQpJVQ40AkFMnUP5Anx0vquHwg6eeU900RxAhaCS0hHMoJgrgc1roeixLPMIIYaNSBMBbqDKEBMX1gEMJ80Wmpn+AJAprSB+PwwjfZx66TjCHhjs6IgeLhf837svFnCSgWcDPySj5oUmWLvWiE2++fUB8ZuFkm2592x2AOcVqB91BDdIzGC9A+HIxVj98u7hzGduIv6bmfGW3hSSirTpSSKVLk8utXc8pynUUiSvLwqcSpqkCdRzowvNvBGvoZR1N9rXCz8RAr"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2953,
+              "candidatesTokenCount": 333,
+              "totalTokenCount": 3585,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2953
+                }
+              ],
+              "thoughtsTokenCount": 299,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "mGfEaoLlLZOtz7IPr6WfmQ8"
+          },
+          "usage": {
+            "input_tokens": 2953,
+            "output_tokens": 632,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 299
+          },
+          "latency_ms": 5506.6,
+          "cost_usd": 0.00458475,
+          "stop_reason": "end_turn",
+          "request_id": "mGfEaoLlLZOtz7IPr6WfmQ8",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move her left arm properly",
+            "age": 3,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Wamakko",
+            "settlement": "Wamakko"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Wamakko",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, who suddenly cannot move her left arm properly. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "arm"
+              ],
+              "laterality": [
+                "left",
+                "one"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, who suddenly cannot move her left arm properly. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move her left arm properly",
+              "age": 3,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Wamakko",
+              "settlement": "Wamakko"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Wamakko",
+              "settlement": "Wamakko",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Wamakko",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Wamakko",
+                "settlement": "Wamakko"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Wamakko",
+                  "settlement": "Wamakko",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school.\"}, {\"role\": \"assistant\", \"content\": \"I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, who suddenly cannot move her left arm properly. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move her left arm properly\", \"age\": 3, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Wamakko\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ACCEPT\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly cannot move her left arm properly\",\"age\":3,\"sex\":\"female\",\"state\":\"Sokoto\",\"lga\":\"Wamakko\",\"settlement\":\"Wamakko\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Wamakko\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"CONFIRMED\"},\"response\":\"Thank you. Your report has been submitted to the surveillance team for follow-up.\"}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ACCEPT\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly cannot move her left arm properly\",\"age\":3,\"sex\":\"female\",\"state\":\"Sokoto\",\"lga\":\"Wamakko\",\"settlement\":\"Wamakko\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Wamakko\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"CONFIRMED\"},\"response\":\"Thank you. Your report has been submitted to the surveillance team for follow-up.\"}",
+                      "thoughtSignature": "EqsJCqgJAWkUfRPvKjb2GaCh1t9mNotaVC4RK68pvQGU1CEzOGavCYPIGdfZ/GT7ahXEnjBYNbTTwEvfWLVhLl/p4fUVXaLqLy1k/03A6D/HxgHcn3lCOKQkfKnNzka6+RtqYildGUJQH1jzJxQD1AOrR0eyEptynJHY/FUPkfGO/cinE2N6HmVWwjEzbl4YHsSxrLZAbV9qAXes8Fnd3Ud7RpuKZq1+UowQVwsL3XW4IYQfEi04N9aVAJD5c0CbeZwKCDzylHOkpq50mCY5oEvuN0nBXHZRH/kS5faa64wI/h4C8aeYIpN4+NcZ5VLSqC0wOGz406rc5nqb6vvJJRhKSBAPsaxHb0QElN1H9/7wBSYBbOcuSJfaEcmIoNassRPemgiPOHtoH9yQWqpcFXfu7WbjEu4/2PWkKGKgPQrJVTIQznVWoLfOVHrp85qgLpc+5XvZZ5P/1aDI/FlCijce9SNSSeLTGEHsjcz7/ln+Fy8962atipjyTlBkxmahwtcWfRsh0sWbzZK1p05cumJktkQHVA8aVn/+y9HOUNUNNL62f66lRej3wJ8G6c060GEqiicB+uPE8GPj+nn/g1eQ1VM1C2p3Y0vd4Q22qfWWRK30L44R9Ie2heB7zyj3IQScvxAQAEgadHvMLm/aWmCBF5p7o1D+nxWIWpqILwjIIGhv+hsG8aP+CH8n1zXu8z+MWD9x1zrwYwxg7CC4kVVoWjt5Lj0ghkf91zfhcQWFsRFQI5jkimHZ34yqShe/4Glnk4r28jgT9ouYYjFxMNOF0HOHCxSbIwxZrlAf10bqpH06P1lG5W6fQ9a7wfXiOb5O4WhU7IgflAgrPlkEcYpXDXxrWL0vKUkP9vYwpTEIsqJuyph7Wohf+U3LWhTnCZ7Oo7HOY5fG5vw7v5L/TCPiyswowL6THRP0+C6+Ox/KXCqf+DX3NhkZNmVbsLvtRl+m61HfMccYhMYnkaDrE81DXTY711nTY2X2lJakiCIPDG5phHFS+4iPYPyarE7AeNaHeCF3ErSw4111UhnxKl6wRNAUskvbsbR6vD5D6fC2/Cy3PJPb0DQLOo8LkyOVw2M1hcmrU81riTEhvmWfWOXAT57l6eSCAcq1Fo3S79+KqbltRaUtpFG3DtU7pzB/hVqBTjMUgnkCZoWvCGvyBgyJ4tDyUZ8ElN2yfJmoP4qtzbtA2COUrDwoijCAdxZF67MYG8q2k4Qt/XJpp1yWoQC16MFWnSw0R3b/10ZXjyZtLbRX1KLoQ4NWb4Q8AuupoSQg9K7lzlAOPYDMswxAtNr3usQg9www65+Kw69CC7pP6TTL3Xe1WfJyKrxf/G3rHrSnH2nnWPLxBSFx5pcimNQa3FwQugpfQJOacN+qBdD2chLmJBQHUpPOcv7KMQHPtcTbZb9yzA0Y68cRorylomltVQDVnUmyZG+1NNQ6pUqKItx/TO6tm1+B3zXmUUhnNl1yyDRtecGh/QUbiZOrKYEOClfpwrhRqcpx/P8houz0C3juafERL8xkqgFmcEZUjgMc1LALWmL0ICTCDKpcwb54Ru1sXSYwfGHhoJ+oTybDLQOI6FXRRT/t24JVhw=="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3078,
+              "candidatesTokenCount": 181,
+              "totalTokenCount": 3581,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3078
+                }
+              ],
+              "thoughtsTokenCount": 322,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "nmfEavmeD7Gcz7IPv4fJ6QY"
+          },
+          "usage": {
+            "input_tokens": 3078,
+            "output_tokens": 503,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 322
+          },
+          "latency_ms": 4007.1,
+          "cost_usd": 0.00419475,
+          "stop_reason": "end_turn",
+          "request_id": "nmfEavmeD7Gcz7IPv4fJ6QY",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move her left arm properly",
+            "age": 3,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Wamakko",
+            "settlement": "Wamakko"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Wamakko",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. Your report has been submitted to the surveillance team for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, who suddenly cannot move her left arm properly. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Your report has been submitted to the surveillance team for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot move her left arm properly",
+        "age": 3,
+        "sex": "female",
+        "state": "Sokoto",
+        "lga": "Wamakko",
+        "settlement": "Wamakko"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 9513.7,
+    "input_tokens": 6031,
+    "output_tokens": 1135,
+    "cost_usd": 0.008779,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

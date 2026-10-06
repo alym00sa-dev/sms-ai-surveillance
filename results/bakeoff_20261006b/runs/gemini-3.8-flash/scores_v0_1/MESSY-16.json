@@ -1,0 +1,358 @@
+{
+  "scenario_id": "MESSY-16",
+  "model": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 9513.7,
+    "input_tokens": 6031,
+    "output_tokens": 1135,
+    "cost_usd": 0.008779,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "MESSY-16",
+    "model": "gemini-3.8-flash",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 2,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 12,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "confirmation_fidelity": "CORRECT",
+      "symptom_equivalence": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 12,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_ignore_nonessential_details",
+      "cursor": 0,
+      "route": "JEV",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_ignore_nonessential_details",
+      "cursor": 1,
+      "route": "JEV",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": "no confirmation at this turn"
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "121 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "81 chars"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "sudden left-arm weakness",
+        "recorded_symptom": "suddenly cannot move her left arm properly"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "CORRECT": 0.99,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 449,
+        "output_tokens": 47
+      },
+      "latency_ms": 78.1,
+      "cost_usd": 1.8858e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 3,
+            "sex": "female",
+            "settlement": "Wamakko",
+            "symptom": "sudden left-arm weakness",
+            "state": "Sokoto",
+            "lga": "Wamakko"
+          }
+        ],
+        "confirmation_message": "I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, who suddenly cannot move her left arm properly. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.02,
+        "CORRECT": 0.94
+      },
+      "confidence": 0.91,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 560,
+        "output_tokens": 46
+      },
+      "latency_ms": 112.7,
+      "cost_usd": 2.3520000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, who suddenly cannot move her left arm properly. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.27,
+        "CORRECT": 0.72
+      },
+      "confidence": 0.58,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 430,
+        "output_tokens": 47
+      },
+      "latency_ms": 119.0,
+      "cost_usd": 1.8060000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, who suddenly cannot move her left arm properly. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.99,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 430,
+        "output_tokens": 47
+      },
+      "latency_ms": 124.7,
+      "cost_usd": 1.8060000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Your report has been submitted to the surveillance team for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.96,
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.94,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 411,
+        "output_tokens": 47
+      },
+      "latency_ms": 69.6,
+      "cost_usd": 1.7262000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Your report has been submitted to the surveillance team for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 411,
+        "output_tokens": 47
+      },
+      "latency_ms": 103.0,
+      "cost_usd": 1.7262000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "final_action": "ACCEPT",
+        "message": "Thank you. Your report has been submitted to the surveillance team for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 417,
+        "output_tokens": 45
+      },
+      "latency_ms": 104.4,
+      "cost_usd": 1.7514e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 2,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": []
+}

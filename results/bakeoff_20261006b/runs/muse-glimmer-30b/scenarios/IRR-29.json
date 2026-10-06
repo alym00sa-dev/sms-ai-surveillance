@@ -1,0 +1,186 @@
+{
+  "scenario_id": "IRR-29",
+  "title": "Clearly unrelated request",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "NOT_RELEVANT",
+      "sender_message": "Please send me airtime. I have no credit.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Please send me airtime. I have no credit."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Please send me airtime. I have no credit.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"NOT_RELEVANT\",\"other_vpd\":false,\"action\":\"NOT_RELEVANT\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I can't send airtime. If you have a disease report for surveillance, please share details.\"}",
+          "raw_response": {
+            "id": "p46QtVy-7ArivV-a461b9766fa476fd",
+            "object": "chat.completion",
+            "created": 1791258863,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"NOT_RELEVANT\",\"other_vpd\":false,\"action\":\"NOT_RELEVANT\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I can't send airtime. If you have a disease report for surveillance, please share details.\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Please send me airtime. I have no credit.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}\n\nWe need to classify. Message is not relevant to surveillance. It's request for airtime. So classification NOT_RELEVANT? Or HEALTH_RELATED_UNCLEAR? The message is clearly outside surveillance use case. So NOT_RELEVANT.\n\naction must be NOT_RELEVANT? Allowed actions: ACCEPT, CLARIFY, CONFIRM, ESCALATE, OTHER_VPD, NOT_RELEVANT.\n\nYes.\n\npriority NORMAL.\n\ncases empty array.\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false.\n\nclarification target null attempt_number 0.\n\nconfirmation status? Probably NOT_READY? The confirmation status allowed values: NOT_READY, PENDING, CONFIRMED. For NOT_RELEVANT, maybe NOT_READY.\n\nresponse should be short clear appropriate for SMS. Probably say we cannot help with airtime, etc. But should we respond? The output requires response field. Should be short. Probably: \"I can't provide airtime. If you have a health report, please share details.\"\n\nBut guidelines: keep user-facing response short, clear, appropriate for SMS. For NOT_RELEVANT, we should probably say we can't help. Maybe just acknowledge.\n\nWe must return JSON only.\n\nclassification = NOT_RELEVANT\nother_vpd = false\naction = NOT_RELEVANT\npriority = NORMAL\ncases = [] \nlocation_resolution = []? Output shape expects location_resolution array. Probably empty.\n\nmissing_information [].\n\npotential_duplicate false\nduplicate_candidate_ids []\n\nescalation required false reason null\n\nclarification target null attempt_number 0\n\nconfirmation status NOT_READY? Could be NOT_READY.\n\nresponse: \"Sorry, I can't send airtime. If you have a disease report for surveillance, please tell me.\"\n\nMake sure JSON valid.\n\nLet's produce."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2590,
+              "total_tokens": 3143,
+              "completion_tokens": 553,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 64,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 78,
+            "output_tokens": 553,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 12149.8,
+          "cost_usd": 0.001736,
+          "stop_reason": "end_turn",
+          "request_id": "p46QtVy-7ArivV-a461b9766fa476fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "NOT_RELEVANT",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Sorry, I can't send airtime. If you have a disease report for surveillance, please share details."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Please send me airtime. I have no credit."
+    },
+    {
+      "role": "assistant",
+      "content": "Sorry, I can't send airtime. If you have a disease report for surveillance, please share details."
+    }
+  ],
+  "final_state": {
+    "cases": []
+  },
+  "gold_actions": [
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 12149.8,
+    "input_tokens": 78,
+    "output_tokens": 553,
+    "cost_usd": 0.001736,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

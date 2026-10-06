@@ -1,0 +1,186 @@
+{
+  "scenario_id": "IRR-30",
+  "title": "Non-health administrative message",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "NOT_RELEVANT",
+      "sender_message": "When is the community meeting tomorrow?",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "When is the community meeting tomorrow?"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"When is the community meeting tomorrow?\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"NOT_RELEVANT\", \"other_vpd\": false, \"action\": \"NOT_RELEVANT\", \"priority\": \"NORMAL\", \"cases\": [], \"location_resolution\": [], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I can only help with disease surveillance reports. If you have a health concern about a child, please share details.\"}",
+          "raw_response": {
+            "id": "p46Qx7P-7ArivV-a461b9c25fbc76fd",
+            "object": "chat.completion",
+            "created": 1791258875,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\": \"NOT_RELEVANT\", \"other_vpd\": false, \"action\": \"NOT_RELEVANT\", \"priority\": \"NORMAL\", \"cases\": [], \"location_resolution\": [], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I can only help with disease surveillance reports. If you have a health concern about a child, please share details.\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"When is the community meeting tomorrow?\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}\n\nWe need to classify. Message is about community meeting tomorrow. Not health related. So classification NOT_RELEVANT? Could be HEALTH_RELATED_UNCLEAR? It's clearly not surveillance. So classification NOT_RELEVANT, action NOT_RELEVANT.\n\nWe must output JSON with cases empty array? Cases array maybe empty. Required fields: classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nWe need response short clear appropriate for SMS. Should say not relevant? Probably respond politely: I can't help with meeting times, etc.\n\nClassification NOT_RELEVANT, action NOT_RELEVANT, priority NORMAL.\n\nother_vpd false.\n\ncases [].\n\nlocation_resolution [].\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status? Probably NOT_READY? For NOT_RELEVANT maybe not needed. Could be NOT_READY.\n\nResponse: \"I can only help with disease surveillance reports. If you have a health concern, please share details.\"\n\nMake sure JSON valid.\n\nCheck output contract: cases array. location_resolution array. OK.\n\nReturn JSON only.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2586,
+              "total_tokens": 3056,
+              "completion_tokens": 470,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 64,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 74,
+            "output_tokens": 470,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 6524.9,
+          "cost_usd": 0.0016101,
+          "stop_reason": "end_turn",
+          "request_id": "p46Qx7P-7ArivV-a461b9c25fbc76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "NOT_RELEVANT",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I can only help with disease surveillance reports. If you have a health concern about a child, please share details."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "When is the community meeting tomorrow?"
+    },
+    {
+      "role": "assistant",
+      "content": "I can only help with disease surveillance reports. If you have a health concern about a child, please share details."
+    }
+  ],
+  "final_state": {
+    "cases": []
+  },
+  "gold_actions": [
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 6524.9,
+    "input_tokens": 74,
+    "output_tokens": 470,
+    "cost_usd": 0.00161,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

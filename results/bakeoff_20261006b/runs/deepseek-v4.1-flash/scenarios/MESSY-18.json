@@ -1,0 +1,234 @@
+{
+  "scenario_id": "MESSY-18",
+  "title": "Clearly chronic weakness should not be treated as AFP",
+  "model_key": "deepseek-v4.1-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "NOT_RELEVANT",
+      "sender_message": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"NOT_RELEVANT\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg since he was a baby, no change today (chronic, not acute onset)\",\n      \"age\": 10,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. This report describes weakness that has been present since infancy with no change today, so it does not fit the sudden-onset paralysis we track. No further action needed.\"\n}",
+          "raw_response": {
+            "id": "774ffeb8-aws_uw2",
+            "object": "chat.completion",
+            "created": 1791254213,
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"NOT_RELEVANT\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg since he was a baby, no change today (chronic, not acute onset)\",\n      \"age\": 10,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. This report describes weakness that has been present since infancy with no change today, so it does not fit the sudden-onset paralysis we track. No further action needed.\"\n}",
+                  "reasoning_content": "The report: 10-year-old boy with weak leg since he was a baby, nothing changed today. This is chronic, not acute flaccid paralysis. AFP requires acute onset. This is not AFP. Is it surveillance-relevant? Chronic weakness since infancy — not AFP. Likely NOT_RELEVANT? Or HEALTH_RELATED_UNCLEAR?\n\nThe key: AFP surveillance requires acute onset (sudden). \"since he was a baby. Nothing changed today.\" Explicitly not acute. So it's not AFP. It's a health-related report but not surveillance-relevant for AFP. Options: NOT_RELEVANT or HEALTH_RELATED_UNCLEAR.\n\nIt's clearly a health issue but not a priority disease signal. Hmm. HEALTH_RELATED_UNCLEAR is for unclear health-related. But here it's clear it's chronic, non-AFP. I'd say NOT_RELEVANT since it's outside the surveillance use case (chronic condition, not acute). Actually the guidance: \"Use NOT_RELEVANT when the message is clearly outside the surveillance use case.\" A chronic non-acute weakness is not AFP, not a VPD. I'll go NOT_RELEVANT.\n\nHmm, but it's a paralysis-related report — could be a plausible signal? No, AFP is defined by acute onset. Chronic flaccid weakness since infancy is not AFP. So NOT_RELEVANT.\n\nShould we clarify? The message is clear. I'll classify NOT_RELEVANT with action NOT_RELEVANT.\n\nLet me produce output. Cases: should we include a case? Probably preserve the case info but classification NOT_RELEVANT. I'll include the case record with the info.\n\nmissing_information empty. location_resolution with the resolved fields.\n\nResponse short."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2854,
+              "completion_tokens": 682,
+              "total_tokens": 3536,
+              "prompt_tokens_details": {
+                "cached_tokens": 2688
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 372
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 166,
+            "output_tokens": 682,
+            "cache_read_input_tokens": 2688,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 372
+          },
+          "latency_ms": 2117.3,
+          "cost_usd": 0.0016746,
+          "stop_reason": "end_turn",
+          "request_id": "774ffeb8-aws_uw2",
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "NOT_RELEVANT",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak leg since he was a baby, no change today (chronic, not acute onset)",
+            "age": 10,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. This report describes weakness that has been present since infancy with no change today, so it does not fit the sudden-onset paralysis we track. No further action needed."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. This report describes weakness that has been present since infancy with no change today, so it does not fit the sudden-onset paralysis we track. No further action needed."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "weak leg since he was a baby, no change today (chronic, not acute onset)",
+        "age": 10,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 2117.3,
+    "input_tokens": 166,
+    "output_tokens": 682,
+    "cost_usd": 0.001675,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

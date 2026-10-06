@@ -1,0 +1,472 @@
+{
+  "scenario_id": "DUP-27",
+  "title": "Similar location but clearly different child",
+  "model_key": "haiku-4-5",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "A 4 year old girl in Majawa suddenly cannot move her right arm.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 4 year old girl in Majawa suddenly cannot move her right arm."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [
+          {
+            "case_id": "CASE-1002",
+            "age": 8,
+            "sex": "male",
+            "settlement": "Majawa",
+            "symptom": "sudden weakness in both legs",
+            "reported_at": "1 hour earlier"
+          }
+        ],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 4 year old girl in Majawa suddenly cannot move her right arm.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1002\", \"age\": 8, \"sex\": \"male\", \"settlement\": \"Majawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"1 hour earlier\"}], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CONFIRM\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move right arm\", \"age\": 4, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"state\", \"lga\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": true, \"duplicate_candidate_ids\": [\"CASE-1002\"], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"PENDING\"}, \"response\": \"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to move right arm. Is this correct? (Note: Another case of sudden paralysis was reported from the same settlement 1 hour earlier.)\"}",
+          "raw_response": {
+            "id": "msg_011CfkDxJrFzRh7aw6xnzFAn",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CONFIRM\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move right arm\", \"age\": 4, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"state\", \"lga\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": true, \"duplicate_candidate_ids\": [\"CASE-1002\"], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"PENDING\"}, \"response\": \"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to move right arm. Is this correct? (Note: Another case of sudden paralysis was reported from the same settlement 1 hour earlier.)\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4763,
+              "output_tokens": 282,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4763,
+            "output_tokens": 282,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 2570.4,
+          "cost_usd": 0.006173,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDxJVw2hsk8BTabhC3Q",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move right arm",
+            "age": 4,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": true,
+        "duplicate_candidate_ids": [
+          "CASE-1002"
+        ],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to move right arm. Is this correct? (Note: Another case of sudden paralysis was reported from the same settlement 1 hour earlier.)"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "arm"
+              ],
+              "laterality": [
+                "one",
+                "right"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 4 year old girl in Majawa suddenly cannot move her right arm."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to move right arm. Is this correct? (Note: Another case of sudden paralysis was reported from the same settlement 1 hour earlier.)"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move right arm",
+              "age": 4,
+              "sex": "female",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [
+          {
+            "case_id": "CASE-1002",
+            "age": 8,
+            "sex": "male",
+            "settlement": "Majawa",
+            "symptom": "sudden weakness in both legs",
+            "reported_at": "1 hour earlier"
+          }
+        ],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 4 year old girl in Majawa suddenly cannot move her right arm.\"}, {\"role\": \"assistant\", \"content\": \"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to move right arm. Is this correct? (Note: Another case of sudden paralysis was reported from the same settlement 1 hour earlier.)\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move right arm\", \"age\": 4, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1002\", \"age\": 8, \"sex\": \"male\", \"settlement\": \"Majawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"1 hour earlier\"}], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ACCEPT\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move right arm\", \"age\": 4, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": true, \"duplicate_candidate_ids\": [\"CASE-1002\"], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"CONFIRMED\"}, \"response\": \"Thank you. Case accepted: 4-year-old girl, Majawa, Kafin Hausa, Jigawa, sudden inability to move right arm. Note: This may be related to another paralysis case reported from the same settlement 1 hour ago.\"}",
+          "raw_response": {
+            "id": "msg_011CfkDxVkbNJV8TGFddKu1v",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ACCEPT\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move right arm\", \"age\": 4, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": true, \"duplicate_candidate_ids\": [\"CASE-1002\"], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"CONFIRMED\"}, \"response\": \"Thank you. Case accepted: 4-year-old girl, Majawa, Kafin Hausa, Jigawa, sudden inability to move right arm. Note: This may be related to another paralysis case reported from the same settlement 1 hour ago.\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4915,
+              "output_tokens": 281,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4915,
+            "output_tokens": 281,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 3667.3,
+          "cost_usd": 0.00632,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDxVSjyMxfxkKZ6tKYG",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move right arm",
+            "age": 4,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": true,
+        "duplicate_candidate_ids": [
+          "CASE-1002"
+        ],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. Case accepted: 4-year-old girl, Majawa, Kafin Hausa, Jigawa, sudden inability to move right arm. Note: This may be related to another paralysis case reported from the same settlement 1 hour ago."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 4 year old girl in Majawa suddenly cannot move her right arm."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden inability to move right arm. Is this correct? (Note: Another case of sudden paralysis was reported from the same settlement 1 hour earlier.)"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Case accepted: 4-year-old girl, Majawa, Kafin Hausa, Jigawa, sudden inability to move right arm. Note: This may be related to another paralysis case reported from the same settlement 1 hour ago."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot move right arm",
+        "age": 4,
+        "sex": "female",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 6237.7,
+    "input_tokens": 9678,
+    "output_tokens": 563,
+    "cost_usd": 0.012493,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

@@ -1,0 +1,380 @@
+{
+  "scenario_id": "AFP-03",
+  "model": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 5084.2,
+    "input_tokens": 7064,
+    "output_tokens": 774,
+    "cost_usd": 0.029522,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "AFP-03",
+    "model": "kimi-k3",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 2,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 12,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "PARTIAL",
+      "confirmation_fidelity": "CORRECT",
+      "symptom_equivalence": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [
+      "conversation: sms_conciseness: PARTIAL"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 12,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_extract_from_telegraphic_text",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_ask_unnecessary_question",
+      "cursor": 0,
+      "route": "JEV",
+      "dimension": "conversation_quality",
+      "status": "PASS",
+      "severity": null,
+      "detail": "no clarification at this turn"
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_extract_from_telegraphic_text",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_ask_unnecessary_question",
+      "cursor": 1,
+      "route": "JEV",
+      "dimension": "conversation_quality",
+      "status": "PASS",
+      "severity": null,
+      "detail": "no clarification at this turn"
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "120 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "169 chars"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "sudden leg weakness",
+        "recorded_symptom": "sudden loss of power in leg today"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.56,
+        "PARTIAL": 0.44,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.34,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 447,
+        "output_tokens": 47
+      },
+      "latency_ms": 106.1,
+      "cost_usd": 1.8774e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 6,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa",
+            "symptom": "sudden leg weakness"
+          }
+        ],
+        "confirmation_message": "I have: 6-year-old boy in Majawa, Kafin Hausa, Jigawa, with sudden loss of power in leg starting today. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.02,
+        "CORRECT": 0.95,
+        "PARTIAL": 0.03
+      },
+      "confidence": 0.93,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 559,
+        "output_tokens": 46
+      },
+      "latency_ms": 79.4,
+      "cost_usd": 2.3478e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: 6-year-old boy in Majawa, Kafin Hausa, Jigawa, with sudden loss of power in leg starting today. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.27,
+        "CORRECT": 0.72,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.57,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 430,
+        "output_tokens": 47
+      },
+      "latency_ms": 98.2,
+      "cost_usd": 1.8060000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: 6-year-old boy in Majawa, Kafin Hausa, Jigawa, with sudden loss of power in leg starting today. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.98
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 430,
+        "output_tokens": 47
+      },
+      "latency_ms": 129.8,
+      "cost_usd": 1.8060000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Your report of a 6-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden loss of power in the leg today has been recorded and sent to the surveillance team."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.49,
+        "INCORRECT": 0.03,
+        "CORRECT": 0.48
+      },
+      "confidence": 0.24,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 438,
+        "output_tokens": 47
+      },
+      "latency_ms": 92.1,
+      "cost_usd": 1.8396e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Your report of a 6-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden loss of power in the leg today has been recorded and sent to the surveillance team."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 438,
+        "output_tokens": 47
+      },
+      "latency_ms": 72.0,
+      "cost_usd": 1.8396e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "final_action": "ACCEPT",
+        "message": "Thank you. Your report of a 6-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden loss of power in the leg today has been recorded and sent to the surveillance team."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 444,
+        "output_tokens": 45
+      },
+      "latency_ms": 98.5,
+      "cost_usd": 1.8648e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 2,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "conversation: sms_conciseness: PARTIAL"
+  ]
+}

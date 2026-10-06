@@ -1,0 +1,235 @@
+{
+  "scenario_id": "VPD-19",
+  "title": "Measles-like fever and rash",
+  "model_key": "deepseek-v4.1-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "OTHER_VPD",
+      "sender_message": "A 4 year old child in Wurno has fever and a rash all over the body.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 4 year old child in Wurno has fever and a rash all over the body."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Wurno",
+              "settlement": "Wurno",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Wurno",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Wurno",
+                "settlement": "Wurno"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Wurno",
+                  "settlement": "Wurno",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 4 year old child in Wurno has fever and a rash all over the body.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wurno\", \"settlement\": \"Wurno\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Wurno\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Wurno\", \"settlement\": \"Wurno\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wurno\", \"settlement\": \"Wurno\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"fever and rash all over the body\",\n      \"age\": 4,\n      \"sex\": \"unknown\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Wurno\",\n      \"settlement\": \"Wurno\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Wurno\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Noted: 4-year-old child in Wurno, Sokoto, with fever and rash all over the body. This has been recorded for follow-up.\"\n}",
+          "raw_response": {
+            "id": "77e456ec-aws_uw2",
+            "object": "chat.completion",
+            "created": 1791254216,
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"fever and rash all over the body\",\n      \"age\": 4,\n      \"sex\": \"unknown\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Wurno\",\n      \"settlement\": \"Wurno\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Wurno\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Noted: 4-year-old child in Wurno, Sokoto, with fever and rash all over the body. This has been recorded for follow-up.\"\n}",
+                  "reasoning_content": "The report: 4-year-old child with fever and rash all over body. This is not AFP (acute flaccid paralysis). Fever and rash could be measles or other VPD. This is surveillance-relevant — measles-like. So classification = OTHER_VPD, other_vpd = true, action = OTHER_VPD. Preserve signal and stop.\n\nLocation: Wurno, Sokoto, Wurno settlement.\n\nCase state: symptom \"fever and rash all over the body\", age 4, sex unknown, state Sokoto, lga Wurno, settlement Wurno.\n\nNo confirmation needed since we stop. Response short."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2848,
+              "completion_tokens": 431,
+              "total_tokens": 3279,
+              "prompt_tokens_details": {
+                "cached_tokens": 2560
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 132
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 288,
+            "output_tokens": 431,
+            "cache_read_input_tokens": 2560,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 132
+          },
+          "latency_ms": 1146.7,
+          "cost_usd": 0.0013716,
+          "stop_reason": "end_turn",
+          "request_id": "77e456ec-aws_uw2",
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "OTHER_VPD",
+        "other_vpd": true,
+        "action": "OTHER_VPD",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "fever and rash all over the body",
+            "age": 4,
+            "sex": "unknown",
+            "state": "Sokoto",
+            "lga": "Wurno",
+            "settlement": "Wurno"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Wurno",
+            "inferred_fields": [
+              "state",
+              "lga",
+              "settlement"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Noted: 4-year-old child in Wurno, Sokoto, with fever and rash all over the body. This has been recorded for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 4 year old child in Wurno has fever and a rash all over the body."
+    },
+    {
+      "role": "assistant",
+      "content": "Noted: 4-year-old child in Wurno, Sokoto, with fever and rash all over the body. This has been recorded for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "fever and rash all over the body",
+        "age": 4,
+        "sex": "unknown",
+        "state": "Sokoto",
+        "lga": "Wurno",
+        "settlement": "Wurno"
+      }
+    ]
+  },
+  "gold_actions": [
+    "OTHER_VPD"
+  ],
+  "model_actions": [
+    "OTHER_VPD"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 1146.7,
+    "input_tokens": 288,
+    "output_tokens": 431,
+    "cost_usd": 0.001372,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

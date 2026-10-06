@@ -1,0 +1,742 @@
+{
+  "scenario_id": "ESC-24",
+  "title": "Important location remains unresolved after three attempts",
+  "model_key": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "A 6 year old boy suddenly cannot move both legs.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 6 year old boy suddenly cannot move both legs."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 6 year old boy suddenly cannot move both legs.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\"state\", \"lga\", \"settlement\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state.\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5ef5e171aa880bb3ec",
+            "object": "chat.completion",
+            "created": 1791259244,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\"state\", \"lga\", \"settlement\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state.\"\n}",
+                  "reasoning_content": "The user reports: \"A 6 year old boy suddenly cannot move both legs.\"\n\nThis is a classic AFP (Acute Flaccid Paralysis) signal: sudden inability to move both legs in a 6-year-old boy.\n\nExtracted:\n- symptom: sudden cannot move both legs (sudden weakness/paralysis in both legs)\n- age: 6\n- sex: male\n- state: null\n- lga: null\n- settlement: null\n\nLocation resolver: UNRESOLVED, no mentions. So we need to ask for location.\n\nClassification: AFP_SUSPECTED\nAction: CLARIFY (need location)\nClarification target: location, attempt_number: 1\n\nMissing information: state, lga, settlement (location).\n\nResponse should be short, SMS-appropriate: \"Thank you. A 6-year-old boy who suddenly cannot move both legs. Where is the child — what village/settlement, LGA and state?\"\n\nAsk one focused question — location.\n\nConfirmation status: NOT_READY.\n\nPriority: NORMAL (no high-priority rule defined).\n\nOutput JSON."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3325,
+              "completion_tokens": 485,
+              "total_tokens": 3810,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 226
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3325,
+            "output_tokens": 485,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 226
+          },
+          "latency_ms": 3059.5,
+          "cost_usd": 0.015525,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5ef5e171aa880bb3ec",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move both legs",
+            "age": 6,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Around here.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CLARIFY",
+      "sender_message": "Around here.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 6 year old boy suddenly cannot move both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state."
+          },
+          {
+            "role": "user",
+            "content": "Around here."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move both legs",
+              "age": 6,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 6 year old boy suddenly cannot move both legs.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state.\"}, {\"role\": \"user\", \"content\": \"Around here.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move both legs\", \"age\": 6, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\"state\", \"lga\", \"settlement\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them.\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5f01fc74ed9c54b85f",
+            "object": "chat.completion",
+            "created": 1791259247,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\"state\", \"lga\", \"settlement\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them.\"\n}",
+                  "reasoning_content": "Let me analyze this conversation.\n\nThe user reported: \"A 6 year old boy suddenly cannot move both legs.\" - This is a classic AFP (Acute Flaccid Paralysis) signal.\n\nThe assistant asked for location: village/settlement, LGA, state.\n\nThe user replied: \"Around here.\" - This doesn't resolve the location. This is an unsuccessful clarification attempt.\n\nThe clarification_attempts counter shows 1 (the first attempt was unsuccessful). Now this is the second clarification attempt needed. Wait, let me re-read.\n\nThe conversation shows:\n1. User: initial report\n2. Assistant: asked for location (clarification attempt 1)\n3. User: \"Around here.\" - unsuccessful reply\n\nThe current_case_state says clarification_attempts: 1. So one unsuccessful attempt has occurred. Now I need to make another clarification attempt (attempt 2) for location.\n\nThe location_resolver status is UNRESOLVED with no candidates. \"Around here\" is not a usable location.\n\nSo I should:\n- classification: AFP_SUSPECTED (sudden paralysis of both legs in a 6-year-old is classic AFP)\n- action: CLARIFY (still need location, attempt 2)\n- clarification: target = location, attempt_number = 2\n- Keep case state as is\n- missing_information: location (state, lga, settlement)\n- response: ask again for location, perhaps more specifically\n\nThe response should be short, SMS-appropriate. Maybe ask them to name the nearest town or village, since \"around here\" doesn't help. Ask one focused question.\n\nSince the resolver is UNRESOLVED, ask for location. One focused question: \"Please tell me the name of your village or town, and the LGA/state if you know it.\"\n\nAttempt number: The prior attempt was 1 (unsuccessful). This new attempt is attempt 2.\n\nLet me construct the JSON output."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3438,
+              "completion_tokens": 653,
+              "total_tokens": 4091,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 394
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3438,
+            "output_tokens": 653,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 394
+          },
+          "latency_ms": 3659.8,
+          "cost_usd": 0.0180981,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5f01fc74ed9c54b85f",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move both legs",
+            "age": 6,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Near my house.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CLARIFY",
+      "sender_message": "Near my house.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 6 year old boy suddenly cannot move both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state."
+          },
+          {
+            "role": "user",
+            "content": "Around here."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them."
+          },
+          {
+            "role": "user",
+            "content": "Near my house."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move both legs",
+              "age": 6,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 6 year old boy suddenly cannot move both legs.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state.\"}, {\"role\": \"user\", \"content\": \"Around here.\"}, {\"role\": \"assistant\", \"content\": \"I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them.\"}, {\"role\": \"user\", \"content\": \"Near my house.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move both legs\", \"age\": 6, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\"settlement\", \"lga\", \"state\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state.\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5f101c745c80cbf34c",
+            "object": "chat.completion",
+            "created": 1791259250,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\"settlement\", \"lga\", \"state\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state.\"\n}",
+                  "reasoning_content": "Let me analyze this conversation:\n\n1. First message: \"A 6 year old boy suddenly cannot move both legs.\" - This is a clear AFP signal (acute flaccid paralysis - sudden inability to move both legs in a 6-year-old).\n2. Assistant asked for location.\n3. User: \"Around here.\" - unsuccessful clarification attempt 1.\n4. Assistant asked again for village/town name.\n5. User: \"Near my house.\" - unsuccessful clarification attempt 2.\n\nWait, the clarification_attempts is 2 in the state. The current message is \"Near my house.\" which is the response to the second clarification attempt. So this is now the third unsuccessful attempt? Let me count:\n\n- Attempt 1: Assistant asked \"Where is the child?\" → User: \"Around here.\" (unsuccessful)\n- Attempt 2: Assistant asked \"What is the name of your village or town?\" → User: \"Near my house.\" (unsuccessful)\n\nSo after this message, we have had 2 unsuccessful attempts. The state says clarification_attempts: 2. Hmm, the state says 2 attempts already. The current user message \"Near my house\" is the reply to the second attempt.\n\nWait, let me re-read. The conversation shows:\n- Turn 1 (user): initial report\n- Turn 2 (assistant): clarification question 1 (location)\n- Turn 3 (user): \"Around here.\" - unsuccessful attempt 1\n- Turn 4 (assistant): clarification question 2 (location)\n- Turn 5 (user): \"Near my house.\" - this is the current message being processed\n\nSo the current message is the reply to clarification attempt 2. It's unsuccessful. So now we have 2 unsuccessful attempts total... but the state says clarification_attempts: 2 already.\n\nHmm, the state might be counting the attempts made so far including this one, or it might be the count before this message. Let me think. If clarification_attempts: 2 reflects the state before processing this message, then this message makes it 3 unsuccessful attempts.\n\nActually, looking at the conversation: the assistant asked twice, and the user replied twice with non-answers (\"Around here\" and \"Near my house\"). So both attempts failed. The state showing clarification_attempts: 2 likely includes the current message's failure, OR it counts the two questions asked.\n\nEither way, the policy says: \"The agent may make up to 3 unsuccessful clarification attempts. After 3 unsuccessful clarification attempts: ESCALATE only if the conversation already contains enough meaningful information to indicate a plausible surveillance-relevant health signal, but an important detail needed for follow-up remains unresolved.\"\n\nIf we're now at 3 unsuccessful attempts (counting this message), then we should escalate because:\n- There IS a plausible surveillance signal: 6-year-old boy with sudden bilateral leg paralysis (AFP signal)\n- Location cannot be resolved\n\nIf we're at 2 unsuccessful attempts, we could try one more clarification.\n\nLet me count carefully:\n- Attempt 1: \"Where is the child? Please tell me the village or settlement, LGA and state.\" → \"Around here.\" (failed)\n- Attempt 2: \"What is the name of your village or town? If you know the LGA and state, please add them.\" → \"Near my house.\" (failed)\n\nSo after processing \"Near my house\", we have 2 failed attempts... wait no. The state says clarification_attempts: 2. This state was presumably updated after \"Around here\" was processed? No wait — if attempt 1 was \"Around here\" being unsuccessful, the count would be 1 after that. Then attempt 2's question was asked, and \"Near my house\" is the reply.\n\nHmm, but the state says 2. Maybe the state counts questions asked (2 questions asked so far). The current message \"Near my house\" fails to answer question 2, making it 2 unsuccessful attempts... or 3?\n\nLet me think differently. The state given is \"current_case_state\" with clarification_attempts: 2. This is the state as of now, presumably incorporating the conversation up to and including \"Near my house\". Actually, the task is for me to process the latest message and produce output. The state provided might be the state before my processing.\n\nGiven ambiguity, let me consider: the user has been asked twice and failed twice. \"Near my house\" is the second failure. So total unsuccessful attempts = 2... but the state already says 2. If the state was computed after the first failure only, it would be 1. Since it says 2, it likely includes both failures, meaning the state already accounts for \"Near my house\" as attempt 2's failure... no wait.\n\nActually, maybe the counting is: each time the assistant asks a clarification question, that's an attempt. Two questions asked = 2 attempts. Both got non-answers. So we have 2 unsuccessful attempts. The policy allows up to 3 unsuccessful attempts before escalating.\n\nSo I could make a third clarification attempt. But realistically, the user has failed twice to give a location. A third attempt might be phrased differently.\n\nAlternatively, if the count is 3 (including this message as the third failure... no, there were only 2 questions).\n\nHmm, let me recount the conversation:\n1. User: initial report\n2. Assistant: Q1 (location)\n3. User: \"Around here\" → fail 1\n4. Assistant: Q2 (location)\n5. User: \"Near my house\" → fail 2\n\nSo 2 failed attempts. The state's clarification_attempts: 2 matches this (the state has been updated to reflect both failures, meaning the state already includes the processing of \"Near my house\"? That seems odd since I'm supposed to process it).\n\nActually, in these setups, the \"current_case_state\" typically represents the state before the latest message is processed, OR the state including everything. The clarification_attempts: 2 with the conversation showing 2 assistant questions suggests the count tracks questions asked.\n\nGiven the policy \"up to 3 unsuccessful clarification attempts\", and we're at 2 (or 3 depending on counting), I need to decide: CLARIFY once more or ESCALATE?\n\nIf this message \"Near my house\" is the response to attempt 2, then after processing it, attempts = 2 failed. One more attempt allowed (attempt 3). \n\nBut wait — if the state already shows 2 and the state is pre-processing of the latest message, then the latest message makes it 3 failed attempts → ESCALATE.\n\nHmm. The state shows cases with symptom/age/sex filled and location null — that's consistent with the state after the first message. The clarification_attempts: 2 — if this were the state after only the first user message, it would be 0 or 1. Since it's 2, the state likely reflects updates through the conversation, including the assistant's two questions and possibly the user's responses.\n\nLet me think about how these fixtures usually work: the current_case_state is the agent's state as it should be before generating the next response. The conversation includes all turns. So the state reflects everything up to \"Near my house\". clarification_attempts: 2 means 2 unsuccessful attempts have occurred (both \"Around here\" and \"Near my house\" counted).\n\nWait, but if the state already counts \"Near my house\" as a failed attempt, then my next action would be attempt 3 (CLARIFY) or... the policy says \"up to 3 unsuccessful clarification attempts. After 3 unsuccessful clarification attempts: ESCALATE...\"\n\nSo with 2 unsuccessful attempts, I can make one more clarification attempt (attempt 3). If that fails, then escalate.\n\nAlternatively, the intent of this fixture might be that this is the 3rd failure and we should escalate now. Let me look at the numbers again: clarification_attempts: 2 in the state. The conversation has 2 assistant clarification questions. The user's latest reply fails to answer. \n\nInterpretation A: State is current including latest message. Attempts = 2. Next action: CLARIFY (attempt 3) — one last try.\n\nInterpretation B: State is before latest message. Attempts become 3 after processing \"Near my house\". Next action: ESCALATE (valid AFP signal, location unresolvable).\n\nWhich is intended? The state says clarification_attempts: 2. If interpretation B, the state would show attempts = 1 (only \"Around here\" counted, since \"Near my house\" hasn't been processed). Since it shows 2, interpretation A seems more consistent: both failures counted.\n\nHmm wait, under interpretation B, when was the count incremented to 2? After \"Around here\" (fail 1), count = 1. Then Q2 asked. State before \"Near my house\" processing would show 1. But it shows 2. So interpretation B doesn't fit unless the count increments when the question is asked (Q1 → 1, Q2 → 2). Under that counting, \"Near my house\" failing means attempt 2 failed, and we have 1 more attempt allowed.\n\nUnder interpretation A: \"Around here\" → 1, \"Near my house\" → 2. Both failed. One more attempt allowed (attempt 3).\n\nEither way, it seems we have 2 failed attempts and can try once more. OR the fixture intends 3 strikes and escalate.\n\nHmm, actually wait. Let me reconsider. Maybe the count increments per question asked: Q1 = attempt 1, Q2 = attempt 2. Both questions failed to get answers. Now the agent must decide: ask Q3 (attempt 3) or escalate?\n\nPolicy: \"The agent may make up to 3 unsuccessful clarification attempts. After 3 unsuccessful clarification attempts: ESCALATE only if...\"\n\nSo attempt 3 is still allowed. After attempt 3 fails, escalate.\n\nBut hold on — maybe the fixture intends clarification_attempts: 2 to mean 2 attempts have been made and this third response... no, there are only 2 user replies to clarification questions.\n\nI'll go with: this is the 2nd unsuccessful attempt. I should make a 3rd and final clarification attempt. Actually wait — let me reconsider whether escalating now is better.\n\nThe user said \"Near my house\" — they clearly can't or won't provide a place name. Asking a third time the same way is likely to fail. But the policy says we may make up to 3 attempts, and should escalate after 3 failed attempts IF there's a valid signal.\n\nHmm, but actually, is it required to use all 3 attempts? The policy says \"may make up to 3\". After 3 unsuccessful, escalate (if valid signal). It doesn't say we must make exactly 3. But escalating prematurely at 2 attempts would violate the \"up to 3\" allowance? Not necessarily violate, but the escalation policy triggers \"after 3 unsuccessful clarification attempts.\"\n\nSo strictly, at 2 failed attempts, I should CLARIFY once more (attempt 3). The question should be focused and different — maybe ask for any landmark, nearby town, or the name of the LGA/state.\n\nLet me set:\n- classification: AFP_SUSPECTED (sudden inability to move both legs in a child = acute flaccid paralysis signal)\n- action: CLARIFY\n- clarification.target: location\n- clarification.attempt_number: 3\n- missing_information: [\"state\", \"lga\", \"settlement\"] or [\"location\"]\n- response: a final attempt asking for location in a different way.\n\nActually, wait. Let me reconsider the counting once more. The input state says clarification_attempts: 2. If my output attempt_number should reflect the new attempt, it would be 3.\n\nHmm, but there's another reading: the fixture gives clarification_attempts: 2 meaning 2 attempts have failed, and this user message is the trigger for my decision. If I count \"Near my house\" as the failure of attempt 2, then my next question is attempt 3.\n\nI'll go with CLARIFY, attempt_number 3, target location.\n\nActually, let me reconsider escalation once more. The scenario: user repeatedly gives vague non-locations. The signal is clearly AFP-suspected. The location is essential for follow-up. After this third attempt fails, we escalate. But could we escalate now? The policy is explicit: \"After 3 unsuccessful clarification attempts: ESCALATE only if...\" — so escalation is for after 3 failures. We're at 2. So CLARIFY.\n\nThe third question should try a different approach: ask for the name of the nearest town, market, school, mosque/church, or any landmark; or ask for state and LGA only.\n\nResponse should be short, SMS-appropriate: \"Please give any place name near you — nearest town, market, school or mosque. Even the LGA or state name will help health workers find the child.\"\n\nNow the output JSON:\n\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\"settlement\", \"lga\", \"state\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\"required\": false, \"reason\": null},\n  \"clarification\": {\"target\": \"location\", \"attempt_number\": 3},\n  \"confirmation\": {\"status\": \"NOT_READY\"},\n  \"response\": \"...\"\n}\n\nShould location_resolution include an entry? The resolver status is UNRESOLVED with no candidates. The example output includes location_resolution entries when inference happened. Here no location established, so empty array is fine. Or include an entry with raw_location \"Near my house\" and confidence low? The schema allows raw_location null. I think empty array is cleaner since nothing was resolved. Actually, maybe include an entry documenting the unresolved mention? The resolver's mentions is empty. I'll keep it empty.\n\nmissing_information: [\"location\"] or the specific fields. The example used empty list when complete. I'll use [\"settlement\", \"lga\", \"state\"] or just [\"location\"]. The clarification target enum has \"location\". I'll list the three fields to be precise: [\"state\", \"lga\", \"settlement\"].\n\nconfirmation.status: NOT_READY (we haven't reached confirmation).\n\npriority: NORMAL (no high-priority rule supplied).\n\nResponse text: \"I understand. Please try to give any place name: the nearest town, market, school or mosque, or your LGA or state. This is needed so health workers can find the child.\"\n\nKeep it short for SMS.\n\nOne more consideration: should attempt_number be 3 or 2? If the state's clarification_attempts: 2 counts the two failed replies, then my new question is attempt 3. If it counts questions asked (2), my new question is also attempt 3. Either way, 3. Good.\n\nWait, actually, one more thought — should I escalate instead? Let me re-read: \"A clarification attempt is unsuccessful when the sender's reply does not resolve the information requested. The agent may make up to 3 unsuccessful clarification attempts. After 3 unsuccessful clarification attempts: ESCALATE only if...\"\n\nThe replies \"Around here\" and \"Near my house\" = 2 unsuccessful attempts. So we haven't hit 3 yet. CLARIFY is correct.\n\nFinal response text should be concise and try a different tack."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3501,
+              "completion_tokens": 3568,
+              "total_tokens": 7069,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 3312
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3501,
+            "output_tokens": 3568,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 3312
+          },
+          "latency_ms": 22908.3,
+          "cost_usd": 0.057620700000000004,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5f101c745c80cbf34c",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move both legs",
+            "age": 6,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "settlement",
+          "lga",
+          "state"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "I do not know the village name.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 3
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 3,
+      "gold_action": "ESCALATE",
+      "sender_message": "I do not know the village name.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 6 year old boy suddenly cannot move both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state."
+          },
+          {
+            "role": "user",
+            "content": "Around here."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them."
+          },
+          {
+            "role": "user",
+            "content": "Near my house."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state."
+          },
+          {
+            "role": "user",
+            "content": "I do not know the village name."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move both legs",
+              "age": 6,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 3,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 6 year old boy suddenly cannot move both legs.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state.\"}, {\"role\": \"user\", \"content\": \"Around here.\"}, {\"role\": \"assistant\", \"content\": \"I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them.\"}, {\"role\": \"user\", \"content\": \"Near my house.\"}, {\"role\": \"assistant\", \"content\": \"I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state.\"}, {\"role\": \"user\", \"content\": \"I do not know the village name.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move both legs\", \"age\": 6, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 3, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ESCALATE\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\"state\", \"lga\", \"settlement\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": true,\n    \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have recorded a 6-year-old boy who suddenly cannot move both legs. Because the location is still unknown, I am passing this report to a health worker who will follow up with you to help find the child.\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5f695f7277a70bff56",
+            "object": "chat.completion",
+            "created": 1791259273,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ESCALATE\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move both legs\",\n      \"age\": 6,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\"state\", \"lga\", \"settlement\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": true,\n    \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have recorded a 6-year-old boy who suddenly cannot move both legs. Because the location is still unknown, I am passing this report to a health worker who will follow up with you to help find the child.\"\n}",
+                  "reasoning_content": "Let me analyze this conversation.\n\nThe user reported: \"A 6 year old boy suddenly cannot move both legs.\" This is a clear AFP signal (sudden paralysis/weakness in limbs in a child under 15).\n\nThe agent asked for location 3 times:\n1. \"Where is the child?\" → \"Around here.\" (unsuccessful)\n2. \"What is the name of your village or town?\" → \"Near my house.\" (unsuccessful)\n3. \"Please give any place name...\" → \"I do not know the village name.\" (unsuccessful)\n\nSo we have 3 unsuccessful clarification attempts. The clarification_attempts field says 3.\n\nPer policy: After 3 unsuccessful clarification attempts, ESCALATE only if the conversation already contains enough meaningful information to indicate a plausible surveillance-relevant health signal, but an important detail needed for follow-up remains unresolved.\n\nHere we DO have a plausible surveillance signal: 6-year-old boy with sudden inability to move both legs — classic AFP presentation. The missing detail is location, which is important for follow-up. So ESCALATE with reason FAILED_CLARIFICATION_WITH_VALID_SIGNAL.\n\nClassification: AFP_SUSPECTED (the symptom is clearly AFP-relevant: sudden flaccid paralysis in both legs).\n\nAction: ESCALATE.\n\nPriority: NORMAL (no high-priority rule supplied).\n\nCases: one case with symptom, age 6, sex male, location null.\n\nLocation resolution: empty (resolver UNRESOLVED).\n\nMissing information: state, lga, settlement (location).\n\nPotential duplicate: false.\n\nClarification: target \"location\", attempt_number 3.\n\nConfirmation: NOT_READY.\n\nResponse: short SMS-appropriate message telling the sender the report will be passed to a health worker, e.g., \"Thank you. I have recorded a 6-year-old boy who suddenly cannot move both legs. Since the location is not known, I am passing this report to a health worker who will contact you to help find the child.\"\n\nEscalation reason: FAILED_CLARIFICATION_WITH_VALID_SIGNAL."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3565,
+              "completion_tokens": 697,
+              "total_tokens": 4262,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 421
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3565,
+            "output_tokens": 697,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 421
+          },
+          "latency_ms": 6399.1,
+          "cost_usd": 0.019035,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5f695f7277a70bff56",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ESCALATE",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move both legs",
+            "age": 6,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": true,
+          "reason": "FAILED_CLARIFICATION_WITH_VALID_SIGNAL"
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. I have recorded a 6-year-old boy who suddenly cannot move both legs. Because the location is still unknown, I am passing this report to a health worker who will follow up with you to help find the child."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 3,
+      "clarification_attempts_after": 3
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 6 year old boy suddenly cannot move both legs."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state."
+    },
+    {
+      "role": "user",
+      "content": "Around here."
+    },
+    {
+      "role": "assistant",
+      "content": "I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them."
+    },
+    {
+      "role": "user",
+      "content": "Near my house."
+    },
+    {
+      "role": "assistant",
+      "content": "I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state."
+    },
+    {
+      "role": "user",
+      "content": "I do not know the village name."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. I have recorded a 6-year-old boy who suddenly cannot move both legs. Because the location is still unknown, I am passing this report to a health worker who will follow up with you to help find the child."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot move both legs",
+        "age": 6,
+        "sex": "male",
+        "state": null,
+        "lga": null,
+        "settlement": null
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 36026.7,
+    "input_tokens": 13829,
+    "output_tokens": 5403,
+    "cost_usd": 0.110279,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  }
+}

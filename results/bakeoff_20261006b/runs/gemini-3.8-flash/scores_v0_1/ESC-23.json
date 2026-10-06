@@ -1,0 +1,589 @@
+{
+  "scenario_id": "ESC-23",
+  "model": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 34347.5,
+    "input_tokens": 11403,
+    "output_tokens": 3799,
+    "cost_usd": 0.022798,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "ESC-23",
+    "model": "gemini-3.8-flash",
+    "scores": {
+      "classification": 0,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 1,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 9,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "PARTIAL",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "PARTIAL",
+      "appropriate_stop_behavior": "CORRECT",
+      "no_fabricated_information": "CORRECT"
+    },
+    "notes": [
+      "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+      "classification: turn 2: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+      "classification: turn 3: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+      "classification: turn 4: classification NOT_RELEVANT (expected UNINTELLIGIBLE)",
+      "conversation: clarification_target_quality: PARTIAL",
+      "conversation: non_diagnostic_behavior: PARTIAL"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 9,
+  "rubric": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_escalate_without_valid_signal",
+      "cursor": 3,
+      "route": "DIMENSION",
+      "dimension": "escalation_priority",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_stop_after_clarification_limit",
+      "cursor": 3,
+      "route": "DIMENSION",
+      "dimension": "escalation_priority",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "74 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "110 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "95 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 4,
+      "source": "det",
+      "detail": "167 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "what the symptom is",
+          "the child's age",
+          "the village or community"
+        ],
+        "assistant_message": "Please tell us what is happening to the child and what symptoms they have."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.78,
+        "INCORRECT": 0.02,
+        "CORRECT": 0.2
+      },
+      "confidence": 0.67,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 439,
+        "output_tokens": 47
+      },
+      "latency_ms": 94.0,
+      "cost_usd": 1.8438000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [],
+        "assistant_message": "Please tell us what is happening to the child and what symptoms they have."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 416,
+        "output_tokens": 47
+      },
+      "latency_ms": 80.0,
+      "cost_usd": 1.7472e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Please tell us what is happening to the child and what symptoms they have."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.02,
+        "CORRECT": 0.98,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 81.3,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Please tell us what is happening to the child and what symptoms they have."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 91.9,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "what the symptom is",
+          "the child's age",
+          "the village or community"
+        ],
+        "assistant_message": "Could you please describe what illness or symptoms the child has, such as sudden weakness in the arms or legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.94,
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.05
+      },
+      "confidence": 0.91,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 446,
+        "output_tokens": 47
+      },
+      "latency_ms": 111.8,
+      "cost_usd": 1.8732000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [],
+        "assistant_message": "Could you please describe what illness or symptoms the child has, such as sudden weakness in the arms or legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 47
+      },
+      "latency_ms": 75.8,
+      "cost_usd": 1.7766000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Could you please describe what illness or symptoms the child has, such as sudden weakness in the arms or legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.16,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.84
+      },
+      "confidence": 0.75,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 417,
+        "output_tokens": 47
+      },
+      "latency_ms": 96.5,
+      "cost_usd": 1.7514e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Could you please describe what illness or symptoms the child has, such as sudden weakness in the arms or legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.91,
+        "PARTIAL": 0.08,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.87,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 417,
+        "output_tokens": 47
+      },
+      "latency_ms": 86.7,
+      "cost_usd": 1.7514e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "what the symptom is",
+          "the child's age",
+          "the village or community"
+        ],
+        "assistant_message": "We cannot tell what is wrong. Please describe what specific symptoms or sickness the child has."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.05,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.94
+      },
+      "confidence": 0.92,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 47
+      },
+      "latency_ms": 161.1,
+      "cost_usd": 1.8564e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [],
+        "assistant_message": "We cannot tell what is wrong. Please describe what specific symptoms or sickness the child has."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 419,
+        "output_tokens": 47
+      },
+      "latency_ms": 124.7,
+      "cost_usd": 1.7598000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "We cannot tell what is wrong. Please describe what specific symptoms or sickness the child has."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.07,
+        "CORRECT": 0.93,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.89,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 413,
+        "output_tokens": 47
+      },
+      "latency_ms": 69.3,
+      "cost_usd": 1.7346e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "We cannot tell what is wrong. Please describe what specific symptoms or sickness the child has."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.99
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 413,
+        "output_tokens": 47
+      },
+      "latency_ms": 122.0,
+      "cost_usd": 1.7346e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "Without specific details about the child's symptoms or location, we are unable to process this report. Please contact your local health worker if assistance is needed."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.72,
+        "PARTIAL": 0.26,
+        "INCORRECT": 0.02
+      },
+      "confidence": 0.58,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 425,
+        "output_tokens": 47
+      },
+      "latency_ms": 64.6,
+      "cost_usd": 1.785e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "Without specific details about the child's symptoms or location, we are unable to process this report. Please contact your local health worker if assistance is needed."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 0.07,
+        "PARTIAL": 0.93
+      },
+      "confidence": 0.89,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 425,
+        "output_tokens": 47
+      },
+      "latency_ms": 103.3,
+      "cost_usd": 1.785e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "final_action": "NOT_RELEVANT",
+        "message": "Without specific details about the child's symptoms or location, we are unable to process this report. Please contact your local health worker if assistance is needed."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.14,
+        "CORRECT": 0.78,
+        "INCORRECT": 0.08
+      },
+      "confidence": 0.67,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 432,
+        "output_tokens": 45
+      },
+      "latency_ms": 76.2,
+      "cost_usd": 1.8144e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "no_fabricated_information",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "sender_message": "same thing",
+        "assistant_message": "Without specific details about the child's symptoms or location, we are unable to process this report. Please contact your local health worker if assistance is needed."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.99,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 440,
+        "output_tokens": 48
+      },
+      "latency_ms": 102.6,
+      "cost_usd": 1.848e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 4,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+    "classification: turn 2: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+    "classification: turn 3: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+    "classification: turn 4: classification NOT_RELEVANT (expected UNINTELLIGIBLE)",
+    "conversation: clarification_target_quality: PARTIAL",
+    "conversation: non_diagnostic_behavior: PARTIAL"
+  ]
+}

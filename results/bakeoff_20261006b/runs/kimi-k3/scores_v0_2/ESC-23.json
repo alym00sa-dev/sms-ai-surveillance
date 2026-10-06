@@ -1,0 +1,602 @@
+{
+  "scenario_id": "ESC-23",
+  "model": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 76343.5,
+    "input_tokens": 13580,
+    "output_tokens": 6005,
+    "cost_usd": 0.117734,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  },
+  "scorer_version": "v0.2",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "ESC-23",
+    "model": "kimi-k3",
+    "scores": {
+      "classification": 0,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 1,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 9,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "CORRECT",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "PARTIAL",
+      "appropriate_stop_behavior": "INCORRECT",
+      "no_fabricated_information": "CORRECT"
+    },
+    "notes": [
+      "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+      "classification: turn 2: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+      "classification: turn 3: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+      "classification: turn 4: classification NOT_RELEVANT (expected UNINTELLIGIBLE)",
+      "conversation: appropriate_stop_behavior: INCORRECT",
+      "conversation: non_diagnostic_behavior: PARTIAL"
+    ],
+    "scorer_version": "v0.2",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 9,
+  "rubric": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_escalate_without_valid_signal",
+      "cursor": 3,
+      "route": "DIMENSION",
+      "dimension": "escalation_priority",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_stop_after_clarification_limit",
+      "cursor": 3,
+      "route": "DIMENSION",
+      "dimension": "escalation_priority",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "115 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "78 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "146 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 4,
+      "source": "det",
+      "detail": "251 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "what the symptom is",
+          "the child's age",
+          "the location (village or community, LGA, or state)"
+        ],
+        "assistant_message": "Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "CORRECT": 0.98,
+        "PARTIAL": 0.01
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 486,
+        "output_tokens": 47
+      },
+      "latency_ms": 102.2,
+      "cost_usd": 2.0412000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [],
+        "assistant_message": "Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 429,
+        "output_tokens": 47
+      },
+      "latency_ms": 250.5,
+      "cost_usd": 1.8018e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.17,
+        "CORRECT": 0.83,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.75,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 47
+      },
+      "latency_ms": 86.3,
+      "cost_usd": 1.7766000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Sorry to hear. What is wrong with the child? For example: fever, weakness of arms or legs, rash, or something else?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.96,
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.94,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 423,
+        "output_tokens": 47
+      },
+      "latency_ms": 106.6,
+      "cost_usd": 1.7766000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "what the symptom is",
+          "the child's age",
+          "the location (village or community, LGA, or state)"
+        ],
+        "assistant_message": "Please answer yes or no: is the child weak or unable to move the arms or legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.2,
+        "PARTIAL": 0.03,
+        "CORRECT": 0.77
+      },
+      "confidence": 0.65,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 477,
+        "output_tokens": 47
+      },
+      "latency_ms": 74.4,
+      "cost_usd": 2.0034e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [],
+        "assistant_message": "Please answer yes or no: is the child weak or unable to move the arms or legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 420,
+        "output_tokens": 47
+      },
+      "latency_ms": 106.3,
+      "cost_usd": 1.764e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Please answer yes or no: is the child weak or unable to move the arms or legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.94,
+        "PARTIAL": 0.05,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.91,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 414,
+        "output_tokens": 47
+      },
+      "latency_ms": 155.4,
+      "cost_usd": 1.7388e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Please answer yes or no: is the child weak or unable to move the arms or legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 414,
+        "output_tokens": 47
+      },
+      "latency_ms": 89.9,
+      "cost_usd": 1.7388e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "what the symptom is",
+          "the child's age",
+          "the location (village or community, LGA, or state)"
+        ],
+        "assistant_message": "I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 494,
+        "output_tokens": 47
+      },
+      "latency_ms": 90.8,
+      "cost_usd": 2.0748000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [],
+        "assistant_message": "I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 125.8,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.13,
+        "CORRECT": 0.86,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.78,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 431,
+        "output_tokens": 47
+      },
+      "latency_ms": 82.8,
+      "cost_usd": 1.8102e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I do not know the child's problem yet. Please tell me one thing wrong with the child's body — for example: cannot walk, weak legs, fever, or rash."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.99,
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 431,
+        "output_tokens": 47
+      },
+      "latency_ms": 122.1,
+      "cost_usd": 1.8102e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "Sorry, I could not get the child's problem. Please send a new report saying what is wrong (for example: weak legs, cannot walk, fever, rash), the child's age, and the village or town. If the child is sick now, please go to the nearest health facility."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.02,
+        "CORRECT": 0.54,
+        "PARTIAL": 0.44
+      },
+      "confidence": 0.31,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 455,
+        "output_tokens": 47
+      },
+      "latency_ms": 91.5,
+      "cost_usd": 1.9109999999999998e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "Sorry, I could not get the child's problem. Please send a new report saying what is wrong (for example: weak legs, cannot walk, fever, rash), the child's age, and the village or town. If the child is sick now, please go to the nearest health facility."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.97,
+        "INCORRECT": 0.02,
+        "CORRECT": 0.01
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 455,
+        "output_tokens": 47
+      },
+      "latency_ms": 121.5,
+      "cost_usd": 1.9109999999999998e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "final_action": "NOT_RELEVANT",
+        "message": "Sorry, I could not get the child's problem. Please send a new report saying what is wrong (for example: weak legs, cannot walk, fever, rash), the child's age, and the village or town. If the child is sick now, please go to the nearest health facility."
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "CORRECT": 0.0,
+        "PARTIAL": 0.05,
+        "INCORRECT": 0.95
+      },
+      "confidence": 0.93,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 462,
+        "output_tokens": 46
+      },
+      "latency_ms": 76.2,
+      "cost_usd": 1.9404e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "no_fabricated_information",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "sender_message": "same thing",
+        "assistant_message": "Sorry, I could not get the child's problem. Please send a new report saying what is wrong (for example: weak legs, cannot walk, fever, rash), the child's age, and the village or town. If the child is sick now, please go to the nearest health facility."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.95,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.05
+      },
+      "confidence": 0.93,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 470,
+        "output_tokens": 48
+      },
+      "latency_ms": 101.5,
+      "cost_usd": 1.974e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 4,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+    "classification: turn 2: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+    "classification: turn 3: classification HEALTH_RELATED_UNCLEAR (expected UNINTELLIGIBLE)",
+    "classification: turn 4: classification NOT_RELEVANT (expected UNINTELLIGIBLE)",
+    "conversation: appropriate_stop_behavior: INCORRECT",
+    "conversation: non_diagnostic_behavior: PARTIAL"
+  ]
+}

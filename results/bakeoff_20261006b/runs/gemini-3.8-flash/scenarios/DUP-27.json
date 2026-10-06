@@ -1,0 +1,474 @@
+{
+  "scenario_id": "DUP-27",
+  "title": "Similar location but clearly different child",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "A 4 year old girl in Majawa suddenly cannot move her right arm.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 4 year old girl in Majawa suddenly cannot move her right arm."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [
+          {
+            "case_id": "CASE-1002",
+            "age": 8,
+            "sex": "male",
+            "settlement": "Majawa",
+            "symptom": "sudden weakness in both legs",
+            "reported_at": "1 hour earlier"
+          }
+        ],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 4 year old girl in Majawa suddenly cannot move her right arm.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1002\", \"age\": 8, \"sex\": \"male\", \"settlement\": \"Majawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"1 hour earlier\"}], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move her right arm\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot move her right arm. Is this information correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move her right arm\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot move her right arm. Is this information correct?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2985,
+              "candidatesTokenCount": 330,
+              "totalTokenCount": 3795,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2985
+                }
+              ],
+              "thoughtsTokenCount": 480,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "SGjEaomIMf7oz7IP0eTc2QE"
+          },
+          "usage": {
+            "input_tokens": 2985,
+            "output_tokens": 810,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 480
+          },
+          "latency_ms": 7088.3,
+          "cost_usd": 0.00527625,
+          "stop_reason": "end_turn",
+          "request_id": "SGjEaomIMf7oz7IP0eTc2QE",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move her right arm",
+            "age": 4,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot move her right arm. Is this information correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "arm"
+              ],
+              "laterality": [
+                "one",
+                "right"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 4 year old girl in Majawa suddenly cannot move her right arm."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot move her right arm. Is this information correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move her right arm",
+              "age": 4,
+              "sex": "female",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [
+          {
+            "case_id": "CASE-1002",
+            "age": 8,
+            "sex": "male",
+            "settlement": "Majawa",
+            "symptom": "sudden weakness in both legs",
+            "reported_at": "1 hour earlier"
+          }
+        ],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 4 year old girl in Majawa suddenly cannot move her right arm.\"}, {\"role\": \"assistant\", \"content\": \"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot move her right arm. Is this information correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move her right arm\", \"age\": 4, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1002\", \"age\": 8, \"sex\": \"male\", \"settlement\": \"Majawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"1 hour earlier\"}], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move her right arm\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. The report has been submitted for health surveillance follow-up.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move her right arm\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. The report has been submitted for health surveillance follow-up.\"\n}",
+                      "thoughtSignature": "EvwKCvkKAWkUfRP9hhBgjUECiA43i6VxIb6Rw8LAa5/njJPIj8M83I4G1C8tbr6USpgayN22D2k9cPxWX2hflCQ2XgZWKTpIbGSXcCSyj4e6zC0Mh8xLMdcMM9rTk4L2TjV9HtgS79qYu488GUJxy2Gh1VdUpBFpTDgTqcnTpYjFRtkY7HEmZh/DS9a8tQExyGQ9eqSfTim+fK09jQ57RtWKVyB1PGh2Uv1cOKETPwGSfadaUDjgvxPU98dA8xnqnbwDsHsuJq0QfCgv2lhJpbF5WDkTCHnYtdElDSQPTtWBC0263EK5gzhG4WJd+NWd4LZ88frNNPXjSRD8Zv4ICV+a670CoQIq0dUa7HrrdkKYh4uIquzM/FHqH/BDaQCXkyKRzqI5lbJI/BBz5a4OJfCWmbOJKAfca3fEo9tRGmmSbFLWvGNduHpditeDkzZjlGSUJ+CqC71SPs4nFHhw9VKIb9HIKv3VC2X5Nz5F4KORSmkKsRK9afumy7+WIETxN374wVVexV78EykwlvFIEIndUaq04BMAXXdDRS4/AvKk1QRDVu6jMnkLZenlDGIUgUO+ZNAfwVnS/+YDya2u7quIF6WkNv4Sc2JmBxf1udR6ijlD1EO2m5D9t39+gwfVWJQ/6XCcsNVOOeE/iQ/s3KAlKA4Lu3S8UXyZZP6h4tazoiIQ4l6f7zOqOs6F+Qk9r7KlcKIzOwtbAJCSjriQUS7vNCen9AxXY9ASX6n7P9REa04YE0IFmKNkmCj4bVQYPTszgYNkMVk6GNHTU0/mauaUU2i1aWwb4eM+XFyZ84xgHbZ1h5j/i4BNc0Y9Ey/Ai/Se6vLuGGMTi5tC+k0pMHVgQrhkZ2z0J+oQmpa8bl5ky2wNoasHe4ZifVpU8C304dGSgN7xm7a7GL0p34wx2J6O2SKNJ6Slk6SKQ7hq/GUKWkp/WiDcobb8vJOYbxZ1axPDkfgYGFSM5gQQtGhgoN9orPoDJOYHifZ0OoUmTHtsbfVYILWEwzCNlcomDMoeeRcB/z2KwTmEakkGCh99y4uK3HIVl8BCROf8uyGQZAJrd9/caSQXcyjzFvTCZR077TE9Xo6uzyJIqAbZQjGQYlxY3HpQ9th9ETUiUtckSLAf4mYoeuwwBDpwbeBoZvCih3oV4qqLah/p5U3YosSE+PhMaxFBAbwBKGciGvIsoaac3OH3rO6xkQg7HM5rG9NCW498hgRjMSisA5PR39rzp1HZOnIWQgtk3/XmN/Eh8FigxYpdHdSZ02O76YEwVj+RfXni+MZrFYAgZMRybXN+ze7yylxtYWZNzdr/RcTK4Q1dKAqve65Pk5py820H3yF+6eTxIlzF1PnO4w+Iv/vBu8U7kg8zDM5vXdiorAERISvKu67iqbeL3tsRq6DXhRqGBcgXYh5i1NHkVc3lgPeaPexGsKfzq3Ul8WVoqMZHd8xmbhOPG6vPnD2GsZxAVdOamfAE3f7VPC9/V9gRS+UgtAtFYJfUqB/tCnT72X0DZmLC/8J17d/Exd6wESwMxKndjGOyZwdVIVfXfwfEARRmPgqGUUY9OLRt23O3EEoSuIa68vDCvQ5WD7E61rVS6C0JWi4LR+6Xh8jN9r5NulT7gHNf13pqmgzFMpmBo8uq1FHO0zgKm+yWT13v0S6Nas3IfTxJFUQtpssH+mAK13BtgneryYfksnklX+Hrj28kH3WJkNCiXDnN6/faT8RYYVej4cU2ezHEG+9pCRHYChCzIIdhBhwTX+AgBNCy6u5L17dsgq+/NXsHndfmKKFe1oaIH/jzDJJLX1vfhyNCVTJqVJ/1ZMJNkc4wovSkNggKTARtw7BtufxjpbH5J9tO+g/xBz/fc4/tRbvDFyMUleNP"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3108,
+              "candidatesTokenCount": 312,
+              "totalTokenCount": 3791,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3108
+                }
+              ],
+              "thoughtsTokenCount": 371,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "T2jEavPaN4atz7IPqO272AE"
+          },
+          "usage": {
+            "input_tokens": 3108,
+            "output_tokens": 683,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 371
+          },
+          "latency_ms": 6353.5,
+          "cost_usd": 0.004892250000000001,
+          "stop_reason": "end_turn",
+          "request_id": "T2jEavPaN4atz7IPqO272AE",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move her right arm",
+            "age": 4,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you for confirming. The report has been submitted for health surveillance follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 4 year old girl in Majawa suddenly cannot move her right arm."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot move her right arm. Is this information correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for confirming. The report has been submitted for health surveillance follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot move her right arm",
+        "age": 4,
+        "sex": "female",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 13441.8,
+    "input_tokens": 6093,
+    "output_tokens": 1493,
+    "cost_usd": 0.010169,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

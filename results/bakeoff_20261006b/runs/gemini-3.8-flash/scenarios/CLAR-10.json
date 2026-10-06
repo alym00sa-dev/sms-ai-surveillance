@@ -1,0 +1,899 @@
+{
+  "scenario_id": "CLAR-10",
+  "title": "Sender answers a different question first",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "Small girl with sudden weak legs in Bodinga.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Small girl with sudden weak legs in Bodinga."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Bodinga",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Bodinga",
+                "settlement": "Bodinga"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Bodinga",
+                  "settlement": "Bodinga",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Small girl with sudden weak legs in Bodinga.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Bodinga\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"How old is the girl?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"How old is the girl?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2925,
+              "candidatesTokenCount": 317,
+              "totalTokenCount": 4294,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2925
+                }
+              ],
+              "thoughtsTokenCount": 1052,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "vmbEavx7kNDPsg_L6bzoBA"
+          },
+          "usage": {
+            "input_tokens": 2925,
+            "output_tokens": 1369,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 1052
+          },
+          "latency_ms": 11555.6,
+          "cost_usd": 0.007327500000000001,
+          "stop_reason": "end_turn",
+          "request_id": "vmbEavx7kNDPsg_L6bzoBA",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": null,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Bodinga",
+            "settlement": "Bodinga"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Bodinga",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "age",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "How old is the girl?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Her mother is Aisha.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CLARIFY",
+      "sender_message": "Her mother is Aisha.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Small girl with sudden weak legs in Bodinga."
+          },
+          {
+            "role": "assistant",
+            "content": "How old is the girl?"
+          },
+          {
+            "role": "user",
+            "content": "Her mother is Aisha."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": null,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga"
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Bodinga",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Bodinga",
+                "settlement": "Bodinga"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Bodinga",
+                  "settlement": "Bodinga",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Small girl with sudden weak legs in Bodinga.\"}, {\"role\": \"assistant\", \"content\": \"How old is the girl?\"}, {\"role\": \"user\", \"content\": \"Her mother is Aisha.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": null, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Bodinga\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\"age\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. Could you please share how old the girl is, or her approximate age?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\"age\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. Could you please share how old the girl is, or her approximate age?\"\n}",
+                      "thoughtSignature": "EooICocIAWkUfRMA1kyzsyrsJETkvzEjsddicL89COCRraJ4vlKseNi7n8o97WPkAL2tVviqUgB9tPSk8MbTg4YwBwZ+ejabT1PfwJV76PCMJjmu6iiL72ejLRul9R8QFr6jsQKrwDH2Siq5z32UuNFLGF4OuDOmonY8pugDCTlF5E8Gtofr2XV4Z7V6XPJkUKrYmYAjcsjgTPx//qSbhvBK42l6rivwgwepxoUAh8dhkpK3eAFXi9N/wENLehUnml1qfJhoKHKZIXukVS3Im+7tp9T3w8YUyRW5z0vErPpViHzo7z4YQ+U0Uoq1jhQmohqJgj2OsDi4t0R3iZlzyk/0MoiJARwuaP42T1jdWd09HSdQh1rccO0ZPlFAQaYZEL4pN8kWI/2QjGeCVO4Uyf+nKClkkZW5NQ1s2FW5Pbr7ui/UjUUteIMQNrYLbLUrVuumZKN0sB5e+j0sfO5OUPwVHTxq5u/WQz2WpK0sMwRKoIz5jCxkL2HcaINUaCXvq9biEGoqCx1L0vFjZGsiI+i4f2gu3/c5BX4LfCExGQU0aqPYUzZgw85NRb4vYkGlKuuRkLJ0rnFxyblx1bUTCJyvmNuSq2IMdRGi+n1M0/OmLQsb+KxkvMpxtW8Suc7Jk0gpTKf6881dQr9yD9UK44NZPBugsctyL4FlTniSNxRWVKsqPohdQURId6TJ2a6pmK5OtPPI6+XArGKOXqMmeTDewfUUSMfMg51V89e5G/aWBmJQA1AgzWprnm+LaNU0vYHNjdHak5dIVKhSXaMN8w5ieayjJ8rd9kvjtz6sxqRCcC/tC8Q1hHpx0GULgLR4Wd/knR9ccllxNvWcpuxQK0pU44Nj+llU5jqk2UoML4SQwhcLJWE/+jszuGG5J+PH0I48577hY/vmoFhV2mmkcPQEz3vxCB3eiS5RrEL9poWfRv5CW21PhA5xIXoQgVo5sDMumbgXIjRmJ3Pi7XG3Z+IRvwEJXd0u3cliRr5XxPHj5at3vqu/4ruY/Zn8sF24DOG7uTYzFxBbVGcrBVLjYyW3qyyUgvxOy65NrzVBFvtfqteLwBtKrDIsMsICO4pslTSSeF7DJg5g/4zElonsLGQaet+RyzwxeRX8HUyH93vOMqrQtyBIMU/1Irncx6Td5EAZTpWCgdZffAwn9KxzVSiRiYFbA2pdQgTcj1RCaPVqKW0HD+8z9w/wFHuyQgrC6IvbVa2IJjLY4B0O9pUOwUjyd9f1WgQn6Yl+P+WgnUhabIYETiFyfPZFyvDrc4QSMKhB5NgtU1iXK+BTu8cwc6PvkZ4ecKL3oXqAwpYS2xYi8qIZb2vGLSNUqkoWpw5Dj0Aksl/cFNvePSDsIyEU9N9LALvSF+DP29ySNzE="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3014,
+              "candidatesTokenCount": 315,
+              "totalTokenCount": 3580,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3014
+                }
+              ],
+              "thoughtsTokenCount": 251,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "yWbEauqXJcWcz7IPoJ616Ac"
+          },
+          "usage": {
+            "input_tokens": 3014,
+            "output_tokens": 566,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 251
+          },
+          "latency_ms": 5349.2,
+          "cost_usd": 0.004383,
+          "stop_reason": "end_turn",
+          "request_id": "yWbEauqXJcWcz7IPoJ616Ac",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": null,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Bodinga",
+            "settlement": "Bodinga"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Bodinga",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "age",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. Could you please share how old the girl is, or her approximate age?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "She is 4 years old.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CONFIRM",
+      "sender_message": "She is 4 years old.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Small girl with sudden weak legs in Bodinga."
+          },
+          {
+            "role": "assistant",
+            "content": "How old is the girl?"
+          },
+          {
+            "role": "user",
+            "content": "Her mother is Aisha."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. Could you please share how old the girl is, or her approximate age?"
+          },
+          {
+            "role": "user",
+            "content": "She is 4 years old."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": null,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga"
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Bodinga",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Bodinga",
+                "settlement": "Bodinga"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Bodinga",
+                  "settlement": "Bodinga",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Small girl with sudden weak legs in Bodinga.\"}, {\"role\": \"assistant\", \"content\": \"How old is the girl?\"}, {\"role\": \"user\", \"content\": \"Her mother is Aisha.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. Could you please share how old the girl is, or her approximate age?\"}, {\"role\": \"user\", \"content\": \"She is 4 years old.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": null, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Bodinga\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 4-year-old girl in Bodinga, Bodinga, Sokoto, with sudden weak legs. Is this correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 4-year-old girl in Bodinga, Bodinga, Sokoto, with sudden weak legs. Is this correct?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3060,
+              "candidatesTokenCount": 324,
+              "totalTokenCount": 4014,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3060
+                }
+              ],
+              "thoughtsTokenCount": 630,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "zmbEapqVOayez7IPr4n20AM"
+          },
+          "usage": {
+            "input_tokens": 3060,
+            "output_tokens": 954,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 630
+          },
+          "latency_ms": 6150.1,
+          "cost_usd": 0.0058725,
+          "stop_reason": "end_turn",
+          "request_id": "zmbEapqVOayez7IPr4n20AM",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 4,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Bodinga",
+            "settlement": "Bodinga"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Bodinga",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 4-year-old girl in Bodinga, Bodinga, Sokoto, with sudden weak legs. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 3,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Small girl with sudden weak legs in Bodinga."
+          },
+          {
+            "role": "assistant",
+            "content": "How old is the girl?"
+          },
+          {
+            "role": "user",
+            "content": "Her mother is Aisha."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. Could you please share how old the girl is, or her approximate age?"
+          },
+          {
+            "role": "user",
+            "content": "She is 4 years old."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 4-year-old girl in Bodinga, Bodinga, Sokoto, with sudden weak legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 4,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga"
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Bodinga",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Bodinga",
+                "settlement": "Bodinga"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Bodinga",
+                  "settlement": "Bodinga",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Small girl with sudden weak legs in Bodinga.\"}, {\"role\": \"assistant\", \"content\": \"How old is the girl?\"}, {\"role\": \"user\", \"content\": \"Her mother is Aisha.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. Could you please share how old the girl is, or her approximate age?\"}, {\"role\": \"user\", \"content\": \"She is 4 years old.\"}, {\"role\": \"assistant\", \"content\": \"I have: 4-year-old girl in Bodinga, Bodinga, Sokoto, with sudden weak legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 4, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Bodinga\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. The report has been accepted and submitted to surveillance officers for follow-up.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. The report has been accepted and submitted to surveillance officers for follow-up.\"\n}",
+                      "thoughtSignature": "EpcICpQIAWkUfRN6O8KQHaWSpSUQhsGxlJLC6ItWXuoxSf3eEMXEOsA3eiCRm100mc0JrLIRZxFIYPmgkdhRGX4qmCxbJI5zrVton+GXv8xwpsy+vX4YebN0GMtzAex/cpL8NpXVlFshaMHJATXQKCS8XdrtOeib0zO4d7djN2n/1/qDXS+NEzSilV3RyGE2byJ1tMlGlWZCOJd1haVZBKD4xFnvWnJsQSwEOSbjN7A83M7ybQKs1VzZezu7dbN/QVRsX173EEMTbCXqZ4gO8xuY2/wFOc2+uoKrXVnN1OYYDBNut7PvJOVIOUzDw5QvsCARytrgb31nolLN7GmGB7YGXMztnRzCSpn60ALrnj/7p8a3dXBKMoskudTjjDKkQ7vr3T+o7L9dGD++yLZkFDs/OPqRJaICpyWN+sE9XwtF08m894V//qrO8n3sLZLir2+T7K99dSy4opIQvgdVRASM9JEWhuAwaYzePXDK/olZxeeLohbVYHARiDign7hqFdo/FZmW8oGJUcm5RmE65oQdavDfY91Me9l+lb6M5mf9zsR3E3pCo6yF0l08LhNlEnL73qTAQHxCHpTHYoWz7qt3Ee5NTmrHIiqRRCo3ZxKvqOmjRZ6fSGLtFLschwfhsfo7CfwI6fi4WoCqq8XZUVVYnjFaH/daPChd6N39E/vV1MTR5NPo+6YCJ5jMednaPA0SjAPZ3hJ/FuoIgFDAg9ANL6kBhAgizLWlx955nHkiu+x14ingq4DOaLKpg8KBGMT0f9D3vwEW36o/a5s1R2vjQTwg9nqJSfffbMYFYiV2PoY735Np6+owM8K/N8JIBfG4CHDlBX0K4xH4DjbC9BgacfTeQ9mpiU+JLhD4gb2X3B7oj6fx9/xFMdzBwJd6k6Q/G/IX+Dwn1TOGobNQmXcv4g+fcNQWftJlpV3FEL4JBAiJGUhCL0lJWaP6ln6cXP/Fbhimvv7zPXyZQ0x3eZ8drkWWaRyUVErRrgUZg7xmJR17a/v4FluHI9DyDMgY+NnJawpKrfwDwbOv7JovTaZgXaMCVUFJTRxB756zQy3O877QrifdxMgPBIpY6CARlZkeWg8g4iowaIUxAo1r48IthYDD/oDprhI7ape2FSKDYl8qkMnLiNHcZZaQIYPyCPNftoxteDfRI3qldOZTV4bc08nGmwmeNytpccTWhoZOj2zVorcboCA8t+5YUqR56mNxQ2vWFbQJna+r0sL0YoeMsdUaS+hOdxQALoDq4ts1AcUApkAWn+2QyxNxblSegRZD+32vGuceq87pW0KGmi3TdAUqJXnRyXmcwZkc5qPjMxeIQNcndnyYBPV1yO+O8aWk+gzbJeP/Fzsrpk4uLFHbP9zsEZaXt+xNtkFux5v9drDPimoNFU0Y"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3119,
+              "candidatesTokenCount": 313,
+              "totalTokenCount": 3714,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3119
+                }
+              ],
+              "thoughtsTokenCount": 282,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "1WbEaq-uBrvUz7IPi7GlmQc"
+          },
+          "usage": {
+            "input_tokens": 3119,
+            "output_tokens": 595,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 282
+          },
+          "latency_ms": 5123.2,
+          "cost_usd": 0.0045705,
+          "stop_reason": "end_turn",
+          "request_id": "1WbEaq-uBrvUz7IPi7GlmQc",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 4,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Bodinga",
+            "settlement": "Bodinga"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Bodinga",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you for confirming. The report has been accepted and submitted to surveillance officers for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 1
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Small girl with sudden weak legs in Bodinga."
+    },
+    {
+      "role": "assistant",
+      "content": "How old is the girl?"
+    },
+    {
+      "role": "user",
+      "content": "Her mother is Aisha."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Could you please share how old the girl is, or her approximate age?"
+    },
+    {
+      "role": "user",
+      "content": "She is 4 years old."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 4-year-old girl in Bodinga, Bodinga, Sokoto, with sudden weak legs. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for confirming. The report has been accepted and submitted to surveillance officers for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden weak legs",
+        "age": 4,
+        "sex": "female",
+        "state": "Sokoto",
+        "lga": "Bodinga",
+        "settlement": "Bodinga"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 28178.1,
+    "input_tokens": 12118,
+    "output_tokens": 3484,
+    "cost_usd": 0.022153,
+    "clarification_turns": 2,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 1
+  }
+}

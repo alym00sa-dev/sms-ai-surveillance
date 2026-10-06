@@ -1,0 +1,669 @@
+{
+  "scenario_id": "CLAR-06",
+  "title": "Missing location, resolved on second turn",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "There is an 8 year old boy whose legs suddenly became weak.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "There is an 8 year old boy whose legs suddenly became weak."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"There is an 8 year old boy whose legs suddenly became weak.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"legs suddenly became weak\",\"age\":8,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[],\"missing_information\":[\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?\"}",
+          "raw_response": {
+            "id": "p46H6Rj-fdNmn-a4619454fc9e76fd",
+            "object": "chat.completion",
+            "created": 1791257342,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"legs suddenly became weak\",\"age\":8,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":null}],\"location_resolution\":[],\"missing_information\":[\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"There is an 8 year old boy whose legs suddenly became weak.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}\n\nWe need to parse. Report: 8 year old boy legs suddenly became weak. That's AFP suspected symptom. Need age, sex, symptom, location. Age 8, sex male (boy). Symptom: legs suddenly became weak. Location unresolved.\n\nWe need to extract information already provided before asking follow-up. We have symptom, age, sex. Missing location: state, LGA, settlement. Also need maybe confirm? We have enough for partial but not enough for surveillance staff to reasonably identify and follow up? Need location. According to principles: ask only for info still needed. Ask at most one focused clarification question per turn.\n\nWe need to create case state. cases array with case_1. symptom: \"legs suddenly became weak\". age 8, sex male, state null, lga null, settlement null.\n\nMissing information: location.\n\nAction: CLARIFY because potentially relevant and one important piece can be obtained. Need location. The location resolver status UNRESOLVED. No location mentioned. So ask for location.\n\nWe should ask: Where did this happen? Or which state/LGA/village?\n\nWe need to maintain structured case state across turns. Clarification attempt number? clarification_attempts is 0. This will be first clarification attempt. So clarification.attempt_number =1? Probably increment. The clarification field attempt_number maybe count of attempts made so far. The current clarification_attempts is 0. After this attempt, it will be 1? The field clarification.attempt_number should reflect current attempt number. Let's set attempt_number =1.\n\nMissing_information: [\"location\"]? Could be state, lga, settlement. Might list location.\n\nWe also need location_resolution array. Probably empty.\n\nclassification: AFP_SUSPECTED.\n\nother_vpd false.\n\naction CLARIFY.\n\npriority NORMAL.\n\nconfirmation status? Not ready.\n\nresponse: short clear SMS appropriate. Ask where.\n\nWe need to follow output contract.\n\ncases: one item with case_id case_1, symptom \"legs suddenly became weak\", age 8, sex male, state null, lga null, settlement null.\n\nmissing_information: []? The spec says missing_information array. Could list fields missing: state, lga, settlement. Could be [\"location\"].\n\nLet's list [\"state\",\"lga\",\"settlement\"]? Probably location.\n\nWe can set missing_information: [\"location\"].\n\nclarification target: location.\n\nresponse: \"I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?\"\n\nMake sure response short.\n\nPotential duplicate false.\n\nescalation required false.\n\nconfirmation status NOT_READY? Might be PENDING? Not yet. Use NOT_READY.\n\nLet's output JSON.\n\nCheck enums: classification AFP_SUSPECTED, action CLARIFY, priority NORMAL, sex male.\n\nlocation_resolution: [].\n\nOk.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2593,
+              "total_tokens": 3424,
+              "completion_tokens": 831,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 80,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 81,
+            "output_tokens": 831,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 17152.1,
+          "cost_usd": 0.00215405,
+          "stop_reason": "end_turn",
+          "request_id": "p46H6Rj-fdNmn-a4619454fc9e76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "legs suddenly became weak",
+            "age": 8,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Majawa village.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "Majawa village.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "There is an 8 year old boy whose legs suddenly became weak."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?"
+          },
+          {
+            "role": "user",
+            "content": "Majawa village."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "legs suddenly became weak",
+              "age": 8,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"There is an 8 year old boy whose legs suddenly became weak.\"}, {\"role\": \"assistant\", \"content\": \"I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?\"}, {\"role\": \"user\", \"content\": \"Majawa village.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"legs suddenly became weak\", \"age\": 8, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"legs suddenly became weak\",\"age\":8,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?\"}",
+          "raw_response": {
+            "id": "p46HBWu-7ArivV-a46194c02f0876fd",
+            "object": "chat.completion",
+            "created": 1791257359,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"legs suddenly became weak\",\"age\":8,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"There is an 8 year old boy whose legs suddenly became weak.\"}, {\"role\": \"assistant\", \"content\": \"I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?\"}, {\"role\": \"user\", \"content\": \"Majawa village.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"legs suddenly became weak\", \"age\": 8, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}\n\nWe need to update case state with location resolved. The resolver says status RESOLVED, candidates state Jigawa, lga Kafin Hausa, settlement Majawa. Unresolved_fields empty. So we can fill state, lga, settlement.\n\nCurrent case state has settlement null. Should update.\n\nNow we have symptom: legs suddenly became weak. Age 8, sex male. Location resolved.\n\nWe have enough information for surveillance staff to reasonably identify and follow up? Probably yes. Need symptom, age, sex, state, LGA, settlement. We have all. Need to present concise structured summary and ask sender to confirm or correct.\n\nAccording to rules: Once enough information exists, do NOT immediately ACCEPT. First use CONFIRM. Present concise structured summary and ask sender whether summary is correct or anything should be corrected.\n\nSo action = CONFIRM. classification = AFP_SUSPECTED. other_vpd = false. priority NORMAL.\n\ncases array with updated fields.\n\nlocation_resolution: we need to provide location_resolution array. It says return location_resolution with case_id, raw_location, inferred_fields, confidence. Raw_location \"Majawa\"? Probably raw_location from user: \"Majawa village.\" Inferred fields: state and lga inferred? Actually settlement resolved too. The resolver resolved settlement Majawa, state Jigawa, lga Kafin Hausa. Raw location is Majawa. Inferred fields maybe [\"lga\",\"state\"] or also settlement? The settlement is directly matched. Might be inferred fields [\"lga\",\"state\"]? The example shows inferred_fields [\"lga\",\"state\"] when raw_location is Majawa. So follow that.\n\nConfidence high.\n\nmissing_information [].\n\npotential_duplicate false.\n\nescalation required false.\n\nclarification target null, attempt_number 0? Clarification attempts 0. We are not clarifying now. Could keep attempt_number 0.\n\nconfirmation status PENDING.\n\nresponse: short clear appropriate for SMS. \"I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?\" Or similar.\n\nNeed to preserve symptom exactly? Symptom currently \"legs suddenly became weak\". Original user said \"legs suddenly became weak.\" Might keep.\n\nMake sure case_id case_1.\n\nAlso location_resolution array should have one entry.\n\nMake sure JSON output shape matches.\n\nCheck rules: Do not invent missing info. We have all.\n\nBefore ACCEPT present summary. Use CONFIRM.\n\nPotential duplicate false.\n\nClarification attempt_number? The clarification_attempts is 0. We are not doing clarification. Could set clarification attempt_number 0.\n\nResponse should be short.\n\nMake sure classification AFP_SUSPECTED. Yes sudden weakness in legs in child <15 suggests AFP.\n\nNo other VPD.\n\nReturn JSON.\n\nPotential nuance: The assistant previously asked where did this happen. User replied \"Majawa village.\" Resolver resolved. Good.\n\nWe should update case state settlement to Majawa, state Jigawa, lga Kafin Hausa.\n\nNow produce output.\n\nEnsure fields: cases[0] includes symptom, age, sex, state, lga, settlement.\n\nMissing_information [].\n\nlocation_resolution: case_id case_1, raw_location \"Majawa\", inferred_fields [\"lga\",\"state\"], confidence \"high\". Could also include settlement? Could be inferred? Let's follow example: raw_location \"Majawa\", inferred_fields [\"lga\",\"state\"], confidence \"high\". Good.\n\nReturn JSON only.\n\nCheck enum values: classification AFP_SUSPECTED, action CONFIRM, priority NORMAL, sex male.\n\nconfirmation status PENDING.\n\nresponse: \"I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?\" That's fine.\n\nEnsure no extra commentary.\n\nProceed."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2824,
+              "total_tokens": 4105,
+              "completion_tokens": 1281,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 304,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 312,
+            "output_tokens": 1281,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 21527.9,
+          "cost_usd": 0.0029099,
+          "stop_reason": "end_turn",
+          "request_id": "p46HBWu-7ArivV-a46194c02f0876fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "legs suddenly became weak",
+            "age": 8,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "There is an 8 year old boy whose legs suddenly became weak."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?"
+          },
+          {
+            "role": "user",
+            "content": "Majawa village."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "legs suddenly became weak",
+              "age": 8,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"There is an 8 year old boy whose legs suddenly became weak.\"}, {\"role\": \"assistant\", \"content\": \"I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?\"}, {\"role\": \"user\", \"content\": \"Majawa village.\"}, {\"role\": \"assistant\", \"content\": \"I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"legs suddenly became weak\", \"age\": 8, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"legs suddenly became weak\",\n      \"age\": 8,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report for the 8-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is now recorded for follow-up.\"\n}",
+          "raw_response": {
+            "id": "p46HHu6-7ArivV-a4619546bb4676fd",
+            "object": "chat.completion",
+            "created": 1791257381,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"legs suddenly became weak\",\n      \"age\": 8,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report for the 8-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is now recorded for follow-up.\"\n}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"There is an 8 year old boy whose legs suddenly became weak.\"}, {\"role\": \"assistant\", \"content\": \"I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?\"}, {\"role\": \"user\", \"content\": \"Majawa village.\"}, {\"role\": \"assistant\", \"content\": \"I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"legs suddenly became weak\", \"age\": 8, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {...}}\n\nWe need to produce output JSON. The sender confirmed. So we should ACCEPT? The rule: Use ACCEPT only after sender explicitly confirms final structured interpretation. During CONFIRM present summary and ask. If sender corrects, update and CONFIRM again. If sender confirms, then ACCEPT.\n\nHere the assistant previously asked confirmation: \"I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?\" User says \"Yes, that is correct.\"\n\nSo we should now ACCEPT.\n\nClassification: AFP_SUSPECTED? Symptom: legs suddenly became weak. That's AFP suspected. Age 8. Yes.\n\nother_vpd false.\n\naction ACCEPT.\n\npriority NORMAL.\n\ncases as given.\n\nlocation_resolution? Should we include? The current_case_state has cases. Location resolver resolved. Might need location_resolution array. In example, location_resolution contains case_id, raw_location, inferred_fields, confidence. We can provide.\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false.\n\nclarification target null, attempt_number 0? clarification_attempts is 0. The clarification attempts count? The assistant asked location. That was clarification? Might be 1? But clarification_attempts is 0 per current_case_state. Might keep 0.\n\nconfirmation status? After accept, maybe CONFIRMED? The schema has confirmation status NOT_READY, PENDING, CONFIRMED. Probably CONFIRMED.\n\nresponse: Should be short, clear. Maybe \"Thank you. The report for the 8-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is now recorded for follow-up.\"\n\nWe need to return only JSON.\n\nMake sure fields match output contract.\n\ncases array with case_id case_1, symptom \"legs suddenly became weak\", age 8, sex male, state Jigawa, lga Kafin Hausa, settlement Majawa.\n\nlocation_resolution: maybe one entry. raw_location \"Majawa\". inferred_fields [\"lga\",\"state\"]? Actually resolved fields includes state,lga,settlement. Settlement was given. But resolver inferred state and lga. Could set inferred_fields [\"lga\",\"state\"] confidence high.\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status CONFIRMED? Could be CONFIRMED.\n\nresponse as above.\n\nEnsure JSON valid.\n\nCheck enum values: classification AFP_SUSPECTED, action ACCEPT, priority NORMAL, sex male.\n\nlocation confidence high.\n\nclarification target null.\n\nescalation reason null.\n\nconfirmation status CONFIRMED.\n\nMake sure we don't include extra commentary.\n\nProceed."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2892,
+              "total_tokens": 3976,
+              "completion_tokens": 1084,
+              "prompt_tokens_details": {
+                "cached_tokens": 2576,
+                "created_cache_tokens": 304,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 316,
+            "output_tokens": 1084,
+            "cache_read_input_tokens": 2576,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 16305.8,
+          "cost_usd": 0.0026382,
+          "stop_reason": "end_turn",
+          "request_id": "p46HHu6-7ArivV-a4619546bb4676fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "legs suddenly became weak",
+            "age": 8,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. The report for the 8-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is now recorded for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "There is an 8 year old boy whose legs suddenly became weak."
+    },
+    {
+      "role": "assistant",
+      "content": "I understand an 8-year-old boy with sudden leg weakness. Where did this happen — which state, LGA and village or settlement?"
+    },
+    {
+      "role": "user",
+      "content": "Majawa village."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 8-year-old boy in Majawa, Kafin Hausa, Jigawa, with legs suddenly became weak. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. The report for the 8-year-old boy in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is now recorded for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "legs suddenly became weak",
+        "age": 8,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 54985.8,
+    "input_tokens": 709,
+    "output_tokens": 3196,
+    "cost_usd": 0.007702,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

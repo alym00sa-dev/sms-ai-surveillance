@@ -1,0 +1,563 @@
+{
+  "scenario_id": "ESC-23",
+  "title": "Repeated unclear messages with no established signal -> stop, do not escalate",
+  "model_key": "gemini-3.1-pro-preview",
+  "termination": {
+    "reason": "PREMATURE_TERMINAL",
+    "detail": "NOT_RELEVANT; expected=CLARIFY"
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "child thing bad there",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": null,\n      \"age\": null,\n      \"sex\": null,\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"symptom\",\n    \"age\",\n    \"sex\",\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I understand a child is unwell. Can you please tell me what symptoms the child has? For example, did their arms or legs become suddenly weak?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": null,\n      \"age\": null,\n      \"sex\": null,\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"symptom\",\n    \"age\",\n    \"sex\",\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I understand a child is unwell. Can you please tell me what symptoms the child has? For example, did their arms or legs become suddenly weak?\"\n}",
+                      "thoughtSignature": "EsYPCsMPAWkUfRMyCOnuxWAy36UKEqq72Vt9sdvGg/nl/ufMQTlyuF88jMB/oe44sEwss1DcxND/B8WqYazDdmIJXpSV7/1opwlQpGNyJFi0ajCkUqkuOAClbd/5LrEV/MWJkCHuczXw3xR6IQn3iEvRb7FqMKBRXzbdfD89B4Cv1vyUeimU1Z2W0D2T6U/b8X0FM4wZe31AOcMLVpZHbctK4FELgkue69G02V98qd4aDEAXC+k0iOqF5By7e+n//zqcz2pbOJzxtzYFJxdE+Hd/wE9kq2+OhYMsdy+jszgHex2pCky8gRlp1acwdLuSUGthY8Tc5kh7NuREeCw+hUMhIaM2lZ2M8wbRbqV4ypgcUDoMtku8k8hklRzvQ5V/odvsKOt/Q4knxSHZBjG7HfZoWXFaVXEvnpQ3a1VOdls9JKBreumAPc2XoVs6K2te9aVNtn6oZ3Dd4ShS4nZsoo7MUHvQB4NhH0XNlP6I+gU0Ytm8FcKjyDQDWvZgYdsfyWxb1gAA7GvNh80/YaXz5cGIgLQNovEfA8uTuS/VLolotugQjKUEWVdWgTkH8oRnzVXA5sePvL0WxPBy4ofJSjAJ2cRUw6gbSIP36UsQ9ZW0QMxAuifa57Yv/lMXk+acmNwX8SG831ffopdoY0NWysJXgXmmlDhtSCsYKeI4X2uWOzaDuJ5g+33FLTQqDN5OyiY0d8K2d8oV+/R1KtIt3IRZL8NJFEktUtY9x9Sdp24gxQHiB77MFOl2isJ9gIE+x8EmcZmYbxloymRqf9yqiITUPtikObpVJaMQXtIdjaCRBq7Yo7dvOCvBIZTaGdeqyIAU76HbmPDwfoR65n8EeXAR6dfSQPLIpE+L4qg2DUO2HTwfwtZPaCDd1ddfmTOv423paHBwn4Ub1289k2mtVRwWOjViu67px7KrhzlQSPNVrLP1YjkDVWxU/859YEUR7QZCco3yU4iaXLRG6IpFPb8XXkzSrZgJ+5yGDRPHtqr6Ze01SN5Pv+vXlaXYcUSoM9rHmrrylJTJmpobldfspALlnVvLh+OHmGBMGExiIeJJe3IC/ZxnL5Rdk4agQDnYMumRrlBjQHwEzvHlUfnr28Z/iaGtZonL6eaHrWuaxo4H/c2mHfRDXm5+FPUbuZS3vJgp4c+TWxvSUiZ8dNBPlzmEz0xJ7NF5RdcYKi2zkhggP2nAxAGVgGtwQFPpfbnlLNM6mdkGJJUkclkzlZY7xjDVoxEChIWNDE7uCT0bWzoDbNsBlY+gbrT89Fst4gBU5X+PajFCm6c+mWRz2d9swLKTEJRJ113jyadW4TysqY08zDOydTahWm+1Y4jXWCqugFnykTX7v/o/qkPu2k0HBfdtzQmwxhIGt/Gk7aKFJmqU2rDlrk1dSX7MBvT7iY09suJKZ8vMyCW1aNAne4vqtyze4K8WD6+oOycYAx6q6yfvh4HsHS7c07xadyJGQIOfoT6GQ1kXvOIaeC0oZS5I/QHvQWEDAhTMaXTtXkluMcJkakls3W7VG4H8itYLbdcDhWAxAHMZEqMWsB8SelVxERYWaSTU+1ArvvnCksqUPX5rkMeE3FAwY7jDW2UOi4pM33wjvczdeVIu4qoNdWR2/3R6P+2scDc3SYY/rJ1/W0Zj9hijVqwJVRYFjCREhGf0ECZieGMZb/BL0YtK1aiy5G99sPasAQ5424eVv2sMsXedVW3o5AM+wpGgRmBHrDtvjxej5Fu1O0EVcijZfu5zM0Dd3W8KniNgt/Gw6x9gAx9QrRcRZXriXtJSXB6JXpxF21fsxLuTfDOM/E6j+WXMZLWsbPIlOGTXOTZxfk5kbyUaQIyjtMSx3GdlqsQxR1bFlXkX81r6wTAaEg6aFe/NzVJOVWPrSzanpUu5bRrAZhURjhMAweHDH7jq9WvQli5z0b5thbl4GlHZR1/u/SjaschZ5O60c2rxoU6dN8ksVcs/x5fyeaTolmjVfgL2wrRVvJF3l7uuNMOznyt3KI0Is8y4J60xabpEKKrH+a6Qa2BjhfaDnrlwlZ3etphXEwQ+SXGhjfdxrogk4X+RGnG7gJra24TjWi+AHeLjRVXnNjbaEm9KpQjfcArMd3fjccel+6q8IuEHNrWR28hcXgFqpGZrT1i5ISnP+tDC9KDNK0h8dVs38bjD1gXm9kv2WoVkkSpqA04LyWJKIRUkU5SjUXb3Xjd104KyHL0pZ3aBbdwaSWPeu4ZddnqsneFjNrdRjmrps+ly66Kz9eHl3Egqaf5UwSo4MJvF5Qod/43wHHLENtEd+msmDQgS6q0jYQHGeKUwluQKdf+LinVIIYdcP9ZTpWilncFgUvqu/rVhB6cxF4aoi/oJUFWvoty49hr+SF+pF6wZVWfHzlbH6xrD+TQJFTryMOGfoAjoJRRlWaZJDtDgKk/ipYAjhNzihShI0GY8D7xwGvAltijjo7A4M79E0KV5y8rNIPrgxrj1x44+mTVM0nNYW7iO8NLpHyF4WT8DfIOiJPfjYdTJM6wfEDaepdJDSPFOQx3e159rJ7s931kWdA4UnXNjSFDZ/ZrrVqbJqLKPacvK4IviMzwe3uVik6El+s+xDBBdmgQHAiAfD+Hoa0Da+FZAPTtBHp3xodM+UuEz/Ax7EFuJlH612Hmi26GI8yZqyw=="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2786,
+              "candidatesTokenCount": 294,
+              "totalTokenCount": 3618,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2786
+                }
+              ],
+              "thoughtsTokenCount": 538,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "x2nEaqMBtOrPsg_b_5-AAw"
+          },
+          "usage": {
+            "input_tokens": 2786,
+            "output_tokens": 832,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 538
+          },
+          "latency_ms": 7616.4,
+          "cost_usd": 0.015556,
+          "stop_reason": "end_turn",
+          "request_id": "x2nEaqMBtOrPsg_b_5-AAw",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": null,
+            "age": null,
+            "sex": null,
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I understand a child is unwell. Can you please tell me what symptoms the child has? For example, did their arms or legs become suddenly weak?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "the thing I said",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CLARIFY",
+      "sender_message": "the thing I said",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "I understand a child is unwell. Can you please tell me what symptoms the child has? For example, did their arms or legs become suddenly weak?"
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": null,
+              "age": null,
+              "sex": null,
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"I understand a child is unwell. Can you please tell me what symptoms the child has? For example, did their arms or legs become suddenly weak?\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": null, \"age\": null, \"sex\": null, \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": null,\n      \"age\": null,\n      \"sex\": null,\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"symptom\",\n    \"age\",\n    \"sex\",\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I need a little more detail to help. What exactly is wrong with the child? For example, did they suddenly lose strength in their arms or legs?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": null,\n      \"age\": null,\n      \"sex\": null,\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"symptom\",\n    \"age\",\n    \"sex\",\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I need a little more detail to help. What exactly is wrong with the child? For example, did they suddenly lose strength in their arms or legs?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2884,
+              "candidatesTokenCount": 295,
+              "totalTokenCount": 3793,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2884
+                }
+              ],
+              "thoughtsTokenCount": 614,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "zmnEauaqJpDRz7IPqdSguQM"
+          },
+          "usage": {
+            "input_tokens": 2884,
+            "output_tokens": 909,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 614
+          },
+          "latency_ms": 8244.1,
+          "cost_usd": 0.016676,
+          "stop_reason": "end_turn",
+          "request_id": "zmnEauaqJpDRz7IPqdSguQM",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": null,
+            "age": null,
+            "sex": null,
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I need a little more detail to help. What exactly is wrong with the child? For example, did they suddenly lose strength in their arms or legs?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "you know the child problem",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CLARIFY",
+      "sender_message": "you know the child problem",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "I understand a child is unwell. Can you please tell me what symptoms the child has? For example, did their arms or legs become suddenly weak?"
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          },
+          {
+            "role": "assistant",
+            "content": "I need a little more detail to help. What exactly is wrong with the child? For example, did they suddenly lose strength in their arms or legs?"
+          },
+          {
+            "role": "user",
+            "content": "you know the child problem"
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": null,
+              "age": null,
+              "sex": null,
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"I understand a child is unwell. Can you please tell me what symptoms the child has? For example, did their arms or legs become suddenly weak?\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}, {\"role\": \"assistant\", \"content\": \"I need a little more detail to help. What exactly is wrong with the child? For example, did they suddenly lose strength in their arms or legs?\"}, {\"role\": \"user\", \"content\": \"you know the child problem\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": null, \"age\": null, \"sex\": null, \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": null,\n      \"age\": null,\n      \"sex\": null,\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"symptom\",\n    \"age\",\n    \"sex\",\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I cannot process this report without knowing the symptoms. Please contact a local health facility if the child is unwell.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": null,\n      \"age\": null,\n      \"sex\": null,\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"symptom\",\n    \"age\",\n    \"sex\",\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I cannot process this report without knowing the symptoms. Please contact a local health facility if the child is unwell.\"\n}",
+                      "thoughtSignature": "EtgOCtUOAWkUfRNZj79ikUXMC0o6ALPv9GeCV3npyUnZDtxdBb8Y+8cQeEgjArQjxTIuOgATS/4EhUVLVcrumy91q5VH0ZqGSzwG2Xjd2U6MRZy1dm1y7zEjoCybclUekVXgXIN4WLPTNtLW+uW7oaTIXoUh/N99JMorcsVWokeoVow8qUen3mjihysm+k5Ed6PQnJUiPnPLFE2eSQkkr92XMR4wWeSmsG7++fKjWUjc1WmytFqijsfbT+JbjEniJ3XaK2H+ES832BNhMLWQbKFTYo8B+tMNZZaLzwLaiOfrWkdN/Vt8HbyO4MuiL7d5U8TDKWv6FRCERjInEtQEboYtX/eY3PITtBQynoP9MDQ9U+CdKlS7VJjdLfBw5gZt1MLSExrx6yljUwk+f3JGLO/MQcWeKE7rlHiaHqzqoN5EOS+7Ze8DdNCvl0Eu0ZAgJPeFFuPMDOG/oee/ojjDwKprU+BdBhskfttCrI6W2l/oFZi5qhYlDIJv1hmUOwRodP0kSNGzIEp8O5cG3UDYFPPg++x4re1U39KVjhuZn1gwycNSivFN/UzLy1x6Weu0ZodN/ZrE04oLfKTbpVDje4jCKmZb6V1iG37tbVm4gPCGvIFVA8RC/rvazLtxL5V7Y7Xm6jE7cRKsa4qusuKttnwKBDyfGsUCvbpilipOGU3FXv/P2G7VUcQxXi4NXckdGOgBHEbBqWXN+LXryE2SUO0eG9j1C34s58jcB7voeuPgfSI96g1+K1bAFB9hYCX+NKL/npsxbHNxFk+Dj3WJkvFg5/p8T5/V6yPRrJRtTGqqsvUPk9swecPm/cW+VhzPf9bq4mrajikU+fdcx69u+VmGbvFWC0rjCKFvzYzbaOk+gaNIC6fzO+nifNy99Mb9NomOLpAckZKDC8lbER0kxHSVLEmxOTKjeM831jx2dNwE5hirfKdoUVGsq7BgMJA2MvxEwojB3LLJJP3UtNFrFZj84aGwe0wyjE0hWZhtrwF2iKKh1Lvgti91IdRnmJJBQyHy5sdZAG4/n9xjzQpIIaHnXh7E4gFizoUBv0LXzneahYSgY+Ujl9sA1qCg6hODPJ7DnjiiupkrO1TWHS9kk5hLFM7oS0lJXcKeC6m23aea4Zye4+yMknKIy/vhgldMqD2XJROxGXe2w9i5T4uiWF+57dBTxtZRUru4VflW0qk6qQzaE8cahIDXaLsIYdmn4W9uT0Hp/WJ2bya38XDqn9z3pfsQfSI6mBI5EQAbv4OwQBHVQB10nvkx/fIJL3s57ikoVdlPLgQShhVJ0X5uYIL8BtJNkDvYVfdAhY3VCweqrMcIEDOB9koYYJGvz4gbypzcmycPfUePRZjaBTX4QBucT1bQBM1q0UYAf1JrjyVEE4FIZSkQfSdMGG9ovm8SYhr6207aQ0xSavQfhbpWJDvdGBZfJNsqtuY9gTcySUvfA6kSjZp+vFZA3pCSfu/7xDXDasGJzQVPw9hxDr6W0HGsTdgACapu92UOY4zUfcmRszE5gUSsE0VC45qIVSx3pnJl+cpEAzt/dbIp9NARRrDbu+F1KSVzOa4B0GSmmOCJDX2KQ2+0jpNJo2Jp+JAr5kYaVLiNjd8/RU4BuY12YdAhLsAMcUgioNxDFAdV7Hmihplb6DEpd0Wwaxkh6WTAekyBLy39UBSdPulS2YxH0D6M/sXandZcKqzIR520EKb06Cx/ijAPR5Qu7UqR+WpQm1+bwQ//maFwuCdHONSKZ707AEqIoOQwIMTAzadhVgZ2VKYY980XFoAIhY3MkWLxAQuwn7f/FvpoTBlGyu06okrKOWPg3UHvFe2Lfs4jB9P45xjxd9dSxlamfh6rMrY9lE6WUCpOi7zR7U9nTNefcEdTviSgSawj6LzRTLC+YvNq3Mftw2ErWBazERj+1KdlWbfONcGO/zmgorsHyantzqO+9/Nf8cfyYp09SU312IKBUAFtuYF9nKLk8p4tWVpBfVd6Ox+92NU8Q9WvznQ8aBz1hY4Wqp0MFRCwejmPd3lU2WFtR26xMqIicgza58Hy6jdyN763PVcwZCVZREqVGg/OfVrHxmI2WTA1eDg4ixPqO75oxllFvV7rwMsRMJfRmNhF5ZAd9j++CimkqM2/LGMN/MWzYnGDJsogZrZWNSMs0wq78hJ1Sd6pRQiF3NgFvj8Ue8sPc4HLQO4E0Zp7Di/i15D25PRqMt7+9hv2epZjeI6rlWCx2YyNBhpAV+rSnamdXpY3crX2kxNha82bsUigx+gkUKjYneFwWiMHOgNcRYN1bqpq7fSeiRpqrflWVhSMQKv7cDlfyl+MQI5fPv9iEOaixj3Tpst9Tu/Ra0uXbn/kuZrKd0Z7GFCIYwKazIiYc7Mjp3xO/f7U+j4OLoz8Fbm4ImhtinzMkKuZqJ8KDhC4BK04zpTSLEqoMsA9jmiHg7HUSs81yaADyVQ7p1pHEu48BTfBfMq/GyLDW+YX9d83v82f5pD1+7fB0pmcVehgHbP8WPusYyc="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2942,
+              "candidatesTokenCount": 288,
+              "totalTokenCount": 3630,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2942
+                }
+              ],
+              "thoughtsTokenCount": 400,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "1mnEarbXNLvUz7IPi7GlmQc"
+          },
+          "usage": {
+            "input_tokens": 2942,
+            "output_tokens": 688,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 400
+          },
+          "latency_ms": 6734.6,
+          "cost_usd": 0.01414,
+          "stop_reason": "end_turn",
+          "request_id": "1mnEarbXNLvUz7IPi7GlmQc",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": null,
+            "age": null,
+            "sex": null,
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I cannot process this report without knowing the symptoms. Please contact a local health facility if the child is unwell."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "PREMATURE_TERMINAL",
+        "detail": "NOT_RELEVANT; expected=CLARIFY",
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 2
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "child thing bad there"
+    },
+    {
+      "role": "assistant",
+      "content": "I understand a child is unwell. Can you please tell me what symptoms the child has? For example, did their arms or legs become suddenly weak?"
+    },
+    {
+      "role": "user",
+      "content": "the thing I said"
+    },
+    {
+      "role": "assistant",
+      "content": "I need a little more detail to help. What exactly is wrong with the child? For example, did they suddenly lose strength in their arms or legs?"
+    },
+    {
+      "role": "user",
+      "content": "you know the child problem"
+    },
+    {
+      "role": "assistant",
+      "content": "I cannot process this report without knowing the symptoms. Please contact a local health facility if the child is unwell."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": null,
+        "age": null,
+        "sex": null,
+        "state": null,
+        "lga": null,
+        "settlement": null
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 22595.1,
+    "input_tokens": 8612,
+    "output_tokens": 2429,
+    "cost_usd": 0.046372,
+    "clarification_turns": 2,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 2
+  }
+}

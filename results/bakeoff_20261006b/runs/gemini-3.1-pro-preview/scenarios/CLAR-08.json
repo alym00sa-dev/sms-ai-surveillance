@@ -1,0 +1,671 @@
+{
+  "scenario_id": "CLAR-08",
+  "title": "Ambiguous symptom becomes AFP-relevant",
+  "model_key": "gemini-3.1-pro-preview",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "My neighbour’s daughter is not using her leg well today in Majawa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My neighbour’s daughter is not using her leg well today in Majawa."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My neighbour’s daughter is not using her leg well today in Majawa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"not using her leg well today\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for the report. Please, how old is the daughter?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"not using her leg well today\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for the report. Please, how old is the daughter?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2929,
+              "candidatesTokenCount": 326,
+              "totalTokenCount": 3728,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2929
+                }
+              ],
+              "thoughtsTokenCount": 473,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "2WjEapT1L6yez7IPr4n20AM"
+          },
+          "usage": {
+            "input_tokens": 2929,
+            "output_tokens": 799,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 473
+          },
+          "latency_ms": 6876.6,
+          "cost_usd": 0.015446,
+          "stop_reason": "end_turn",
+          "request_id": "2WjEapT1L6yez7IPr4n20AM",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "not using her leg well today",
+            "age": null,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "age",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you for the report. Please, how old is the daughter?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "It became weak suddenly this morning. She is 6 years old.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "It became weak suddenly this morning. She is 6 years old.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My neighbour’s daughter is not using her leg well today in Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for the report. Please, how old is the daughter?"
+          },
+          {
+            "role": "user",
+            "content": "It became weak suddenly this morning. She is 6 years old."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "not using her leg well today",
+              "age": null,
+              "sex": "female",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My neighbour’s daughter is not using her leg well today in Majawa.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for the report. Please, how old is the daughter?\"}, {\"role\": \"user\", \"content\": \"It became weak suddenly this morning. She is 6 years old.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"not using her leg well today\", \"age\": null, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"not using her leg well today, became weak suddenly this morning\",\n      \"age\": 6,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: a 6-year-old girl in Majawa, Kafin Hausa, Jigawa, whose leg suddenly became weak this morning. Is this correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"not using her leg well today, became weak suddenly this morning\",\n      \"age\": 6,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: a 6-year-old girl in Majawa, Kafin Hausa, Jigawa, whose leg suddenly became weak this morning. Is this correct?\"\n}",
+                      "thoughtSignature": "EssTCsgTAWkUfRP9pA4khRx0DLdHcdo/Gj4BEAKruUlKnsfbc7R5Yk9YjLNjn4ernSXCOoiKK4ADSoR7SGCs8wq8gWdcbQDCnRjeR94uNPE38XJVz632mLsUTXYR1/Ve/zrsz+y+CBFum7BG0+xRS24rYxArp4k0R+jcMPtevhQx149tC9ttaBlapXfuuhMZxibwfRtS9m3L18nS2HLPa5lv+v5Mo14gfKc9yBWau/q71Z3+vMrNnqO8ugpeNgcX3hFe6Gq77fadNRFSrtfRBtnI/B0u5OWUmgqsgwQ0ifLXpYSK9ucXYMug6v3Mea8zns48sYxMYBiJ0vFLH/IljZM7A1FhC2i5lls/sAw5prRnN880Di+5WjRKBl/shYEHP56z/P+t8JU1jmveQuGMmLkTcuvDJITzm4RmJZGiL7rpXZHfNHZUizb7jCHPmWwjUkDXMGg34pbKOqz2I1H9xh9K6AwsTBBnc5ZmaDnyT447bScz1R/03gPjt+Tqma9YzA6F81hO0WQWG8XXIwmY2yJorE3PNaOY/to/UhfzkySvMAMSixssRnDywaKbSSjltUl1d6UkKa8cDZEa9hFwJLA4OB5EWHVCMzpatMW/viWBgHPYL7fWj0yP0P/YZmregXURFM24om163h/1O/8x9WTWoFu8boZdmwnaDmgrVMTnioV/QkoxfVYzwZL62VoWXbnRL4vAJaALdZX3IiK82mIQmgJFFJgJKOl3m3rEYrs+wZbWetOQ76uE8KG+Lh4gtvyoxNWkjHaTcyRy44xGkwjzMRPVknMT2R5jukAc0u67aoivA2Ijj9Fi3HCeqLIvVImqJqJv3VCMrp6x9PdLzq/gde2h3k1e5TOKXbHsmOhvjIVz4QUwjn0Jk8QbcSD/wo2EJ/DEX/OBuklF3twt6sgzp5YUoO1pPW5GsTY5Tq+dhrowZAyd2INbih9L6xKGSaWsTM+RSW0/EOD8Lpwdz/cyWDmlHoIdIxuarTeD4sLPQvqWTHt1MSRoB0wuayz88hrR/JKGsxE8fSB3Ea5mIaKQdfGDz93MNy/Q1Q/1fJliuDCr8k/SULwHQWBsu9WBVnrYyXrjYmTPOxaaMycRGP/GB0h3kKvHmxL+rA/4zTBeIU3yw9wygetAhxXrIhkw/tWMlyG9+YKfoDImhs68iDzOrFMc5VFDQeYoLKC4G+OsIyhJTdHxqWLvqZ+IL7tHS4ce2J+t3oJSR2qxUoXPHgeIOXY0N74qUtkZ56rQ6YXy4dNz2CGYM27I7pH0gL/8ydCK/BxlVNzNhZt3khsUTU8okxJCHrrhx79x7soF9xQHchFcUY6ADZ+WXmIUQX6Mb2O34TeRGb1gih1r5sYgR4qLibC0aqnYLKPfN9YWOg+nIBAhAiUxibHbei+yngFjOflDjcFHjFiH389Dsk7pgdZ15VB686zYNyoHVcRTZuEMTgLlDFZXsSL2k9bE/4iD1ybYroZWcOLXvtqZyn+fd+U9H6LVUB1rMr0f5FbINe1FZvzJvLPu9aNajBbE/f1+83sJ80C0Gghov/099X8Pye6a9Y6RKp9T03ek+lPLNGsRQmf7xvpnWnBqqVLZy4cpNeyDmrbU0SuiGFPqnak/V+xdr3SE53lSrPEZdatSLflCtINZdcgpkysaMQRnMSIOm4LokksuwJFPXiJjjV60yUznUr31kdYs7NIzWcsR3EJMkpyPlKlw091yaf5jR1lxzkiJBeN980JZHBkngdhYWsg36fzaLCmyjcuQbXXD7AA8J+qt9ybGARyHeuD3c9wutKGzdvKoIljFp1zkqx9JTTMeZ94L/+FS3LLCIPLVKsv2vJlDx928z8ekJFC4KYNtiH72PHBhg9+asHNUjgKsCFJ9aTWtPGZsHBzSS2iGde/9cuvs1TkEcCCYj5lXUSa7UN7w4ArQOmvJ2Uj7d60cyhFDSBg5eJD2UIhfZtAZESWs7uKTUfwmhd5YDhvwmqJAg4KzqAIm14ag8yc+m2CHXLUa/HAbrbLUoNkHBX7KGidgYzPli3aFh+o2nblBlH1W11F1xdMDUEXGap2ROiwqF/3eIuTPges8yahIVMnId7riTu9+QlI2x/ZdeAvkZBtSN6WKzCBjyT8aTBJbqBDg+EXYx/WvToxVrOvFu5omWMNBZxmYjqGe8qGCxwskcJ05sjjt8IXpnLkG0oGfWwMZWlclTkDf+FjhI7TMqag6IsSwV6FiSUSs5CgBJIA2EgUX1fnSbS3dATHM+CRYQlg1Ezm/WzECdsljRCnpAPPd7zKRcJSi4BfahXSPcYj0DwMDu2MYhw82AFI3kYgZCOQxpjj4VYSN4sqvaE/9ZsD6sNePRbZ4/CaIsq3aT5wi3EiPSOIbnrtNVW8r8DYy6X7ltSYGR8jZRhMpZRWSHERC0AMmTadRYi9UmW+NAK6pu5IbK5JbSwPjw+iBRqBF1wv/8xygZCm6fVlYZJosd+uCZa3vSk3UWAmzOn/Iv4dE6d6o1dH5vebOWzVCQ8jUwOciyTItlDTfoYkYHWutvYf4E7AoRX0Zoq0ZlmPcAokN3worThJp1svMh+d/+R5gTZXB1oQDNoUQZucy6BTEIvV7o7J1w60DDYcPl7l7r4lxvE4GZgemKr708a41whANHkSjD3EN+yj1onVzr3RONvIdrt0Ox8diJ0KXpjqVn9Fuvf0NlY4bupAiX7kgmsl+Lg+DQ0Sra42umyNCWMQw5lAenrK/XtSvFkAqamDdrPYCzCaIfDpqj7TOzoEst4NngqJon6bP9MSe6BnGNPeBUU3KL4aV4JyYs9YunnusDdu5MMYRRYmTbyz9LKauaooQh5e4zLV6EoaU+HqDf5iP3dJyo1NhVLpRQUQzYLJ+pBFeiqS9YMu1+1GFCZDWUJa0th5wYMZzZMrtJz70FDvqv1ysoRDGRSteXobpJpaOzknFFBLJ0CZpX1ZHNECLIxGltXKt09bcs/uS8SMyUHZ8tx38vQ1BH3iqrg05sZsq8tEV5L60POKG0sueqXoZghJB1GZZl4II+aYSGQSH64YK/XZFDodyiTfCtOP5DVhepHCCysNBp/WcxlItgHyL7XH0Uyljxa96l5vOflfqB90LQ9X5PqVhTYiiZ/PWfKASOj6YB78LsrcRcQoQztv7ySKgCsUbykiud6ihg+A2HSX7GwB3DKCs3jRkhaIXLKfzaLhzUC1RF86M2WWfBGTWicTiuu7QBSbbCTU/4crH0kT2J4ONaq1Lt5WXEPPfMv63Mo551hCyg2ia1rQ/YM1OM/2VFYtVUmGKV3aGoRnfwstolQQ4kf9v79vFXAUNQYv+7Zd7F7CTXeNRZNS0fZoBvc1q8ao="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3037,
+              "candidatesTokenCount": 343,
+              "totalTokenCount": 4111,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3037
+                }
+              ],
+              "thoughtsTokenCount": 731,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "4GjEasuBKaqez7IPsY698QQ"
+          },
+          "usage": {
+            "input_tokens": 3037,
+            "output_tokens": 1074,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 731
+          },
+          "latency_ms": 9543.6,
+          "cost_usd": 0.018962,
+          "stop_reason": "end_turn",
+          "request_id": "4GjEasuBKaqez7IPsY698QQ",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "not using her leg well today, became weak suddenly this morning",
+            "age": 6,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: a 6-year-old girl in Majawa, Kafin Hausa, Jigawa, whose leg suddenly became weak this morning. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My neighbour’s daughter is not using her leg well today in Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for the report. Please, how old is the daughter?"
+          },
+          {
+            "role": "user",
+            "content": "It became weak suddenly this morning. She is 6 years old."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: a 6-year-old girl in Majawa, Kafin Hausa, Jigawa, whose leg suddenly became weak this morning. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "not using her leg well today, became weak suddenly this morning",
+              "age": 6,
+              "sex": "female",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My neighbour’s daughter is not using her leg well today in Majawa.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for the report. Please, how old is the daughter?\"}, {\"role\": \"user\", \"content\": \"It became weak suddenly this morning. She is 6 years old.\"}, {\"role\": \"assistant\", \"content\": \"I have: a 6-year-old girl in Majawa, Kafin Hausa, Jigawa, whose leg suddenly became weak this morning. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"not using her leg well today, became weak suddenly this morning\", \"age\": 6, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"not using her leg well today, became weak suddenly this morning\",\n      \"age\": 6,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. We have recorded this report and health officials will follow up.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"not using her leg well today, became weak suddenly this morning\",\n      \"age\": 6,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. We have recorded this report and health officials will follow up.\"\n}",
+                      "thoughtSignature": "EvsHCvgHAWkUfROGXOtxKvWAHnK5Fv+hsURfue1mYRw5J8tfHb5f1hzSmKNqsO9RrOQDrA+Gs/y21vD7rZ7jsh4xbOYTe1wpcSsVC1T8t7Hi66BbqAk/4dHcmnP9ITpBjLE4kOITNnrV3JdnylP//3MZgtNV3pcASyVAhJdookhUQ2yBMiZjk3MUaroFKkbTzxU8ioXtutJIekUcoBCMvcfCrVl5m0ec+evwVl/QpJotZriT6OuG/Q/frRSNtrD+8V6tYnYAgNocJiS/EtIKDlRUFPQQbJjdJfwRavAgARzck80Tmg1o0LciOwqRuF27g0R5EOISdv4oqI+piP7r5KroyNSRHVyivGgOhWP8fBPeDnLQcCTxcj63CvFEVM5sHdYwBFkB5QJIvP9N/FjdtHl9rDbn5GRoxHfFUo98dZT3D6Ixobuyfsr/l+26aNSdUZZxpalK9cBhitD0OUMJPDcUifi02Dugp2mbp7ps8WCsmTsIgaq7SA7GgAZ/6NtMfIaLBdcuMjSiCb8/5DE6d9e4iHBlRcEII9G1aKSoCkgrnjS6mZ1ZlWX/4Sbu7bQzU+MtF+UlQa5JrZisu53CAYnkaL156frduM8NojTd+fDX1197nlBCtBPy9ZtVZthC+D28b6BP6tUpXt59FYaGVesiQiRxqu+4UN2+ZSTWaIYDfHtTlLsmNpNB4iVo2Scli7ggFX5KogqHpC7bElB21i75sVVd8mdcZUESKMz9e6aYTKYKHJJ3hOYU5DLx838ztEvVF7ZjCX5U34DcRvahumVUFcJK/gQkxk0QR/tmuLuDQAZepc9n+yBDPTxQtZeY3kg9FlXWLrS1a+1GQ4Qq2oSA3xBEB8SFjvooWy8StYTfLZP3aRsZA0tcQkzYRaYxWQYfjXy9UOw67GZhhvBP3tOP/cYVGL8TYMEFIhA35GednIMNqSlZRsjjl9d632tPM5UvqtI5lDoaMO6Gw0ze/xEFQ86gMlNqg2z7uhzVePTGqKED1ovxO6cr01XblcOPdEAYCXYA6ekn/97NqU/GuqcUmRXj3mQgW1YABWxKqMRCYPLe4AlP9DZft86RVAAjOdY06npyLT2W9puAbPkuP4Xn2WpHwhr0qoCjItpEyVLTgNYD36y1agjfIdvrgxQT/QX9FmgA9Nh5tAZv/VqGmYQghPqjL0EMQMxGNbhuRXG0l/ya8WoAFYZmn6KSV6FT+P32bQiPe83yzDrr2XPygL+aUhtFg4/VslVkQpoB9w11B2wRlrSQ6JeBRGCDwmeIuH7iyuPhISd1FY3qoZpSM78Y4ESwMsxTxunjWb6uA+ozbMjHd+EM2Cqq60rdQsa/wGNN0zyb/Rg+W/Th2H8="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3106,
+              "candidatesTokenCount": 325,
+              "totalTokenCount": 3670,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3106
+                }
+              ],
+              "thoughtsTokenCount": 239,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "6mjEaojHDf7oz7IP0eTc2QE"
+          },
+          "usage": {
+            "input_tokens": 3106,
+            "output_tokens": 564,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 239
+          },
+          "latency_ms": 5444.4,
+          "cost_usd": 0.012979999999999998,
+          "stop_reason": "end_turn",
+          "request_id": "6mjEaojHDf7oz7IP0eTc2QE",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "not using her leg well today, became weak suddenly this morning",
+            "age": 6,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you for confirming. We have recorded this report and health officials will follow up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "My neighbour’s daughter is not using her leg well today in Majawa."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for the report. Please, how old is the daughter?"
+    },
+    {
+      "role": "user",
+      "content": "It became weak suddenly this morning. She is 6 years old."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: a 6-year-old girl in Majawa, Kafin Hausa, Jigawa, whose leg suddenly became weak this morning. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for confirming. We have recorded this report and health officials will follow up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "not using her leg well today, became weak suddenly this morning",
+        "age": 6,
+        "sex": "female",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 21864.6,
+    "input_tokens": 9072,
+    "output_tokens": 2437,
+    "cost_usd": 0.047388,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

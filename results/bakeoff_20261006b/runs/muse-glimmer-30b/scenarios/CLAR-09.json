@@ -1,0 +1,689 @@
+{
+  "scenario_id": "CLAR-09",
+  "title": "Location ambiguity requires clarification",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "7 year old boy in Kura suddenly weak in one leg.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy in Kura suddenly weak in one leg."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "settlement": "Kura"
+              },
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga"
+              ],
+              "requires": [
+                "state",
+                "lga"
+              ],
+              "notes": [
+                "more than one place has this name; the benchmark does not list them"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy in Kura suddenly weak in one leg.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"settlement\": \"Kura\"}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\"], \"requires\": [\"state\", \"lga\"], \"notes\": [\"more than one place has this name; the benchmark does not list them\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly weak in one leg\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":\"Kura\"}],\"location_resolution\":[],\"missing_information\":[\"state\",\"lga\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?\"}",
+          "raw_response": {
+            "id": "p46HthS-7ArivV-a4619822492876fd",
+            "object": "chat.completion",
+            "created": 1791257498,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly weak in one leg\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":\"Kura\"}],\"location_resolution\":[],\"missing_information\":[\"state\",\"lga\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?\"}",
+                  "tool_calls": [],
+                  "reasoning": "We need to parse. Message: 7 year old boy in Kura suddenly weak in one leg.\n\nWe have symptom: sudden weakness in one leg. Age 7, sex male. Location: Kura settlement ambiguous, state and lga unresolved.\n\nWe need to extract info. Current case state empty. We need to create cases array.\n\nClassification? AFP suspected? Weak in one leg sudden - possible AFP. Yes.\n\nAction? Need clarification. Location ambiguous: state and lga unresolved. Also settlement is Kura but need state/lga. Resolver says AMBIGUOUS, requires state, lga.\n\nWe can ask for state and LGA. Need at most one focused clarification question per turn.\n\nWe have clarification_attempts 0.\n\nWe need to output JSON with cases array containing case_1 with symptom, age 7, sex male, state null, lga null, settlement \"Kura\"? Resolver says resolved settlement: Kura. It says match_level settlement, resolved settlement Kura. Unresolved fields state,lga. So we can fill settlement = Kura? Probably yes. The resolver says resolved settlement Kura. So we can set settlement Kura, state null, lga null.\n\nMissing information: state, lga.\n\nAction = CLARIFY.\n\nClarification target? location? Could be state or lga. Probably location target. Could target state? The requires state,lga. Ask one focused question. Maybe ask which state is Kura in? Or ask state and LGA.\n\nWe should ask: Which state and LGA is Kura in? That's one question.\n\nWe need response short clear appropriate for SMS.\n\nWe need cases array.\n\nlocation_resolution: need to provide? Maybe empty? The spec shows location_resolution array with case_id, raw_location, inferred_fields, confidence. Possibly we can include? Not required but maybe helpful. The example shows location_resolution with inferred_fields. Since resolver ambiguous, maybe we don't infer. Could leave empty.\n\nMissing_information: []? Could list state, lga. Might be missing_information array. The schema shows missing_information: []. Could list missing fields.\n\nLet's follow guidelines: Extract information already provided before asking any follow-up. Ask only for information still needed. Ask at most one focused clarification question per turn.\n\nWe should set clarification.attempt_number = 1? clarification_attempts currently 0, we are about to make first attempt. The clarification object has attempt_number. Probably increment.\n\nWe need classification AFP_SUSPECTED, other_vpd false, action CLARIFY, priority NORMAL.\n\ncases: case_id case_1, symptom \"suddenly weak in one leg\" or \"sudden weakness in one leg\". age 7, sex male, state null, lga null, settlement \"Kura\".\n\nconfirmation status? Not ready.\n\nPotential duplicate false.\n\nEscalation required false.\n\nClarification target: location? Could be state? The target enum includes location, state, lga, settlement. We need state and lga both. Maybe target location.\n\nLet's set clarification target = \"location\", attempt_number = 1.\n\nResponse: \"I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?\" That's short.\n\nMake sure JSON valid.\n\nWe must preserve uncertainty. Age is exact.\n\nOutput JSON only.\n\nLet's produce.\n\nPotential nuance: settlement is Kura, but resolver says resolved settlement Kura. Good.\n\nMissing_information: maybe [\"state\",\"lga\"].\n\nThe schema missing_information is array of strings? Not specified type. Probably list of missing fields.\n\nLet's output.\n\nAlso location_resolution: could include entry with raw_location \"Kura\", inferred_fields [], confidence low? Hmm.\n\nBetter to leave empty for now.\n\nThe output contract shows location_resolution array with case_id etc. Could be empty.\n\nI'll include location_resolution with one entry: case_id case_1, raw_location \"Kura\", inferred_fields [], confidence \"low\"? Might be okay.\n\nBut spec says location_resolution may be empty. We'll keep empty for simplicity.\n\nLet's produce final JSON.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2673,
+              "total_tokens": 3667,
+              "completion_tokens": 994,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 160,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 161,
+            "output_tokens": 994,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 16799.5,
+          "cost_usd": 0.0024265499999999995,
+          "stop_reason": "end_turn",
+          "request_id": "p46HthS-7ArivV-a4619822492876fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly weak in one leg",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Kano State, Kura LGA.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "Kano State, Kura LGA.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy in Kura suddenly weak in one leg."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?"
+          },
+          {
+            "role": "user",
+            "content": "Kano State, Kura LGA."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly weak in one leg",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy in Kura suddenly weak in one leg.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?\"}, {\"role\": \"user\", \"content\": \"Kano State, Kura LGA.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly weak in one leg\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?\"\n}",
+          "raw_response": {
+            "id": "p46Hyi3-fdNmn-a461988b4a4476fd",
+            "object": "chat.completion",
+            "created": 1791257515,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?\"\n}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy in Kura suddenly weak in one leg.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?\"}, {\"role\": \"user\", \"content\": \"Kano State, Kura LGA.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly weak in one leg\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}\n\nWe need to produce JSON output. The current case state has state null lga null settlement Kura. Resolver says RESOLVED with state Kano, lga Kura, settlement Kura. So we should fill state and lga.\n\nWe have symptom: suddenly weak in one leg. Age 7, sex male. Location resolved.\n\nNow we need to decide action. We have enough information for surveillance? AFP suspected: acute flaccid paralysis: sudden weakness in one leg in 7 year old boy. Yes.\n\nWe need to CONFIRM before ACCEPT. General principles: before ACCEPT, present concise structured summary and ask sender to confirm or correct.\n\nWe have not yet confirmed. The assistant previously asked which state and LGA is Kura in? User answered Kano State, Kura LGA. Now we have complete info.\n\nWe should now CONFIRM with summary.\n\nClassification: AFP_SUSPECTED\nother_vpd: false\naction: CONFIRM\npriority: NORMAL\n\ncases: case_id case_1 symptom \"suddenly weak in one leg\" age 7 sex male state \"Kano\" lga \"Kura\" settlement \"Kura\"\n\nlocation_resolution: need array. Should include case_id, raw_location, inferred_fields, confidence. Raw_location? Probably \"Kura\". Inferred_fields [\"lga\",\"state\"]? Actually settlement resolved too. The resolver resolved state, lga, settlement. Inferred_fields maybe [\"state\",\"lga\"]? The settlement was already given. Might be inferred fields: state, lga. Confidence high.\n\nmissing_information: [] ? Maybe none.\n\npotential_duplicate false\nduplicate_candidate_ids []\nescalation required false reason null\nclarification target null attempt_number 0? Clarification attempts 0. We asked one question? The assistant asked which state and LGA... That was clarification. clarification_attempts is 0 in current_case_state. Hmm. The conversation shows assistant asked. Might be attempt number 1? The system says clarification_attempts: 0. Might be counting unsuccessful attempts. That was successful? The user provided answer. So attempt_number maybe 0? Could be 1? The field clarification.attempt_number should reflect attempts. Possibly 0 because successful? Might keep 0.\n\nconfirmation status PENDING\n\nresponse: concise structured summary ask confirmation.\n\nWe need short clear appropriate for SMS.\n\nResponse: \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?\"\n\nMake sure JSON.\n\nWe need location_resolution array with object.\n\nProbably inferred_fields: [\"state\",\"lga\"]? The resolver gave state Kano lga Kura settlement Kura. The settlement already present. So inferred fields state and lga. Confidence high.\n\nMissing information empty.\n\nPotential duplicate false.\n\nReturn JSON.\n\nCheck output contract shape.\n\nWe need cases array with case_id etc.\n\nUse symptom exactly as extracted? The case state symptom \"suddenly weak in one leg\". Might keep.\n\nNow output.\n\nEnsure no commentary outside JSON.\n\nCheck enum values.\n\nclassification AFP_SUSPECTED\naction CONFIRM\npriority NORMAL\n\nsex male\n\nlocation confidence high\n\nclarification target null\n\nescalation reason null\n\nconfirmation status PENDING\n\nresponse string.\n\nMake sure JSON valid.\n\nPotential nuance: The assistant previously asked \"Which state and LGA is Kura in?\" The user answered \"Kano State, Kura LGA.\" The resolver already resolved. So we can fill.\n\nAlso note general principle: Do not ask for geography resolver already establishes. The assistant asked previously, but now resolver resolved. That's okay; we have info.\n\nNow produce final JSON.\n\nPotential duplicate? candidate_prior_reports empty.\n\nOk.\n\nLet's output."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2823,
+              "total_tokens": 4191,
+              "completion_tokens": 1368,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 304,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 311,
+            "output_tokens": 1368,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 33462.6,
+          "cost_usd": 0.00304005,
+          "stop_reason": "end_turn",
+          "request_id": "p46Hyi3-fdNmn-a461988b4a4476fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly weak in one leg",
+            "age": 7,
+            "sex": "male",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "one"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy in Kura suddenly weak in one leg."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?"
+          },
+          {
+            "role": "user",
+            "content": "Kano State, Kura LGA."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly weak in one leg",
+              "age": 7,
+              "sex": "male",
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy in Kura suddenly weak in one leg.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?\"}, {\"role\": \"user\", \"content\": \"Kano State, Kura LGA.\"}, {\"role\": \"assistant\", \"content\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly weak in one leg\", \"age\": 7, \"sex\": \"male\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Report accepted. Thank you. The 7-year-old boy in Kura, Kura LGA, Kano State with sudden weakness in one leg is recorded for follow-up.\"\n}",
+          "raw_response": {
+            "id": "p46J9fc-fdNmn-a461995c7aa276fd",
+            "object": "chat.completion",
+            "created": 1791257548,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Report accepted. Thank you. The 7-year-old boy in Kura, Kura LGA, Kano State with sudden weakness in one leg is recorded for follow-up.\"\n}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy in Kura suddenly weak in one leg.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?\"}, {\"role\": \"user\", \"content\": \"Kano State, Kura LGA.\"}, {\"role\": \"assistant\", \"content\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly weak in one leg\", \"age\": 7, \"sex\": \"male\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": ...}\n\nWe need to produce JSON output. The sender confirmed. So we should ACCEPT.\n\nWe have case state: symptom \"suddenly weak in one leg\". Age 7, sex male, state Kano, lga Kura, settlement Kura.\n\nClassification AFP_SUSPECTED? Sudden weakness in one leg in 7 year old boy -> AFP suspected. Yes.\n\naction ACCEPT. priority NORMAL.\n\nother_vpd false.\n\ncases array with one case.\n\nlocation_resolution: we need to provide location_resolution array. The example shows location_resolution with raw_location, inferred_fields, confidence. We have resolver resolved. Should we include? The current_case_state has settlement Kura. The location resolver says resolved settlement Kura. So we can provide location_resolution with case_id case_1, raw_location \"Kura\", inferred_fields [\"lga\",\"state\"]? Actually settlement is Kura, lga Kura, state Kano. Might be inferred. Confidence high.\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0? Clarification attempts 0. Possibly clarification attempt number remains 0.\n\nconfirmation status? After accept, confirmation status should be CONFIRMED? The schema has confirmation status NOT_READY, PENDING, CONFIRMED. We just accepted after confirmation. Could set CONFIRMED.\n\nresponse: should be short? After accept, maybe acknowledge acceptance. The response should be short clear appropriate for SMS. Maybe \"Thank you. The report for the 7-year-old boy in Kura, Kura LGA, Kano State with sudden weakness in one leg is recorded for follow-up.\"\n\nWe must return only required structured JSON output. Do not include commentary outside JSON.\n\nNeed to ensure fields match output contract.\n\nRequired JSON output shape includes classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nClarification object has target null, attempt_number 0.\n\nConfirmation status? Maybe CONFIRMED.\n\nCheck rules: Before ACCEPT, present concise structured summary and ask sender to confirm. Already done. Now sender confirmed yes. So ACCEPT.\n\nEnsure case_id case_1.\n\nsymptom: \"suddenly weak in one leg\". Might be \"sudden weakness in one leg\". Use existing.\n\nAge 7, sex male, state Kano, lga Kura, settlement Kura.\n\nLocation resolution: raw_location \"Kura\". inferred_fields [\"lga\",\"state\"]? The resolver resolved settlement Kura, which includes lga and state. Maybe inferred_fields empty? The mention resolved state Kano, lga Kura, settlement Kura. The raw text is Kura. Could infer lga and state. So inferred_fields [\"lga\",\"state\"] confidence high.\n\nMissing_information [].\n\npotential_duplicate false.\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status CONFIRMED.\n\nresponse: maybe \"Report accepted. Thank you.\"\n\nMake sure response is short clear appropriate for SMS.\n\nPossibly include summary? After accept, just acknowledge.\n\nI'll produce JSON.\n\nCheck enum values: classification AFP_SUSPECTED, action ACCEPT, priority NORMAL, sex male.\n\nlocation confidence high.\n\nclarification target null.\n\nescalation reason null.\n\nconfirmation status CONFIRMED.\n\nOutput JSON.\n\nEnsure no extra fields.\n\nLet's produce final."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2886,
+              "total_tokens": 4106,
+              "completion_tokens": 1220,
+              "prompt_tokens_details": {
+                "cached_tokens": 2576,
+                "created_cache_tokens": 304,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 310,
+            "output_tokens": 1220,
+            "cache_read_input_tokens": 2576,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 28079.2,
+          "cost_usd": 0.0028401,
+          "stop_reason": "end_turn",
+          "request_id": "p46J9fc-fdNmn-a461995c7aa276fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly weak in one leg",
+            "age": 7,
+            "sex": "male",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Report accepted. Thank you. The 7-year-old boy in Kura, Kura LGA, Kano State with sudden weakness in one leg is recorded for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "7 year old boy in Kura suddenly weak in one leg."
+    },
+    {
+      "role": "assistant",
+      "content": "I have a 7-year-old boy in Kura with sudden weakness in one leg. Which state and LGA is Kura in?"
+    },
+    {
+      "role": "user",
+      "content": "Kano State, Kura LGA."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Report accepted. Thank you. The 7-year-old boy in Kura, Kura LGA, Kano State with sudden weakness in one leg is recorded for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly weak in one leg",
+        "age": 7,
+        "sex": "male",
+        "state": "Kano",
+        "lga": "Kura",
+        "settlement": "Kura"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 78341.3,
+    "input_tokens": 782,
+    "output_tokens": 3582,
+    "cost_usd": 0.008307,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

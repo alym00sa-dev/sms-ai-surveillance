@@ -1,0 +1,344 @@
+{
+  "scenario_id": "VPD-20",
+  "model": "haiku-4-5",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 5611.6,
+    "input_tokens": 9663,
+    "output_tokens": 533,
+    "cost_usd": 0.012328,
+    "clarification_turns": 1,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 1
+  },
+  "scorer_version": "v0.2",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "VPD-20",
+    "model": "haiku-4-5",
+    "scores": {
+      "classification": 0,
+      "extraction_state": 2,
+      "action": 0,
+      "conversation_quality": 0,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 6,
+    "critical_failures": [
+      "CONSEQUENTIAL_DIAGNOSIS"
+    ],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "INCORRECT",
+      "clarification_target_quality": "INCORRECT",
+      "known_information_reasked": "PARTIAL",
+      "non_diagnostic_behavior": "INCORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [
+      "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected OTHER_VPD)",
+      "action: turn 1: CLARIFY where OTHER_VPD expected",
+      "conversation: clarification_target_quality: INCORRECT",
+      "conversation: known_information_reasked: PARTIAL",
+      "conversation: non_diagnostic_behavior: INCORRECT",
+      "conversation: sms_conciseness: INCORRECT",
+      "conversation: turn_efficiency: PARTIAL"
+    ],
+    "scorer_version": "v0.2",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 6,
+  "rubric": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [
+    {
+      "code": "CONSEQUENTIAL_DIAGNOSIS",
+      "turn": 2,
+      "detail": "reply names a disease the sender did not mention (Jev: INCORRECT)"
+    }
+  ],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_recognize_other_vpd",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "RELEVANT_SIGNAL_MARKED_NOT_RELEVANT",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "146 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "INCORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'lga' is not what the report still needs"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "214 chars"
+    },
+    {
+      "task": "known_information_reasked",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 question(s) asked for a known fact"
+    },
+    {
+      "task": "turn_efficiency",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 extra turn(s)"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [],
+        "assistant_message": "Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?"
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "INCORRECT": 0.94,
+        "PARTIAL": 0.04,
+        "CORRECT": 0.02
+      },
+      "confidence": 0.9,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 48
+      },
+      "latency_ms": 67.1,
+      "cost_usd": 1.8564e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 15",
+          "settlement: Sokoto town",
+          "symptom: sudden fever and neck stiffness"
+        ],
+        "assistant_message": "Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.16,
+        "INCORRECT": 0.02,
+        "CORRECT": 0.82
+      },
+      "confidence": 0.73,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 466,
+        "output_tokens": 47
+      },
+      "latency_ms": 63.4,
+      "cost_usd": 1.9572e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.84,
+        "PARTIAL": 0.14,
+        "INCORRECT": 0.02
+      },
+      "confidence": 0.77,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 433,
+        "output_tokens": 47
+      },
+      "latency_ms": 85.4,
+      "cost_usd": 1.8186e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.95,
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.04
+      },
+      "confidence": 0.92,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 433,
+        "output_tokens": 47
+      },
+      "latency_ms": 90.0,
+      "cost_usd": 1.8186e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. This report of sudden fever and stiff neck suggests meningitis, which is a priority disease. I am stopping AFP-specific intake and preserving this signal for escalation to your disease surveillance team."
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "CORRECT": 0.08,
+        "PARTIAL": 0.36,
+        "INCORRECT": 0.56
+      },
+      "confidence": 0.34,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 435,
+        "output_tokens": 48
+      },
+      "latency_ms": 92.2,
+      "cost_usd": 1.827e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. This report of sudden fever and stiff neck suggests meningitis, which is a priority disease. I am stopping AFP-specific intake and preserving this signal for escalation to your disease surveillance team."
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.99,
+        "CORRECT": 0.0
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 435,
+        "output_tokens": 48
+      },
+      "latency_ms": 66.9,
+      "cost_usd": 1.827e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "final_action": "OTHER_VPD",
+        "message": "Thank you. This report of sudden fever and stiff neck suggests meningitis, which is a priority disease. I am stopping AFP-specific intake and preserving this signal for escalation to your disease surveillance team."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "CORRECT": 0.99,
+        "PARTIAL": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 441,
+        "output_tokens": 45
+      },
+      "latency_ms": 101.6,
+      "cost_usd": 1.8522000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 2,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected OTHER_VPD)",
+    "action: turn 1: CLARIFY where OTHER_VPD expected",
+    "conversation: clarification_target_quality: INCORRECT",
+    "conversation: known_information_reasked: PARTIAL",
+    "conversation: non_diagnostic_behavior: INCORRECT",
+    "conversation: sms_conciseness: INCORRECT",
+    "conversation: turn_efficiency: PARTIAL"
+  ]
+}

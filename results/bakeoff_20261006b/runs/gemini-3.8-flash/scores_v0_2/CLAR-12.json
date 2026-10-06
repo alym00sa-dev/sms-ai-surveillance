@@ -1,0 +1,906 @@
+{
+  "scenario_id": "CLAR-12",
+  "model": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 5,
+    "api_calls": 5,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 64012.7,
+    "input_tokens": 15898,
+    "output_tokens": 8789,
+    "cost_usd": 0.044882,
+    "clarification_turns": 2,
+    "confirmation_turns": 2,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 1
+  },
+  "scorer_version": "v0.2",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "CLAR-12",
+    "model": "gemini-3.8-flash",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 1,
+      "action": 0,
+      "conversation_quality": 0,
+      "escalation_priority": 2,
+      "output_adherence": 1
+    },
+    "total": 6,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "confirmation_fidelity": "CORRECT",
+      "clarification_target_quality": "INCORRECT",
+      "symptom_equivalence": "PARTIAL",
+      "non_diagnostic_behavior": "CORRECT",
+      "known_information_reasked": "PARTIAL",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [
+      "extraction: Jev: recorded symptom loses or adds a detail",
+      "action: turn 1: CONFIRM where CLARIFY expected",
+      "action: turn 2: off-target clarification",
+      "conversation: clarification_target_quality: INCORRECT",
+      "conversation: known_information_reasked: PARTIAL",
+      "conversation: symptom_equivalence: PARTIAL",
+      "conversation: turn_efficiency: INCORRECT",
+      "output: consistency: confirmation.status should be NOT_READY for CLARIFY"
+    ],
+    "scorer_version": "v0.2",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 1,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 2,
+    "output_adherence": 1
+  },
+  "total": 6,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 1,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 2,
+    "output_adherence": 1
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_preserve_multiple_cases",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_merge_children",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_ask_one_targeted_question",
+      "cursor": 0,
+      "route": "JEV",
+      "dimension": "conversation_quality",
+      "status": "FAIL",
+      "severity": 1,
+      "detail": "clarification target missing or not what the report still needs"
+    },
+    {
+      "check": "must_preserve_multiple_cases",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_apply_later_correction",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "IGNORED_EXPLICIT_CORRECTION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_merge_children",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_preserve_multiple_cases",
+      "cursor": 2,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_apply_later_correction",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "IGNORED_EXPLICIT_CORRECTION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_merge_children",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "166 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "72 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "INCORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'other' is not what the report still needs"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "89 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 4,
+      "source": "det",
+      "detail": "171 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 4,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 5,
+      "source": "det",
+      "detail": "85 chars"
+    },
+    {
+      "task": "turn_efficiency",
+      "result": "INCORRECT",
+      "turn": null,
+      "source": "det",
+      "detail": "2 extra turn(s)"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.02,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.98
+      },
+      "confidence": 0.96,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 87.0,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.02,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.98
+      },
+      "confidence": 0.96,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 87.0,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 5,
+            "sex": "male",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          },
+          {
+            "age": "about 9",
+            "sex": "female",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          }
+        ],
+        "confirmation_message": "I have recorded: 1) Boy, age 5, in Gwadabawa, Gwadabawa, Sokoto with weak legs; 2) Girl, age maybe 9, in Gwadabawa, Gwadabawa, Sokoto with weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.03,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.97
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 648,
+        "output_tokens": 46
+      },
+      "latency_ms": 84.1,
+      "cost_usd": 2.7216e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have recorded: 1) Boy, age 5, in Gwadabawa, Gwadabawa, Sokoto with weak legs; 2) Girl, age maybe 9, in Gwadabawa, Gwadabawa, Sokoto with weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.25,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.74
+      },
+      "confidence": 0.61,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 456,
+        "output_tokens": 47
+      },
+      "latency_ms": 79.2,
+      "cost_usd": 1.9152000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have recorded: 1) Boy, age 5, in Gwadabawa, Gwadabawa, Sokoto with weak legs; 2) Girl, age maybe 9, in Gwadabawa, Gwadabawa, Sokoto with weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 0.77,
+        "PARTIAL": 0.23
+      },
+      "confidence": 0.65,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 456,
+        "output_tokens": 47
+      },
+      "latency_ms": 154.4,
+      "cost_usd": 1.9152000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "whether the weakness started suddenly"
+        ],
+        "assistant_message": "Could you please tell us which part of the details you are unsure about?"
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "PARTIAL": 0.04,
+        "CORRECT": 0.05,
+        "INCORRECT": 0.91
+      },
+      "confidence": 0.88,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 48
+      },
+      "latency_ms": 85.1,
+      "cost_usd": 1.7892e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "child 1: age: 5",
+          "child 1: sex: male",
+          "child 1: settlement: Gwadabawa",
+          "child 1: lga: Gwadabawa",
+          "child 1: state: Sokoto",
+          "child 1: symptom: weak legs",
+          "child 2: age: about 9",
+          "child 2: sex: female",
+          "child 2: settlement: Gwadabawa",
+          "child 2: lga: Gwadabawa",
+          "child 2: state: Sokoto",
+          "child 2: symptom: weak legs"
+        ],
+        "assistant_message": "Could you please tell us which part of the details you are unsure about?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.02,
+        "INCORRECT": 0.03,
+        "CORRECT": 0.95
+      },
+      "confidence": 0.92,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 556,
+        "output_tokens": 47
+      },
+      "latency_ms": 102.5,
+      "cost_usd": 2.3352e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Could you please tell us which part of the details you are unsure about?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.17,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.83
+      },
+      "confidence": 0.73,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 101.7,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Could you please tell us which part of the details you are unsure about?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 79.0,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "whether the weakness started suddenly"
+        ],
+        "assistant_message": "Can you confirm if the children are currently experiencing sudden weakness in their legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.42,
+        "CORRECT": 0.51,
+        "INCORRECT": 0.07
+      },
+      "confidence": 0.27,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 47
+      },
+      "latency_ms": 79.7,
+      "cost_usd": 1.7892e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "child 1: age: 5",
+          "child 1: sex: male",
+          "child 1: settlement: Gwadabawa",
+          "child 1: lga: Gwadabawa",
+          "child 1: state: Sokoto",
+          "child 1: symptom: weak legs",
+          "child 2: age: about 9",
+          "child 2: sex: female",
+          "child 2: settlement: Gwadabawa",
+          "child 2: lga: Gwadabawa",
+          "child 2: state: Sokoto",
+          "child 2: symptom: weak legs"
+        ],
+        "assistant_message": "Can you confirm if the children are currently experiencing sudden weakness in their legs?"
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.76,
+        "INCORRECT": 0.17,
+        "CORRECT": 0.07
+      },
+      "confidence": 0.63,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 556,
+        "output_tokens": 47
+      },
+      "latency_ms": 167.4,
+      "cost_usd": 2.3352e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Can you confirm if the children are currently experiencing sudden weakness in their legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.03,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.97
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 84.6,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Can you confirm if the children are currently experiencing sudden weakness in their legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 73.6,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "both legs became weak suddenly today",
+        "recorded_symptom": "weak legs started today"
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.54,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.46
+      },
+      "confidence": 0.3,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 443,
+        "output_tokens": 47
+      },
+      "latency_ms": 99.6,
+      "cost_usd": 1.8606e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "legs became weak suddenly today",
+        "recorded_symptom": "weak legs started today"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.19,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.81
+      },
+      "confidence": 0.71,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 47
+      },
+      "latency_ms": 73.7,
+      "cost_usd": 1.8564e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 5,
+            "sex": "male",
+            "settlement": "Gwadabawa",
+            "symptom": "both legs became weak suddenly today",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          },
+          {
+            "age": 8,
+            "sex": "female",
+            "settlement": "Gwadabawa",
+            "symptom": "legs became weak suddenly today",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          }
+        ],
+        "confirmation_message": "I have updated the records: 1) Boy, age 5, Gwadabawa, Sokoto, weak legs started today; 2) Girl, age 8, Gwadabawa, Sokoto, weak legs started today. Is this summary correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.03,
+        "CORRECT": 0.97,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 645,
+        "output_tokens": 46
+      },
+      "latency_ms": 88.9,
+      "cost_usd": 2.7090000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "I have updated the records: 1) Boy, age 5, Gwadabawa, Sokoto, weak legs started today; 2) Girl, age 8, Gwadabawa, Sokoto, weak legs started today. Is this summary correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.17,
+        "CORRECT": 0.82
+      },
+      "confidence": 0.74,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 450,
+        "output_tokens": 47
+      },
+      "latency_ms": 111.4,
+      "cost_usd": 1.8900000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "I have updated the records: 1) Boy, age 5, Gwadabawa, Sokoto, weak legs started today; 2) Girl, age 8, Gwadabawa, Sokoto, weak legs started today. Is this summary correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.9,
+        "PARTIAL": 0.1,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.84,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 450,
+        "output_tokens": 47
+      },
+      "latency_ms": 105.8,
+      "cost_usd": 1.8900000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 5,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Both reports have been confirmed and submitted for surveillance follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.86,
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.13
+      },
+      "confidence": 0.79,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 92.7,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 5,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Both reports have been confirmed and submitted for surveillance follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.99,
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.01
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 116.7,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 5,
+      "source": "jev",
+      "state": {
+        "final_action": "ACCEPT",
+        "message": "Thank you. Both reports have been confirmed and submitted for surveillance follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 416,
+        "output_tokens": 45
+      },
+      "latency_ms": 121.9,
+      "cost_usd": 1.7472e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 5,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "extraction: Jev: recorded symptom loses or adds a detail",
+    "action: turn 1: CONFIRM where CLARIFY expected",
+    "action: turn 2: off-target clarification",
+    "conversation: clarification_target_quality: INCORRECT",
+    "conversation: known_information_reasked: PARTIAL",
+    "conversation: symptom_equivalence: PARTIAL",
+    "conversation: turn_efficiency: INCORRECT",
+    "output: consistency: confirmation.status should be NOT_READY for CLARIFY"
+  ]
+}

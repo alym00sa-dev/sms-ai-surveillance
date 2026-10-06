@@ -1,0 +1,664 @@
+{
+  "scenario_id": "CLAR-13",
+  "title": "Enough information arrives; agent must stop",
+  "model_key": "haiku-4-5",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "Boy with weak leg in a village near Kafin Hausa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Boy with weak leg in a village near Kafin Hausa."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": null
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kafin Hausa",
+              "status": "RESOLVED",
+              "match_level": "lga",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": null
+                }
+              ],
+              "unresolved_fields": [
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "nearby reference at LGA level"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy with weak leg in a village near Kafin Hausa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": null}], \"mentions\": [{\"raw_text\": \"Kafin Hausa\", \"status\": \"RESOLVED\", \"match_level\": \"lga\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": null}], \"unresolved_fields\": [\"settlement\"], \"requires\": [], \"notes\": [\"nearby reference at LGA level\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"weak leg\",\"age\":null,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"village near Kafin Hausa\",\"inferred_fields\":[\"state\",\"lga\"],\"confidence\":\"medium\"}],\"missing_information\":[\"settlement\",\"age\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"settlement\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"What is the name of the village where the boy is located?\"}",
+          "raw_response": {
+            "id": "msg_011CfkDrAdk2SHPUKSt2HVjG",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"weak leg\",\"age\":null,\"sex\":\"male\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":null}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"village near Kafin Hausa\",\"inferred_fields\":[\"state\",\"lga\"],\"confidence\":\"medium\"}],\"missing_information\":[\"settlement\",\"age\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"settlement\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"What is the name of the village where the boy is located?\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4694,
+              "output_tokens": 202,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4694,
+            "output_tokens": 202,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 2036.5,
+          "cost_usd": 0.005704000000000001,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDrAHevjbFZzhFUzEUf",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak leg",
+            "age": null,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": null
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "village near Kafin Hausa",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "medium"
+          }
+        ],
+        "missing_information": [
+          "settlement",
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "settlement",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "What is the name of the village where the boy is located?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "He is 11 and the village is Majawa.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "He is 11 and the village is Majawa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Boy with weak leg in a village near Kafin Hausa."
+          },
+          {
+            "role": "assistant",
+            "content": "What is the name of the village where the boy is located?"
+          },
+          {
+            "role": "user",
+            "content": "He is 11 and the village is Majawa."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "weak leg",
+              "age": null,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy with weak leg in a village near Kafin Hausa.\"}, {\"role\": \"assistant\", \"content\": \"What is the name of the village where the boy is located?\"}, {\"role\": \"user\", \"content\": \"He is 11 and the village is Majawa.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak leg\", \"age\": null, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": null}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CONFIRM\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak leg\", \"age\": 11, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"state\", \"lga\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"PENDING\"}, \"response\": \"I have: 11-year-old boy in Majawa, Kafin Hausa, Jigawa, with weak leg. Is this correct?\"}",
+          "raw_response": {
+            "id": "msg_011CfkDrKKciazZYdDsMboXc",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CONFIRM\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak leg\", \"age\": 11, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"state\", \"lga\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"PENDING\"}, \"response\": \"I have: 11-year-old boy in Majawa, Kafin Hausa, Jigawa, with weak leg. Is this correct?\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4809,
+              "output_tokens": 247,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4809,
+            "output_tokens": 247,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 3226.8,
+          "cost_usd": 0.006044,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDrJynqirrspYKGUMy7",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak leg",
+            "age": 11,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 11-year-old boy in Majawa, Kafin Hausa, Jigawa, with weak leg. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [],
+              "onset": null
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Boy with weak leg in a village near Kafin Hausa."
+          },
+          {
+            "role": "assistant",
+            "content": "What is the name of the village where the boy is located?"
+          },
+          {
+            "role": "user",
+            "content": "He is 11 and the village is Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 11-year-old boy in Majawa, Kafin Hausa, Jigawa, with weak leg. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "weak leg",
+              "age": 11,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy with weak leg in a village near Kafin Hausa.\"}, {\"role\": \"assistant\", \"content\": \"What is the name of the village where the boy is located?\"}, {\"role\": \"user\", \"content\": \"He is 11 and the village is Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have: 11-year-old boy in Majawa, Kafin Hausa, Jigawa, with weak leg. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak leg\", \"age\": 11, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ACCEPT\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak leg\", \"age\": 11, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"state\", \"lga\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"CONFIRMED\"}, \"response\": \"Thank you. Case accepted: 11-year-old boy, Majawa, Kafin Hausa, Jigawa, with weak leg.\"}",
+          "raw_response": {
+            "id": "msg_011CfkDrZ6r65sdrKweWtZFr",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ACCEPT\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak leg\", \"age\": 11, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [\"state\", \"lga\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"CONFIRMED\"}, \"response\": \"Thank you. Case accepted: 11-year-old boy, Majawa, Kafin Hausa, Jigawa, with weak leg.\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4876,
+              "output_tokens": 246,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4876,
+            "output_tokens": 246,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 2600.3,
+          "cost_usd": 0.006106,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDrYm142RK973Mf73HU",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak leg",
+            "age": 11,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. Case accepted: 11-year-old boy, Majawa, Kafin Hausa, Jigawa, with weak leg."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Boy with weak leg in a village near Kafin Hausa."
+    },
+    {
+      "role": "assistant",
+      "content": "What is the name of the village where the boy is located?"
+    },
+    {
+      "role": "user",
+      "content": "He is 11 and the village is Majawa."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 11-year-old boy in Majawa, Kafin Hausa, Jigawa, with weak leg. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Case accepted: 11-year-old boy, Majawa, Kafin Hausa, Jigawa, with weak leg."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "weak leg",
+        "age": 11,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 7863.6,
+    "input_tokens": 14379,
+    "output_tokens": 695,
+    "cost_usd": 0.017854,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

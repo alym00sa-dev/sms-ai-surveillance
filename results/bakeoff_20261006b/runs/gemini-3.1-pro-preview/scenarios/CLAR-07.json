@@ -1,0 +1,672 @@
+{
+  "scenario_id": "CLAR-07",
+  "title": "Missing age, resolved on second turn",
+  "model_key": "gemini-3.1-pro-preview",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot stand because both legs are weak\",\n      \"age\": null,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for the report. How old is the boy?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot stand because both legs are weak\",\n      \"age\": null,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for the report. How old is the boy?\"\n}",
+                      "thoughtSignature": "EroJCrcJAWkUfRMqLUfCFPTzmRCoxKwocKCx9FDMC5vcaSX4VEVPDdW4fWImx70S6p4q23c2Pekqs396/Y5wLuVcCY9eI0wPs2E5QJzhMyP6YUOReqqpQt6J0e54D+JmSKV24hAzNq79DPU5JGVmZgI/MEWZFjT1o/kp6YpSyfZY4H4dcPaCReOC67dQHOun1z/kVsW516XHlbmARiYI+OruoSGImmU8DLXw+djkdeIC2biJNBERezHxdkH2MYUMMk3BUK05waQatfQeQ5e3NccD6bNZRL3zwgeue8ABrrmcSKPNMDaBDFc5BscTrQhYgCxczgbuU3r/XpZroW7DGXCRbOx9faT7kcp1JO0DZrXuYjXfV0FZXAd2I94ChYuarqhWyaw80BxOuUqYW0n4WHDpSMjEn9ZvmnYDf2R2LWOr/birMkl3/7ezkpfA9O7OVVPZJkRfvjh6V0NtHT8XPciE1VnQ4UTAdHIEKeQGoXUocTqs3vlw8SzuoKV49/3rQy1z8CCDar+aLk1A7RQAYmG9uNVZxqayBJRf77Ew4QmWgMwBjEznHzh6ivb9L3nC2tK7vAxSxE0+ksNVYUgUyx8Infqp43rEs+7hVdz4r6mJh7Bv5sdhOGK16lp0f5OObllOJx7LDLxeOZzY+cEY33MSl0HDSNhrU77XgXN6JurgVTyZFP6v0u94ED1gbo2lSP8LlX61LqocWhIVi2w5S69la430fsO11t6P+OiCbO/Ep5b/IFA7gtPnrfO/ZGPIp987P9n0Ijmr18iF0EXlB7qZWsohgnm9LiUNFVW/t0zQBAED2OrJyMUgXbBvtL0PVZuRJhxoOsKb+crUQM6NCwQ9LZDcOOOTZdoGgjSAinBc3Z/DrqkOtfEFCeWPKQtQ54li/cFygIHURzQ6UZzl+Ew/KOx+Et9sso7nlQoHjxAv3DqPmGxwCz13kRWEUg3JyCnFhFDVTNNnG/q72rAl0ffDMXdlTJz2uLE5H+4Ltd5QNZi3v6A6r9Oh83MLfz9/EltQtXjd2NAv8fza72cky7jNM3SRZw1tebu+3/Y5N5H/YdYZJdVK6/qSWqSh9/VNL8MA9bjmELDinLA1ZSdOt4hGg1GHntMWYao6Bj1vGi7/eMF8OGD+ZQgvkxMvVife4kNgUidQ6J4Ev8nFiTcHQFEiNWW9vuZeGGP6SI5QgOnhMCSZW7xxkBWD8HInvsatEpyKp21UBJk4uQ2OFRrnqb83I/fA0aA0p+SyWZiCDM+bVIqxu0FV3+iYM5nL1BR/MipCKryBI+9p1m0IjvH5/zxz4tLLURZ2CawnTVfvVYuN1Ldzddq0XRYPBi7KMkzGvPSroir4FHZ+ZldboruBpzFpZnPUM1ppIKhcnd9CJ3L0RJpS/VxkCCiQc4R6JUqlW3Zm8gG8NypEZll3G2Q/Y1nErF8IjXX746OjOoRN6AM6623ALDOSGkv2BIZdFtVm7QJoOLVq5k5Fvgym3k6UEpOwjRwagEOJIcgIOdB+3w/CpgkP4CWoe8SbXkjrMvv5h8QHDd3g9429vDyE05/DVZ+jtg/gS0FZL2DS0EFQNV97sU7I9PuIHIQuJAVYQQQ5Su46BL3KiSqMa/w88w=="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2933,
+              "candidatesTokenCount": 327,
+              "totalTokenCount": 3580,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2933
+                }
+              ],
+              "thoughtsTokenCount": 320,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "xmjEauahO_Gtz7IPg-CDuAI"
+          },
+          "usage": {
+            "input_tokens": 2933,
+            "output_tokens": 647,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 320
+          },
+          "latency_ms": 6141.0,
+          "cost_usd": 0.01363,
+          "stop_reason": "end_turn",
+          "request_id": "xmjEauahO_Gtz7IPg-CDuAI",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot stand because both legs are weak",
+            "age": null,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "age",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you for the report. How old is the boy?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "He is 5.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "He is 5.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for the report. How old is the boy?"
+          },
+          {
+            "role": "user",
+            "content": "He is 5."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot stand because both legs are weak",
+              "age": null,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for the report. How old is the boy?\"}, {\"role\": \"user\", \"content\": \"He is 5.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot stand because both legs are weak\", \"age\": null, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot stand because both legs are weak\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: a 5-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot stand because both legs are weak. Is this correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot stand because both legs are weak\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: a 5-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot stand because both legs are weak. Is this correct?\"\n}",
+                      "thoughtSignature": "Ev4ECvsEAWkUfRPAbVhKK3L+d6mbEDeqFO3qQznPcH4MPbD1o/WNtQXHn5WMkDOOr/OnNXP1KHmv0p0moO42mccE9UymNdCngoOcV1aCgMfrAkeirmmY/IQ2NFr+Dngso7Lc/9cFbCRixVR1RHSdgT5YkoowUYavA4TKGjh0q35FsG/dzjEC3n5M3Gm4gvDz5K/VH1VLgs7+CNxZz9YcX54Igi2fWo55ufRvuKaKPFDQLA8qgyBdNMND5CgDNLa0M3gsr+imOv5crZYsRPDegM5o5lVLHQjJiuHCTxN+hy+athfdMYLU+d+mUisrdfLEWOORVOQjajVTAFD1iGF7bUDyPyyr1IGX6aKlpppeFq3k/XjL04mmWe3JW5jPoxWJEuVf7MpSplN5EMtP+4xXKQ4vzZHNfPfCpvbefYE6WNnBCWJEORxPtOV06JeyuUNjUdnJ7oveTvaRRtIECUKnkX1NcOd7rOjEhyjs9aez1n6qhbg7vjA47lloJZbQNYTiEbvmUM+nBc0OlrM10yQe9Fw03PcRJEOVUkU1rTUA5qWgjukrJjQb42peosYRIN4/XvH58a2mufeECLAEMliIe0q0QXwbwhRzIafkC1r7gQB1n8fPRJfVkIcPgTwvPiy9Uq5h5RDMyBhGcZWGHa0diQKbsxpoZcDBQ5/ojyBQ5kcnlMyhKT59CnMjKCd0QWcgaLjnwIE4iumK0vqdBXj2pWDYoYPI7XUdP6605rVW6UDumvn5LBfdr8kzhD3Cd7zzKRI+zyQrAthUzRbeq4lW+1VSvNwbfj5ePqY+Tp26N33nCn87CXNHt+Wr0cNilyRjFEptzcgbkkIXDIwdu3BG+aU="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3033,
+              "candidatesTokenCount": 342,
+              "totalTokenCount": 3521,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3033
+                }
+              ],
+              "thoughtsTokenCount": 146,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "zWjEauDeB_LRz7IPqMKfoA8"
+          },
+          "usage": {
+            "input_tokens": 3033,
+            "output_tokens": 488,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 146
+          },
+          "latency_ms": 5338.0,
+          "cost_usd": 0.011922,
+          "stop_reason": "end_turn",
+          "request_id": "zWjEauDeB_LRz7IPqMKfoA8",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot stand because both legs are weak",
+            "age": 5,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: a 5-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot stand because both legs are weak. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for the report. How old is the boy?"
+          },
+          {
+            "role": "user",
+            "content": "He is 5."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: a 5-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot stand because both legs are weak. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot stand because both legs are weak",
+              "age": 5,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for the report. How old is the boy?\"}, {\"role\": \"user\", \"content\": \"He is 5.\"}, {\"role\": \"assistant\", \"content\": \"I have: a 5-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot stand because both legs are weak. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot stand because both legs are weak\", \"age\": 5, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot stand because both legs are weak\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. Your report has been accepted and will be forwarded to the surveillance team for follow-up.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot stand because both legs are weak\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. Your report has been accepted and will be forwarded to the surveillance team for follow-up.\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3098,
+              "candidatesTokenCount": 322,
+              "totalTokenCount": 3933,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3098
+                }
+              ],
+              "thoughtsTokenCount": 513,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "0mjEaqG3G6rRz7IP_bCbwAM"
+          },
+          "usage": {
+            "input_tokens": 3098,
+            "output_tokens": 835,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 513
+          },
+          "latency_ms": 7332.0,
+          "cost_usd": 0.016216,
+          "stop_reason": "end_turn",
+          "request_id": "0mjEaqG3G6rRz7IP_bCbwAM",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot stand because both legs are weak",
+            "age": 5,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you for confirming. Your report has been accepted and will be forwarded to the surveillance team for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A boy in Kafin Hausa, Majawa village suddenly cannot stand because both legs are weak."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for the report. How old is the boy?"
+    },
+    {
+      "role": "user",
+      "content": "He is 5."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: a 5-year-old boy in Majawa, Kafin Hausa, Jigawa, who suddenly cannot stand because both legs are weak. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for confirming. Your report has been accepted and will be forwarded to the surveillance team for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot stand because both legs are weak",
+        "age": 5,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 18811.0,
+    "input_tokens": 9064,
+    "output_tokens": 1970,
+    "cost_usd": 0.041768,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

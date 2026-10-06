@@ -1,0 +1,235 @@
+{
+  "scenario_id": "VPD-22",
+  "title": "VHF/Lassa-like severe febrile bleeding illness",
+  "model_key": "deepseek-v4.1-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "OTHER_VPD",
+      "sender_message": "A woman in Tambuwal has severe fever and is vomiting blood.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A woman in Tambuwal has severe fever and is vomiting blood."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Tambuwal",
+              "settlement": "Tambuwal",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Tambuwal",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Tambuwal",
+                "settlement": "Tambuwal"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Tambuwal",
+                  "settlement": "Tambuwal",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A woman in Tambuwal has severe fever and is vomiting blood.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Tambuwal\", \"settlement\": \"Tambuwal\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Tambuwal\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Tambuwal\", \"settlement\": \"Tambuwal\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Tambuwal\", \"settlement\": \"Tambuwal\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"severe fever and vomiting blood\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Tambuwal\",\n      \"settlement\": \"Tambuwal\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Tambuwal\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Noted: woman in Tambuwal, Sokoto, with severe fever and vomiting blood. This is not AFP; the report has been recorded and forwarded for follow-up by the appropriate team.\"\n}",
+          "raw_response": {
+            "id": "9c08ced5-aws_uw2",
+            "object": "chat.completion",
+            "created": 1791254221,
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"severe fever and vomiting blood\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Tambuwal\",\n      \"settlement\": \"Tambuwal\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Tambuwal\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Noted: woman in Tambuwal, Sokoto, with severe fever and vomiting blood. This is not AFP; the report has been recorded and forwarded for follow-up by the appropriate team.\"\n}",
+                  "reasoning_content": "The report: woman with severe fever and vomiting blood. This is not AFP. It's a possible hemorrhagic fever / other VPD? Vomiting blood + fever — could be viral hemorrhagic fever (Lassa fever) — surveillance-relevant. Classification OTHER_VPD, action OTHER_VPD, other_vpd true. Preserve signal and stop.\n\nAge unknown, sex female. Location resolved: Sokoto, Tambuwal, Tambuwal.\n\nCase state: symptom \"severe fever and vomiting blood\", age null, sex female, state Sokoto, lga Tambuwal, settlement Tambuwal.\n\nResponse short, preserve signal, stop."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2842,
+              "completion_tokens": 435,
+              "total_tokens": 3277,
+              "prompt_tokens_details": {
+                "cached_tokens": 2560
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 133
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 282,
+            "output_tokens": 435,
+            "cache_read_input_tokens": 2560,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 133
+          },
+          "latency_ms": 1829.4,
+          "cost_usd": 0.0013746000000000001,
+          "stop_reason": "end_turn",
+          "request_id": "9c08ced5-aws_uw2",
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "OTHER_VPD",
+        "other_vpd": true,
+        "action": "OTHER_VPD",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "severe fever and vomiting blood",
+            "age": null,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Tambuwal",
+            "settlement": "Tambuwal"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Tambuwal",
+            "inferred_fields": [
+              "state",
+              "lga",
+              "settlement"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Noted: woman in Tambuwal, Sokoto, with severe fever and vomiting blood. This is not AFP; the report has been recorded and forwarded for follow-up by the appropriate team."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A woman in Tambuwal has severe fever and is vomiting blood."
+    },
+    {
+      "role": "assistant",
+      "content": "Noted: woman in Tambuwal, Sokoto, with severe fever and vomiting blood. This is not AFP; the report has been recorded and forwarded for follow-up by the appropriate team."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "severe fever and vomiting blood",
+        "age": null,
+        "sex": "female",
+        "state": "Sokoto",
+        "lga": "Tambuwal",
+        "settlement": "Tambuwal"
+      }
+    ]
+  },
+  "gold_actions": [
+    "OTHER_VPD"
+  ],
+  "model_actions": [
+    "OTHER_VPD"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 1829.4,
+    "input_tokens": 282,
+    "output_tokens": 435,
+    "cost_usd": 0.001375,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

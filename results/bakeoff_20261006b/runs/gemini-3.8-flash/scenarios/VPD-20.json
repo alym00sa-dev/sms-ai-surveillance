@@ -1,0 +1,248 @@
+{
+  "scenario_id": "VPD-20",
+  "title": "Meningitis-like fever and neck stiffness",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "OTHER_VPD",
+      "sender_message": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto North",
+              "settlement": "Sokoto town",
+              "listed": true
+            },
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto South",
+              "settlement": "Sokoto town",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Sokoto town",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "settlement": "Sokoto town"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto North",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                },
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto South",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [
+                "lga"
+              ],
+              "requires": [
+                "lga"
+              ],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 15 year old in Sokoto town suddenly developed fever and a stiff neck.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Sokoto town\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"settlement\": \"Sokoto town\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"unresolved_fields\": [\"lga\"], \"requires\": [\"lga\"], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"fever and a stiff neck\",\n      \"age\": 15,\n      \"sex\": null,\n      \"state\": \"Sokoto\",\n      \"lga\": null,\n      \"settlement\": \"Sokoto town\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Sokoto town\",\n      \"inferred_fields\": [\"state\"],\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for reporting. This health condition has been recorded and referred to the disease surveillance team for review.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"fever and a stiff neck\",\n      \"age\": 15,\n      \"sex\": null,\n      \"state\": \"Sokoto\",\n      \"lga\": null,\n      \"settlement\": \"Sokoto town\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Sokoto town\",\n      \"inferred_fields\": [\"state\"],\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for reporting. This health condition has been recorded and referred to the disease surveillance team for review.\"\n}",
+                      "thoughtSignature": "EqQRCqERAWkUfRPVB2yGh4SFticuiE/99eTKMW7l/pvdHNm//W3uJ+mNA3GBE7lXQYE0icCOPeKW2EjK4OMXjnWM0wrT5Nzh9+QH/i32HYo46IruiF/tqhODzPF/s9PWmLp4dhCZU85tkRc/qU2NkndpIKH67HUYz8FilZKjyx9UVbe7Yt/FzStlBQaMXNRUvHtslMfwAxrDVT+/ZPVGFSRlOSmIljwEqWlWN5ZWgDx6J7POYtC9IsuK9eTsDRXuowmPfLB4G9RcC+cfDDWrD/v4Lxpa4gppPTcQgk8ulwk1VMeOm4OVjZqJYWUds+daxK/XyMSIKcD7MTqy1CTZH2k5A1iES6DVK0MqJbhbDo+3qCOgmAkwgDJ90SFznP/ClenetI+S+vzZZd7CyXXI3HcmqPf+w1F5mz5lstkvYVy703iA1vjrmzhWkqdcaG8TwaEOoOVrJOkZdsWTwwt0mGEYUZ6EOirYyM2kdhNQw/QgdKY8DXK+p1754cQ16WBTQIJhVd0oa0XG/J3NoYg+ajSMGR+GV1mPt7Mw/yS6ppJHEnANJOY8zcho6FBAHkurYAmNBKCvyv/KAjAYGIrOgPZ2azf4Grk+YgUTDjUA5jv8P4DA1qnKpsMrd8FwUiU9mwGW80mTooF6u7j86/7sgft29YFwU4Ce50M9VTKtMJJf9Xhjcz2li/q6XonttHAk0vZQbIN+2WeWaEj5Irn8LKRv3PRl1LmQ1LxRYZVIkciQXQ/4Qohia56/Bn7Ij9tCd9P09yiY0U3cdW15Qwg8CThqJdyZlTKVo8bkcOqkNAwL36TRJfVhbb6gP5MJwzYF4yX0X1xywc7vQ2MVpwd9eA+ucFmvQVM3zxjce7CfyWWUnY5r38fsTLBcEDA+pPctjsRqaScZirAktkKTPaKxNHwooRO88hBT10ZRuDXE0HLTcpYicQCEUKlm4xPzIlgkvWkbp0A528C2qXIiW94nIapCx6nFOuOSzzmeAqb1zuGuypR5ktbMFEJ1z5J0ZhySvrblEPbamy6gSXdPW2FuwY7LuNOz3gscjKac7wJKWV4iGI/BhvxzJUcFJDTSRoHOU73gTQLlUysW7FS3BjsxM6gPxuaCQmp2XszbBpmblrZuZKA/3Pv1iLU5XM7Qmh/MNusybvoNz/Ny8AkMr/QdW1yGo64QZ9Uf5VohWGEF1bV4XcQTyqohtIvJRU9ptMs8Tn3aXtTtWsC5vyyS1rrJeOkqRsX6OR1/Y7z7hmWxlRdqTp5J26SbRHFI2znnP3+nr2lDT0C/ukclzLR9r+by/3m0L3T73ueGCmOTi2XMUp9FrHCBuzniK0EZnypYzloICHYo7+oCDPcWkXIuf/AdXHPYMk9lOHpF01eML02YQMQhhmfO389GYfVY4aPy5E3WNPm/wD58++t6AC2Siq0OxLnsCvkyqlU6RKcWx/H2OkRdQULSCSOY+t9YoLtPMQx+6QCDxxlZZ81wCMCDLsJCVjOvZaEMPqRthmJe6l642VBvS+6ZFNOMwTtIs9EIlMydUuU/AUW25/5vLfaCOyGwpjMSVWuoffNmfrlFQnnyPW15Amw+rQLkmH9iY9Nq2c6Zdx0KoTF7Zauo4TjjAsFWb/S/RRTie+ZQxQMARFv+bWK5ec/i71oRtwitA4xH/Cg/cgvl0c+eU8+9tmXJ7AdiSBAtrP7/1zNzSbElFVrbuEgzu1Yl/hqBos22RspI7lw8FKtzvXjumVnjJik+iOXv5hxV7QxvS9OU5gVnSKAhD7kzInTB8me/EZj6c7pTaNXqhVoxgqY1w7bRu1Nf+jCIbgq+zC7gHHCSAj7c1y8nBIa98mc88Lgb9SlwVTanAQKg4pum0meUjsx5yImK1kBc2Mky99rIbxgIa1498PJyss4+B0gMo4PImoNmzo9dqRe8lNMCsKUG99kwlQEq4EV4cz/mriu8YdAWKWC3JydBxyiB6FzQPD8Bj8gHEJmJZAtcJQ6wvVIb92m5LVIIBboa16+oPFP5yYM7QQBDjIXnjMy36vbjOKss3B1mAXPtPUlmeIiFGKVGc6rKxob8RdhKoVTaFQ6bCc5njlKtX4+SjL7TJ0fgn72Su1E66CQd5mvey2yk1BaWH/Sf8Hxj66/5hFcx6zLCqcjdfiazd9ucWW+3Uj4VdkmDKbvPHSBi2LB92sm1XaykUAvtdezDlfN4TmKhmTplD0Z3Slx2ElY8S5VcCtTwno6XYQXcZ8JsJ0C3CKCt43ewwcMJpxfJYp5ryk469Rxas//QRTzb0U5uPLvmP/bmeLTE2WyNQVDo2xZzBEk7+cT4bEMRazM/OLiGleSTgKnxIA0trnAO4EmhFUqNJ9ijNkyjFhpcoJHZWMSMbj/j1sNJUR05p3TrjFTMQkrE1ioe7HbieocAGPRBV/E0/ASxFXFmeW83H7J2xeiJbF/LIXipGoP99PK7zw5uehmfV1kAYa3+7+Edue0JGjS3ALyhe9tfRJrhb4EkuYGIjdR6y8WVvinRIqd5M6dJh0kCUPbEqdtNctI39cHO95qgbMdp0PUIJzdlmGNjSl+wDChd2atH9IAZC5ZRnG+JxJXFX97upmPu9C1QTZjh6pJ78WviBCJRmK2aA4qso3066ZZwgaXew0WJYVG2jCkQj+OkAf3Knmyhx2l8TSvgb+Qx4jFPZxkNLiQ2yyzA2Zx3jaP5VARIVbpipc0UEo9+6j+VjyxuRt7vkmPkcU1GebmvmR65ersrHWaSWpaNuvUDM4ZzgNqtdnuLmzLL84WoZ/1/Np4FObQblXf6WmWo6GWkpVBh09FzEsbqRDzBNNUeuqtQxcTV6RwJbZTGUWtCUot2pv4Vsy/y0kmSVaXBOw5vbiw36KQpVKkLts+mD17bqXLK/zTfUUz6dPh5SUSEMW2qLqxcnBNQP3ZaTUYtWmmnCxyOjssoJ3HxjZ+5wBgaORuZy8XDIQ=="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3003,
+              "candidatesTokenCount": 313,
+              "totalTokenCount": 3867,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3003
+                }
+              ],
+              "thoughtsTokenCount": 551,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "yWfEavWRFIfRz7IP0P3d0QU"
+          },
+          "usage": {
+            "input_tokens": 3003,
+            "output_tokens": 864,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 551
+          },
+          "latency_ms": 7045.6,
+          "cost_usd": 0.00549225,
+          "stop_reason": "end_turn",
+          "request_id": "yWfEavWRFIfRz7IP0P3d0QU",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "OTHER_VPD",
+        "other_vpd": true,
+        "action": "OTHER_VPD",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "fever and a stiff neck",
+            "age": 15,
+            "sex": null,
+            "state": "Sokoto",
+            "lga": null,
+            "settlement": "Sokoto town"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Sokoto town",
+            "inferred_fields": [
+              "state"
+            ],
+            "confidence": "medium"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you for reporting. This health condition has been recorded and referred to the disease surveillance team for review."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for reporting. This health condition has been recorded and referred to the disease surveillance team for review."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "fever and a stiff neck",
+        "age": 15,
+        "sex": null,
+        "state": "Sokoto",
+        "lga": null,
+        "settlement": "Sokoto town"
+      }
+    ]
+  },
+  "gold_actions": [
+    "OTHER_VPD"
+  ],
+  "model_actions": [
+    "OTHER_VPD"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 7045.6,
+    "input_tokens": 3003,
+    "output_tokens": 864,
+    "cost_usd": 0.005492,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

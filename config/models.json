@@ -1,0 +1,244 @@
+{
+  "config_version": "v0.1",
+  "notes": "Model/provider identifiers are configurable. Pricing is null wherever it has not been verified; never guess. Slate IDs marked verified=false were taken from the harness README and have not been checked against the provider.",
+  "pricing_source": {
+    "anthropic": "claude-api skill model table (cached 2026-09-25), first-party API rates; re-verify at https://platform.claude.com/docs/en/about-claude/pricing before reporting costs",
+    "note": "Cached input tokens without a known cache price are billed at the full input price (upper bound). Reasoning tokens are billed as output. Tiered pricing (e.g. long-context) is not modelled.",
+    "user": "provided by the user on 2026-10-05 ($ per million tokens); not independently verified"
+  },
+  "models": {
+    "haiku-4-5": {
+      "provider": "anthropic",
+      "adapter": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "verified": true,
+      "params": {
+        "temperature": 0.7,
+        "max_tokens": 16000,
+        "output_effort": null,
+        "thinking": null
+      },
+      "structured_output": "native_json_schema",
+      "pricing": {
+        "input_per_mtok": 1.0,
+        "output_per_mtok": 5.0,
+        "cache_read_per_mtok": null,
+        "cache_write_per_mtok": null,
+        "source": "anthropic"
+      },
+      "enabled": true
+    },
+    "sonnet-5-5": {
+      "provider": "anthropic",
+      "adapter": "anthropic",
+      "model": "claude-sonnet-5-5",
+      "verified": true,
+      "params": {
+        "temperature": null,
+        "max_tokens": 16000,
+        "output_effort": null,
+        "thinking": null
+      },
+      "structured_output": "native_json_schema",
+      "pricing": {
+        "input_per_mtok": 2.0,
+        "output_per_mtok": 10.0,
+        "cache_read_per_mtok": 0.2,
+        "cache_write_per_mtok": null,
+        "source": "anthropic"
+      },
+      "enabled": true,
+      "param_notes": "Sonnet 5.5 may reject non-default sampling parameters; confirmed by the preflight (see temperature policy).",
+      "temperature_exception": "Rejected by the provider (API 400: `temperature` is deprecated for this model); runs on the provider default. Confirmed by preflight 2026-10-05."
+    },
+    "gpt-6-luna": {
+      "provider": "openai",
+      "adapter": "openai",
+      "model": "gpt-6-luna",
+      "verified": false,
+      "params": {
+        "temperature": null,
+        "max_tokens": 16000,
+        "reasoning_effort": null
+      },
+      "pricing": {
+        "input_per_mtok": 0.1,
+        "output_per_mtok": 0.5,
+        "cache_read_per_mtok": null,
+        "cache_write_per_mtok": null,
+        "cache_fallback": "input_price",
+        "source": "user"
+      },
+      "structured_output": "native_json_schema",
+      "enabled": true,
+      "temperature_exception": "Rejected by the provider (API 400: 'temperature' is not supported with this model); runs on the provider default. Confirmed by preflight 2026-10-05."
+    },
+    "gpt-6.1-sol": {
+      "provider": "openai",
+      "adapter": "openai",
+      "model": "gpt-6.1-sol",
+      "verified": false,
+      "params": {
+        "temperature": null,
+        "max_tokens": 16000,
+        "reasoning_effort": null
+      },
+      "pricing": {
+        "input_per_mtok": 2.0,
+        "output_per_mtok": 10.0,
+        "cache_read_per_mtok": null,
+        "cache_write_per_mtok": null,
+        "cache_fallback": "input_price",
+        "source": "user"
+      },
+      "structured_output": "native_json_schema",
+      "enabled": true,
+      "temperature_exception": "Rejected by the provider (API 400: 'temperature' is not supported with this model); runs on the provider default. Confirmed by preflight 2026-10-05."
+    },
+    "gemini-3.8-flash": {
+      "provider": "google",
+      "adapter": "google",
+      "model": "gemini-3.8-flash",
+      "verified": false,
+      "params": {
+        "temperature": 0.7,
+        "max_tokens": 16000,
+        "thinking_config": null
+      },
+      "pricing": {
+        "input_per_mtok": 0.75,
+        "output_per_mtok": 3.75,
+        "cache_read_per_mtok": null,
+        "cache_write_per_mtok": null,
+        "cache_fallback": "input_price",
+        "source": "user"
+      },
+      "structured_output": "native_json_schema",
+      "enabled": true
+    },
+    "gemini-3.1-pro-preview": {
+      "provider": "google",
+      "adapter": "google",
+      "model": "gemini-3.1-pro-preview",
+      "verified": false,
+      "params": {
+        "temperature": 0.7,
+        "max_tokens": 16000,
+        "thinking_config": null
+      },
+      "pricing": {
+        "input_per_mtok": 2.0,
+        "output_per_mtok": 12.0,
+        "cache_read_per_mtok": null,
+        "cache_write_per_mtok": null,
+        "cache_fallback": "input_price",
+        "source": "user"
+      },
+      "structured_output": "native_json_schema",
+      "enabled": true
+    },
+    "gemma-4-31b": {
+      "provider": "together",
+      "adapter": "together",
+      "model": "google/gemma-4-31B-it",
+      "verified": false,
+      "params": {
+        "temperature": 0.7,
+        "max_tokens": 16000,
+        "reasoning_effort": null
+      },
+      "pricing": null,
+      "structured_output": "native_json_schema",
+      "enabled": false,
+      "excluded_reason": "Not serverless on Together (needs a dedicated endpoint)."
+    },
+    "qwen3.8-flash": {
+      "provider": "together",
+      "adapter": "together",
+      "model": "Qwen/Qwen3.8-Flash",
+      "verified": false,
+      "params": {
+        "temperature": 0.7,
+        "max_tokens": 16000,
+        "reasoning_effort": null
+      },
+      "pricing": null,
+      "structured_output": "native_json_schema",
+      "enabled": false,
+      "excluded_reason": "Requires third-party data sharing to be enabled on the Together organization."
+    },
+    "muse-glimmer-30b": {
+      "provider": "together",
+      "adapter": "together",
+      "model": "meta-models/Muse-Glimmer-30B",
+      "verified": false,
+      "params": {
+        "temperature": 0.7,
+        "max_tokens": 16000,
+        "reasoning_effort": null
+      },
+      "pricing": {
+        "input_per_mtok": 0.35,
+        "output_per_mtok": 1.5,
+        "cache_read_per_mtok": null,
+        "cache_write_per_mtok": null,
+        "cache_fallback": "input_price",
+        "source": "user"
+      },
+      "structured_output": "native_json_schema",
+      "enabled": true
+    },
+    "kimi-k3": {
+      "provider": "together",
+      "adapter": "together",
+      "model": "moonshotai/Kimi-K3",
+      "verified": false,
+      "params": {
+        "temperature": 0.7,
+        "max_tokens": 16000,
+        "reasoning_effort": null
+      },
+      "pricing": {
+        "input_per_mtok": 2.7,
+        "output_per_mtok": 13.5,
+        "cache_read_per_mtok": null,
+        "cache_write_per_mtok": null,
+        "cache_fallback": "input_price",
+        "source": "user"
+      },
+      "structured_output": "native_json_schema",
+      "enabled": true
+    },
+    "deepseek-v4.1-flash": {
+      "provider": "together",
+      "adapter": "together",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "verified": false,
+      "params": {
+        "temperature": 0.7,
+        "max_tokens": 16000,
+        "reasoning_effort": null
+      },
+      "pricing": {
+        "input_per_mtok": 0.3,
+        "output_per_mtok": 1.2,
+        "cache_read_per_mtok": null,
+        "cache_write_per_mtok": null,
+        "cache_fallback": "input_price",
+        "source": "user"
+      },
+      "structured_output": "native_json_schema",
+      "enabled": true
+    }
+  },
+  "temperature_policy": {
+    "target": 0.7,
+    "note": "One temperature for every model where the API accepts it. Models that reject it run on the provider default and are listed in preflight results; the report states the exception.",
+    "exceptions": [
+      "gpt-6-luna",
+      "gpt-6.1-sol",
+      "sonnet-5-5"
+    ]
+  },
+  "max_tokens_note": "16000 for every model: reasoning models (e.g. DeepSeek) can put long reasoning in the answer text and were truncated at 4096 in the pilot."
+}

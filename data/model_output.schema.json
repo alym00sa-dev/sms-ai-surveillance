@@ -1,0 +1,281 @@
+{
+  "type": "object",
+  "properties": {
+    "classification": {
+      "type": "string",
+      "enum": [
+        "AFP_SUSPECTED",
+        "OTHER_VPD",
+        "HEALTH_RELATED_UNCLEAR",
+        "NOT_RELEVANT",
+        "UNINTELLIGIBLE"
+      ]
+    },
+    "other_vpd": {
+      "type": "boolean"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "ACCEPT",
+        "CLARIFY",
+        "CONFIRM",
+        "ESCALATE",
+        "OTHER_VPD",
+        "NOT_RELEVANT"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "NORMAL",
+        "HIGH"
+      ]
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "case_id": {
+            "type": "string"
+          },
+          "symptom": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sex": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "male",
+                  "female",
+                  "unknown"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lga": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "settlement": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "case_id",
+          "symptom",
+          "age",
+          "sex",
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "location_resolution": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "case_id": {
+            "type": "string"
+          },
+          "raw_location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "inferred_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          }
+        },
+        "required": [
+          "case_id",
+          "raw_location",
+          "inferred_fields",
+          "confidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "missing_information": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "potential_duplicate": {
+      "type": "boolean"
+    },
+    "duplicate_candidate_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "escalation": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "FAILED_CLARIFICATION_WITH_VALID_SIGNAL",
+                "AMBIGUOUS_LOCATION",
+                "CONFLICTING_INFORMATION",
+                "UNABLE_TO_CLASSIFY",
+                "OTHER"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "required",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "clarification": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "symptom",
+                "age",
+                "sex",
+                "location",
+                "state",
+                "lga",
+                "settlement",
+                "other"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attempt_number": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "target",
+        "attempt_number"
+      ],
+      "additionalProperties": false
+    },
+    "confirmation": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "NOT_READY",
+            "PENDING",
+            "CONFIRMED"
+          ]
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "response": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "classification",
+    "other_vpd",
+    "action",
+    "priority",
+    "cases",
+    "location_resolution",
+    "missing_information",
+    "potential_duplicate",
+    "duplicate_candidate_ids",
+    "escalation",
+    "clarification",
+    "confirmation",
+    "response"
+  ],
+  "additionalProperties": false
+}

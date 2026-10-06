@@ -1,0 +1,483 @@
+{
+  "scenario_id": "CLAR-13",
+  "model": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 53430.1,
+    "input_tokens": 5863,
+    "output_tokens": 3619,
+    "cost_usd": 0.008382,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "CLAR-13",
+    "model": "muse-glimmer-30b",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 2,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 12,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "CORRECT",
+      "confirmation_fidelity": "CORRECT",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "symptom_equivalence": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 12,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_continue_clarifying_after_resolution",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "action",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_continue_clarifying_after_resolution",
+      "cursor": 2,
+      "route": "DIMENSION",
+      "dimension": "action",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 2,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "92 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'settlement' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "87 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "117 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the child's age",
+          "the specific village or community"
+        ],
+        "assistant_message": "I have a report of a boy with a weak leg near Kafin Hausa, Jigawa. Which village is he from?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.09,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.9
+      },
+      "confidence": 0.86,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 445,
+        "output_tokens": 47
+      },
+      "latency_ms": 80.6,
+      "cost_usd": 1.8690000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "sex: male",
+          "lga: Kafin Hausa",
+          "symptom: weak leg"
+        ],
+        "assistant_message": "I have a report of a boy with a weak leg near Kafin Hausa, Jigawa. Which village is he from?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.12,
+        "INCORRECT": 0.05,
+        "CORRECT": 0.83
+      },
+      "confidence": 0.74,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 451,
+        "output_tokens": 47
+      },
+      "latency_ms": 101.9,
+      "cost_usd": 1.8942e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have a report of a boy with a weak leg near Kafin Hausa, Jigawa. Which village is he from?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "CORRECT": 0.96,
+        "PARTIAL": 0.03
+      },
+      "confidence": 0.93,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 47
+      },
+      "latency_ms": 72.5,
+      "cost_usd": 1.7724000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have a report of a boy with a weak leg near Kafin Hausa, Jigawa. Which village is he from?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.32,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.67
+      },
+      "confidence": 0.51,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 47
+      },
+      "latency_ms": 90.8,
+      "cost_usd": 1.7724000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak leg",
+        "recorded_symptom": "weak leg"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.06,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.94
+      },
+      "confidence": 0.91,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 100.4,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 11,
+            "sex": "male",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa",
+            "symptom": "weak leg",
+            "state": "Jigawa"
+          }
+        ],
+        "confirmation_message": "I have: 11-year-old boy in Majawa, Kafin Hausa, Jigawa, with weak leg. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.03,
+        "CORRECT": 0.49,
+        "PARTIAL": 0.48
+      },
+      "confidence": 0.24,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 552,
+        "output_tokens": 46
+      },
+      "latency_ms": 73.2,
+      "cost_usd": 2.3184e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I have: 11-year-old boy in Majawa, Kafin Hausa, Jigawa, with weak leg. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 0.89,
+        "PARTIAL": 0.11
+      },
+      "confidence": 0.83,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 425,
+        "output_tokens": 47
+      },
+      "latency_ms": 70.9,
+      "cost_usd": 1.785e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I have: 11-year-old boy in Majawa, Kafin Hausa, Jigawa, with weak leg. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.12,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.87
+      },
+      "confidence": 0.81,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 425,
+        "output_tokens": 47
+      },
+      "latency_ms": 111.6,
+      "cost_usd": 1.785e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. The report for the 11-year-old boy in Majawa, Kafin Hausa, Jigawa with weak leg is recorded for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.21,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.78
+      },
+      "confidence": 0.67,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 429,
+        "output_tokens": 47
+      },
+      "latency_ms": 80.1,
+      "cost_usd": 1.8018e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. The report for the 11-year-old boy in Majawa, Kafin Hausa, Jigawa with weak leg is recorded for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.73,
+        "PARTIAL": 0.27,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.59,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 429,
+        "output_tokens": 47
+      },
+      "latency_ms": 92.0,
+      "cost_usd": 1.8018e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "final_action": "ACCEPT",
+        "message": "Thank you. The report for the 11-year-old boy in Majawa, Kafin Hausa, Jigawa with weak leg is recorded for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "CORRECT": 0.99,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 435,
+        "output_tokens": 45
+      },
+      "latency_ms": 81.7,
+      "cost_usd": 1.827e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 3,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": []
+}

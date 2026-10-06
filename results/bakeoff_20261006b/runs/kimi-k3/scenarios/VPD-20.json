@@ -1,0 +1,252 @@
+{
+  "scenario_id": "VPD-20",
+  "title": "Meningitis-like fever and neck stiffness",
+  "model_key": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "OTHER_VPD",
+      "sender_message": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto North",
+              "settlement": "Sokoto town",
+              "listed": true
+            },
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto South",
+              "settlement": "Sokoto town",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Sokoto town",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "settlement": "Sokoto town"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto North",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                },
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto South",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [
+                "lga"
+              ],
+              "requires": [
+                "lga"
+              ],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 15 year old in Sokoto town suddenly developed fever and a stiff neck.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Sokoto town\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"settlement\": \"Sokoto town\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"unresolved_fields\": [\"lga\"], \"requires\": [\"lga\"], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden fever and stiff neck\",\n      \"age\": 15,\n      \"sex\": \"unknown\",\n      \"state\": \"Sokoto\",\n      \"lga\": null,\n      \"settlement\": \"Sokoto town\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Sokoto town\",\n      \"inferred_fields\": [\"state\", \"settlement\"],\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"missing_information\": [\"lga\", \"sex\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. Your report of a 15-year-old in Sokoto town, Sokoto State, with sudden fever and stiff neck has been recorded and sent to the surveillance team for follow-up.\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5d716a727bb4f2c8c8",
+            "object": "chat.completion",
+            "created": 1791259144,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"OTHER_VPD\",\n  \"other_vpd\": true,\n  \"action\": \"OTHER_VPD\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden fever and stiff neck\",\n      \"age\": 15,\n      \"sex\": \"unknown\",\n      \"state\": \"Sokoto\",\n      \"lga\": null,\n      \"settlement\": \"Sokoto town\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Sokoto town\",\n      \"inferred_fields\": [\"state\", \"settlement\"],\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"missing_information\": [\"lga\", \"sex\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. Your report of a 15-year-old in Sokoto town, Sokoto State, with sudden fever and stiff neck has been recorded and sent to the surveillance team for follow-up.\"\n}",
+                  "reasoning_content": "The report: \"A 15 year old in Sokoto town suddenly developed fever and a stiff neck.\"\n\nFever and stiff neck — this suggests meningitis, which is another vaccine-preventable/priority disease (meningococcal meningitis is a priority disease in Nigeria surveillance). This is not AFP (acute flaccid paralysis). Per instructions: if the message describes another relevant disease or syndrome rather than AFP, preserve the signal and stop. classification = OTHER_VPD, action = OTHER_VPD, other_vpd = true.\n\nLocation resolver: AMBIGUOUS for LGA (Sokoto North vs Sokoto South). But since we're stopping with OTHER_VPD, do we need to clarify? The instruction says \"Preserve the signal and stop. Do not begin a disease-specific follow-up conversation.\" So we should not ask clarification questions. We preserve what's resolved: state = Sokoto, settlement = Sokoto town, lga = null (ambiguous).\n\nCase: age 15, sex unknown, symptom \"fever and stiff neck (sudden onset)\".\n\nResponse should be short, SMS-appropriate, acknowledging the report has been recorded and will be passed to surveillance staff.\n\nmissing_information: could list lga and sex, but since we're stopping, perhaps note them. The output contract includes missing_information array. Since action is OTHER_VPD and we stop, we can still note missing info but not ask. I'll include [\"lga\", \"sex\"] maybe. Actually for OTHER_VPD, we preserve signal and stop; missing_information could list what's unresolved. I'll include them.\n\nlocation_resolution: raw_location \"Sokoto town\", inferred_fields [\"state\", \"settlement\"], confidence medium (since LGA ambiguous). Actually state and settlement resolved, so confidence could be medium due to ambiguity. I'll say medium.\n\nclarification: target null, attempt_number 0.\n\nconfirmation status: NOT_READY? Since we stop, confirmation isn't applicable. Use NOT_READY.\n\nResponse: \"Thank you. I have recorded a report of a 15-year-old in Sokoto town, Sokoto State, with sudden fever and stiff neck. This has been passed to the surveillance team for follow-up.\""
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3534,
+              "completion_tokens": 756,
+              "total_tokens": 4290,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 445
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3534,
+            "output_tokens": 756,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 445
+          },
+          "latency_ms": 4878.4,
+          "cost_usd": 0.019747800000000003,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5d716a727bb4f2c8c8",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "OTHER_VPD",
+        "other_vpd": true,
+        "action": "OTHER_VPD",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden fever and stiff neck",
+            "age": 15,
+            "sex": "unknown",
+            "state": "Sokoto",
+            "lga": null,
+            "settlement": "Sokoto town"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Sokoto town",
+            "inferred_fields": [
+              "state",
+              "settlement"
+            ],
+            "confidence": "medium"
+          }
+        ],
+        "missing_information": [
+          "lga",
+          "sex"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. Your report of a 15-year-old in Sokoto town, Sokoto State, with sudden fever and stiff neck has been recorded and sent to the surveillance team for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Your report of a 15-year-old in Sokoto town, Sokoto State, with sudden fever and stiff neck has been recorded and sent to the surveillance team for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden fever and stiff neck",
+        "age": 15,
+        "sex": "unknown",
+        "state": "Sokoto",
+        "lga": null,
+        "settlement": "Sokoto town"
+      }
+    ]
+  },
+  "gold_actions": [
+    "OTHER_VPD"
+  ],
+  "model_actions": [
+    "OTHER_VPD"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 4878.4,
+    "input_tokens": 3534,
+    "output_tokens": 756,
+    "cost_usd": 0.019748,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

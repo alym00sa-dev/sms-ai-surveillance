@@ -1,0 +1,516 @@
+{
+  "scenario_id": "AFP-05",
+  "model": "sonnet-5-5",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 10242.6,
+    "input_tokens": 19803,
+    "output_tokens": 1045,
+    "cost_usd": 0.050056,
+    "clarification_turns": 0,
+    "confirmation_turns": 2,
+    "harness_corrections": 1,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.2",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "AFP-05",
+    "model": "sonnet-5-5",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 1,
+      "action": 2,
+      "conversation_quality": 1,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 10,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": false,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "confirmation_fidelity": "PARTIAL",
+      "symptom_equivalence": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [
+      "extraction: incorrect confirmation repaired after a sender correction",
+      "conversation: confirmation_fidelity: PARTIAL",
+      "conversation: turn_efficiency: PARTIAL"
+    ],
+    "scorer_version": "v0.2",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 1,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 10,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 1,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_preserve_age_uncertainty",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "FAIL",
+      "severity": 1,
+      "detail": "[(None, 'extra_case')] (repaired later)"
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "FAIL",
+      "severity": 1,
+      "detail": "[(None, 'extra_case')] (repaired later)"
+    },
+    {
+      "check": "must_preserve_age_uncertainty",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "118 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "152 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "86 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 incorrect confirmation(s)"
+    },
+    {
+      "task": "turn_efficiency",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 extra turn(s)"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "sudden weakness/inability to move one leg",
+        "recorded_symptom": "suddenly cannot move one leg well"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.03,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.97
+      },
+      "confidence": 0.96,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 453,
+        "output_tokens": 47
+      },
+      "latency_ms": 82.6,
+      "cost_usd": 1.9026e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": "about 10-11",
+            "sex": "male",
+            "state": "Sokoto",
+            "settlement": "Dange",
+            "symptom": "sudden weakness/inability to move one leg",
+            "lga": "Dange Shuni"
+          }
+        ],
+        "confirmation_message": "I have: boy, about 10 or 11 years old, Dange, Dange Shuni, Sokoto, suddenly cannot move one leg well. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.1,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.89
+      },
+      "confidence": 0.82,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 576,
+        "output_tokens": 46
+      },
+      "latency_ms": 88.3,
+      "cost_usd": 2.4192e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: boy, about 10 or 11 years old, Dange, Dange Shuni, Sokoto, suddenly cannot move one leg well. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.4,
+        "INCORRECT": 0.02,
+        "CORRECT": 0.58
+      },
+      "confidence": 0.37,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 433,
+        "output_tokens": 47
+      },
+      "latency_ms": 71.9,
+      "cost_usd": 1.8186e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: boy, about 10 or 11 years old, Dange, Dange Shuni, Sokoto, suddenly cannot move one leg well. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.02,
+        "CORRECT": 0.97
+      },
+      "confidence": 0.96,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 433,
+        "output_tokens": 47
+      },
+      "latency_ms": 114.9,
+      "cost_usd": 1.8186e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "sudden weakness/inability to move one leg",
+        "recorded_symptom": "suddenly cannot move one leg well"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.96,
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.94,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 453,
+        "output_tokens": 47
+      },
+      "latency_ms": 75.7,
+      "cost_usd": 1.9026e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": "about 10-11",
+            "sex": "male",
+            "state": "Sokoto",
+            "settlement": "Dange",
+            "symptom": "sudden weakness/inability to move one leg",
+            "lga": "Dange Shuni"
+          }
+        ],
+        "confirmation_message": "Sorry about that. I now have 1 case only: boy, about 10 or 11 years old, Dange, Dange Shuni, Sokoto, suddenly cannot move one leg well. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.05,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.94
+      },
+      "confidence": 0.91,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 585,
+        "output_tokens": 46
+      },
+      "latency_ms": 99.6,
+      "cost_usd": 2.457e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Sorry about that. I now have 1 case only: boy, about 10 or 11 years old, Dange, Dange Shuni, Sokoto, suddenly cannot move one leg well. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.41,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.58
+      },
+      "confidence": 0.37,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 47
+      },
+      "latency_ms": 108.1,
+      "cost_usd": 1.8564e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Sorry about that. I now have 1 case only: boy, about 10 or 11 years old, Dange, Dange Shuni, Sokoto, suddenly cannot move one leg well. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.98
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 47
+      },
+      "latency_ms": 68.0,
+      "cost_usd": 1.8564e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Your report has been recorded and sent to surveillance staff for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 0.9,
+        "PARTIAL": 0.1
+      },
+      "confidence": 0.85,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 412,
+        "output_tokens": 47
+      },
+      "latency_ms": 75.2,
+      "cost_usd": 1.7304000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Your report has been recorded and sent to surveillance staff for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 412,
+        "output_tokens": 47
+      },
+      "latency_ms": 101.0,
+      "cost_usd": 1.7304000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "final_action": "ACCEPT",
+        "message": "Thank you. Your report has been recorded and sent to surveillance staff for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 418,
+        "output_tokens": 45
+      },
+      "latency_ms": 113.8,
+      "cost_usd": 1.7556e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 3,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "extraction: incorrect confirmation repaired after a sender correction",
+    "conversation: confirmation_fidelity: PARTIAL",
+    "conversation: turn_efficiency: PARTIAL"
+  ]
+}

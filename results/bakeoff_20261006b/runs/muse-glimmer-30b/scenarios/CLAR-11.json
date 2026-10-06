@@ -1,0 +1,944 @@
+{
+  "scenario_id": "CLAR-11",
+  "title": "Correction after structured confirmation overrides earlier value",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "A 7 year old boy in Kura suddenly lost power in both legs.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "settlement": "Kura"
+              },
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga"
+              ],
+              "requires": [
+                "state",
+                "lga"
+              ],
+              "notes": [
+                "more than one place has this name; the benchmark does not list them"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"settlement\": \"Kura\"}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\"], \"requires\": [\"state\", \"lga\"], \"notes\": [\"more than one place has this name; the benchmark does not list them\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly lost power in both legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":\"Kura\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Kura\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"state\",\"lga\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?\"}",
+          "raw_response": {
+            "id": "p46JrQf-7ArivV-a4619cb5593d76fd",
+            "object": "chat.completion",
+            "created": 1791257685,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly lost power in both legs\",\"age\":7,\"sex\":\"male\",\"state\":null,\"lga\":null,\"settlement\":\"Kura\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Kura\",\"inferred_fields\":[],\"confidence\":\"low\"}],\"missing_information\":[\"state\",\"lga\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"location\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?\"}",
+                  "tool_calls": [],
+                  "reasoning": "We need to parse conversation. User says: \"A 7 year old boy in Kura suddenly lost power in both legs.\"\n\nWe have current_case_state cases empty. Location resolver status AMBIGUOUS. Candidates empty. Mentions: raw_text Kura, status AMBIGUOUS, match_level settlement, resolved settlement Kura, unresolved_fields state, lga, requires state,lga. Notes more than one place has this name.\n\nWe need to extract info: symptom: suddenly lost power in both legs -> sudden weakness in both legs. Age 7. Sex male. State? unknown. LGA? unknown. Settlement Kura? resolved settlement Kura but ambiguous state/lga.\n\nWe need to ask for location clarification? The guidelines: location_resolver status AMBIGUOUS, candidates list those fixture names and may be empty. Do not choose or guess. Leave fields listed in requires as null and ask one focused question for them. Use confirmed parts (resolved) if any.\n\nWe have resolved settlement Kura. Unresolved state, lga. Need to ask for state and lga. Can ask one question per turn. Probably ask for state and LGA.\n\nWe should also confirm symptom? Symptom seems clear: sudden loss of power in both legs = AFP suspected. Age 7, sex male.\n\nWe have missing information: state, lga. Possibly settlement is Kura but needs state/lga to disambiguate.\n\nWe should ask clarification. Action = CLARIFY. Classification = AFP_SUSPECTED? Possibly yes because symptom matches AFP. Could be AFP suspected. We have enough info to suspect but location incomplete.\n\nAccording to guidelines: Ask only for information still needed. Ask at most one focused clarification question per turn. Maintain structured case state.\n\nWe need to output JSON with cases array. Should we create case_1 with symptom, age, sex, state null, lga null, settlement Kura? The resolver says resolved settlement Kura. So settlement = \"Kura\". State null, lga null.\n\nMissing_information maybe state, lga.\n\nClarification target? Probably location. Could be state, lga. Target location? Clarification target enum: symptom, age, sex, location, state, lga, settlement, other, null. We could target location or state. Probably location.\n\nAttempt_number? clarification_attempts currently 0. This is first clarification? We have not asked yet. So attempt_number should be 1? The clarification field attempt_number counts attempts? Probably increment. The current clarification_attempts is 0. We are making first clarification attempt. So attempt_number = 1? The spec: clarification {target, attempt_number}. Probably attempt_number reflects number of attempts made so far. Might be 1.\n\nWe need to produce response short clear SMS appropriate.\n\nResponse: \"Is the child in Kura, Kano State, or another Kura? Could you tell me the state and LGA?\" That's two questions. Should ask one focused question. Maybe ask: \"Which state and LGA is Kura in?\" That's one question.\n\nBetter: \"I have a 7-year-old boy with sudden weakness in both legs in Kura. Could you tell me the state and LGA for Kura?\" That's asking for two pieces but okay.\n\nWe should not ask for symptom etc.\n\nWe must preserve uncertainty. Do not diagnose.\n\nClassification AFP_SUSPECTED.\n\nOther_vpd false.\n\nAction CLARIFY.\n\nPriority NORMAL.\n\nCases: one case.\n\nlocation_resolution: should we include? The output shape includes location_resolution array. For each case, we might include raw_location, inferred_fields, confidence. The resolver says settlement resolved but state/lga unresolved. Possibly we can provide location_resolution with raw_location \"Kura\", inferred_fields []? Actually resolved settlement Kura, inferred fields? The resolver says resolved settlement Kura, unresolved fields state,lga. Could we put inferred_fields []? Might be empty. Confidence? Possibly medium? Might be low due to ambiguity. Could omit? The schema expects location_resolution array. Could be empty if not resolved? Might need to include.\n\nWe have candidate_prior_reports empty, so potential_duplicate false.\n\nEscalation required false.\n\nConfirmation status? Not ready? Could be NOT_READY.\n\nMissing_information: [\"state\",\"lga\"].\n\nClarification target: location? Or state? Could be location. Use \"location\".\n\nAttempt_number 1.\n\nResponse: \"I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?\" That's okay.\n\nMake sure JSON fields correct.\n\ncase_id: case_1\n\nsymptom: \"suddenly lost power in both legs\" or normalize? Keep original wording? Probably structured. Use \"suddenly lost power in both legs\". Accept.\n\nage 7\n\nsex male\n\nstate null\n\nlga null\n\nsettlement \"Kura\"\n\nlocation_resolution: maybe include entry with case_id case_1, raw_location \"Kura\", inferred_fields []? Actually inferred_fields could be [] because settlement resolved but state/lga not inferred. Confidence maybe \"low\" due to ambiguity. Let's set confidence \"low\". inferred_fields [].\n\nOr we could omit location_resolution if empty? Might be okay.\n\nBetter to include one entry.\n\nMissing_information: [\"state\",\"lga\"]\n\nPotential_duplicate false\n\nduplicate_candidate_ids []\n\nescalation required false reason null\n\nclarification target \"location\" attempt_number 1\n\nconfirmation status \"NOT_READY\" ?\n\nThe confirmation status enum: NOT_READY, PENDING, CONFIRMED. Probably NOT_READY since we haven't reached confirmation.\n\nResponse as per guidelines short clear SMS.\n\nLet's produce JSON.\n\nEnsure no extra commentary.\n\nCheck output contract: classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nAll present.\n\nLet's produce final."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2676,
+              "total_tokens": 4082,
+              "completion_tokens": 1406,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 160,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 164,
+            "output_tokens": 1406,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 38500.7,
+          "cost_usd": 0.0030456,
+          "stop_reason": "end_turn",
+          "request_id": "p46JrQf-7ArivV-a4619cb5593d76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly lost power in both legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [],
+            "confidence": "low"
+          }
+        ],
+        "missing_information": [
+          "state",
+          "lga"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Kura LGA in Kano State.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "Kura LGA in Kano State.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?"
+          },
+          {
+            "role": "user",
+            "content": "Kura LGA in Kano State."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly lost power in both legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?\"}, {\"role\": \"user\", \"content\": \"Kura LGA in Kano State.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly lost power in both legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly lost power in both legs\",\"age\":7,\"sex\":\"male\",\"state\":\"Kano\",\"lga\":\"Kura\",\"settlement\":\"Kura\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Kura\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}",
+          "raw_response": {
+            "id": "p46K3qe-fdNmn-a4619da59b6276fd",
+            "object": "chat.completion",
+            "created": 1791257723,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly lost power in both legs\",\"age\":7,\"sex\":\"male\",\"state\":\"Kano\",\"lga\":\"Kura\",\"settlement\":\"Kura\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Kura\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?\"}, {\"role\": \"user\", \"content\": \"Kura LGA in Kano State.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly lost power in both legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": []}]}\n\nWe need to update case state with state Kano, lga Kura, settlement Kura. Location resolver says RESOLVED with state Kano, lga Kura, settlement Kura. User confirmed Kura LGA in Kano State. So we have symptom: suddenly lost power in both legs, age 7, sex male, state Kano, lga Kura, settlement Kura.\n\nNow we need to present concise structured summary and ask sender to confirm or correct. So action = CONFIRM. Classification AFP_SUSPECTED. other_vpd false. priority NORMAL.\n\nWe need cases array with updated fields.\n\nlocation_resolution: need array with case_id, raw_location, inferred_fields, confidence. raw_location \"Kura\". inferred_fields [\"lga\",\"state\"]? Actually settlement also resolved. The resolver gave settlement Kura. Inferred fields maybe lga, state. Confidence high.\n\nmissing_information []? We have all needed: symptom, age, sex, state, lga, settlement. Possibly need more? AFP suspected needs symptom, age, sex, location. We have.\n\nclarification attempts 0. clarification target null. attempt_number 0.\n\nconfirmation status PENDING.\n\nresponse: short clear SMS appropriate. \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\" Should be concise.\n\nWe must not ask for geography resolver already establishes. We already have.\n\nPotential duplicate false.\n\nescalation required false.\n\nWe must follow output contract.\n\nReturn JSON.\n\nCheck case_id case_1.\n\nsymptom string: \"suddenly lost power in both legs\" or \"sudden loss of power in both legs\". Keep as original? Current case_state symptom \"suddenly lost power in both legs\". Use that.\n\nState Kano, lga Kura, settlement Kura.\n\nlocation_resolution: raw_location \"Kura\". inferred_fields [\"lga\",\"state\"] maybe also settlement? But settlement was given. The resolver resolved settlement to Kura. Might be inferred_fields [\"lga\",\"state\"]? Could include settlement? The raw_location was Kura, resolved to settlement Kura, lga Kura, state Kano. So inferred fields lga, state. Confidence high.\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status PENDING.\n\nresponse as above.\n\nEnsure JSON valid.\n\nPotential nuance: The assistant previously asked which state and LGA Kura is in. User responded Kura LGA in Kano State. Resolver already resolved. So we can now confirm.\n\nNo need to ask further clarification.\n\nWe must ensure we don't invent missing info. Good.\n\nOutput JSON only.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2832,
+              "total_tokens": 3909,
+              "completion_tokens": 1077,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 320,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 320,
+            "output_tokens": 1077,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 21967.7,
+          "cost_usd": 0.0026067,
+          "stop_reason": "end_turn",
+          "request_id": "p46K3qe-fdNmn-a4619da59b6276fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly lost power in both legs",
+            "age": 7,
+            "sex": "male",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Actually, it is a girl, not a boy.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CONFIRM",
+      "sender_message": "Actually, it is a girl, not a boy.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?"
+          },
+          {
+            "role": "user",
+            "content": "Kura LGA in Kano State."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Actually, it is a girl, not a boy."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly lost power in both legs",
+              "age": 7,
+              "sex": "male",
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?\"}, {\"role\": \"user\", \"content\": \"Kura LGA in Kano State.\"}, {\"role\": \"assistant\", \"content\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Actually, it is a girl, not a boy.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly lost power in both legs\", \"age\": 7, \"sex\": \"male\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CONFIRM\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly lost power in both legs\", \"age\": 7, \"sex\": \"female\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Kura\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"PENDING\"}, \"response\": \"I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}",
+          "raw_response": {
+            "id": "p46KANw-7ArivV-a4619e2eed4a76fd",
+            "object": "chat.completion",
+            "created": 1791257746,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CONFIRM\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly lost power in both legs\", \"age\": 7, \"sex\": \"female\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Kura\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"PENDING\"}, \"response\": \"I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}",
+                  "tool_calls": [],
+                  "reasoning": "We need to process conversation. The user says actually it is a girl not a boy. So we need to update sex to female. Current case state has sex male. Need to correct. Also we have confirmation pending? The assistant asked \"I have: ... Is this correct?\" User corrected sex. So we need to update case state, preserve other fields. Then present confirmation summary with corrected sex, ask to confirm.\n\nWe must follow rules: If correction received during confirmation, update relevant field, preserve unaffected, use CONFIRM again with updated summary.\n\nSo action should be CONFIRM, classification AFP_SUSPECTED, other_vpd false, priority NORMAL.\n\nCases: case_1 with symptom \"suddenly lost power in both legs\", age 7, sex female, state Kano, lga Kura, settlement Kura.\n\nLocation resolver shows resolved. No missing information.\n\nWe need location_resolution array? Possibly include. In current_case_state they didn't have location_resolution. The output example includes location_resolution. Should we include? The instruction says return JSON with cases, location_resolution etc. Probably need to include location_resolution. The resolver indicates resolved. Could produce location_resolution with case_id, raw_location, inferred_fields, confidence. Raw_location maybe \"Kura\". Inferred fields? state, lga? Might be settlement matched. The resolver gave resolved fields state Kano, lga Kura, settlement Kura. The raw text \"Kura\". Could infer state and lga. Confidence high.\n\nMissing_information empty.\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false.\n\nclarification target null? attempt_number? clarification_attempts is 0. Probably clarification attempt number remains 0. clarification target null.\n\nconfirmation status PENDING.\n\nresponse: short clear SMS appropriate. Should present summary: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct? Possibly mention correction.\n\nNeed to ensure response is short.\n\nWe must not ask for location again because resolver already resolved.\n\nWe should not ask more than one question. Just confirm.\n\nWe need to ensure JSON fields match required shape.\n\nThe output contract shows fields: classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nClarification object has target and attempt_number. We can set target null, attempt_number 0.\n\nConfirmation status PENDING.\n\nLet's produce JSON.\n\nPotential nuance: symptom wording: \"suddenly lost power in both legs\" vs \"sudden loss of power in both legs\". Use original. Probably keep as \"suddenly lost power in both legs\". Might be okay.\n\nAge 7, sex female.\n\nState Kano, lga Kura, settlement Kura.\n\nLocation_resolution: need raw_location? Could be \"Kura\". inferred_fields maybe [] because all resolved? The resolver says match_level settlement, resolved state Kano lga Kura settlement Kura. Inferred fields could be [\"state\",\"lga\"]? The settlement is Kura, which is also LGA name. Might be inferred. But safe to set inferred_fields [\"state\",\"lga\"]? The example shows inferred_fields [\"lga\",\"state\"]. Could set inferred_fields []? Maybe better to set inferred_fields [] because settlement matched directly? The resolver resolved settlement Kura, which implies LGA and state. Might be inference. Let's follow pattern: raw_location \"Kura\", inferred_fields [\"lga\",\"state\"], confidence \"high\". That seems reasonable.\n\nMake sure JSON valid.\n\nAlso need to ensure case_id remains case_1.\n\nNo missing information.\n\nPotential duplicate false.\n\nEscalation required false reason null.\n\nClarification target null.\n\nConfirmation status PENDING.\n\nResponse: \"I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\" That's good.\n\nEnsure we don't include extra commentary.\n\nReturn only JSON.\n\nCheck enumeration: classification AFP_SUSPECTED, action CONFIRM, priority NORMAL, sex female (valid), location confidence high.\n\nAll good.\n\nPotential nuance: The user corrected sex during confirmation. Should we keep attempt_number? Clarification attempts remain 0. Good.\n\nOutput.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2902,
+              "total_tokens": 4016,
+              "completion_tokens": 1114,
+              "prompt_tokens_details": {
+                "cached_tokens": 2528,
+                "created_cache_tokens": 368,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 374,
+            "output_tokens": 1114,
+            "cache_read_input_tokens": 2528,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 25709.1,
+          "cost_usd": 0.0026866999999999998,
+          "stop_reason": "end_turn",
+          "request_id": "p46KANw-7ArivV-a4619e2eed4a76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly lost power in both legs",
+            "age": 7,
+            "sex": "female",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 3,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?"
+          },
+          {
+            "role": "user",
+            "content": "Kura LGA in Kano State."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Actually, it is a girl, not a boy."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly lost power in both legs",
+              "age": 7,
+              "sex": "female",
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?\"}, {\"role\": \"user\", \"content\": \"Kura LGA in Kano State.\"}, {\"role\": \"assistant\", \"content\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Actually, it is a girl, not a boy.\"}, {\"role\": \"assistant\", \"content\": \"I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly lost power in both legs\", \"age\": 7, \"sex\": \"female\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ACCEPT\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly lost power in both legs\", \"age\": 7, \"sex\": \"female\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Kura\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"CONFIRMED\"}, \"response\": \"Thank you, the report for the 7-year-old girl in Kura, Kura LGA, Kano State with sudden loss of power in both legs is recorded for follow-up.\"}",
+          "raw_response": {
+            "id": "p46KJ15-7ArivV-a4619ecf988b76fd",
+            "object": "chat.completion",
+            "created": 1791257771,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ACCEPT\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly lost power in both legs\", \"age\": 7, \"sex\": \"female\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Kura\", \"inferred_fields\": [\"lga\", \"state\"], \"confidence\": \"high\"}], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"CONFIRMED\"}, \"response\": \"Thank you, the report for the 7-year-old girl in Kura, Kura LGA, Kano State with sudden loss of power in both legs is recorded for follow-up.\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}, {\"role\": \"assistant\", \"content\": \"I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?\"}, {\"role\": \"user\", \"content\": \"Kura LGA in Kano State.\"}, {\"role\": \"assistant\", \"content\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Actually, it is a girl, not a boy.\"}, {\"role\": \"assistant\", \"content\": \"I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], ...\n\nWe need to output JSON. The sender confirmed. So action should be ACCEPT? The instruction: Before ACCEPT, present concise structured summary and ask sender to confirm. Use ACCEPT only after sender explicitly confirms structured summary.\n\nNow sender said \"Yes, that is correct.\" So we should ACCEPT.\n\nClassification AFP_SUSPECTED. other_vpd false. action ACCEPT. priority NORMAL.\n\ncases: case_id case_1, symptom \"suddenly lost power in both legs\" or \"sudden loss of power in both legs\". Use current_case_state symptom: \"suddenly lost power in both legs\". Age 7, sex female, state Kano, lga Kura, settlement Kura.\n\nlocation_resolution: we have resolver resolved. Should provide location_resolution array with case_id case_1, raw_location \"Kura\", inferred_fields [\"lga\",\"state\"]? Actually settlement also resolved. The resolver shows resolved state Kano, lga Kura, settlement Kura. Raw location \"Kura\". Inferred fields maybe lga and state? Settlement is Kura itself. Could be inferred_fields [\"lga\",\"state\"] confidence high.\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0? clarification_attempts is 0. Might keep 0.\n\nconfirmation status? After accept, maybe CONFIRMED? The schema confirmation status enum NOT_READY, PENDING, CONFIRMED. Probably CONFIRMED.\n\nresponse: short acknowledgment. Should be SMS appropriate. Maybe \"Thank you, the report for the 7-year-old girl in Kura, Kura LGA, Kano State with sudden loss of power in both legs is recorded for follow-up.\"\n\nWe must return only JSON.\n\nCheck output shape.\n\nclassification AFP_SUSPECTED\nother_vpd false\naction ACCEPT\npriority NORMAL\ncases array with one object.\n\nlocation_resolution array with one object.\n\nmissing_information []\n\npotential_duplicate false\nduplicate_candidate_ids []\nescalation {required:false, reason:null}\nclarification {target:null, attempt_number:0}\nconfirmation {status:\"CONFIRMED\"}? Or maybe still PENDING? After accept, status confirmed. Probably CONFIRMED.\n\nresponse string.\n\nEnsure fields match exactly.\n\nPotential nuance: settlement is Kura. The raw location maybe \"Kura\". Inferred fields maybe []? The resolver resolved settlement Kura. Could list inferred_fields [\"state\",\"lga\"].\n\nMake sure JSON valid.\n\nNo commentary outside JSON.\n\nProceed."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2963,
+              "total_tokens": 3939,
+              "completion_tokens": 976,
+              "prompt_tokens_details": {
+                "cached_tokens": 2656,
+                "created_cache_tokens": 304,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 307,
+            "output_tokens": 976,
+            "cache_read_input_tokens": 2656,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 14744.2,
+          "cost_usd": 0.00250105,
+          "stop_reason": "end_turn",
+          "request_id": "p46KJ15-7ArivV-a4619ecf988b76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly lost power in both legs",
+            "age": 7,
+            "sex": "female",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you, the report for the 7-year-old girl in Kura, Kura LGA, Kano State with sudden loss of power in both legs is recorded for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+    },
+    {
+      "role": "assistant",
+      "content": "I have a 7-year-old boy in Kura with sudden loss of power in both legs. Could you tell me which state and LGA Kura is in?"
+    },
+    {
+      "role": "user",
+      "content": "Kura LGA in Kano State."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Actually, it is a girl, not a boy."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you, the report for the 7-year-old girl in Kura, Kura LGA, Kano State with sudden loss of power in both legs is recorded for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly lost power in both legs",
+        "age": 7,
+        "sex": "female",
+        "state": "Kano",
+        "lga": "Kura",
+        "settlement": "Kura"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 100921.7,
+    "input_tokens": 1165,
+    "output_tokens": 4573,
+    "cost_usd": 0.01084,
+    "clarification_turns": 1,
+    "confirmation_turns": 2,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

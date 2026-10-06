@@ -1,0 +1,610 @@
+{
+  "scenario_id": "ESC-25",
+  "title": "Conflicting case identity/location cannot be safely resolved",
+  "model_key": "haiku-4-5",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "7 year old boy with sudden weak legs somewhere near Majawa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CLARIFY\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"near Majawa\", \"inferred_fields\": [], \"confidence\": \"low\"}], \"missing_information\": [\"settlement\", \"lga\", \"state\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": \"location\", \"attempt_number\": 1}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"Thank you. I have a 7-year-old boy with sudden weak legs near Majawa. Which village or settlement is he in exactly?\"}",
+          "raw_response": {
+            "id": "msg_011CfkDwNndDA29xpxRJuZUY",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CLARIFY\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"near Majawa\", \"inferred_fields\": [], \"confidence\": \"low\"}], \"missing_information\": [\"settlement\", \"lga\", \"state\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": \"location\", \"attempt_number\": 1}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"Thank you. I have a 7-year-old boy with sudden weak legs near Majawa. Which village or settlement is he in exactly?\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4636,
+              "output_tokens": 239,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4636,
+            "output_tokens": 239,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 2123.1,
+          "cost_usd": 0.005831,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDwNTn6U3kYiGExyYtB",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "near Majawa",
+            "inferred_fields": [],
+            "confidence": "low"
+          }
+        ],
+        "missing_information": [
+          "settlement",
+          "lga",
+          "state"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. I have a 7-year-old boy with sudden weak legs near Majawa. Which village or settlement is he in exactly?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Actually it may be a different child in another village. I am not sure which child or village I was told about.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "Actually it may be a different child in another village. I am not sure which child or village I was told about.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have a 7-year-old boy with sudden weak legs near Majawa. Which village or settlement is he in exactly?"
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have a 7-year-old boy with sudden weak legs near Majawa. Which village or settlement is he in exactly?\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CLARIFY\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}], \"location_resolution\": [], \"missing_information\": [\"settlement\", \"state\", \"lga\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": \"location\", \"attempt_number\": 2}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I understand. Can you tell me the name of the specific village or settlement where the boy with weak legs is located?\"}",
+          "raw_response": {
+            "id": "msg_011CfkDwXs5S8ZJQf9yVaq6a",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"CLARIFY\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}], \"location_resolution\": [], \"missing_information\": [\"settlement\", \"state\", \"lga\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": \"location\", \"attempt_number\": 2}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I understand. Can you tell me the name of the specific village or settlement where the boy with weak legs is located?\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4761,
+              "output_tokens": 197,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4761,
+            "output_tokens": 197,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 1959.2,
+          "cost_usd": 0.005745999999999999,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDwXYEL1qoSseUq7DSR",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "settlement",
+          "state",
+          "lga"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I understand. Can you tell me the name of the specific village or settlement where the boy with weak legs is located?"
+      },
+      "reply": {
+        "kind": "NEUTRAL",
+        "text": "I don't know.",
+        "reason": null,
+        "detail": null,
+        "events": [
+          "OFF_TARGET_CLARIFY"
+        ],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "I don't know.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have a 7-year-old boy with sudden weak legs near Majawa. Which village or settlement is he in exactly?"
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand. Can you tell me the name of the specific village or settlement where the boy with weak legs is located?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have a 7-year-old boy with sudden weak legs near Majawa. Which village or settlement is he in exactly?\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}, {\"role\": \"assistant\", \"content\": \"I understand. Can you tell me the name of the specific village or settlement where the boy with weak legs is located?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ESCALATE\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [], \"confidence\": \"low\"}], \"missing_information\": [\"settlement\", \"state\", \"lga\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": true, \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"}, \"clarification\": {\"target\": \"settlement\", \"attempt_number\": 2}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I have a plausible AFP signal: 7-year-old boy with sudden weak legs. However, the specific village is unclear and Majawa is only a nearby reference. This needs human follow-up to establish the exact location for case investigation.\"}",
+          "raw_response": {
+            "id": "msg_011CfkDwgDN4bqvUGvaA8SkP",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\": \"AFP_SUSPECTED\", \"other_vpd\": false, \"action\": \"ESCALATE\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Majawa\", \"inferred_fields\": [], \"confidence\": \"low\"}], \"missing_information\": [\"settlement\", \"state\", \"lga\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": true, \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"}, \"clarification\": {\"target\": \"settlement\", \"attempt_number\": 2}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I have a plausible AFP signal: 7-year-old boy with sudden weak legs. However, the specific village is unclear and Majawa is only a nearby reference. This needs human follow-up to establish the exact location for case investigation.\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4812,
+              "output_tokens": 275,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4812,
+            "output_tokens": 275,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 3636.2,
+          "cost_usd": 0.006187,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDwfqJ1haQxDxtY7wL8",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ESCALATE",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [],
+            "confidence": "low"
+          }
+        ],
+        "missing_information": [
+          "settlement",
+          "state",
+          "lga"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": true,
+          "reason": "FAILED_CLARIFICATION_WITH_VALID_SIGNAL"
+        },
+        "clarification": {
+          "target": "settlement",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I have a plausible AFP signal: 7-year-old boy with sudden weak legs. However, the specific village is unclear and Majawa is only a nearby reference. This needs human follow-up to establish the exact location for case investigation."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 2
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. I have a 7-year-old boy with sudden weak legs near Majawa. Which village or settlement is he in exactly?"
+    },
+    {
+      "role": "user",
+      "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+    },
+    {
+      "role": "assistant",
+      "content": "I understand. Can you tell me the name of the specific village or settlement where the boy with weak legs is located?"
+    },
+    {
+      "role": "user",
+      "content": "I don't know."
+    },
+    {
+      "role": "assistant",
+      "content": "I have a plausible AFP signal: 7-year-old boy with sudden weak legs. However, the specific village is unclear and Majawa is only a nearby reference. This needs human follow-up to establish the exact location for case investigation."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden weak legs",
+        "age": 7,
+        "sex": "male",
+        "state": null,
+        "lga": null,
+        "settlement": null
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 7718.5,
+    "input_tokens": 14209,
+    "output_tokens": 711,
+    "cost_usd": 0.017764,
+    "clarification_turns": 2,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 2
+  }
+}

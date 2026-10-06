@@ -1,0 +1,204 @@
+{
+  "scenario_id": "MESSY-18",
+  "title": "Clearly chronic weakness should not be treated as AFP",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "NOT_RELEVANT",
+      "sender_message": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"NOT_RELEVANT\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for the report. Disease surveillance tracks sudden, acute weakness. Because this condition has been present since infancy with no recent change, it does not qualify for acute surveillance. Please visit a healthcare center for assistance.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"NOT_RELEVANT\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for the report. Disease surveillance tracks sudden, acute weakness. Because this condition has been present since infancy with no recent change, it does not qualify for acute surveillance. Please visit a healthcare center for assistance.\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2938,
+              "candidatesTokenCount": 202,
+              "totalTokenCount": 4206,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2938
+                }
+              ],
+              "thoughtsTokenCount": 1066,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "uGfEapWkD5DRz7IPqdSguQM"
+          },
+          "usage": {
+            "input_tokens": 2938,
+            "output_tokens": 1268,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 1066
+          },
+          "latency_ms": 10269.6,
+          "cost_usd": 0.006958499999999999,
+          "stop_reason": "end_turn",
+          "request_id": "uGfEapWkD5DRz7IPqdSguQM",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "NOT_RELEVANT",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you for the report. Disease surveillance tracks sudden, acute weakness. Because this condition has been present since infancy with no recent change, it does not qualify for acute surveillance. Please visit a healthcare center for assistance."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for the report. Disease surveillance tracks sudden, acute weakness. Because this condition has been present since infancy with no recent change, it does not qualify for acute surveillance. Please visit a healthcare center for assistance."
+    }
+  ],
+  "final_state": {
+    "cases": []
+  },
+  "gold_actions": [
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 10269.6,
+    "input_tokens": 2938,
+    "output_tokens": 1268,
+    "cost_usd": 0.006958,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

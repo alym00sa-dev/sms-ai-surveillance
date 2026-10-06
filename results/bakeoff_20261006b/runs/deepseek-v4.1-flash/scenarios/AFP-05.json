@@ -1,0 +1,455 @@
+{
+  "scenario_id": "AFP-05",
+  "title": "Approximate age still under 15",
+  "model_key": "deepseek-v4.1-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Dange Shuni",
+              "settlement": "Dange",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Dange",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Dange Shuni",
+                "settlement": "Dange"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Dange Shuni",
+                  "settlement": "Dange",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Dange\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in one leg\",\n      \"age\": 10,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Dange Shuni\",\n      \"settlement\": \"Dange\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Dange\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: boy, about 10 or 11 years old, in Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Is this correct?\"\n}",
+          "raw_response": {
+            "id": "2c9341e7-aws_uw2",
+            "object": "chat.completion",
+            "created": 1791254158,
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in one leg\",\n      \"age\": 10,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Dange Shuni\",\n      \"settlement\": \"Dange\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Dange\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: boy, about 10 or 11 years old, in Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Is this correct?\"\n}",
+                  "reasoning_content": "We need to produce JSON output. Let's parse.\n\nConversation: user reports: \"A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well.\"\n\nWe need to extract: symptom: sudden inability to move one leg well (AFP suspected). Age: about 10 or 11 (approximate). Sex: male (boy). Location: Dange village, Sokoto. Resolver: status RESOLVED, candidates: state Sokoto, lga Dange Shuni, settlement Dange. So we can fill state=Sokoto, lga=Dange Shuni, settlement=Dange.\n\nWe have enough information for a usable AFP surveillance alert. So action should be CONFIRM? The instructions: \"Once enough information exists for surveillance staff to reasonably identify and follow up the reported case(s), do NOT immediately ACCEPT. First use CONFIRM.\" So we use CONFIRM. classification: AFP_SUSPECTED. other_vpd: false. priority: NORMAL.\n\nWe need to present a concise structured summary and ask sender to confirm. Response: \"I have: boy, about 10 or 11 years old, in Dange, Dange Shuni, Sokoto, with sudden weakness in one leg. Is this correct?\" But we need to preserve uncertainty: age approximate. We can say \"about 10-11 years old\". Also symptom: \"suddenly cannot move one leg well\" -> \"sudden weakness in one leg\".\n\nAlso need to include location_resolution array. For case_1: raw_location \"Dange\", inferred_fields? The resolver resolved settlement, lga, state. So inferred_fields could be [\"lga\",\"state\"]? Actually raw_location is \"Dange\", which is the settlement. The resolver resolved it to settlement Dange, lga Dange Shuni, state Sokoto. So inferred_fields might be [\"lga\",\"state\"] because settlement was directly given? The example shows inferred_fields as [\"lga\",\"state\"] when settlement was given. So we can do that. Confidence: high.\n\nmissing_information: [] because we have all required fields? Age is approximate but present. Sex present. Symptom present. Location present. So missing_information empty.\n\npotential_duplicate: false (no candidate prior reports). duplicate_candidate_ids: [].\n\nescalation: required false, reason null.\n\nclarification: target null, attempt_number 0? Actually we are not clarifying, we are confirming. So clarification attempt number should be 0? The example for CONFIRM shows clarification attempt_number 1? Wait, in the multi-case example, action CONFIRM, clarification attempt_number 1. But that might be because they had a clarification attempt? The spec says: \"Confirmation turns do not count as clarification attempts.\" So if we haven't had any clarification attempts, attempt_number should be 0. But the example shows 1 for CONFIRM. Hmm. Let's check: In the multi-case example, they have action CONFIRM, clarification: {\"target\": null, \"attempt_number\": 1}. That might be a mistake. The spec: \"The agent may make up to 3 unsuccessful clarification attempts.\" So clarification attempt number tracks how many unsuccessful clarification attempts have been made. In this conversation, we have 0. So we should set attempt_number: 0. But the example shows 1. Maybe they increment on confirmation? I think we should follow the spec: \"Confirmation turns do not count as clarification attempts.\" So attempt_number remains 0. However, the example might be from a context where there was a prior clarification. But to be safe, I'll set attempt_number: 0.\n\nconfirmation: status: PENDING (since we are asking for confirmation).\n\nresponse: concise summary.\n\nNow output JSON.\n\nLet's construct:\n\n{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in one leg\",\n      \"age\": 10, // but age is \"about 10 or 11\" - we can't put a range in a number field. The schema expects age as number? It says \"age\": 7 in example. So it's a number. But we have approximate. How to handle? We could put age as 10? But that loses uncertainty. The instructions: \"preserve uncertainty such as approximate age\". So maybe we can put age as 10 and mention in response \"about 10 or 11\". But the field is numeric. Alternatively, we could put age as null and missing_information includes age? But we do have an approximate age. The spec says \"attempt to establish: age\". It doesn't say it must be exact. But the JSON schema shows age as number. We could set age to 10 and note in response that it's approximate. Or we could set age to null and ask for exact age? But that would be a clarification. However, we already have enough for a surveillance alert. I think we can set age to 10 (or 11) as an approximation, and in the response say \"about 10 or 11\". But the field is numeric. Let's look at the example: they have \"age\": 7. So it's a number. I'll set age to 10, but in the response clarify it's approximate. Alternatively, we could set age to null and missing_information: [\"age\"]? But then action would be CLARIFY? But we have enough. I think it's okay to put a number and note approximation. However, the system might expect age as a number. I'll put 10. But then the summary says \"about 10 or 11\". That's fine.\n\nActually, the instruction: \"preserve uncertainty such as approximate age\". In the response we can say \"about 10 or 11\". In the JSON, we could put age as 10 and maybe add a note? There's no field for notes. So we'll just put 10 and rely on response.\n\nBut wait, the example multi-case has age as 5 and 8, exact. So if approximate, maybe we should set age to null and missing_information includes age? But then we would need to ask for age. But the report says \"about 10 or 11\", which is a reasonable age range for AFP surveillance. I think it's acceptable to put 10 as an approximate. I'll do that.\n\nsex: \"male\"\nstate: \"Sokoto\"\nlga: \"Dange Shuni\"\nsettlement: \"Dange\"\n}\n\nLocation_resolution: [\n  {\n    \"case_id\": \"case_1\",\n    \"raw_location\": \"Dange\",\n    \"inferred_fields\": [\"lga\", \"state\"],\n    \"confidence\": \"high\"\n  }\n]\n\nmissing_information: []\npotential_duplicate: false\nduplicate_candidate_ids: []\nescalation: {\"required\": false, \"reason\": null}\nclarification: {\"target\": null, \"attempt_number\": 0}\nconfirmation: {\"status\": \"PENDING\"}\nresponse: \"I have: boy, about 10 or 11 years old, in Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Is this correct?\"\n\nBut note: the location resolver says settlement \"Dange\". The user said \"Dange village\". So that's fine.\n\nNow, check if any missing information? We have all: symptom, age (approx), sex, state, lga, settlement. So missing_information empty.\n\nAction CONFIRM.\n\nClassification AFP_SUSPECTED.\n\nPriority NORMAL.\n\nOther_vpd false.\n\nNow output JSON only."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2850,
+              "completion_tokens": 1944,
+              "total_tokens": 4794,
+              "prompt_tokens_details": {
+                "cached_tokens": 2688
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 1644
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 162,
+            "output_tokens": 1944,
+            "cache_read_input_tokens": 2688,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 1644
+          },
+          "latency_ms": 5283.5,
+          "cost_usd": 0.0031878,
+          "stop_reason": "end_turn",
+          "request_id": "2c9341e7-aws_uw2",
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weakness in one leg",
+            "age": 10,
+            "sex": "male",
+            "state": "Sokoto",
+            "lga": "Dange Shuni",
+            "settlement": "Dange"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Dange",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: boy, about 10 or 11 years old, in Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "one"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: boy, about 10 or 11 years old, in Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weakness in one leg",
+              "age": 10,
+              "sex": "male",
+              "state": "Sokoto",
+              "lga": "Dange Shuni",
+              "settlement": "Dange"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Dange Shuni",
+              "settlement": "Dange",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Dange",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Dange Shuni",
+                "settlement": "Dange"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Dange Shuni",
+                  "settlement": "Dange",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well.\"}, {\"role\": \"assistant\", \"content\": \"I have: boy, about 10 or 11 years old, in Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weakness in one leg\", \"age\": 10, \"sex\": \"male\", \"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Dange\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in one leg\",\n      \"age\": 10,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Dange Shuni\",\n      \"settlement\": \"Dange\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Dange\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Confirmed and recorded: boy, about 10 or 11 years old, Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Thank you.\"\n}",
+          "raw_response": {
+            "id": "ccd1245d-aws_uw2",
+            "object": "chat.completion",
+            "created": 1791254163,
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness in one leg\",\n      \"age\": 10,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Dange Shuni\",\n      \"settlement\": \"Dange\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Dange\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Confirmed and recorded: boy, about 10 or 11 years old, Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Thank you.\"\n}",
+                  "reasoning_content": "The sender confirmed. So action = ACCEPT, confirmation status CONFIRMED.\n\nAge: \"about 10 or 11\" — approximate. Current case state has age 10. Preserve uncertainty? The summary said \"about 10 or 11\". The case state stored age 10. Hmm, I should preserve uncertainty. But schema age is a number. I'll keep 10 as recorded, maybe note approximate in response. Actually the assistant's summary said \"about 10 or 11 years old\" and the sender confirmed. Keep age 10 with note? The field is numeric. I'll keep 10.\n\nOutput ACCEPT."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2980,
+              "completion_tokens": 431,
+              "total_tokens": 3411,
+              "prompt_tokens_details": {
+                "cached_tokens": 2560
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 132
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 420,
+            "output_tokens": 431,
+            "cache_read_input_tokens": 2560,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 132
+          },
+          "latency_ms": 1046.6,
+          "cost_usd": 0.0014112,
+          "stop_reason": "end_turn",
+          "request_id": "ccd1245d-aws_uw2",
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weakness in one leg",
+            "age": 10,
+            "sex": "male",
+            "state": "Sokoto",
+            "lga": "Dange Shuni",
+            "settlement": "Dange"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Dange",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Confirmed and recorded: boy, about 10 or 11 years old, Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Thank you."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: boy, about 10 or 11 years old, in Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Confirmed and recorded: boy, about 10 or 11 years old, Dange village, Dange Shuni LGA, Sokoto, with sudden weakness in one leg. Thank you."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden weakness in one leg",
+        "age": 10,
+        "sex": "male",
+        "state": "Sokoto",
+        "lga": "Dange Shuni",
+        "settlement": "Dange"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 6330.1,
+    "input_tokens": 582,
+    "output_tokens": 2375,
+    "cost_usd": 0.004599,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

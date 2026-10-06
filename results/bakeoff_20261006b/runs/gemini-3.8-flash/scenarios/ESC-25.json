@@ -1,0 +1,603 @@
+{
+  "scenario_id": "ESC-25",
+  "title": "Conflicting case identity/location cannot be safely resolved",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "7 year old boy with sudden weak legs somewhere near Majawa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"location\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Please share the specific village, settlement, or LGA where the boy is currently located.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"location\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Please share the specific village, settlement, or LGA where the boy is currently located.\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2867,
+              "candidatesTokenCount": 255,
+              "totalTokenCount": 3545,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2867
+                }
+              ],
+              "thoughtsTokenCount": 423,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "HWjEaveTFtOCz7IPpIXN4QU"
+          },
+          "usage": {
+            "input_tokens": 2867,
+            "output_tokens": 678,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 423
+          },
+          "latency_ms": 5412.0,
+          "cost_usd": 0.00469275,
+          "stop_reason": "end_turn",
+          "request_id": "HWjEaveTFtOCz7IPpIXN4QU",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "location"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Please share the specific village, settlement, or LGA where the boy is currently located."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Actually it may be a different child in another village. I am not sure which child or village I was told about.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "Actually it may be a different child in another village. I am not sure which child or village I was told about.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "Please share the specific village, settlement, or LGA where the boy is currently located."
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"Please share the specific village, settlement, or LGA where the boy is currently located.\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Could you share any details you remember about the community, village, or LGA where the child is located?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Could you share any details you remember about the community, village, or LGA where the child is located?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2976,
+              "candidatesTokenCount": 271,
+              "totalTokenCount": 4617,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2976
+                }
+              ],
+              "thoughtsTokenCount": 1370,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "ImjEaqWcL8vUz7IP4MusuQM"
+          },
+          "usage": {
+            "input_tokens": 2976,
+            "output_tokens": 1641,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 1370
+          },
+          "latency_ms": 13555.6,
+          "cost_usd": 0.00838575,
+          "stop_reason": "end_turn",
+          "request_id": "ImjEaqWcL8vUz7IP4MusuQM",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Could you share any details you remember about the community, village, or LGA where the child is located?"
+      },
+      "reply": {
+        "kind": "NEUTRAL",
+        "text": "I don't know.",
+        "reason": null,
+        "detail": null,
+        "events": [
+          "OFF_TARGET_CLARIFY"
+        ],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 1,
+      "gold_action": "ESCALATE",
+      "sender_message": "I don't know.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "Please share the specific village, settlement, or LGA where the boy is currently located."
+          },
+          {
+            "role": "user",
+            "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+          },
+          {
+            "role": "assistant",
+            "content": "Could you share any details you remember about the community, village, or LGA where the child is located?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "UNRESOLVED",
+              "match_level": "none",
+              "resolved": {},
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga",
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "'Majawa' is only a nearby reference, not the specific location"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy with sudden weak legs somewhere near Majawa.\"}, {\"role\": \"assistant\", \"content\": \"Please share the specific village, settlement, or LGA where the boy is currently located.\"}, {\"role\": \"user\", \"content\": \"Actually it may be a different child in another village. I am not sure which child or village I was told about.\"}, {\"role\": \"assistant\", \"content\": \"Could you share any details you remember about the community, village, or LGA where the child is located?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"UNRESOLVED\", \"match_level\": \"none\", \"resolved\": {}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\", \"settlement\"], \"requires\": [], \"notes\": [\"'Majawa' is only a nearby reference, not the specific location\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ESCALATE\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": true,\n    \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. A surveillance officer will follow up on this report.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ESCALATE\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"state\",\n    \"lga\",\n    \"settlement\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": true,\n    \"reason\": \"FAILED_CLARIFICATION_WITH_VALID_SIGNAL\"\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 3\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. A surveillance officer will follow up on this report.\"\n}",
+                      "thoughtSignature": "EucxCuQxAWkUfRMQAbd4/kVor4eL1QQ1jCkE9EWEwNTCj5uPQt3SG8anSkTXSqNfe/yENAkOUKYdVPt5B8dadw9vYFmcroV9fiippzqtRG3/IQbV4R25nrHXvUZxq/c95ihwqH1tbm0eTu1OQhjDEW2KhygQsHERyA85xSqA1qPaPbJ9JjMpIF3yZ9TLASAFurkPibM2opHq8kUfheBvMp/p38AbZpFHMWe1zIq3qp/CWPIPEiL+ROjq549kO5DkH5w7Pz4UmF2upRo1sGdlokmnXl20AxBdt5J65az3IqcLTbPkrXyiVCGmOqdSG7hvKUAQQEdonuvsBqqbT+AX5tl74Jlu5QNn66kSo9m8j7I/9crZr59GNx7vsPCfQvK7diyime6wCd3eHIU/XeoLdoTLVhZkHtDeCibW+0g6xGPhpRB7dSTdAeeBVhS5MeBQ285yFvF9FwNR3W/vSp12E1JSUjZLSSz1V0K1ZEw6bJOCxYFzSCdTDHlW7s5JujRY8bSuz8Wauy/umGyBfi9hFVJXN+sSd673CYoTBnXKAhEphIS0AXg1A4OdSLOwni4qrc4C0v2BmXxK6L/9BScOtHHknaEtumLD77WM1BXhkkZFKxLrVygN39NtakNbt218/4/siU0wxbFGWYF2EckMFuEMy75vUm+uxRk1/PAc5a/0JcoZSVQ8OOI4l3LBPzsMmmh6L9NT6Gh4lCCpukP7StSq+wahq82/rEv/7Glk+re5BJzWQZmrIAx7iQHAl4vUV3OfT/g8qnbNP1JDNwcEeB9P7jo65hd8Z1ODRUbtLkIHQUwTBrwbZ3SwUjoBCXFgF1TlyisMNmMKfdvJ4DF42Yx4L9wJSoDeQrUETyRcnQI+lNJAWSZ7cPSDmiuraZM1R/Lut2UsgZmLuSWkJtRQGLszAUujxZwAs3zrKA9Xun4OK0ZRS+fInRs4HrBvzvYhQPHT0/xNFT6gGWaunlSLNBukijd6fV/LHaYdut0s2Eq9g7SNBXHIaNySBZ914DYOvwDoPuKjT9ox1JAY+7E8GZvB8xdivY4GTHAiY7HaXZjNNIBj4a1fdfwKB6SJnkvLzETGSXHquVw30I5aQMNzmUyG7hxOecgDn0Mpiv1TuLvKPNQFjqbHg11hTlNkjOs92WicJrjHHxUn9KeLazJPwUFeOpT9OhRd+bHaFJlvVUfirhPa+ZcxVdJqiCLihfIiZJ+1/XKCGrHKBkErLs1vIHkvQ0G4uOU87LMT84nAaGt9jmM+UWXdaB/GFknyxUxuQCOuUy5I3lRjDFrdrkAuGTs717AGr5Psb9tts8luO0F2V5Yp7BugJrMmAqpBCTwl5XbUJ540/YlWZtNexUkXFaWz0T1RKxJvLkf9Ic9tfNvPxpAOHoustPwKPAYzj8W8fSH0iWf0avVFLzBdn9sqd4l3zNDR9lpXOT9fsr/mdC9En5I7OAtsXSUBxDSM9XicupUrv4B3rv+Yk6Sh+UYqs9dDSQMPWLSeZTsLSFd2TLqqYkOSmDsX/coWOT0YA5K+6h7DcK1suVtXzMcyX+uX3jTG/W0cNB5egcw62C+TXwOR6c6dA5kkNF6G9eAN7Vw9TTW0drNV7a8RPs4iN7AYcYY1EIoFatimAr2DgLZrEf8t0etEVEXQpgG3YmitQ7d5deIkuWjqL9geKBOnqWXM5+sJsGkXVEsuhQ2ht/pLRjk/5I8o1qt/N4PfVUQ/jW5EPRF7Jt6atDScIdoGjS0+NIxCOJBPM/kT0AHOQnRdqV9Jd04EUsWU3VswJmV06s+n70eDWUKgztkpElxC4A3Ctn+RJ1pmUIWRtKiO0z/3LXFWuT/gXztFWfm6sy73caa90QfJL6uKFEgSzbx2xnOnMTHb7Vaxz3/WW9BAS/1Q1jBqOp/zvtULO2Ppxuhu/rmm/660bOF6xsjbBsDmmZesxoKhWxnKGfA16JcDVvVYQj+HsmRGzl5WxPbMj0WJrR2SnqiZga4m41H+nsb7UMYZ68IUCpeJxfXTXL0Ikugtbt+KEB2ixV4PH5P/Zo3Vib5sm67mQAx4+ii8t7AWa7DlH5uwSsRN4SE9C6w/clcRcdKUhHXQdFGpTtELjQnId+7s5AvIUgMPzNcDxsiYqTkTOh71YleqUscwlVBV0fd/YOPZ2QZH+CssIhv+nVhcQnLQchLwhXV0dewq9+MbVsGGNeCIVGTaZWI1pkMu1QFMNY+AB/X9dZGgGuBawJVKEft7KaqfROPQRqghX78u/l9sKv+6z2vmBTNr8t7ysExr1uTBEeMXt29QlOwEt3gzuF8d6UFGW8yIkvifPYUdF2iLnZcjiB/LZ/3ft/9W7qDLUszZGQ+BWcVWHYoXb1WZ8AtEjp198h5c9tA1ljv86EyX8/jv7huQMhXAA7CTSx9PZRTk7rRJGtQc9DtZS5vZpyvBIGHOP1rxyc1Xmlpih23ehAXzZVnAbA9uFumx5qSxNuICB9W1SROs22yCFFDdutm0DZa/cZXAVGkGA8Xz9UHF8jUwu9pYCU9AyAnjTB9JjAt0HonWYegH2XixwdDTIlK0MqGoE2GahNxLdZKJrPxzoU8sDi3e+nlURjhBL2OyKQahBSuRTMKCeEHRpQWBtC285vNrQcXfKql7VV0ikDo7Icdsjcdy9FaAyAyG+VMJ+5n1rBW4Ty0GAmGQ0nwn4SDUbmK8qAxNPocUpwPbi30A90kTUinVxUmtxdJjCsTaBwmKVzjVkIK3TiyIdmS514il0uIkkd8ZtE8lFmSCZ9OIrrXebVlsfL27d+vcZHpyzuiU3JY0MM/XAQ2HbEkfCV5nJuyInpLVfSheNqKFA+pfTfPIn2aIv+r5GzLbO0c0bwuSUQlHsTM3+cOco5SjiWLPRgvlZafDcvnmTk2Jy/gf09Dd6Zm0kaLj9CF6IZvV4pqzEmq3Bc+eVLhjZaEYLN5ox2HqJcx1p+r8I4MziW9lHdlzRY76sgvlILAwKslPsmoaOekXX2VXnI+9D/8wDkCFH1FzeC0hpq6NIpHnUhju+118paGHculQCP94nzo7ttXyR7x07NXYNgZkzFEpCOVa+Kr6MCiE8/jQakCzIHuPxW7hDpvzbhVYyi/Hd5m+SDIZJtdG6mzfiZ2VVSOYbGmcABwZWjMttoIJWf7cb4m4fiJQYlvdoL78HU4wJLX2SkC4hRbvcLj+vCjLz8yXBWJ8uohIbXwWxLeHhPdwaTBE0/bFHTPU6Muu2iX5ZFxJ3I5QMu/eSkvC353NSB05ilhWNDdd9iNQMdov+cJj+nJiuQ5OX7YnjjpO8UgbNicHBIB0QmfAm3uKMIi9sOySv7xnEtTNRtAltwlK/meB92kcW7z6sC12c6QEw6Cew0KfbF7go+99r0Iq52fY+8HN6IyPtXynJbnpMm0jEI6+aJYl+M52mysWgb0E+yIlvjk/O/RIGKzaxJ0uW+D40SW2yn86P/VM8tveGInADjX+4PbVkoBLXVceOsXQoMJspAFBGwsEbLAzTNhvj4IykRUKOZuMAF53+LtNEHCRteEOsX9JvGBBtfEsHOkCyGwILPSdXyLj3QWkDObkfG18z8JdB0qp74tQse7xUWcqoj+z66Y9MTrA3nM9JJrFxbCvP14MbsogAXfwCe/GkI5wTg9yC13FTXxhCccvX2G2Lb5HRNEl69cDc2Oqyn5XpdYCPkzuBHZa7Xut9L9+QhGIejzK2HFysl05e1bjYvJVQZZNBMFjNfyDjfxrxJjbXERT0IRE7+g/wZyArvMlwUlG9ODs/uLcUFPGXYv+IC81RDY8AqFPy5x9EOSeMqqf8dvWuIzUYF4e5VsneQNwSpVlGa8oCC1LndUHHfniIQZT7L/4bcWi3lcKPKOShmVi8c/5fJ8AAAEtBy6gOa9b+RzRbe3Xp3YPeKXNa/H5ociWgJ+TWLJ/vXFwHr1GamqoDj5QWg+OKQHNkenGdxEz3KEhEcc9VKkwSjiFvx/+aw15bNNqGLFCtEKOP/9fr4aQSTG2nApGTfcGrPRiSvUQ8hV599UIQmoUd2IAnG3y/al/m5zDI+6u+7yrSlKDbG6XeOCGIJU5bYbGVutgqwsZksFWJsMyl8JdCV6Or2BQ2e0h8a/1hKovShYgvqUoxwjxda40dGMgFNcm8AsI6Z26yAw5kSH7G046bwhyi0lrqqAxyzFynuZet1x+rSo3uTUfodbseFBFAA4Rmop4KVP/v9I66kklIQH9AeO6aLLXSkNdOEcJokw1EF5PXcDwr+2vYgypcAeHVi7qwCBpNfaGSm4WBYDy0j1oZTKBhjg2XCy0/dJC4nu4f5iHqSSPUSHs5rbVoM4MSnBC8SEcxZNEx806gD6qJkecKDoayAbzb39oclCFyEXHMMigA0YNcUrm/u4cMRvVSkQJ2A7Iog+tXwv4RDfxzjhF9uafPz1taZ2fMdZYEmUY4QdiDx2+yrYO9/TWLKBno+wWRk+BQj4tUkklY4Y5ik746DfvcQXZseHjLWTMnjO+y+ONZ+IgzVCHHS5hqzLEYK3QFdpqCjjFNcrTlr6IJNeQgUxhAUXxPNGW7GYOW8bW7Qm0Yv0gjLePJ/yG636VxA1s2sMxNrtJPBBsKCeYFXR/+1KyzxcwfVbZ/6Wyz8SVYGGZ5mFYHzV5Kl8L21WmhbT68WOgMoOqfQFzYvkX2C+8jujVA+LmUAufisJPMYu38IyIrbt//ZbcYhg4uzJDM98HgFjkaPNyZ3MKmVEGtCadmoNinhisrzahNRPJ/p2Ju6EThsjN6VACLDsHJTU/jIVc/ldMSVagts3ViawQKE0IgEzal2n3pAOv4Ny+TTSP3hNXO+oKZkIrVmA9RRErAbTRVS7ANWeyTs6nSSHfWsNxHuVIcoCqzQ4r2bxqmH0MOHDUa+hcKfhdbAdJB6ZJncQvMh6RSrB4JoZx3rplQSabTFMW2scKs+QqAzZ4HYBBBM7WBVHG33A8xd2RVAsJFU5HmW51lN2Yxp9z6CTqc0OzreARm2fq8J22tLXa+cOF3lrRw3qXqYcTc2Cqk6gxQdzFJIwqP7JqkVFu+o7GzwuK48VRM2OrkiBWC+ldGirjtnWMa0+1EkuoLTQ1D4s8/KSZnnnyYobv9b60CvZqYcqZzsGGOpdPsZq9xuq+YzEF3R7ej2zuYUe2Q0ADNqiSBqu+o0gEMqJVt/7ZZpQTsDKN63dJZHrPfKWi3S7hmMtYWk0VAZbQH4FWBspCtx37TeDBr1vvaR6eMfuqb9yrVHli+6/kWdJrbExuXbvuXv56eK8pWuCqNqO4vSpaaC5EiDAX5Pq+HoVD3VsH+5sCoE3hyzIkGlwTIiG5OooKiauqb0n73onI+n1Q9RiltJWBRyZ331Wjme6qMJAU2u5wo9vqbc0mya3PrNyID2MBAVrr1twu0mDbORzz/Q6qChoBIYItYtWR+mEWOjLMkqV6Mk/pTldN0Qq5TX0mTdv04PJ4mY968fM/clsrtoQ6Zubjg5sPXtCkRPIxmNbI6Qvd3PhXs1wZqpUe7UQmv9nnje0nWeuq4ZSIuCpGzaPJBn4e9psuNfUkAxqDSAS3LActkhQxKL0WZODk8ST4wsurLNk0b+LJzaWh9GcjoOUoOEGp4s9nCNaSs8uvklxKtvpDwrs0tKyGey2RMYvZaDkR5lw4rIP0+OoQwcoN04+x7h8PYZ/KxetGuXx1Qwg0PoN6M7H9pN0o2psJh2+ZHfcc6UfdNmnIGE0SQnIyMrvQuANJd5afrjpaqyrOUopWUjrW3a6ubtxcTEQkNFk6QOcRzsGMkr2HtqmmbbnVRkXB6HDC06YoTY5hcbz+EAqXEIyI3sN+Mhw7k3o+4WFNS4taUzIRhbp7SevAdawFfjYsVT3nHdxkQwBMY+JgfNHvGS8DnMsCa4lMv5iTJCeqofxUGi+IxaIYr+pwlqr6cEIf1i7NA1Mn/h9z1wyPNvawvORcSPgQNSoQFWHqrSQ14pgZ+Ks7EqW9ufT8yT/crGb2bnLtt1+1YJ0DuE8n0Zyl3W+qMff0ajdSh8+tYw87ytLKt9of1S9S766Z3el2elfv616BOHV0lnGfvKpWUdhsonopRurK235OvoychC13as5UIVkz1TBTGlvGv+6lYm6fUZt3GP9y08F+q8gOhOHaQd9GgNZI2JpSvMOMlBMYNp9VQDdB43PSaVRtt+o6qk4qakqXVUwpDv33AL8/Wbatk15wgUVALsSzr4aFJTDDjAODO88ERKlEQ6xEOVOAjazNnV5CMOHiEES//Z+3uwWiVxrOEP9mPPK7yOY/Ro9yPjZVyH2BQBja2GbD9UMIRYvq1XvwfnbLRX5P6+vjKeFCb49D9TVqYDcqepHdUIzTObhDY3ss53L4CVWI83vGlNwIaYFmyvitQtA0jJbAJHTN8CHRkE/RXIA6Kl/vNpLebkrjbk6UFpZLGeVlilkjsxoe/zO2Tm9a7B2JXIqvf2fFkG4v/Fiz6Gak95qLLxDlTuT+VqxAvaPrmGC0cbCtCHd6Iw/7oyu5n49Kx9YeeAa8J/Oj0YfekXz3wvVzStzOlv/MYz7Mx5xAN0X4Cb4UiZIpWoRYXZAfrjnHKi/qAhSraNkmOqAIScu4dAriAOnPCxVIXMQVO/1hE75TgyzX9M4ijz/u/TlrvLzuCixubvhthzWjV1dGyB/Ckzd0oODmZv5LAlh+ciqgVXWXflOaUbyOvM+AKs+jmpsgU1wiSUDxNtrkj3WxypLVsnOxPUNdpsp/KZe6Z0YKZFQ5yknuk8uxQZ8U7F8SApKhRpgzZFriNJ3gjADjeHZas8AYVya3GrRy5ZlzKqrIvGpTgqulBD3Y1uHyKUFJYRgWZ9TnpF8fMYv/NvQl0LfDhLJi+uX1I9+sSQa78w+OPsDz4WH/akk/hyjLEb7F80sIXxledV+yIt/FEinU3/tnlXZ26J1ArGO7tNnNNTjR2qLEmx8gQT58jDxSdnTumxYBgkxcWRCcyBTpYEsaDVP6wNHWG/VpkrKeK4J+RNXOR2KujadX+p/f0oOvX0ruyWacPAY5GgBGqp4Fjge5vzsgs96Ae444kcGsBNRZeVdEkVsDvm36ft4LQ/TZv8SfHy8Q010EYd7sCNLofvlVTzHJoVuBDtVIh14U2Fo9PwEQ1pxqxbpNqtdDDA9Nr0ihgnxeAHT3McfhTjlRCO2AcPB6Ya9gJs+ukb8oveAqAhUwTujrHAWL0fZx441sAOBqXbxrEm6wdyLeV1YGJ6eQhbozPY3hYEve7Nm6TgrobavBmQ220RSy6ReBZVK8Ec12D4P/HyXFwlDwrBHuTTiRl7Ufs94f6yRT13SVeA4rS2EfwGZ4nj4FpPL9BIBgj84/VwicGVQmeL+idjqKpze+t8w8YdgxZCv54aV6sJZeTpulRegu4grxZzVldxEfyNa2IB+RRVUH14hTaIxEozWh4EGm2TKDr2MJrUiZ8l9AJQUB+KnVPy+gkXuhzj6jmvlkokZpZ5ExDcj1a5H8QWFsZ4SUgkYBGaah+0fZVJed0LY9nc1D+oE0rIoP+cdMGJsYXygoZmCgAJZM7oegPfZaFQemof/QF2wqIjUjoYykje+6Cf3K/8SsLwV7m/4CvtIxKIhgvlwm/3UHlFA64YX79YBuA1FrJnxZ0CmpdkS2K+cHiy1JAA3cuDnU9UDedTSFgcdOO/VW45KvFM3LPoeHebgGD7TUTTdADug4Ag+b0ElrmjAwnDmxORI1fZYnRKZ+Hyjt0kXKrgA8+nQudEpVa5Ayo9AHOZTaak/bSvM2GRqxEqUASjF2B8Q9/AjXbh7HvjpxthdMWGJ04QuQUeO1ktzGBjA5/Xz3RNuJavHgpORhsHZp/yIcxc4vADqxpJqPebWm3wZMK1fdwZtamIPCpaHSoE0g9/lfRFY8nNaWYtaWp396R78bLv3uPmiFLPDIZED4S6w+vVsYCy1dF66p2y6GMEh24XmU+mH+K7kM5DWtotjwLD67KPbgkpEtLn7IIVN+nW4dFdj6JCqJWKYFz4gdG28X683SofhfwzcXfVAvBD77Rf/SMBAxIrIzm7qCe1M7pQ44gAOMy9jFqGpXJCVQgz+wVzkWLrBvAGzXfSkI9YZg87R8qLXG4c1f3Y4C0sU6nLLkdbdBB02HqFfRM+igZaX8s1nA/9gqj89+R+y903wymnioXm96qsv9XEeWzYnt6Rtcn4ycmNWt9bW1xpkmcf6DdbcL9IwKEiAscydf2Etizd2BLvLyq9c+9rrojT3U+hKiRYgQpJ3fCfXa5sFuVOLCi3z7YLzi9fLRFbXj/BxmhLK6ABpj0qEFwStK3IUinKdQxFsx5EDxqDfK2wMsn7YxY5qfLXg+YYBUeZ0Tz4M3c4su3RGmTKi0YdkpsUqmoA8LYyt2y4uZq44dCHn6L2CZmG/Ysv8xNuA+1v8b7HJ/LqDtdJ+FUE2PVHyFkbK6p+6S9NzsGKd8SBqjtJLI5xXA4fDyeFXp409YcLrnWv64UIQZLeGov2aqAi0IOgPuAMWcTxu8"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3024,
+              "candidatesTokenCount": 275,
+              "totalTokenCount": 4757,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3024
+                }
+              ],
+              "thoughtsTokenCount": 1458,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "MGjEaujZFOStz7IPp4v80AM"
+          },
+          "usage": {
+            "input_tokens": 3024,
+            "output_tokens": 1733,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 1458
+          },
+          "latency_ms": 12875.4,
+          "cost_usd": 0.00876675,
+          "stop_reason": "end_turn",
+          "request_id": "MGjEaujZFOStz7IPp4v80AM",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ESCALATE",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": true,
+          "reason": "FAILED_CLARIFICATION_WITH_VALID_SIGNAL"
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. A surveillance officer will follow up on this report."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 2
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "7 year old boy with sudden weak legs somewhere near Majawa."
+    },
+    {
+      "role": "assistant",
+      "content": "Please share the specific village, settlement, or LGA where the boy is currently located."
+    },
+    {
+      "role": "user",
+      "content": "Actually it may be a different child in another village. I am not sure which child or village I was told about."
+    },
+    {
+      "role": "assistant",
+      "content": "Could you share any details you remember about the community, village, or LGA where the child is located?"
+    },
+    {
+      "role": "user",
+      "content": "I don't know."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. A surveillance officer will follow up on this report."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden weak legs",
+        "age": 7,
+        "sex": "male",
+        "state": null,
+        "lga": null,
+        "settlement": null
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "ESCALATE"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 31843.0,
+    "input_tokens": 8867,
+    "output_tokens": 4052,
+    "cost_usd": 0.021845,
+    "clarification_turns": 2,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 2
+  }
+}

@@ -1,0 +1,443 @@
+{
+  "scenario_id": "ESC-25",
+  "model": "gemini-3.1-pro-preview",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 33953.2,
+    "input_tokens": 8892,
+    "output_tokens": 3705,
+    "cost_usd": 0.062244,
+    "clarification_turns": 2,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 2
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "ESC-25",
+    "model": "gemini-3.1-pro-preview",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 0,
+      "conversation_quality": 0,
+      "escalation_priority": 1,
+      "output_adherence": 2
+    },
+    "total": 7,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "INCORRECT",
+      "known_information_reasked": "INCORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [
+      "action: turn 2: CLARIFY where ESCALATE expected",
+      "conversation: clarification_target_quality: INCORRECT",
+      "conversation: known_information_reasked: INCORRECT",
+      "conversation: turn_efficiency: PARTIAL",
+      "escalation: escalated with reason 'FAILED_CLARIFICATION_WITH_VALID_SIGNAL' (expected 'CONFLICTING_INFORMATION')"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 1,
+    "output_adherence": 2
+  },
+  "total": 7,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 1,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_invent_case_identity",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "FABRICATED_CONSEQUENTIAL_FIELD",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "102 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'location' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "133 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "INCORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'location' is not what the report still needs"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "121 chars"
+    },
+    {
+      "task": "turn_efficiency",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 extra turn(s)"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the specific village or community"
+        ],
+        "assistant_message": "Thank you for the report. What is the exact village or settlement where the 7-year-old boy is located?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.99
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 434,
+        "output_tokens": 47
+      },
+      "latency_ms": 127.6,
+      "cost_usd": 1.8228000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 7",
+          "sex: male",
+          "symptom: sudden weak legs"
+        ],
+        "assistant_message": "Thank you for the report. What is the exact village or settlement where the 7-year-old boy is located?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.95,
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.05
+      },
+      "confidence": 0.92,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 445,
+        "output_tokens": 47
+      },
+      "latency_ms": 107.2,
+      "cost_usd": 1.8690000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you for the report. What is the exact village or settlement where the 7-year-old boy is located?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.1,
+        "CORRECT": 0.9
+      },
+      "confidence": 0.85,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 418,
+        "output_tokens": 47
+      },
+      "latency_ms": 72.4,
+      "cost_usd": 1.7556e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you for the report. What is the exact village or settlement where the 7-year-old boy is located?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 418,
+        "output_tokens": 47
+      },
+      "latency_ms": 72.6,
+      "cost_usd": 1.7556e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "which child and which village",
+          "the village or community"
+        ],
+        "assistant_message": "Please find out the exact village, age, and whether the child is a boy or girl, and reply here when you have the correct information."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "INCORRECT": 0.02,
+        "CORRECT": 0.0,
+        "PARTIAL": 0.98
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 447,
+        "output_tokens": 47
+      },
+      "latency_ms": 92.0,
+      "cost_usd": 1.8774e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 7",
+          "sex: male",
+          "symptom: sudden weak legs"
+        ],
+        "assistant_message": "Please find out the exact village, age, and whether the child is a boy or girl, and reply here when you have the correct information."
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "PARTIAL": 0.31,
+        "INCORRECT": 0.68,
+        "CORRECT": 0.01
+      },
+      "confidence": 0.52,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 451,
+        "output_tokens": 48
+      },
+      "latency_ms": 99.5,
+      "cost_usd": 1.8942e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Please find out the exact village, age, and whether the child is a boy or girl, and reply here when you have the correct information."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.09,
+        "PARTIAL": 0.24,
+        "CORRECT": 0.67
+      },
+      "confidence": 0.51,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 424,
+        "output_tokens": 47
+      },
+      "latency_ms": 81.4,
+      "cost_usd": 1.7808e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Please find out the exact village, age, and whether the child is a boy or girl, and reply here when you have the correct information."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 424,
+        "output_tokens": 47
+      },
+      "latency_ms": 119.1,
+      "cost_usd": 1.7808e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you for letting us know. We will forward this report to the surveillance team to see if they can help look into it."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.29,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.71
+      },
+      "confidence": 0.56,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 421,
+        "output_tokens": 47
+      },
+      "latency_ms": 71.5,
+      "cost_usd": 1.7682e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you for letting us know. We will forward this report to the surveillance team to see if they can help look into it."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 421,
+        "output_tokens": 47
+      },
+      "latency_ms": 137.8,
+      "cost_usd": 1.7682e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "final_action": "ESCALATE",
+        "message": "Thank you for letting us know. We will forward this report to the surveillance team to see if they can help look into it."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 427,
+        "output_tokens": 45
+      },
+      "latency_ms": 104.7,
+      "cost_usd": 1.7934e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 3,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "action: turn 2: CLARIFY where ESCALATE expected",
+    "conversation: clarification_target_quality: INCORRECT",
+    "conversation: known_information_reasked: INCORRECT",
+    "conversation: turn_efficiency: PARTIAL",
+    "escalation: escalated with reason 'FAILED_CLARIFICATION_WITH_VALID_SIGNAL' (expected 'CONFLICTING_INFORMATION')"
+  ]
+}

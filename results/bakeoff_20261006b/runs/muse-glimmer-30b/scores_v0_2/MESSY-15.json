@@ -1,0 +1,518 @@
+{
+  "scenario_id": "MESSY-15",
+  "model": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 68665.9,
+    "input_tokens": 927,
+    "output_tokens": 4614,
+    "cost_usd": 0.009945,
+    "clarification_turns": 0,
+    "confirmation_turns": 2,
+    "harness_corrections": 1,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.2",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "MESSY-15",
+    "model": "muse-glimmer-30b",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 1,
+      "action": 2,
+      "conversation_quality": 1,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 10,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "confirmation_fidelity": "PARTIAL",
+      "symptom_equivalence": "PARTIAL",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [
+      "extraction: incorrect confirmation repaired after a sender correction",
+      "conversation: confirmation_fidelity: PARTIAL",
+      "conversation: symptom_equivalence: PARTIAL",
+      "conversation: turn_efficiency: PARTIAL"
+    ],
+    "scorer_version": "v0.2",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 1,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 10,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 1,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_get_distracted_by_story",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "FAIL",
+      "severity": 1,
+      "detail": "[('sex', 'missing_value')] (repaired later)"
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "FAIL",
+      "severity": 1,
+      "detail": "[('sex', 'missing_value')] (repaired later)"
+    },
+    {
+      "check": "must_not_get_distracted_by_story",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "139 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "149 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "139 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 incorrect confirmation(s)"
+    },
+    {
+      "task": "turn_efficiency",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 extra turn(s)"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "sudden one-leg weakness/inability to walk normally",
+        "recorded_symptom": "woke up this morning with one leg weak and could not walk normally"
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.59,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.41
+      },
+      "confidence": 0.39,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 459,
+        "output_tokens": 47
+      },
+      "latency_ms": 139.9,
+      "cost_usd": 1.9278e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 8,
+            "sex": "male",
+            "settlement": "Tureta",
+            "symptom": "sudden one-leg weakness/inability to walk normally",
+            "state": "Sokoto",
+            "lga": "Tureta"
+          }
+        ],
+        "confirmation_message": "I have: 8-year-old Musa in Tureta town, Tureta LGA, Sokoto, woke up this morning with one leg weak and difficulty walking. Is this correct?"
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "CORRECT": 0.08,
+        "PARTIAL": 0.84,
+        "INCORRECT": 0.08
+      },
+      "confidence": 0.76,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 570,
+        "output_tokens": 46
+      },
+      "latency_ms": 153.3,
+      "cost_usd": 2.394e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: 8-year-old Musa in Tureta town, Tureta LGA, Sokoto, woke up this morning with one leg weak and difficulty walking. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.02,
+        "PARTIAL": 0.28,
+        "CORRECT": 0.7
+      },
+      "confidence": 0.55,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 434,
+        "output_tokens": 47
+      },
+      "latency_ms": 67.9,
+      "cost_usd": 1.8228000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: 8-year-old Musa in Tureta town, Tureta LGA, Sokoto, woke up this morning with one leg weak and difficulty walking. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.99
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 434,
+        "output_tokens": 47
+      },
+      "latency_ms": 81.1,
+      "cost_usd": 1.8228000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "sudden one-leg weakness/inability to walk normally",
+        "recorded_symptom": "woke up this morning with one leg weak and could not walk normally"
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.53,
+        "CORRECT": 0.47
+      },
+      "confidence": 0.29,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 459,
+        "output_tokens": 47
+      },
+      "latency_ms": 89.6,
+      "cost_usd": 1.9278e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 8,
+            "sex": "male",
+            "settlement": "Tureta",
+            "symptom": "sudden one-leg weakness/inability to walk normally",
+            "state": "Sokoto",
+            "lga": "Tureta"
+          }
+        ],
+        "confirmation_message": "Updated: 8-year-old boy Musa in Tureta town, Tureta LGA, Sokoto, woke up this morning with one leg weak and could not walk normally. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.71,
+        "PARTIAL": 0.06,
+        "INCORRECT": 0.23
+      },
+      "confidence": 0.56,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 572,
+        "output_tokens": 46
+      },
+      "latency_ms": 134.2,
+      "cost_usd": 2.4024000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Updated: 8-year-old boy Musa in Tureta town, Tureta LGA, Sokoto, woke up this morning with one leg weak and could not walk normally. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.26,
+        "CORRECT": 0.73,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.6,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 436,
+        "output_tokens": 47
+      },
+      "latency_ms": 65.6,
+      "cost_usd": 1.8312e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Updated: 8-year-old boy Musa in Tureta town, Tureta LGA, Sokoto, woke up this morning with one leg weak and could not walk normally. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 436,
+        "output_tokens": 47
+      },
+      "latency_ms": 81.8,
+      "cost_usd": 1.8312e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. The report for 8-year-old boy Musa in Tureta, Tureta LGA, Sokoto with one leg weak this morning has been recorded for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.17,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.82
+      },
+      "confidence": 0.73,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 433,
+        "output_tokens": 47
+      },
+      "latency_ms": 65.8,
+      "cost_usd": 1.8186e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. The report for 8-year-old boy Musa in Tureta, Tureta LGA, Sokoto with one leg weak this morning has been recorded for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.05,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.95
+      },
+      "confidence": 0.92,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 433,
+        "output_tokens": 47
+      },
+      "latency_ms": 84.5,
+      "cost_usd": 1.8186e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "final_action": "ACCEPT",
+        "message": "Thank you. The report for 8-year-old boy Musa in Tureta, Tureta LGA, Sokoto with one leg weak this morning has been recorded for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 439,
+        "output_tokens": 45
+      },
+      "latency_ms": 119.0,
+      "cost_usd": 1.8438000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 3,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "extraction: incorrect confirmation repaired after a sender correction",
+    "conversation: confirmation_fidelity: PARTIAL",
+    "conversation: symptom_equivalence: PARTIAL",
+    "conversation: turn_efficiency: PARTIAL"
+  ]
+}

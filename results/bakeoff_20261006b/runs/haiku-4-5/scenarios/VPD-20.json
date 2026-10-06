@@ -1,0 +1,472 @@
+{
+  "scenario_id": "VPD-20",
+  "title": "Meningitis-like fever and neck stiffness",
+  "model_key": "haiku-4-5",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "OTHER_VPD",
+      "sender_message": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto North",
+              "settlement": "Sokoto town",
+              "listed": true
+            },
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto South",
+              "settlement": "Sokoto town",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Sokoto town",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "settlement": "Sokoto town"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto North",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                },
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto South",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [
+                "lga"
+              ],
+              "requires": [
+                "lga"
+              ],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 15 year old in Sokoto town suddenly developed fever and a stiff neck.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Sokoto town\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"settlement\": \"Sokoto town\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"unresolved_fields\": [\"lga\"], \"requires\": [\"lga\"], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"HEALTH_RELATED_UNCLEAR\", \"other_vpd\": false, \"action\": \"CLARIFY\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden fever and stiff neck\", \"age\": 15, \"sex\": \"unknown\", \"state\": \"Sokoto\", \"lga\": null, \"settlement\": \"Sokoto town\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Sokoto town\", \"inferred_fields\": [\"state\", \"settlement\"], \"confidence\": \"medium\"}], \"missing_information\": [\"lga\", \"sex\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": \"lga\", \"attempt_number\": 1}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?\"}",
+          "raw_response": {
+            "id": "msg_011CfkDuNK3Eq2sNygTrwiuZ",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\": \"HEALTH_RELATED_UNCLEAR\", \"other_vpd\": false, \"action\": \"CLARIFY\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden fever and stiff neck\", \"age\": 15, \"sex\": \"unknown\", \"state\": \"Sokoto\", \"lga\": null, \"settlement\": \"Sokoto town\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Sokoto town\", \"inferred_fields\": [\"state\", \"settlement\"], \"confidence\": \"medium\"}], \"missing_information\": [\"lga\", \"sex\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": \"lga\", \"attempt_number\": 1}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4767,
+              "output_tokens": 270,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4767,
+            "output_tokens": 270,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 2531.5,
+          "cost_usd": 0.006117000000000001,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDuMzBn9wPLRUPG27mb",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden fever and stiff neck",
+            "age": 15,
+            "sex": "unknown",
+            "state": "Sokoto",
+            "lga": null,
+            "settlement": "Sokoto town"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Sokoto town",
+            "inferred_fields": [
+              "state",
+              "settlement"
+            ],
+            "confidence": "medium"
+          }
+        ],
+        "missing_information": [
+          "lga",
+          "sex"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "lga",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?"
+      },
+      "reply": {
+        "kind": "NEUTRAL",
+        "text": "I already told you that.",
+        "reason": null,
+        "detail": null,
+        "events": [
+          "OFF_TARGET_CLARIFY"
+        ],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 0,
+      "gold_action": "OTHER_VPD",
+      "sender_message": "I already told you that.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?"
+          },
+          {
+            "role": "user",
+            "content": "I already told you that."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden fever and stiff neck",
+              "age": 15,
+              "sex": "unknown",
+              "state": "Sokoto",
+              "lga": null,
+              "settlement": "Sokoto town"
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto North",
+              "settlement": "Sokoto town",
+              "listed": true
+            },
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto South",
+              "settlement": "Sokoto town",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Sokoto town",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "settlement": "Sokoto town"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto North",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                },
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto South",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [
+                "lga"
+              ],
+              "requires": [
+                "lga"
+              ],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 15 year old in Sokoto town suddenly developed fever and a stiff neck.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?\"}, {\"role\": \"user\", \"content\": \"I already told you that.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden fever and stiff neck\", \"age\": 15, \"sex\": \"unknown\", \"state\": \"Sokoto\", \"lga\": null, \"settlement\": \"Sokoto town\"}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Sokoto town\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"settlement\": \"Sokoto town\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"unresolved_fields\": [\"lga\"], \"requires\": [\"lga\"], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"OTHER_VPD\", \"other_vpd\": true, \"action\": \"OTHER_VPD\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden fever and stiff neck\", \"age\": 15, \"sex\": \"unknown\", \"state\": \"Sokoto\", \"lga\": null, \"settlement\": \"Sokoto town\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Sokoto town\", \"inferred_fields\": [\"state\", \"settlement\"], \"confidence\": \"high\"}], \"missing_information\": [\"lga\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 1}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"Thank you. This report of sudden fever and stiff neck suggests meningitis, which is a priority disease. I am stopping AFP-specific intake and preserving this signal for escalation to your disease surveillance team.\"}",
+          "raw_response": {
+            "id": "msg_011CfkDuZ6vTNEe1w6AtbyW8",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\": \"OTHER_VPD\", \"other_vpd\": true, \"action\": \"OTHER_VPD\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden fever and stiff neck\", \"age\": 15, \"sex\": \"unknown\", \"state\": \"Sokoto\", \"lga\": null, \"settlement\": \"Sokoto town\"}], \"location_resolution\": [{\"case_id\": \"case_1\", \"raw_location\": \"Sokoto town\", \"inferred_fields\": [\"state\", \"settlement\"], \"confidence\": \"high\"}], \"missing_information\": [\"lga\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 1}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"Thank you. This report of sudden fever and stiff neck suggests meningitis, which is a priority disease. I am stopping AFP-specific intake and preserving this signal for escalation to your disease surveillance team.\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-haiku-4-5-20251001",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "not_available",
+              "input_tokens": 4896,
+              "output_tokens": 263,
+              "service_tier": "standard"
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 4896,
+            "output_tokens": 263,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 3080.1,
+          "cost_usd": 0.006211,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkDuYicRjoLzd8A69ecx",
+          "model": "claude-haiku-4-5-20251001",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "OTHER_VPD",
+        "other_vpd": true,
+        "action": "OTHER_VPD",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden fever and stiff neck",
+            "age": 15,
+            "sex": "unknown",
+            "state": "Sokoto",
+            "lga": null,
+            "settlement": "Sokoto town"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Sokoto town",
+            "inferred_fields": [
+              "state",
+              "settlement"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "lga"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. This report of sudden fever and stiff neck suggests meningitis, which is a priority disease. I am stopping AFP-specific intake and preserving this signal for escalation to your disease surveillance team."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 1
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for reporting. I have a 15-year-old in Sokoto town with sudden fever and stiff neck. Is this person in Sokoto North or Sokoto South LGA?"
+    },
+    {
+      "role": "user",
+      "content": "I already told you that."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. This report of sudden fever and stiff neck suggests meningitis, which is a priority disease. I am stopping AFP-specific intake and preserving this signal for escalation to your disease surveillance team."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden fever and stiff neck",
+        "age": 15,
+        "sex": "unknown",
+        "state": "Sokoto",
+        "lga": null,
+        "settlement": "Sokoto town"
+      }
+    ]
+  },
+  "gold_actions": [
+    "OTHER_VPD"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "OTHER_VPD"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 5611.6,
+    "input_tokens": 9663,
+    "output_tokens": 533,
+    "cost_usd": 0.012328,
+    "clarification_turns": 1,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 1
+  }
+}

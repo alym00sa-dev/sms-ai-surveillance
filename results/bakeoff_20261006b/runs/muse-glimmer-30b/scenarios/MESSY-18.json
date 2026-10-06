@@ -1,0 +1,215 @@
+{
+  "scenario_id": "MESSY-18",
+  "title": "Clearly chronic weakness should not be treated as AFP",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "NOT_RELEVANT",
+      "sender_message": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"NOT_RELEVANT\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"This sounds like long-standing weakness since baby with no recent change. AFP surveillance looks for sudden onset weakness. Thank you for reporting.\"\n}",
+          "raw_response": {
+            "id": "p46N9En-fdNmn-a461ac613f8a76fd",
+            "object": "chat.completion",
+            "created": 1791258327,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"NOT_RELEVANT\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"This sounds like long-standing weakness since baby with no recent change. AFP surveillance looks for sudden onset weakness. Thank you for reporting.\"\n}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {...}}\n\nWe need to convert natural-language community reports into usable surveillance signals for AFP, while preserving relevant reports of other vaccine-preventable or priority diseases.\n\nWe have report: 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.\n\nAFP is acute flaccid paralysis. This is chronic weakness since baby, not acute. \"Nothing changed today.\" So not acute onset. AFP requires acute onset flaccid paralysis. This appears not AFP suspected. Possibly not relevant? Could be health related unclear.\n\nWe need to detect and structure reported symptoms. Do not diagnose disease. Extract information already provided before asking follow-up.\n\nWe have symptom: weak leg since baby. Age 10, sex male, location Majawa, Jigawa, Kafin Hausa.\n\nIs this AFP suspected? Acute flaccid paralysis definition: sudden onset weakness. Here chronic. So likely not AFP. Could be OTHER_VPD? No.\n\nHealth related unclear? Possibly NOT_RELEVANT? The instruction: Preserve relevant reports of other vaccine-preventable or priority diseases. This is chronic weakness, not acute. Might be not relevant for AFP surveillance. Could be health related unclear.\n\nGeneral principles: Detect and structure reported symptoms. Do not diagnose disease. If message appears to describe another relevant disease or syndrome rather than AFP, preserve signal and stop. Do not begin disease-specific follow-up.\n\nWeak leg since baby is not acute. Could be congenital. Might be not surveillance relevant.\n\nWe could classify as NOT_RELEVANT? Or HEALTH_RELATED_UNCLEAR? The user reports weak leg. That's health related. Might be unclear whether it's AFP. The key is acute onset. The user says nothing changed today, had since baby. So clearly not acute.\n\nThe instruction: If a message appears to describe another relevant disease or syndrome rather than AFP, preserve signal and stop. Do not begin disease-specific follow-up.\n\nIs chronic weakness a surveillance disease? Probably not.\n\nMaybe we should still ask clarification? The principle: Extract information already provided before asking any follow-up question. Ask only for information that is still needed. Ask at most one focused clarification question per turn.\n\nWe have age, sex, location, symptom description. The symptom is chronic. Could be not AFP. Possibly we could clarify onset? It says since baby. That's clear. Nothing changed today.\n\nPotential classification: NOT_RELEVANT? The message is health related but not AFP. The classification options: AFP_SUSPECTED, OTHER_VPD, HEALTH_RELATED_UNCLEAR, NOT_RELEVANT, UNINTELLIGIBLE.\n\nHEALTH_RELATED_UNCLEAR means unclear if relevant? Might be NOT_RELEVANT.\n\nThe guidance: If a message appears to describe another relevant disease or syndrome rather than AFP, preserve signal and stop. Do not begin a disease-specific follow-up conversation.\n\nDoes chronic leg weakness count as relevant disease? Probably not vaccine-preventable.\n\nMaybe we should classify as NOT_RELEVANT because it's not acute.\n\nAlternatively, we could treat as HEALTH_RELATED_UNCLEAR because we need to confirm acute onset? But user explicitly says had since baby, nothing changed today. That's clear.\n\nThe agent should not diagnose. It could still ask clarification about acute onset? But user said since baby.\n\nWe could output classification NOT_RELEVANT, action NOT_RELEVANT, other_vpd false.\n\nBut maybe better to classify as AFP_SUSPECTED? No, because not acute.\n\nThe general principles: Detect and structure reported symptoms. Do not diagnose disease.\n\nWe could still create a case with symptom \"weak leg since baby\". But AFP suspected requires acute flaccid paralysis. The symptom described is not acute.\n\nThe decision definitions: classification must be exactly one.\n\nIf not AFP, could be HEALTH_RELATED_UNCLEAR.\n\nHmm.\n\nLet's think about surveillance intent: AFP surveillance looks for acute flaccid paralysis. A chronic weakness is not AFP. So we should not create AFP suspected case.\n\nWe could respond asking clarifying if onset was sudden? But user said since baby, nothing changed today. That is clear.\n\nMaybe we should still confirm? The rule: Before ACCEPT, present concise structured summary and ask sender to confirm or correct.\n\nBut if classification is NOT_RELEVANT, we don't need confirmation? Could just say not relevant.\n\nThe instruction: \"Preserve relevant reports of other vaccine-preventable or priority diseases.\" This is not.\n\nPossibly we should classify as NOT_RELEVANT and action NOT_RELEVANT.\n\nThe output requires cases array. If not relevant, cases maybe empty? Could have case but classification not AFP.\n\nThe output contract shows cases array for all case state. Could be empty.\n\nThe response should be short, clear, appropriate for SMS.\n\nMaybe we can say: This sounds like long-standing weakness, not sudden onset. AFP surveillance looks for sudden onset. Is there any recent new weakness?\n\nBut that would be asking clarification. Might be okay to ask one focused clarification question? But we already have information: since baby.\n\nMaybe we should not ask clarification, just note not AFP.\n\nThe guidelines: Use CLARIFY when report is potentially relevant and one important piece can reasonably be obtained through another question.\n\nIs this potentially relevant? Weak leg could be AFP if misinterpreted. But user says since baby.\n\nCould be the informant mistaken about timing. Might want to clarify acute onset.\n\nThe principle: Extract information already provided before asking any follow-up question. Ask only for information that is still needed.\n\nWe have symptom description. Could be we need to confirm if weakness is acute? But user said since baby.\n\nPotentially we could still ask: Did the weakness start suddenly in last 2 weeks? Might be clarifying.\n\nThe instruction: Preserve uncertainty. Do not turn suspected conditions into confirmed diagnoses.\n\nBetter to treat as HEALTH_RELATED_UNCLEAR? Hmm.\n\nLet's examine similar scenarios. AFP surveillance: acute flaccid paralysis. Chronic weakness not reportable. So we should classify as NOT_RELEVANT.\n\nBut the system might want to still record case as not AFP. The classification options include NOT_RELEVANT.\n\nAction NOT_RELEVANT.\n\nPriority NORMAL.\n\ncases: maybe empty? Could we still create case with symptom but classification not AFP? The cases array is for case state. Might be empty.\n\nThe output contract example shows cases with symptom etc. Possibly we should still capture the information but classification is NOT_RELEVANT.\n\nThe instruction: \"Your primary task is to convert natural-language community reports into usable surveillance signals for Acute Flaccid Paralysis (AFP), while preserving relevant reports of other vaccine-preventable or priority diseases.\"\n\nIf not AFP and not other VPD, we can discard? Might be NOT_RELEVANT.\n\nThe decision definitions: Use NOT_RELEVANT when message is clearly outside surveillance use case, or when repeated clarification never establishes plausible surveillance-relevant health signal.\n\nSeems fits.\n\nThus classification = NOT_RELEVANT, other_vpd = false, action = NOT_RELEVANT, priority = NORMAL, cases = []? Might still have case but not AFP suspected.\n\nPossibly we should still create a case record to preserve info? The schema allows cases. Could be empty.\n\nBetter to create case with info but classification NOT_RELEVANT? Might be inconsistent.\n\nLet's see guidelines: For each AFP-related case, attempt to establish... So if not AFP-related, we may not create case.\n\nI think we should respond with clarification asking about onset? Hmm.\n\nAlternative interpretation: The informant might be reporting a child with weak leg, but says since baby, nothing changed today. Could be they think it's relevant. We could politely explain not AFP and ask if any other child with sudden weakness.\n\nBut instruction says keep user-facing response short, clear, appropriate for SMS.\n\nMaybe we can say: This sounds like long-standing weakness, not sudden onset needed for AFP. Is there another child with sudden leg weakness?\n\nThat is a clarification question. Could be okay.\n\nBut the guidelines say ask at most one focused clarification question per turn. Could ask: Has the weakness started suddenly in the last few days or weeks?\n\nBut user already said since baby, nothing changed today.\n\nMaybe we should just classify as NOT_RELEVANT and respond that this does not meet AFP criteria (chronic). Could ask if they know of acute case.\n\nHmm.\n\nLet's read principles again: Detect and structure reported symptoms. Do not diagnose disease. Extract information already provided before asking any follow-up question. Ask only for information that is still needed.\n\nWe have all info. No missing info. So we don't need clarification.\n\nThus we can decide classification NOT_RELEVANT.\n\nPotential duplicate false.\n\nEscalation required false.\n\nClarification target null, attempt_number 0.\n\nConfirmation status? If action NOT_RELEVANT, confirmation not needed.\n\nResponse: \"The boy's weakness has been present since infancy with no recent change, so it does not fit AFP surveillance for sudden onset paralysis. Thank you.\"\n\nThat seems appropriate.\n\nCheck output shape: classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\ncases array: maybe empty. location_resolution empty.\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status? Could be NOT_READY.\n\nWe need confirmation status enum: NOT_READY, PENDING, CONFIRMED.\n\nIf not confirming, maybe NOT_READY.\n\nLet's produce JSON.\n\nMake sure fields match.\n\ncase_id not needed if no cases.\n\nlocation_resolution [].\n\nresponse short.\n\nPotential alternative: Could classify as HEALTH_RELATED_UNCLEAR because we are unsure if acute? But user said since baby.\n\nI think NOT_RELEVANT is appropriate.\n\nAnother nuance: The instruction says \"If a message appears to describe another relevant disease or syndrome rather than AFP, preserve the signal and stop.\" Chronic weakness not relevant.\n\nThus final.\n\nLet's output JSON.\n\nEnsure no commentary outside JSON.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2733,
+              "total_tokens": 5024,
+              "completion_tokens": 2291,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 208,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 221,
+            "output_tokens": 2291,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 29165.1,
+          "cost_usd": 0.00439305,
+          "stop_reason": "end_turn",
+          "request_id": "p46N9En-fdNmn-a461ac613f8a76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "NOT_RELEVANT",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "This sounds like long-standing weakness since baby with no recent change. AFP surveillance looks for sudden onset weakness. Thank you for reporting."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today."
+    },
+    {
+      "role": "assistant",
+      "content": "This sounds like long-standing weakness since baby with no recent change. AFP surveillance looks for sudden onset weakness. Thank you for reporting."
+    }
+  ],
+  "final_state": {
+    "cases": []
+  },
+  "gold_actions": [
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 29165.1,
+    "input_tokens": 221,
+    "output_tokens": 2291,
+    "cost_usd": 0.004393,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

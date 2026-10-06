@@ -1,0 +1,1132 @@
+{
+  "scenario_id": "CLAR-12",
+  "model": "muse-glimmer-30b",
+  "termination": {
+    "reason": "MAX_TURNS",
+    "detail": "cap=6"
+  },
+  "metrics": {
+    "model_turns": 6,
+    "api_calls": 6,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 294389.6,
+    "input_tokens": 5066,
+    "output_tokens": 17413,
+    "cost_usd": 0.032468,
+    "clarification_turns": 2,
+    "confirmation_turns": 4,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 1
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "CLAR-12",
+    "model": "muse-glimmer-30b",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 0,
+      "conversation_quality": 0,
+      "escalation_priority": 2,
+      "output_adherence": 1
+    },
+    "total": 7,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": false
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "confirmation_fidelity": "CORRECT",
+      "clarification_target_quality": "INCORRECT",
+      "known_information_reasked": "PARTIAL",
+      "symptom_equivalence": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT"
+    },
+    "notes": [
+      "action: turn 1: CONFIRM where CLARIFY expected",
+      "action: turn 2: off-target clarification",
+      "action: turn 3: CONFIRM where CLARIFY expected",
+      "action: turn 4: CONFIRM where CLARIFY expected",
+      "action: turn 5: CONFIRM where CLARIFY expected",
+      "action: scenario ended MAX_TURNS",
+      "conversation: clarification_target_quality: INCORRECT",
+      "conversation: known_information_reasked: PARTIAL",
+      "conversation: turn_efficiency: INCORRECT",
+      "conversation: conversation looped (MAX_TURNS)",
+      "output: consistency: confirmation.status should be NOT_READY for CLARIFY"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 2,
+    "output_adherence": 1
+  },
+  "total": 7,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 2,
+    "output_adherence": 1
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_preserve_multiple_cases",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_merge_children",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_ask_one_targeted_question",
+      "cursor": 0,
+      "route": "JEV",
+      "dimension": "conversation_quality",
+      "status": "FAIL",
+      "severity": 1,
+      "detail": "clarification target missing or not what the report still needs"
+    },
+    {
+      "check": "must_preserve_multiple_cases",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_apply_later_correction",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "IGNORED_EXPLICIT_CORRECTION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_merge_children",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_preserve_multiple_cases",
+      "cursor": 2,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_apply_later_correction",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "IGNORED_EXPLICIT_CORRECTION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_merge_children",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "136 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "95 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "INCORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'age' is not what the report still needs"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "190 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 4,
+      "source": "det",
+      "detail": "166 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 4,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 5,
+      "source": "det",
+      "detail": "169 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 5,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 6,
+      "source": "det",
+      "detail": "74 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 6,
+      "source": "det",
+      "detail": "target 'symptom' is needed"
+    },
+    {
+      "task": "known_information_reasked",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 question(s) asked for a known fact"
+    },
+    {
+      "task": "turn_efficiency",
+      "result": "INCORRECT",
+      "turn": null,
+      "source": "det",
+      "detail": "3 extra turn(s)"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.03,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.97
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 82.8,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.02,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.98
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 111.8,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 5,
+            "sex": "male",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          },
+          {
+            "age": "about 9",
+            "sex": "female",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          }
+        ],
+        "confirmation_message": "I have 2 children in Gwadabawa, Gwadabawa LGA, Sokoto: 1) boy age 5 with weak legs; 2) girl age maybe 9 with weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.04,
+        "CORRECT": 0.95,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.92,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 635,
+        "output_tokens": 46
+      },
+      "latency_ms": 76.9,
+      "cost_usd": 2.667e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have 2 children in Gwadabawa, Gwadabawa LGA, Sokoto: 1) boy age 5 with weak legs; 2) girl age maybe 9 with weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.79,
+        "PARTIAL": 0.2,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.69,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 443,
+        "output_tokens": 47
+      },
+      "latency_ms": 73.7,
+      "cost_usd": 1.8606e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have 2 children in Gwadabawa, Gwadabawa LGA, Sokoto: 1) boy age 5 with weak legs; 2) girl age maybe 9 with weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.11,
+        "CORRECT": 0.89,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.83,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 443,
+        "output_tokens": 47
+      },
+      "latency_ms": 239.0,
+      "cost_usd": 1.8606e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "whether the weakness started suddenly"
+        ],
+        "assistant_message": "You said you don't know. Could you confirm the approximate age of the girl, around 9 years old?"
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 1.0,
+        "CORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 434,
+        "output_tokens": 48
+      },
+      "latency_ms": 63.1,
+      "cost_usd": 1.8228000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "child 1: age: 5",
+          "child 1: sex: male",
+          "child 1: settlement: Gwadabawa",
+          "child 1: lga: Gwadabawa",
+          "child 1: state: Sokoto",
+          "child 1: symptom: weak legs",
+          "child 2: age: about 9",
+          "child 2: sex: female",
+          "child 2: settlement: Gwadabawa",
+          "child 2: lga: Gwadabawa",
+          "child 2: state: Sokoto",
+          "child 2: symptom: weak legs"
+        ],
+        "assistant_message": "You said you don't know. Could you confirm the approximate age of the girl, around 9 years old?"
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.84,
+        "INCORRECT": 0.16,
+        "CORRECT": 0.0
+      },
+      "confidence": 0.75,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 564,
+        "output_tokens": 47
+      },
+      "latency_ms": 113.3,
+      "cost_usd": 2.3688e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "You said you don't know. Could you confirm the approximate age of the girl, around 9 years old?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.06,
+        "CORRECT": 0.93
+      },
+      "confidence": 0.89,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 418,
+        "output_tokens": 47
+      },
+      "latency_ms": 129.5,
+      "cost_usd": 1.7556e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "You said you don't know. Could you confirm the approximate age of the girl, around 9 years old?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 418,
+        "output_tokens": 47
+      },
+      "latency_ms": 180.0,
+      "cost_usd": 1.7556e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.98,
+        "PARTIAL": 0.02,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 132.8,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.05,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.95
+      },
+      "confidence": 0.93,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 73.1,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 5,
+            "sex": "male",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          },
+          {
+            "age": "about 9",
+            "sex": "female",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          }
+        ],
+        "confirmation_message": "I have: 1) boy age 5 in Gwadabawa, Gwadabawa LGA, Sokoto with weak legs; 2) girl about age 9 in Gwadabawa, Gwadabawa LGA, Sokoto with weak legs. Is this correct or should I correct anything?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "CORRECT": 0.99,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 652,
+        "output_tokens": 46
+      },
+      "latency_ms": 92.6,
+      "cost_usd": 2.7384e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I have: 1) boy age 5 in Gwadabawa, Gwadabawa LGA, Sokoto with weak legs; 2) girl about age 9 in Gwadabawa, Gwadabawa LGA, Sokoto with weak legs. Is this correct or should I correct anything?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.58,
+        "PARTIAL": 0.41,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.36,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 460,
+        "output_tokens": 47
+      },
+      "latency_ms": 100.1,
+      "cost_usd": 1.932e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I have: 1) boy age 5 in Gwadabawa, Gwadabawa LGA, Sokoto with weak legs; 2) girl about age 9 in Gwadabawa, Gwadabawa LGA, Sokoto with weak legs. Is this correct or should I correct anything?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.22,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.78
+      },
+      "confidence": 0.67,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 460,
+        "output_tokens": 47
+      },
+      "latency_ms": 78.7,
+      "cost_usd": 1.932e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.98,
+        "PARTIAL": 0.02,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 78.7,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.04,
+        "CORRECT": 0.96
+      },
+      "confidence": 0.94,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 96.3,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 5,
+            "sex": "male",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          },
+          {
+            "age": "about 9",
+            "sex": "female",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          }
+        ],
+        "confirmation_message": "I have 2 children in Gwadabawa, Gwadabawa LGA, Sokoto: 1) boy age 5 with weak legs; 2) girl about age 9 with weak legs. Is this correct, or should I correct anything?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.99
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 641,
+        "output_tokens": 46
+      },
+      "latency_ms": 86.0,
+      "cost_usd": 2.6922e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "I have 2 children in Gwadabawa, Gwadabawa LGA, Sokoto: 1) boy age 5 with weak legs; 2) girl about age 9 with weak legs. Is this correct, or should I correct anything?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.32,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.67
+      },
+      "confidence": 0.5,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 449,
+        "output_tokens": 47
+      },
+      "latency_ms": 56.5,
+      "cost_usd": 1.8858e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "I have 2 children in Gwadabawa, Gwadabawa LGA, Sokoto: 1) boy age 5 with weak legs; 2) girl about age 9 with weak legs. Is this correct, or should I correct anything?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.15,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.85
+      },
+      "confidence": 0.76,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 449,
+        "output_tokens": 47
+      },
+      "latency_ms": 146.3,
+      "cost_usd": 1.8858e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 5,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.03,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.97
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 76.5,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 5,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.98,
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.02
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 122.7,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 5,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 5,
+            "sex": "male",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          },
+          {
+            "age": "about 9",
+            "sex": "female",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          }
+        ],
+        "confirmation_message": "I have: 1) boy age 5 with weak legs, 2) girl about age 9 with weak legs, both in Gwadabawa, Gwadabawa LGA, Sokoto. Is this correct? Please tell me what to change if not."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.95
+      },
+      "confidence": 0.93,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 643,
+        "output_tokens": 46
+      },
+      "latency_ms": 189.5,
+      "cost_usd": 2.7006e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 5,
+      "source": "jev",
+      "state": {
+        "message": "I have: 1) boy age 5 with weak legs, 2) girl about age 9 with weak legs, both in Gwadabawa, Gwadabawa LGA, Sokoto. Is this correct? Please tell me what to change if not."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.77,
+        "PARTIAL": 0.22,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.66,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 451,
+        "output_tokens": 47
+      },
+      "latency_ms": 69.4,
+      "cost_usd": 1.8942e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 5,
+      "source": "jev",
+      "state": {
+        "message": "I have: 1) boy age 5 with weak legs, 2) girl about age 9 with weak legs, both in Gwadabawa, Gwadabawa LGA, Sokoto. Is this correct? Please tell me what to change if not."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "CORRECT": 0.82,
+        "PARTIAL": 0.17
+      },
+      "confidence": 0.73,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 451,
+        "output_tokens": 47
+      },
+      "latency_ms": 94.1,
+      "cost_usd": 1.8942e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 6,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "whether the weakness started suddenly"
+        ],
+        "assistant_message": "Did the leg weakness in both children start suddenly in the last few days?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.67,
+        "PARTIAL": 0.32,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.52,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 47
+      },
+      "latency_ms": 84.9,
+      "cost_usd": 1.7892e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 6,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "child 1: age: 5",
+          "child 1: sex: male",
+          "child 1: settlement: Gwadabawa",
+          "child 1: lga: Gwadabawa",
+          "child 1: state: Sokoto",
+          "child 1: symptom: weak legs",
+          "child 2: age: about 9",
+          "child 2: sex: female",
+          "child 2: settlement: Gwadabawa",
+          "child 2: lga: Gwadabawa",
+          "child 2: state: Sokoto",
+          "child 2: symptom: weak legs"
+        ],
+        "assistant_message": "Did the leg weakness in both children start suddenly in the last few days?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.96,
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.94,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 556,
+        "output_tokens": 47
+      },
+      "latency_ms": 87.5,
+      "cost_usd": 2.3352e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 6,
+      "source": "jev",
+      "state": {
+        "message": "Did the leg weakness in both children start suddenly in the last few days?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.99,
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 88.4,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 6,
+      "source": "jev",
+      "state": {
+        "message": "Did the leg weakness in both children start suddenly in the last few days?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.99
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 47
+      },
+      "latency_ms": 104.9,
+      "cost_usd": 1.722e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 6,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "action: turn 1: CONFIRM where CLARIFY expected",
+    "action: turn 2: off-target clarification",
+    "action: turn 3: CONFIRM where CLARIFY expected",
+    "action: turn 4: CONFIRM where CLARIFY expected",
+    "action: turn 5: CONFIRM where CLARIFY expected",
+    "action: scenario ended MAX_TURNS",
+    "conversation: clarification_target_quality: INCORRECT",
+    "conversation: known_information_reasked: PARTIAL",
+    "conversation: turn_efficiency: INCORRECT",
+    "conversation: conversation looped (MAX_TURNS)",
+    "output: consistency: confirmation.status should be NOT_READY for CLARIFY"
+  ]
+}

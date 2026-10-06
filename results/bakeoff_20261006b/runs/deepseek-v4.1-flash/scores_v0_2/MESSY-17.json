@@ -1,0 +1,495 @@
+{
+  "scenario_id": "MESSY-17",
+  "model": "deepseek-v4.1-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 4430.0,
+    "input_tokens": 1134,
+    "output_tokens": 1419,
+    "cost_usd": 0.004347,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.2",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "MESSY-17",
+    "model": "deepseek-v4.1-flash",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 2,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 12,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "CORRECT",
+      "confirmation_fidelity": "CORRECT",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "symptom_equivalence": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [],
+    "scorer_version": "v0.2",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 12,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_accept_reasonably_bounded_under_15_age",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_accept_reasonably_bounded_under_15_age",
+      "cursor": 2,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 2,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "74 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'age' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "116 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "126 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the child's age"
+        ],
+        "assistant_message": "Thank you. How old is the boy in Majawa who suddenly cannot use both legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.05,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.95
+      },
+      "confidence": 0.92,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 428,
+        "output_tokens": 47
+      },
+      "latency_ms": 82.1,
+      "cost_usd": 1.7976000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "sex: male",
+          "settlement: Majawa",
+          "lga: Kafin Hausa",
+          "state: Jigawa",
+          "symptom: sudden inability to use both legs"
+        ],
+        "assistant_message": "Thank you. How old is the boy in Majawa who suddenly cannot use both legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.22,
+        "CORRECT": 0.77
+      },
+      "confidence": 0.65,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 462,
+        "output_tokens": 47
+      },
+      "latency_ms": 94.8,
+      "cost_usd": 1.9404e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. How old is the boy in Majawa who suddenly cannot use both legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "CORRECT": 0.86,
+        "PARTIAL": 0.13
+      },
+      "confidence": 0.8,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 413,
+        "output_tokens": 47
+      },
+      "latency_ms": 101.3,
+      "cost_usd": 1.7346e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. How old is the boy in Majawa who suddenly cannot use both legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.06,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.94
+      },
+      "confidence": 0.9,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 413,
+        "output_tokens": 47
+      },
+      "latency_ms": 135.2,
+      "cost_usd": 1.7346e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "sudden inability to use both legs",
+        "recorded_symptom": "suddenly cannot use both legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 449,
+        "output_tokens": 47
+      },
+      "latency_ms": 96.1,
+      "cost_usd": 1.8858e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": "about 14",
+            "sex": "male",
+            "settlement": "Majawa",
+            "symptom": "sudden inability to use both legs",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa"
+          }
+        ],
+        "confirmation_message": "I have: boy, about 14 years old, in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.02,
+        "PARTIAL": 0.01,
+        "CORRECT": 0.97
+      },
+      "confidence": 0.96,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 568,
+        "output_tokens": 46
+      },
+      "latency_ms": 99.0,
+      "cost_usd": 2.3856000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I have: boy, about 14 years old, in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.26,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.73
+      },
+      "confidence": 0.59,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 431,
+        "output_tokens": 47
+      },
+      "latency_ms": 71.9,
+      "cost_usd": 1.8102e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I have: boy, about 14 years old, in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.02,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.97
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 431,
+        "output_tokens": 47
+      },
+      "latency_ms": 136.7,
+      "cost_usd": 1.8102e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Confirmed and recorded: boy, about 14 years old, in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Thank you."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 0.83,
+        "PARTIAL": 0.17
+      },
+      "confidence": 0.75,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 431,
+        "output_tokens": 47
+      },
+      "latency_ms": 144.6,
+      "cost_usd": 1.8102e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Confirmed and recorded: boy, about 14 years old, in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Thank you."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.03,
+        "CORRECT": 0.97,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 431,
+        "output_tokens": 47
+      },
+      "latency_ms": 96.9,
+      "cost_usd": 1.8102e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "final_action": "ACCEPT",
+        "message": "Confirmed and recorded: boy, about 14 years old, in Majawa, Kafin Hausa, Jigawa, who suddenly cannot use both legs. Thank you."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 45
+      },
+      "latency_ms": 94.7,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 3,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": []
+}

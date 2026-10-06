@@ -1,0 +1,459 @@
+{
+  "scenario_id": "CLAR-12",
+  "model": "deepseek-v4.1-flash",
+  "termination": {
+    "reason": "PREMATURE_TERMINAL",
+    "detail": "ESCALATE; expected=CLARIFY"
+  },
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 8059.0,
+    "input_tokens": 672,
+    "output_tokens": 2219,
+    "cost_usd": 0.004439,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.2",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "CLAR-12",
+    "model": "deepseek-v4.1-flash",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 0,
+      "conversation_quality": 2,
+      "escalation_priority": 0,
+      "output_adherence": 1
+    },
+    "total": 7,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": false
+    },
+    "jev_judgments": {
+      "sms_conciseness": "PARTIAL",
+      "confirmation_fidelity": "CORRECT",
+      "symptom_equivalence": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [
+      "action: turn 1: CONFIRM where CLARIFY expected",
+      "action: turn 2: ESCALATE where CLARIFY expected",
+      "action: scenario ended PREMATURE_TERMINAL",
+      "conversation: sms_conciseness: PARTIAL",
+      "escalation: unnecessary escalation",
+      "output: consistency: confirmation.status should be NOT_READY for ESCALATE"
+    ],
+    "scorer_version": "v0.2",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 2,
+    "escalation_priority": 0,
+    "output_adherence": 1
+  },
+  "total": 7,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 2,
+    "escalation_priority": 0,
+    "output_adherence": 1
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_preserve_multiple_cases",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_merge_children",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_ask_one_targeted_question",
+      "cursor": 0,
+      "route": "JEV",
+      "dimension": "conversation_quality",
+      "status": "PASS",
+      "severity": null,
+      "detail": "no clarification at this turn"
+    },
+    {
+      "check": "must_preserve_multiple_cases",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_apply_later_correction",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "IGNORED_EXPLICIT_CORRECTION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_merge_children",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_preserve_multiple_cases",
+      "cursor": 2,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_apply_later_correction",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "IGNORED_EXPLICIT_CORRECTION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_merge_children",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "NOT_REACHED",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "115 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "161 chars"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.96
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 85.1,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "weak legs",
+        "recorded_symptom": "weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.96
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 437,
+        "output_tokens": 47
+      },
+      "latency_ms": 85.1,
+      "cost_usd": 1.8354000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 5,
+            "sex": "male",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          },
+          {
+            "age": "about 9",
+            "sex": "female",
+            "settlement": "Gwadabawa",
+            "symptom": "weak legs",
+            "state": "Sokoto",
+            "lga": "Gwadabawa"
+          }
+        ],
+        "confirmation_message": "I have 2 children in Gwadabawa, Sokoto: 1) boy, age 5, weak legs; 2) girl, age about 9, weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.03,
+        "CORRECT": 0.97,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 630,
+        "output_tokens": 46
+      },
+      "latency_ms": 120.0,
+      "cost_usd": 2.646e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have 2 children in Gwadabawa, Sokoto: 1) boy, age 5, weak legs; 2) girl, age about 9, weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.9,
+        "PARTIAL": 0.1,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.85,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 438,
+        "output_tokens": 47
+      },
+      "latency_ms": 114.4,
+      "cost_usd": 1.8396e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have 2 children in Gwadabawa, Sokoto: 1) boy, age 5, weak legs; 2) girl, age about 9, weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.83,
+        "PARTIAL": 0.16,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.75,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 438,
+        "output_tokens": 47
+      },
+      "latency_ms": 167.7,
+      "cost_usd": 1.8396e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I could not confirm these details with you. Passing to surveillance staff: 2 children in Gwadabawa, Sokoto, with weak legs - 1) boy, age 5; 2) girl, age about 9."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "INCORRECT": 0.16,
+        "PARTIAL": 0.42,
+        "CORRECT": 0.42
+      },
+      "confidence": 0.13,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 444,
+        "output_tokens": 47
+      },
+      "latency_ms": 148.8,
+      "cost_usd": 1.8648e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I could not confirm these details with you. Passing to surveillance staff: 2 children in Gwadabawa, Sokoto, with weak legs - 1) boy, age 5; 2) girl, age about 9."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.15,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.85
+      },
+      "confidence": 0.78,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 444,
+        "output_tokens": 47
+      },
+      "latency_ms": 77.5,
+      "cost_usd": 1.8648e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "final_action": "ESCALATE",
+        "message": "I could not confirm these details with you. Passing to surveillance staff: 2 children in Gwadabawa, Sokoto, with weak legs - 1) boy, age 5; 2) girl, age about 9."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.99
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 450,
+        "output_tokens": 45
+      },
+      "latency_ms": 118.3,
+      "cost_usd": 1.8900000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 2,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "action: turn 1: CONFIRM where CLARIFY expected",
+    "action: turn 2: ESCALATE where CLARIFY expected",
+    "action: scenario ended PREMATURE_TERMINAL",
+    "conversation: sms_conciseness: PARTIAL",
+    "escalation: unnecessary escalation",
+    "output: consistency: confirmation.status should be NOT_READY for ESCALATE"
+  ]
+}

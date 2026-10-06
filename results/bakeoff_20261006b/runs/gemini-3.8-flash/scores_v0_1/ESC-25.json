@@ -1,0 +1,450 @@
+{
+  "scenario_id": "ESC-25",
+  "model": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 31843.0,
+    "input_tokens": 8867,
+    "output_tokens": 4052,
+    "cost_usd": 0.021845,
+    "clarification_turns": 2,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 2
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "ESC-25",
+    "model": "gemini-3.8-flash",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 0,
+      "conversation_quality": 1,
+      "escalation_priority": 1,
+      "output_adherence": 2
+    },
+    "total": 8,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "INCORRECT",
+      "appropriate_stop_behavior": "PARTIAL",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT"
+    },
+    "notes": [
+      "action: turn 2: CLARIFY where ESCALATE expected",
+      "conversation: appropriate_stop_behavior: PARTIAL",
+      "conversation: clarification_target_quality: INCORRECT",
+      "conversation: turn_efficiency: PARTIAL",
+      "escalation: escalated with reason 'FAILED_CLARIFICATION_WITH_VALID_SIGNAL' (expected 'CONFLICTING_INFORMATION')"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 1,
+    "escalation_priority": 1,
+    "output_adherence": 2
+  },
+  "total": 8,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 1,
+    "escalation_priority": 1,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_invent_case_identity",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "FABRICATED_CONSEQUENTIAL_FIELD",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "89 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'location' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "105 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "INCORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'location' is not what the report still needs"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "64 chars"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "result": "PARTIAL",
+      "turn": 3,
+      "source": "det",
+      "detail": "terminal turn still carries a clarification target"
+    },
+    {
+      "task": "turn_efficiency",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 extra turn(s)"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the specific village or community"
+        ],
+        "assistant_message": "Please share the specific village, settlement, or LGA where the boy is currently located."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.07,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.93
+      },
+      "confidence": 0.9,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 429,
+        "output_tokens": 47
+      },
+      "latency_ms": 132.8,
+      "cost_usd": 1.8018e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 7",
+          "sex: male",
+          "symptom: sudden weak legs"
+        ],
+        "assistant_message": "Please share the specific village, settlement, or LGA where the boy is currently located."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 440,
+        "output_tokens": 47
+      },
+      "latency_ms": 79.6,
+      "cost_usd": 1.848e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Please share the specific village, settlement, or LGA where the boy is currently located."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.06,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.94
+      },
+      "confidence": 0.91,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 413,
+        "output_tokens": 47
+      },
+      "latency_ms": 100.0,
+      "cost_usd": 1.7346e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Please share the specific village, settlement, or LGA where the boy is currently located."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 413,
+        "output_tokens": 47
+      },
+      "latency_ms": 102.3,
+      "cost_usd": 1.7346e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "which child and which village",
+          "the village or community"
+        ],
+        "assistant_message": "Could you share any details you remember about the community, village, or LGA where the child is located?"
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.55,
+        "INCORRECT": 0.02,
+        "CORRECT": 0.43
+      },
+      "confidence": 0.34,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 440,
+        "output_tokens": 47
+      },
+      "latency_ms": 103.6,
+      "cost_usd": 1.848e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 7",
+          "sex: male",
+          "symptom: sudden weak legs"
+        ],
+        "assistant_message": "Could you share any details you remember about the community, village, or LGA where the child is located?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 444,
+        "output_tokens": 47
+      },
+      "latency_ms": 102.7,
+      "cost_usd": 1.8648e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Could you share any details you remember about the community, village, or LGA where the child is located?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.3,
+        "CORRECT": 0.69,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.54,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 417,
+        "output_tokens": 47
+      },
+      "latency_ms": 102.1,
+      "cost_usd": 1.7514e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Could you share any details you remember about the community, village, or LGA where the child is located?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 417,
+        "output_tokens": 47
+      },
+      "latency_ms": 73.4,
+      "cost_usd": 1.7514e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. A surveillance officer will follow up on this report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.99
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 408,
+        "output_tokens": 47
+      },
+      "latency_ms": 197.8,
+      "cost_usd": 1.7136000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. A surveillance officer will follow up on this report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "CORRECT": 0.99,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 408,
+        "output_tokens": 47
+      },
+      "latency_ms": 79.9,
+      "cost_usd": 1.7136000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "final_action": "ESCALATE",
+        "message": "Thank you. A surveillance officer will follow up on this report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.98,
+        "PARTIAL": 0.02,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 414,
+        "output_tokens": 45
+      },
+      "latency_ms": 93.5,
+      "cost_usd": 1.7388e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 3,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "action: turn 2: CLARIFY where ESCALATE expected",
+    "conversation: appropriate_stop_behavior: PARTIAL",
+    "conversation: clarification_target_quality: INCORRECT",
+    "conversation: turn_efficiency: PARTIAL",
+    "escalation: escalated with reason 'FAILED_CLARIFICATION_WITH_VALID_SIGNAL' (expected 'CONFLICTING_INFORMATION')"
+  ]
+}

@@ -1,0 +1,458 @@
+{
+  "scenario_id": "MESSY-16",
+  "title": "Mixed relevant and irrelevant details",
+  "model_key": "deepseek-v4.1-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Wamakko",
+              "settlement": "Wamakko",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Wamakko",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Wamakko",
+                "settlement": "Wamakko"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Wamakko",
+                  "settlement": "Wamakko",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Wamakko\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness / cannot move left arm properly\",\n      \"age\": 3,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Wamakko\",\n      \"settlement\": \"Wamakko\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Wamakko\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm (cannot move it properly). Is this correct? Reply YES to confirm or send corrections.\"\n}",
+          "raw_response": {
+            "id": "d0d08ed8-aws_uw2",
+            "object": "chat.completion",
+            "created": 1791254207,
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness / cannot move left arm properly\",\n      \"age\": 3,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Wamakko\",\n      \"settlement\": \"Wamakko\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Wamakko\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm (cannot move it properly). Is this correct? Reply YES to confirm or send corrections.\"\n}",
+                  "reasoning_content": "The report: 3-year-old girl in Wamakko, sudden inability to move left arm properly — acute flaccid paralysis suspected. Location resolved: Sokoto, Wamakko, Wamakko. No unresolved fields. Enough info: symptom, age, sex, state, lga, settlement. So action = CONFIRM.\n\nNote the battery/network issue — sender may not be able to respond. But still, we should confirm. Present summary.\n\nMissing information: none.\n\nResponse short, SMS-appropriate."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2875,
+              "completion_tokens": 429,
+              "total_tokens": 3304,
+              "prompt_tokens_details": {
+                "cached_tokens": 2688
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 109
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 187,
+            "output_tokens": 429,
+            "cache_read_input_tokens": 2688,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 109
+          },
+          "latency_ms": 1676.3,
+          "cost_usd": 0.0013773,
+          "stop_reason": "end_turn",
+          "request_id": "d0d08ed8-aws_uw2",
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weakness / cannot move left arm properly",
+            "age": 3,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Wamakko",
+            "settlement": "Wamakko"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Wamakko",
+            "inferred_fields": [
+              "state",
+              "lga",
+              "settlement"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm (cannot move it properly). Is this correct? Reply YES to confirm or send corrections."
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "arm"
+              ],
+              "laterality": [
+                "left",
+                "one"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm (cannot move it properly). Is this correct? Reply YES to confirm or send corrections."
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weakness / cannot move left arm properly",
+              "age": 3,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Wamakko",
+              "settlement": "Wamakko"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Wamakko",
+              "settlement": "Wamakko",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Wamakko",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Wamakko",
+                "settlement": "Wamakko"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Wamakko",
+                  "settlement": "Wamakko",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school.\"}, {\"role\": \"assistant\", \"content\": \"I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm (cannot move it properly). Is this correct? Reply YES to confirm or send corrections.\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weakness / cannot move left arm properly\", \"age\": 3, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Wamakko\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Wamakko\", \"settlement\": \"Wamakko\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness / cannot move left arm properly\",\n      \"age\": 3,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Wamakko\",\n      \"settlement\": \"Wamakko\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Wamakko\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. Confirmed and recorded: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm. This has been submitted for surveillance follow-up.\"\n}",
+          "raw_response": {
+            "id": "0f1065af-aws_uw2",
+            "object": "chat.completion",
+            "created": 1791254208,
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weakness / cannot move left arm properly\",\n      \"age\": 3,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Wamakko\",\n      \"settlement\": \"Wamakko\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Wamakko\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. Confirmed and recorded: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm. This has been submitted for surveillance follow-up.\"\n}",
+                  "reasoning_content": "The sender confirmed. So action = ACCEPT, confirmation status CONFIRMED.\n\nCase state is complete. Classification AFP_SUSPECTED.\n\nOutput JSON."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3019,
+              "completion_tokens": 349,
+              "total_tokens": 3368,
+              "prompt_tokens_details": {
+                "cached_tokens": 2560
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 32
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 459,
+            "output_tokens": 349,
+            "cache_read_input_tokens": 2560,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 32
+          },
+          "latency_ms": 896.6,
+          "cost_usd": 0.0013245,
+          "stop_reason": "end_turn",
+          "request_id": "0f1065af-aws_uw2",
+          "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weakness / cannot move left arm properly",
+            "age": 3,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Wamakko",
+            "settlement": "Wamakko"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Wamakko",
+            "inferred_fields": [
+              "state",
+              "lga",
+              "settlement"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. Confirmed and recorded: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm. This has been submitted for surveillance follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "My phone battery is low and network bad. A 3 year old girl in Wamakko suddenly cannot move her left arm properly. Her father is a tailor and they live near the school."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm (cannot move it properly). Is this correct? Reply YES to confirm or send corrections."
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Confirmed and recorded: 3-year-old girl in Wamakko, Wamakko LGA, Sokoto, with sudden weakness of the left arm. This has been submitted for surveillance follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden weakness / cannot move left arm properly",
+        "age": 3,
+        "sex": "female",
+        "state": "Sokoto",
+        "lga": "Wamakko",
+        "settlement": "Wamakko"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 2572.9,
+    "input_tokens": 646,
+    "output_tokens": 778,
+    "cost_usd": 0.002702,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

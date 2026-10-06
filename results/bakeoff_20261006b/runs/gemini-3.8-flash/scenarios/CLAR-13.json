@@ -1,0 +1,672 @@
+{
+  "scenario_id": "CLAR-13",
+  "title": "Enough information arrives; agent must stop",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "Boy with weak leg in a village near Kafin Hausa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Boy with weak leg in a village near Kafin Hausa."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": null
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kafin Hausa",
+              "status": "RESOLVED",
+              "match_level": "lga",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": null
+                }
+              ],
+              "unresolved_fields": [
+                "settlement"
+              ],
+              "requires": [],
+              "notes": [
+                "nearby reference at LGA level"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy with weak leg in a village near Kafin Hausa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": null}], \"mentions\": [{\"raw_text\": \"Kafin Hausa\", \"status\": \"RESOLVED\", \"match_level\": \"lga\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": null}], \"unresolved_fields\": [\"settlement\"], \"requires\": [], \"notes\": [\"nearby reference at LGA level\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg\",\n      \"age\": null,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kafin Hausa\",\n      \"inferred_fields\": [\"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"settlement\",\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"settlement\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"What is the name of the village near Kafin Hausa where the boy is located?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg\",\n      \"age\": null,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kafin Hausa\",\n      \"inferred_fields\": [\"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\n    \"settlement\",\n    \"age\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"settlement\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"What is the name of the village near Kafin Hausa where the boy is located?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2915,
+              "candidatesTokenCount": 321,
+              "totalTokenCount": 4643,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2915
+                }
+              ],
+              "thoughtsTokenCount": 1407,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "aWfEasG5KPvRz7IP7Ifz6Qc"
+          },
+          "usage": {
+            "input_tokens": 2915,
+            "output_tokens": 1728,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 1407
+          },
+          "latency_ms": 12891.8,
+          "cost_usd": 0.00866625,
+          "stop_reason": "end_turn",
+          "request_id": "aWfEasG5KPvRz7IP7Ifz6Qc",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak leg",
+            "age": null,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": null
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kafin Hausa",
+            "inferred_fields": [
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "settlement",
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "settlement",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "What is the name of the village near Kafin Hausa where the boy is located?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "He is 11 and the village is Majawa.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "He is 11 and the village is Majawa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Boy with weak leg in a village near Kafin Hausa."
+          },
+          {
+            "role": "assistant",
+            "content": "What is the name of the village near Kafin Hausa where the boy is located?"
+          },
+          {
+            "role": "user",
+            "content": "He is 11 and the village is Majawa."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "weak leg",
+              "age": null,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy with weak leg in a village near Kafin Hausa.\"}, {\"role\": \"assistant\", \"content\": \"What is the name of the village near Kafin Hausa where the boy is located?\"}, {\"role\": \"user\", \"content\": \"He is 11 and the village is Majawa.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak leg\", \"age\": null, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": null}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg\",\n      \"age\": 11,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have recorded: 11-year-old boy in Majawa, Kafin Hausa, Jigawa with weak leg. Is this information correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg\",\n      \"age\": 11,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have recorded: 11-year-old boy in Majawa, Kafin Hausa, Jigawa with weak leg. Is this information correct?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3029,
+              "candidatesTokenCount": 323,
+              "totalTokenCount": 3760,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3029
+                }
+              ],
+              "thoughtsTokenCount": 408,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "dmfEarGJIrTqz7IP6pmyyQE"
+          },
+          "usage": {
+            "input_tokens": 3029,
+            "output_tokens": 731,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 408
+          },
+          "latency_ms": 5770.4,
+          "cost_usd": 0.005013,
+          "stop_reason": "end_turn",
+          "request_id": "dmfEarGJIrTqz7IP6pmyyQE",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak leg",
+            "age": 11,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have recorded: 11-year-old boy in Majawa, Kafin Hausa, Jigawa with weak leg. Is this information correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [],
+              "onset": null
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Boy with weak leg in a village near Kafin Hausa."
+          },
+          {
+            "role": "assistant",
+            "content": "What is the name of the village near Kafin Hausa where the boy is located?"
+          },
+          {
+            "role": "user",
+            "content": "He is 11 and the village is Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "I have recorded: 11-year-old boy in Majawa, Kafin Hausa, Jigawa with weak leg. Is this information correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "weak leg",
+              "age": 11,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Boy with weak leg in a village near Kafin Hausa.\"}, {\"role\": \"assistant\", \"content\": \"What is the name of the village near Kafin Hausa where the boy is located?\"}, {\"role\": \"user\", \"content\": \"He is 11 and the village is Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have recorded: 11-year-old boy in Majawa, Kafin Hausa, Jigawa with weak leg. Is this information correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak leg\", \"age\": 11, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg\",\n      \"age\": 11,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report has been confirmed and submitted for surveillance follow-up.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg\",\n      \"age\": 11,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report has been confirmed and submitted for surveillance follow-up.\"\n}",
+                      "thoughtSignature": "EuMJCuAJAWkUfRMQqSWWc4pLNBasawgmHfpEJG1bbRt25qJZBFnaUZzxm6+o/F46eU+1vCcTwYQkmSooruC2K4Od7Ukuy57hc/s8+uXi+YZxbmn7FQTmM9nwkydJRQF7ImT9pM/k6Go0iC52Z/JKJYj+S9lxzcH837SCjVCJpEXxLmBp+CJp/soIfkl5pzpy+xFsxVwDKg791Pg3282nNhIQ27xr4fbnMFXaiuCRSRsMP9gVETLLDo1yupN+7K1t+e8j3Uca8kfkiGfDLpCp9/vMtzN0dzSUV/K+y8bTxNP/oxUZ0xlvjbOe31xTt8wk285z9s09FAshLgpDnpKvR/fUEExcTWn3mmtpvhJxnAPcVTw2/lZEWpKqa4eMphdWjY5X3eoBc0XohTGRCNjbbbadqoca8sqDxTNnlmOQTcWp9nbEXqk/b9J0SvIgzLDob3djBcj0cBO20vUWHYeLxTI2r0Y5/syCoQyXwBxnJTQTZp9Rl0uOxhcocl9lJsd69jtE60tkCFr7Imudh4+fiQkEW7mcmUR685DKtuPF0ZnqOCTTb5UOY5zqLHEDbgumDbf1LKykx3VDvoBCmWqMghOTFIIkrvtJoYsIP5s9UkLBUq3mXVxkfl3ozv4LvMHq3Uxh4077w0X1jYRY2M2SYbsiW+xvwoOQOo+U0Fo6ffW8SHUhHtUiA19AGANFOFTwByjgzXmWqdtUmGB4PmBtasUgL6vaDGQVZJrY69BawAA1ZJ7xjLOIDNErBMgIPpI1y95grdRponEhn18X+aU65hrbPRkxDm97SG+913/QreyILMlURej2MLaGwHVclY1V9OoQbCFV7ZcWGx+3Y7qaQzvZ8xW1R2xBBb3Y0qTlZ9D5OTcQ2LsEKygkk/IjnhpB3ZzABEI5lHrAc29hTOcWQXZ3PqqsTn7dweto7jGYBQIyV/IhRDCfTSZxfk1NFnh4+6+Vdt3xcypvjjh39u6RQydY3YBH/gE1G4VK/bdMDhBQ7kbR4LYr2msCMrivz+UOrqvfGitS3p6uIASyjL7HSd5VwsMP0BVJMlGJ9eOa7WyYLv/T4/4tLm92mExdINRbnmX7vGzGGYlIWjY5AwjHjHxVOxLjb+9m34BEWb4GXzURG+CMuSQUdHQIHBt0zLdW72Ok/uGQniEWuTsdoQRRjqi7Xx4y4gyfCsoi9Iu8rttBjwtLTg1pmp8EqPwwE9HhNWs8DUNtwT0RMj9RLDf2dEtrRzMuf+YL1PQBQT466aKllfS34+IIKZkQgOGqtRIAPyDjEMuClrrH6y4b4gomsHV/FrkH59H5Yo1uxoI3kFgF3gIN8a8zmK74CISNmprXuQWfzD+/nJav9IyRjFvJ2ApWU3Qo7AP68kiOlNqOyk2YuN2P80sA6ajc36tYJYv380e7EZ0zMGmR0GD2h+CC/4n0TjjP+V8b7Zh5JNRB0/xNuemfnxwaYCMrQ4UuoOEQ1lD+KOtZZEbchTtlTBed19gjYuLsGhofySW/IceQrXRW9Xpfvj5p+w+ncZ3RGCTCHEX1wzKElrijEGPaWdy/EgzClqYy6gSVJj6NTFhZaoUGuou6E+dyVtt1gmHHC/K1j74yF11jp62hEZUIHHPNRkFWJ18eNJV4w1T3htdMy63OCJAGWcyaOLQq+hCyEAv1RFibxMq/"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3093,
+              "candidatesTokenCount": 315,
+              "totalTokenCount": 3762,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3093
+                }
+              ],
+              "thoughtsTokenCount": 354,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "fGfEasPeE5DRz7IPpNyguQM"
+          },
+          "usage": {
+            "input_tokens": 3093,
+            "output_tokens": 669,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 354
+          },
+          "latency_ms": 5755.1,
+          "cost_usd": 0.0048285,
+          "stop_reason": "end_turn",
+          "request_id": "fGfEasPeE5DRz7IPpNyguQM",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak leg",
+            "age": 11,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. The report has been confirmed and submitted for surveillance follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Boy with weak leg in a village near Kafin Hausa."
+    },
+    {
+      "role": "assistant",
+      "content": "What is the name of the village near Kafin Hausa where the boy is located?"
+    },
+    {
+      "role": "user",
+      "content": "He is 11 and the village is Majawa."
+    },
+    {
+      "role": "assistant",
+      "content": "I have recorded: 11-year-old boy in Majawa, Kafin Hausa, Jigawa with weak leg. Is this information correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. The report has been confirmed and submitted for surveillance follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "weak leg",
+        "age": 11,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 24417.3,
+    "input_tokens": 9037,
+    "output_tokens": 3128,
+    "cost_usd": 0.018508,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

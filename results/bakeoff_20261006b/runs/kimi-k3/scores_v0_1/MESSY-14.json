@@ -1,0 +1,362 @@
+{
+  "scenario_id": "MESSY-14",
+  "model": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 7136.8,
+    "input_tokens": 7071,
+    "output_tokens": 941,
+    "cost_usd": 0.031795,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "MESSY-14",
+    "model": "kimi-k3",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 2,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 12,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "PARTIAL",
+      "confirmation_fidelity": "CORRECT",
+      "symptom_equivalence": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [
+      "conversation: sms_conciseness: PARTIAL"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 12,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_handle_typos",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_handle_typos",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "170 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "195 chars"
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "sudden inability/weakness of right leg",
+        "recorded_symptom": "sudden inability to move right leg"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.96
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 451,
+        "output_tokens": 47
+      },
+      "latency_ms": 91.9,
+      "cost_usd": 1.8942e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 7,
+            "sex": "male",
+            "settlement": "Majawa",
+            "lga": "Kafin Hausa",
+            "symptom": "sudden inability/weakness of right leg",
+            "state": "Jigawa"
+          }
+        ],
+        "confirmation_message": "I have: 7-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, who suddenly cannot move his right leg. Is this correct? Reply YES to confirm or tell me what to correct."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.07,
+        "INCORRECT": 0.04,
+        "CORRECT": 0.89
+      },
+      "confidence": 0.83,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 576,
+        "output_tokens": 46
+      },
+      "latency_ms": 128.5,
+      "cost_usd": 2.4192e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: 7-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, who suddenly cannot move his right leg. Is this correct? Reply YES to confirm or tell me what to correct."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.25,
+        "INCORRECT": 0.04,
+        "CORRECT": 0.71
+      },
+      "confidence": 0.55,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 47
+      },
+      "latency_ms": 107.3,
+      "cost_usd": 1.8564e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have: 7-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, who suddenly cannot move his right leg. Is this correct? Reply YES to confirm or tell me what to correct."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.99,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 47
+      },
+      "latency_ms": 143.7,
+      "cost_usd": 1.8564e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Your report of a 7-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, with sudden inability to move his right leg has been recorded and sent to the surveillance team for follow-up."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.5,
+        "INCORRECT": 0.03,
+        "CORRECT": 0.47
+      },
+      "confidence": 0.25,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 444,
+        "output_tokens": 47
+      },
+      "latency_ms": 222.5,
+      "cost_usd": 1.8648e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. Your report of a 7-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, with sudden inability to move his right leg has been recorded and sent to the surveillance team for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 444,
+        "output_tokens": 47
+      },
+      "latency_ms": 120.3,
+      "cost_usd": 1.8648e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "final_action": "ACCEPT",
+        "message": "Thank you. Your report of a 7-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, with sudden inability to move his right leg has been recorded and sent to the surveillance team for follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "CORRECT": 0.99,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 450,
+        "output_tokens": 45
+      },
+      "latency_ms": 161.3,
+      "cost_usd": 1.8900000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 2,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "conversation: sms_conciseness: PARTIAL"
+  ]
+}

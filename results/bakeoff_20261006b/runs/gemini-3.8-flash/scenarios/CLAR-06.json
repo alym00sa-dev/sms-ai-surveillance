@@ -1,0 +1,634 @@
+{
+  "scenario_id": "CLAR-06",
+  "title": "Missing location, resolved on second turn",
+  "model_key": "gemini-3.8-flash",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "There is an 8 year old boy whose legs suddenly became weak.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "There is an 8 year old boy whose legs suddenly became weak."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"There is an 8 year old boy whose legs suddenly became weak.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"legs suddenly became weak\",\n      \"age\": 8,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"location\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Where is the child located? Please share his community or village, LGA, and State.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"legs suddenly became weak\",\n      \"age\": 8,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": null\n    }\n  ],\n  \"location_resolution\": [],\n  \"missing_information\": [\n    \"location\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Where is the child located? Please share his community or village, LGA, and State.\"\n}",
+                      "thoughtSignature": "EroICrcIAWkUfROAIhWD85FLNNjKa1y4bdDWQufMsmjgKPT2IqAvYDwIPeYNn5N0paZ+B8fnInYn0qusOtdaxuiN3rKFnpLYy9xScIktuzWsrcJrDYCOJsq8Qolpr0V1UXpSS/TPfE07tmsBiwoAvuV2ww4cB+nw8fHf5nxuA+q5GklGRMobvOA0Fwgj8zGB68nSqFTDnm8q50+1Rbz5Z7LIbwdGRJOIUZ7TJ/BjEK6FNIEq7vDaNe+osgC8XxfbZ6IuDat/ESYNJP7x6aUqF5aL1u5YwPUKH7WXNyZnctzSPr95Z0TxzQ3A7vDUdUAPb2NYsy7BApbBp4y4kOY4syoJ2Bs2kxiR/uY2/WTbKDZwul+Zsvai+km2hkdpi5RlcB+8Y8B56+PXbOUMmFeX7ITt9YwtYWRw+iCOSvq9Ytl2/mr9izVYSt30yHsRBn/Hqx6D8R4ZXtUUJxAT9tBsiGKEISKremA8yAJszCJM4INBYXJzYS/kjeyBivKHsqSgeP43eFoDMeAMEPS3Ed353G6gARIyaSZhJOio0A9Poj44HRWdPxcuMUGGxFvxq5+WwBH+zIdHboSbg4Rh+E++eOY5rVQ3IEUp5enIN+cejAjySYIwVisP92z6XnPXak4OKJaV3MCAqFy2YEfjtFKwpAzHXoY48JfIG8et9X42yFxDCehIiii96kR3bKQfqc0j7jf0hDEgEJEr1SYcR5xG5OFW8e+BJrqXZlXiVjBJgZ420aCC/s3aX47zPWjgipUkH4z9rfaKfYSoOQxlSjs6ZQ6l/GWHewbXqWBv2IPMiIRTmHUlkYbOgoE2UlPkgwjmoM+7uWEiDghDszsoWDgdUnUqyt5y4TcbFM5rSyrVVW70O9X3oaB8M7ofoLUOWpo3E/8//MNoel0l5NPv82UW9jj0tOGmT6QvpVVZ4EbvL9P2TnrKVu8THsob4E5m027hx/A5aWORshqTI4V2aI77CIyetjn9EGJdJngFJdZYFmy9H0EUPf5biZv4fSN6VORGCynOwWHQEuM/glLTOUFU6PtAzqOdyXJCIZZwfSKfkSxtfO/WDoAn332ZT80KL4lczBgbUtbxWpeh13PB0Er7p7iV9LLSFVa7IVTP8dTLj52WLiHi8TA36vwKQopyG4mqxtQIM9/NxQN8dIBR8Mdpz65EW9vfYkfHXk648T6Cib7uQkEu6HHefYYuW3BUSouCLPi3b6vLt0maa+/nYGtfgPgcDgGlWinQ0BUNNX6YANgz39EsTqwllZc+sRXWtV7y/T40rvK/BIDUyGzkMDSEHa5eYegPBbj7bFxeAFbq53TP5GpGhMusPOwXitLAaRqg12IwHyIqcEyadD6lMgkYvZ53Azro3ILxLyNne3eYGJdyONAl7ND37jpMS0/2DLkhDDPddc8plm8F2ybKh/OpfbV1ZCaHaqbtwpGgldU="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2795,
+              "candidatesTokenCount": 256,
+              "totalTokenCount": 3311,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2795
+                }
+              ],
+              "thoughtsTokenCount": 260,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "dGbEaqT-Hqjpz7IPoonFkAU"
+          },
+          "usage": {
+            "input_tokens": 2795,
+            "output_tokens": 516,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 260
+          },
+          "latency_ms": 4577.7,
+          "cost_usd": 0.00403125,
+          "stop_reason": "end_turn",
+          "request_id": "dGbEaqT-Hqjpz7IPoonFkAU",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "legs suddenly became weak",
+            "age": 8,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": null
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [
+          "location"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Where is the child located? Please share his community or village, LGA, and State."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Majawa village.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "Majawa village.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "There is an 8 year old boy whose legs suddenly became weak."
+          },
+          {
+            "role": "assistant",
+            "content": "Where is the child located? Please share his community or village, LGA, and State."
+          },
+          {
+            "role": "user",
+            "content": "Majawa village."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "legs suddenly became weak",
+              "age": 8,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": null
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"There is an 8 year old boy whose legs suddenly became weak.\"}, {\"role\": \"assistant\", \"content\": \"Where is the child located? Please share his community or village, LGA, and State.\"}, {\"role\": \"user\", \"content\": \"Majawa village.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"legs suddenly became weak\", \"age\": 8, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": null}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"legs suddenly became weak\",\n      \"age\": 8,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa village\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 8-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, with sudden weakness in his legs. Is this correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"legs suddenly became weak\",\n      \"age\": 8,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa village\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 8-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, with sudden weakness in his legs. Is this correct?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3017,
+              "candidatesTokenCount": 328,
+              "totalTokenCount": 3737,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3017
+                }
+              ],
+              "thoughtsTokenCount": 392,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "eWbEas2jBu_Uz7IP-fCrmQ8"
+          },
+          "usage": {
+            "input_tokens": 3017,
+            "output_tokens": 720,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 392
+          },
+          "latency_ms": 6274.9,
+          "cost_usd": 0.00496275,
+          "stop_reason": "end_turn",
+          "request_id": "eWbEas2jBu_Uz7IP-fCrmQ8",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "legs suddenly became weak",
+            "age": 8,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa village",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 8-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, with sudden weakness in his legs. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "There is an 8 year old boy whose legs suddenly became weak."
+          },
+          {
+            "role": "assistant",
+            "content": "Where is the child located? Please share his community or village, LGA, and State."
+          },
+          {
+            "role": "user",
+            "content": "Majawa village."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 8-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, with sudden weakness in his legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "legs suddenly became weak",
+              "age": 8,
+              "sex": "male",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.8-flash",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"There is an 8 year old boy whose legs suddenly became weak.\"}, {\"role\": \"assistant\", \"content\": \"Where is the child located? Please share his community or village, LGA, and State.\"}, {\"role\": \"user\", \"content\": \"Majawa village.\"}, {\"role\": \"assistant\", \"content\": \"I have: 8-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, with sudden weakness in his legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"legs suddenly became weak\", \"age\": 8, \"sex\": \"male\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"legs suddenly became weak\",\n      \"age\": 8,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report has been received and submitted for surveillance follow-up.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"legs suddenly became weak\",\n      \"age\": 8,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report has been received and submitted for surveillance follow-up.\"\n}",
+                      "thoughtSignature": "Eq8ICqwIAWkUfRP2VXYzIddUxtIR0skSKtWIOkoqQbL0QMM3ovE6TsIgJXfEitY/a3qagb3fA/upZaQOrjpMBCRZKI/oQmXRbclVKMCd3X67H7JvlVuId0bJO5nMdbUmkKqiZUgryzeD6XeGvL6cvO/9l9Ch1LU2rItSG7HH4ns9sJ033saNd6r0k5JrtlEPsBVanxnifCvz6kXJtN962PWMrNn50ju4PcQ1+iEI6et/kAtkD1Ju1IohqDFkXm+L+zHd9AqmJNS1dBT8k/2CyPslvTcvcPreyZp160Rac4Xm3ufth+g1Q0l2mBVCT0xwO8JCJIqkwFH65FrMm2i1XoY4ZmTe/ydkhiaybA4n+v7cRgHqhIvUPiY0mklzJM2R2OfluwOVdmRhyOMZZeTxz4Q/Kn2DM2S80yuz26W2OKhQCkqERI/29ToGxghm92ElIkIqhYqcKQlreP7HvpDLqLy2xT6MZlM5bmHtaK+OJwlOB7vwrpAIgSJtbsEWUtoLc3QP8f/LZ0EURF0UWdqaeZ5X6pinWQ0vMUStv9Ib/ZfZrLw1f215itnOfj+5q3ToawDtt9V+ZKN29TzVBc3k5MOkehmM1l3x+w4FPRcjmt+ecDhhlYGy2CPh9owmTShCiG5n6CP8T0V2CAxjnEyXzHIO6EmiTI2hkEgkuTX4lrHIzeG9geJ5lVLmuvznzv+vFLoknpMj5yJmzGvJEVGfOZF3ut9lPFvJQY0IOSFiKTpmOlM8e4N4O+YzHZeG5534Rw86oU7QmMUn4C02yUhtr95SK+adxSYe0Y8dcBY9z99KV63vg4d77v86ha7kWtQMcIE3PdhirPJbIOtjKBfJkiyd3HigsZv9sG8Ej/eScjc+tp/sPLMuwPRjKo2GZ5+l1PrF9gKsyWlImXWs5S4CWy0DmlWJ3K4Hib8za3K7GocfGBHBefJj3mag/mU8+mB0ViJw5SWl0Mhj4z0RNUgWdyRQG2CI63bVpPGmeUY55ey7bGEuqN9DR0No2I/P0+rRzil+HVNt9+qKJEI2wwK3hrf6N1OzRAr1y1e5bjNpHD4aPjLLNamoxTSIn+WJdZBAGAqPGVk+h7RWU18DDzVoAJ+ohlqldkpZI2EGyaxz2TBiQkPEGuw88L7xlgNYBpqaN3yjuzEqTLal4Eh/Z2YmiFFixCAeXUCynpom9HHI5wQAgzSmTYf0TH4bUlu3/ykPbgn/wzyFjhMLp1ldFeDhTqLBxfKJXFRHKg/8ChbMvJNAWUuygTXnBE/kmqVoPpLezJyf6lOOYRFJSGgxnREtP6nXsMel8PpQ1Suu60UAEjJXplGcLEBh4cfy7OEdgNNjTdniASuf5ZXwn84eCbpXqsbyCxXYPhkMMBBXk/WXzydSaFEEXTWr2vrBJPwqBMgQZbhFiAEHOI2ADlcsdR6pPXA1"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3089,
+              "candidatesTokenCount": 308,
+              "totalTokenCount": 3682,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3089
+                }
+              ],
+              "thoughtsTokenCount": 285,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.8-flash",
+            "responseId": "f2bEau-OF8qhz7IP85G6qA8"
+          },
+          "usage": {
+            "input_tokens": 3089,
+            "output_tokens": 593,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 285
+          },
+          "latency_ms": 4473.5,
+          "cost_usd": 0.004540499999999999,
+          "stop_reason": "end_turn",
+          "request_id": "f2bEau-OF8qhz7IP85G6qA8",
+          "model": "gemini-3.8-flash",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "legs suddenly became weak",
+            "age": 8,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. The report has been received and submitted for surveillance follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "There is an 8 year old boy whose legs suddenly became weak."
+    },
+    {
+      "role": "assistant",
+      "content": "Where is the child located? Please share his community or village, LGA, and State."
+    },
+    {
+      "role": "user",
+      "content": "Majawa village."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 8-year-old boy in Majawa, Kafin Hausa LGA, Jigawa State, with sudden weakness in his legs. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. The report has been received and submitted for surveillance follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "legs suddenly became weak",
+        "age": 8,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 15326.1,
+    "input_tokens": 8901,
+    "output_tokens": 1829,
+    "cost_usd": 0.013534,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

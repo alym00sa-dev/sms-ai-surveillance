@@ -1,0 +1,199 @@
+## Required JSON output shape
+
+Use a `cases` array for all case state. A single-case report contains one item; a multi-case conversation can contain multiple items.
+
+```json
+{
+  "classification": "AFP_SUSPECTED",
+  "other_vpd": false,
+  "action": "CONFIRM",
+  "priority": "NORMAL",
+
+  "cases": [
+    {
+      "case_id": "case_1",
+      "symptom": "sudden weakness in both legs",
+      "age": 7,
+      "sex": "male",
+      "state": "Jigawa",
+      "lga": "Kafin Hausa",
+      "settlement": "Majawa"
+    }
+  ],
+
+  "location_resolution": [
+    {
+      "case_id": "case_1",
+      "raw_location": "Majawa",
+      "inferred_fields": ["lga", "state"],
+      "confidence": "high"
+    }
+  ],
+
+  "missing_information": [],
+
+  "potential_duplicate": false,
+  "duplicate_candidate_ids": [],
+
+  "escalation": {
+    "required": false,
+    "reason": null
+  },
+
+  "clarification": {
+    "target": null,
+    "attempt_number": 0
+  },
+
+  "confirmation": {
+    "status": "PENDING"
+  },
+
+  "response": "I have: 7-year-old boy in Majawa, Kafin Hausa, Jigawa, with sudden weakness in both legs. Is this correct?"
+}
+```
+
+### Multi-case example
+
+```json
+{
+  "classification": "AFP_SUSPECTED",
+  "other_vpd": false,
+  "action": "CONFIRM",
+  "priority": "NORMAL",
+  "cases": [
+    {
+      "case_id": "case_1",
+      "age": 5,
+      "sex": "male",
+      "state": null,
+      "lga": null,
+      "settlement": "Gwadabawa",
+      "symptom": "both legs became weak suddenly today"
+    },
+    {
+      "case_id": "case_2",
+      "age": 8,
+      "sex": "female",
+      "state": null,
+      "lga": null,
+      "settlement": "Gwadabawa",
+      "symptom": "legs became weak suddenly today"
+    }
+  ],
+  "location_resolution": [],
+  "missing_information": [],
+  "potential_duplicate": false,
+  "duplicate_candidate_ids": [],
+  "escalation": {"required": false, "reason": null},
+  "clarification": {"target": null, "attempt_number": 1},
+  "confirmation": {"status": "PENDING"},
+  "response": "I have: 1) boy, age 5, Gwadabawa, both legs became weak suddenly today; 2) girl, age 8, Gwadabawa, legs became weak suddenly today. Is this correct?"
+}
+```
+
+---
+
+## Allowed enum values
+
+### classification
+
+```text
+AFP_SUSPECTED
+OTHER_VPD
+HEALTH_RELATED_UNCLEAR
+NOT_RELEVANT
+UNINTELLIGIBLE
+```
+
+### action
+
+```text
+ACCEPT
+CLARIFY
+CONFIRM
+ESCALATE
+OTHER_VPD
+NOT_RELEVANT
+```
+
+### priority
+
+```text
+NORMAL
+HIGH
+```
+
+### sex
+
+```text
+male
+female
+unknown
+```
+
+### location confidence
+
+```text
+high
+medium
+low
+```
+
+### clarification target
+
+```text
+symptom
+age
+sex
+location
+state
+lga
+settlement
+other
+null
+```
+
+### escalation reason
+
+```text
+FAILED_CLARIFICATION_WITH_VALID_SIGNAL
+AMBIGUOUS_LOCATION
+CONFLICTING_INFORMATION
+UNABLE_TO_CLASSIFY
+OTHER
+null
+```
+
+### confirmation status
+
+```text
+NOT_READY
+PENDING
+CONFIRMED
+```
+
+---
+
+## State-update semantics
+
+Treat later sender information as an update to current case state.
+
+Rules:
+
+1. If a later statement explicitly corrects an earlier value, the later value overrides it.
+2. Do not retain both superseded and corrected values as if both were current truth.
+3. Preserve all unrelated fields unless they are also corrected.
+4. In multi-case conversations, apply updates only to the case(s) referenced by the sender.
+5. If a correction is received during confirmation, return `action = CONFIRM` again with the updated summary.
+6. Use `action = ACCEPT` only after explicit confirmation of the latest summary.
+
+---
+
+## Null handling
+
+Use JSON `null` for missing values.
+
+Do not use empty strings or `"N/A"`.
+
+`sex = "unknown"` is allowed as an explicit enum value when sex cannot be established.

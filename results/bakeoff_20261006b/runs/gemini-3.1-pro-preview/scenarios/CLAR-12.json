@@ -1,0 +1,789 @@
+{
+  "scenario_id": "CLAR-12",
+  "title": "Multiple children retained as separate cases with later correction",
+  "model_key": "gemini-3.1-pro-preview",
+  "termination": {
+    "reason": "PREMATURE_TERMINAL",
+    "detail": "ESCALATE; expected=CLARIFY"
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "Two children in the same compound in Gwadabawa have weak legs. One is a boy 5 and the other is a girl maybe 9.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Two children in the same compound in Gwadabawa have weak legs. One is a boy 5 and the other is a girl maybe 9."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Gwadabawa",
+              "settlement": "Gwadabawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Gwadabawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Gwadabawa",
+                "settlement": "Gwadabawa"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Gwadabawa",
+                  "settlement": "Gwadabawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Two children in the same compound in Gwadabawa have weak legs. One is a boy 5 and the other is a girl maybe 9.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Gwadabawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak legs\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"symptom\": \"weak legs\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs. Is this correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak legs\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"symptom\": \"weak legs\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs. Is this correct?\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2952,
+              "candidatesTokenCount": 494,
+              "totalTokenCount": 3940,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2952
+                }
+              ],
+              "thoughtsTokenCount": 494,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "MGnEap6HEcDpz7IP3Ya_yAk"
+          },
+          "usage": {
+            "input_tokens": 2952,
+            "output_tokens": 988,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 494
+          },
+          "latency_ms": 7958.2,
+          "cost_usd": 0.01776,
+          "stop_reason": "end_turn",
+          "request_id": "MGnEap6HEcDpz7IP3Ya_yAk",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak legs",
+            "age": 5,
+            "sex": "male",
+            "state": "Sokoto",
+            "lga": "Gwadabawa",
+            "settlement": "Gwadabawa"
+          },
+          {
+            "case_id": "case_2",
+            "symptom": "weak legs",
+            "age": 9,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Gwadabawa",
+            "settlement": "Gwadabawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Gwadabawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          },
+          {
+            "case_id": "case_2",
+            "raw_location": "Gwadabawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs. Is this correct?"
+      },
+      "reply": {
+        "kind": "NEUTRAL",
+        "text": "I don't know.",
+        "reason": null,
+        "detail": null,
+        "events": [
+          "PREMATURE_CONFIRM"
+        ],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": null
+            },
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": null
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "I don't know.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Two children in the same compound in Gwadabawa have weak legs. One is a boy 5 and the other is a girl maybe 9."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "weak legs",
+              "age": 5,
+              "sex": "male",
+              "state": "Sokoto",
+              "lga": "Gwadabawa",
+              "settlement": "Gwadabawa"
+            },
+            {
+              "case_id": "case_2",
+              "symptom": "weak legs",
+              "age": 9,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Gwadabawa",
+              "settlement": "Gwadabawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Gwadabawa",
+              "settlement": "Gwadabawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Gwadabawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Gwadabawa",
+                "settlement": "Gwadabawa"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Gwadabawa",
+                  "settlement": "Gwadabawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Two children in the same compound in Gwadabawa have weak legs. One is a boy 5 and the other is a girl maybe 9.\"}, {\"role\": \"assistant\", \"content\": \"I have: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak legs\", \"age\": 5, \"sex\": \"male\", \"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\"}, {\"case_id\": \"case_2\", \"symptom\": \"weak legs\", \"age\": 9, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Gwadabawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak legs\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"symptom\": \"weak legs\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"Please reply YES to confirm so I can submit the report: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak legs\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"symptom\": \"weak legs\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"Please reply YES to confirm so I can submit the report: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs.\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3147,
+              "candidatesTokenCount": 500,
+              "totalTokenCount": 4178,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3147
+                }
+              ],
+              "thoughtsTokenCount": 531,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "OGnEapzvDqmCz7IPsunHwA8"
+          },
+          "usage": {
+            "input_tokens": 3147,
+            "output_tokens": 1031,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 531
+          },
+          "latency_ms": 9364.4,
+          "cost_usd": 0.018666,
+          "stop_reason": "end_turn",
+          "request_id": "OGnEapzvDqmCz7IPsunHwA8",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak legs",
+            "age": 5,
+            "sex": "male",
+            "state": "Sokoto",
+            "lga": "Gwadabawa",
+            "settlement": "Gwadabawa"
+          },
+          {
+            "case_id": "case_2",
+            "symptom": "weak legs",
+            "age": 9,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Gwadabawa",
+            "settlement": "Gwadabawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Gwadabawa",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          },
+          {
+            "case_id": "case_2",
+            "raw_location": "Gwadabawa",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "Please reply YES to confirm so I can submit the report: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs."
+      },
+      "reply": {
+        "kind": "NEUTRAL",
+        "text": "I don't know.",
+        "reason": null,
+        "detail": null,
+        "events": [
+          "PREMATURE_CONFIRM"
+        ],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": null
+            },
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": null
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "I don't know.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Two children in the same compound in Gwadabawa have weak legs. One is a boy 5 and the other is a girl maybe 9."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          },
+          {
+            "role": "assistant",
+            "content": "Please reply YES to confirm so I can submit the report: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs."
+          },
+          {
+            "role": "user",
+            "content": "I don't know."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "weak legs",
+              "age": 5,
+              "sex": "male",
+              "state": "Sokoto",
+              "lga": "Gwadabawa",
+              "settlement": "Gwadabawa"
+            },
+            {
+              "case_id": "case_2",
+              "symptom": "weak legs",
+              "age": 9,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Gwadabawa",
+              "settlement": "Gwadabawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Gwadabawa",
+              "settlement": "Gwadabawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Gwadabawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Gwadabawa",
+                "settlement": "Gwadabawa"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Gwadabawa",
+                  "settlement": "Gwadabawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Two children in the same compound in Gwadabawa have weak legs. One is a boy 5 and the other is a girl maybe 9.\"}, {\"role\": \"assistant\", \"content\": \"I have: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}, {\"role\": \"assistant\", \"content\": \"Please reply YES to confirm so I can submit the report: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs.\"}, {\"role\": \"user\", \"content\": \"I don't know.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"weak legs\", \"age\": 5, \"sex\": \"male\", \"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\"}, {\"case_id\": \"case_2\", \"symptom\": \"weak legs\", \"age\": 9, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Gwadabawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Gwadabawa\", \"settlement\": \"Gwadabawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ESCALATE\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak legs\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"symptom\": \"weak legs\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": true,\n    \"reason\": \"OTHER\"\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I will forward this report to a public health officer who can help look into this and follow up with you.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ESCALATE\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak legs\",\n      \"age\": 5,\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"symptom\": \"weak legs\",\n      \"age\": 9,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Gwadabawa\",\n      \"settlement\": \"Gwadabawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    },\n    {\n      \"case_id\": \"case_2\",\n      \"raw_location\": \"Gwadabawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": true,\n    \"reason\": \"OTHER\"\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I will forward this report to a public health officer who can help look into this and follow up with you.\"\n}",
+                      "thoughtSignature": "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"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3229,
+              "candidatesTokenCount": 468,
+              "totalTokenCount": 4694,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3229
+                }
+              ],
+              "thoughtsTokenCount": 997,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "QWnEaoXkJK3tz7IPuLGRqQE"
+          },
+          "usage": {
+            "input_tokens": 3229,
+            "output_tokens": 1465,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 997
+          },
+          "latency_ms": 12767.2,
+          "cost_usd": 0.024037999999999997,
+          "stop_reason": "end_turn",
+          "request_id": "QWnEaoXkJK3tz7IPuLGRqQE",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": [
+              "consistency: confirmation.status should be NOT_READY for ESCALATE"
+            ]
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ESCALATE",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak legs",
+            "age": 5,
+            "sex": "male",
+            "state": "Sokoto",
+            "lga": "Gwadabawa",
+            "settlement": "Gwadabawa"
+          },
+          {
+            "case_id": "case_2",
+            "symptom": "weak legs",
+            "age": 9,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Gwadabawa",
+            "settlement": "Gwadabawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Gwadabawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          },
+          {
+            "case_id": "case_2",
+            "raw_location": "Gwadabawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": true,
+          "reason": "OTHER"
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I will forward this report to a public health officer who can help look into this and follow up with you."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "PREMATURE_TERMINAL",
+        "detail": "ESCALATE; expected=CLARIFY",
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Two children in the same compound in Gwadabawa have weak legs. One is a boy 5 and the other is a girl maybe 9."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "I don't know."
+    },
+    {
+      "role": "assistant",
+      "content": "Please reply YES to confirm so I can submit the report: 1) 5-year-old boy in Gwadabawa, Sokoto with weak legs; 2) ~9-year-old girl in Gwadabawa, Sokoto with weak legs."
+    },
+    {
+      "role": "user",
+      "content": "I don't know."
+    },
+    {
+      "role": "assistant",
+      "content": "I will forward this report to a public health officer who can help look into this and follow up with you."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "weak legs",
+        "age": 5,
+        "sex": "male",
+        "state": "Sokoto",
+        "lga": "Gwadabawa",
+        "settlement": "Gwadabawa"
+      },
+      {
+        "case_id": "case_2",
+        "symptom": "weak legs",
+        "age": 9,
+        "sex": "female",
+        "state": "Sokoto",
+        "lga": "Gwadabawa",
+        "settlement": "Gwadabawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "CONFIRM",
+    "ESCALATE"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 30089.8,
+    "input_tokens": 9328,
+    "output_tokens": 3484,
+    "cost_usd": 0.060464,
+    "clarification_turns": 0,
+    "confirmation_turns": 2,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

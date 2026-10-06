@@ -1,0 +1,900 @@
+{
+  "scenario_id": "CLAR-10",
+  "title": "Sender answers a different question first",
+  "model_key": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "Small girl with sudden weak legs in Bodinga.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Small girl with sudden weak legs in Bodinga."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Bodinga",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Bodinga",
+                "settlement": "Bodinga"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Bodinga",
+                  "settlement": "Bodinga",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Small girl with sudden weak legs in Bodinga.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Bodinga\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\"age\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5acd7871dc939d5950",
+            "object": "chat.completion",
+            "created": 1791258971,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\"age\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?\"\n}",
+                  "reasoning_content": "Let me analyze this report:\n\n\"Small girl with sudden weak legs in Bodinga.\"\n\nExtracted info:\n- Symptom: sudden weak legs (consistent with AFP - acute flaccid paralysis signal)\n- Sex: female (girl)\n- Age: \"small girl\" - approximate, not a specific age. This is missing/unclear.\n- Location: Bodinga → resolver RESOLVED: state = Sokoto, LGA = Bodinga, settlement = Bodinga.\n\nMissing: age. \"Small girl\" suggests a child but no specific age. Age is important for AFP surveillance (typically under 15). I should ask one focused clarification question for age.\n\nClassification: AFP_SUSPECTED\nAction: CLARIFY (ask for age)\nClarification attempt number: this is the first clarification attempt, so attempt_number = 1.\n\nCase state:\n- case_id: case_1\n- symptom: \"sudden weak legs\"\n- age: null\n- sex: female\n- state: Sokoto\n- lga: Bodinga\n- settlement: Bodinga\n\nLocation resolution: raw_location \"Bodinga\", inferred_fields [\"state\", \"lga\", \"settlement\"], confidence high.\n\nmissing_information: [\"age\"]\n\nResponse: short SMS-style question asking for age."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3455,
+              "completion_tokens": 565,
+              "total_tokens": 4020,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 270
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3455,
+            "output_tokens": 565,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 270
+          },
+          "latency_ms": 5023.1,
+          "cost_usd": 0.016956,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5acd7871dc939d5950",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": null,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Bodinga",
+            "settlement": "Bodinga"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Bodinga",
+            "inferred_fields": [
+              "state",
+              "lga",
+              "settlement"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "age",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Her mother is Aisha.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CLARIFY",
+      "sender_message": "Her mother is Aisha.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Small girl with sudden weak legs in Bodinga."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?"
+          },
+          {
+            "role": "user",
+            "content": "Her mother is Aisha."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": null,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga"
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Bodinga",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Bodinga",
+                "settlement": "Bodinga"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Bodinga",
+                  "settlement": "Bodinga",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Small girl with sudden weak legs in Bodinga.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?\"}, {\"role\": \"user\", \"content\": \"Her mother is Aisha.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": null, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Bodinga\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\"age\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you, noted her mother is Aisha. Please, how old is the girl?\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5ae1ff7603ba7fec04",
+            "object": "chat.completion",
+            "created": 1791258976,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": null,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [\"age\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"age\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you, noted her mother is Aisha. Please, how old is the girl?\"\n}",
+                  "reasoning_content": "Let me analyze this conversation:\n\n1. First message: \"Small girl with sudden weak legs in Bodinga.\" - This is an AFP signal (sudden weak legs = possible acute flaccid paralysis). Location Bodinga resolved to Sokoto state, Bodinga LGA, Bodinga settlement.\n\n2. Assistant asked: \"How old is the girl?\"\n\n3. User replied: \"Her mother is Aisha.\"\n\nThe user didn't answer the age question. They provided the mother's name instead. This is an unsuccessful clarification attempt for age.\n\nCurrent clarification_attempts: 1 (the age question was asked once). Now the reply didn't resolve age. So this counts as the first unsuccessful clarification attempt? Let me re-read.\n\n\"A clarification attempt is unsuccessful when the sender's reply does not resolve the information requested.\"\n\nThe assistant asked for age, the user replied with mother's name - doesn't resolve age. So that's 1 unsuccessful attempt. We can make up to 3 unsuccessful attempts.\n\nSo now we should ask again for age. The clarification attempt_number should be... Let me think. The current state says clarification_attempts: 1. The assistant already asked once, and the reply didn't answer. So this is unsuccessful attempt #1. We can ask again - attempt 2.\n\nWait, how to count? The input says \"clarification_attempts\": 1 - meaning one clarification has been attempted (asking for age), and it was unsuccessful. So we can ask again (attempt 2 of 3).\n\nThe mother's name \"Aisha\" is additional information but not part of the structured fields. It could be useful for follow-up identification but there's no field for it. I shouldn't invent fields. I could note it... The schema doesn't have a place for guardian name. I could keep the response acknowledging it.\n\nActually, the case has symptom, sex, state, lga, settlement all filled. Only age is missing. Age is important for AFP surveillance (typically under 15 years). So we should clarify age again.\n\nAction: CLARIFY, target: age, attempt_number: 2.\n\nWait - should attempt_number be 2? The clarification_attempts in current state is 1. The previous attempt failed. Now we're making a new attempt. So attempt_number = 2.\n\nAlternatively, the attempt_number could reflect the count of unsuccessful attempts so far. The example in the system prompt shows attempt_number: 1 with a CONFIRM action, which seems odd. Let me just use attempt_number: 2 for the second clarification attempt.\n\nActually, looking at the multi-case example: action CONFIRM, clarification attempt_number: 1. Hmm, that seems inconsistent but it's just an example. I'll set attempt_number to 2 since this is the second clarification question about age.\n\nThe response should be short, SMS-appropriate. Something like: \"Thank you. I have noted the mother is Aisha. Please, how old is the girl?\"\n\nMissing information: age.\n\nLocation resolution: Bodinga resolved with high confidence, inferred fields state and lga (settlement was explicitly mentioned... actually settlement Bodinga matched at settlement level). raw_location: \"Bodinga\", inferred_fields: [\"state\", \"lga\"], confidence: high.\n\nClassification: AFP_SUSPECTED.\n\nPriority: NORMAL (no high-priority rule supplied).\n\nConfirmation status: NOT_READY.\n\nEscalation: not required.\n\nPotential duplicate: false, no candidates.\n\nResponse: acknowledge mother's name, ask age again. Keep it short."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3565,
+              "completion_tokens": 1003,
+              "total_tokens": 4568,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 719
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3565,
+            "output_tokens": 1003,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 719
+          },
+          "latency_ms": 10553.2,
+          "cost_usd": 0.023166,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5ae1ff7603ba7fec04",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": null,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Bodinga",
+            "settlement": "Bodinga"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Bodinga",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "age",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you, noted her mother is Aisha. Please, how old is the girl?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "She is 4 years old.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CONFIRM",
+      "sender_message": "She is 4 years old.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Small girl with sudden weak legs in Bodinga."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?"
+          },
+          {
+            "role": "user",
+            "content": "Her mother is Aisha."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you, noted her mother is Aisha. Please, how old is the girl?"
+          },
+          {
+            "role": "user",
+            "content": "She is 4 years old."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": null,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga"
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Bodinga",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Bodinga",
+                "settlement": "Bodinga"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Bodinga",
+                  "settlement": "Bodinga",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Small girl with sudden weak legs in Bodinga.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?\"}, {\"role\": \"user\", \"content\": \"Her mother is Aisha.\"}, {\"role\": \"assistant\", \"content\": \"Thank you, noted her mother is Aisha. Please, how old is the girl?\"}, {\"role\": \"user\", \"content\": \"She is 4 years old.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": null, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Bodinga\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5b0a56766b98ef4676",
+            "object": "chat.completion",
+            "created": 1791258987,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden weak legs\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Bodinga\",\n      \"settlement\": \"Bodinga\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Bodinga\",\n      \"inferred_fields\": [\"state\", \"lga\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?\"\n}",
+                  "reasoning_content": "Let me analyze the conversation:\n\n1. User: \"Small girl with sudden weak legs in Bodinga.\" — AFP signal: sudden weak legs, female, Bodinga (resolved to Sokoto state, Bodinga LGA, Bodinga settlement).\n2. Assistant asked age.\n3. User: \"Her mother is Aisha.\" — didn't answer age (clarification attempt 1 unsuccessful).\n4. Assistant asked age again.\n5. User: \"She is 4 years old.\" — age now provided: 4.\n\nNow all key fields are present: symptom (sudden weak legs), age 4, sex female, state Sokoto, LGA Bodinga, settlement Bodinga. Enough for a usable AFP alert → action CONFIRM, present summary, confirmation status PENDING.\n\nClarification attempts: the age question was answered, so clarification target null, attempt_number... The clarification attempts counter was 1 (unsuccessful). Now resolved. I'll set target null, attempt_number 1 (reflecting past attempts) or 0. The example shows attempt_number 1 with target null in a CONFIRM multi-case example. I'll use 1.\n\nMissing information: none. Note mother's name Aisha isn't part of schema; could mention in response but not required. Keep response short.\n\nLocation resolution: raw_location \"Bodinga\", inferred_fields [\"state\",\"lga\"] (settlement was directly matched), confidence high.\n\nResponse: \"I have: 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?\""
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3612,
+              "completion_tokens": 625,
+              "total_tokens": 4237,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 331
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3612,
+            "output_tokens": 625,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 331
+          },
+          "latency_ms": 5897.8,
+          "cost_usd": 0.018189900000000002,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5b0a56766b98ef4676",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 4,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Bodinga",
+            "settlement": "Bodinga"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Bodinga",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 3,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "Small girl with sudden weak legs in Bodinga."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?"
+          },
+          {
+            "role": "user",
+            "content": "Her mother is Aisha."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you, noted her mother is Aisha. Please, how old is the girl?"
+          },
+          {
+            "role": "user",
+            "content": "She is 4 years old."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden weak legs",
+              "age": 4,
+              "sex": "female",
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga"
+            }
+          ]
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Bodinga",
+              "settlement": "Bodinga",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Bodinga",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Bodinga",
+                "settlement": "Bodinga"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Bodinga",
+                  "settlement": "Bodinga",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"Small girl with sudden weak legs in Bodinga.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?\"}, {\"role\": \"user\", \"content\": \"Her mother is Aisha.\"}, {\"role\": \"assistant\", \"content\": \"Thank you, noted her mother is Aisha. Please, how old is the girl?\"}, {\"role\": \"user\", \"content\": \"She is 4 years old.\"}, {\"role\": \"assistant\", \"content\": \"I have: 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden weak legs\", \"age\": 4, \"sex\": \"female\", \"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}]}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Bodinga\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Bodinga\", \"settlement\": \"Bodinga\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ACCEPT\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":4,\"sex\":\"female\",\"state\":\"Sokoto\",\"lga\":\"Bodinga\",\"settlement\":\"Bodinga\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Bodinga\",\"inferred_fields\":[\"state\",\"lga\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":1},\"confirmation\":{\"status\":\"CONFIRMED\"},\"response\":\"Thank you. Your report of a 4-year-old girl with sudden weak legs in Bodinga, Sokoto has been recorded. Health workers will follow up.\"}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5b216775e9a732b998",
+            "object": "chat.completion",
+            "created": 1791258992,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ACCEPT\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden weak legs\",\"age\":4,\"sex\":\"female\",\"state\":\"Sokoto\",\"lga\":\"Bodinga\",\"settlement\":\"Bodinga\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Bodinga\",\"inferred_fields\":[\"state\",\"lga\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":1},\"confirmation\":{\"status\":\"CONFIRMED\"},\"response\":\"Thank you. Your report of a 4-year-old girl with sudden weak legs in Bodinga, Sokoto has been recorded. Health workers will follow up.\"}",
+                  "reasoning_content": "Let me analyze this conversation:\n\n1. User reports: \"Small girl with sudden weak legs in Bodinga.\"\n2. Assistant asks age.\n3. User says \"Her mother is Aisha.\" - not answering age (clarification attempt 1 unsuccessful... actually the clarification_attempts is 1)\n4. Assistant asks age again.\n5. User says \"She is 4 years old.\"\n6. Assistant presents confirmation summary: \"I have: 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?\"\n7. User says: \"Yes, that is correct.\"\n\nSo the user has explicitly confirmed the structured summary. Per the rules, ACCEPT only after the sender explicitly confirms the final structured interpretation. That has now happened.\n\nSo:\n- classification: AFP_SUSPECTED\n- other_vpd: false\n- action: ACCEPT\n- priority: NORMAL\n- cases: case_1 with symptom \"sudden weak legs\", age 4, sex female, state Sokoto, lga Bodinga, settlement Bodinga\n- location_resolution: case_1, raw_location \"Bodinga\", inferred_fields [\"state\", \"lga\", \"settlement\"] — actually settlement was directly stated, state and lga inferred. The resolver resolved all three. In the example, inferred_fields was [\"lga\", \"state\"] when settlement was directly mentioned. Here the raw text \"Bodinga\" matched at settlement level, so settlement is directly from the mention; state and lga inferred. I'll use [\"state\", \"lga\"] with confidence high.\n- missing_information: []\n- potential_duplicate: false\n- duplicate_candidate_ids: []\n- escalation: required false, reason null\n- clarification: target null, attempt_number 1 (from state)\n- confirmation: status CONFIRMED\n- response: short SMS-appropriate confirmation that report has been received/recorded.\n\nThe response should be short, e.g., \"Thank you. Your report of a 4-year-old girl with sudden weak legs in Bodinga, Sokoto has been recorded. Health workers will follow up.\"\n\nNote the mother's name \"Aisha\" — there's no field for it in the case schema, so we don't include it. It's fine.\n\nClarification attempt_number: the current state says 1. Keep it as 1."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3672,
+              "completion_tokens": 689,
+              "total_tokens": 4361,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 491
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3672,
+            "output_tokens": 689,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 491
+          },
+          "latency_ms": 6643.4,
+          "cost_usd": 0.0192159,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5b216775e9a732b998",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden weak legs",
+            "age": 4,
+            "sex": "female",
+            "state": "Sokoto",
+            "lga": "Bodinga",
+            "settlement": "Bodinga"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Bodinga",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. Your report of a 4-year-old girl with sudden weak legs in Bodinga, Sokoto has been recorded. Health workers will follow up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 1
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Small girl with sudden weak legs in Bodinga."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. I have a girl with sudden weak legs in Bodinga, Sokoto. How old is the girl?"
+    },
+    {
+      "role": "user",
+      "content": "Her mother is Aisha."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you, noted her mother is Aisha. Please, how old is the girl?"
+    },
+    {
+      "role": "user",
+      "content": "She is 4 years old."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Your report of a 4-year-old girl with sudden weak legs in Bodinga, Sokoto has been recorded. Health workers will follow up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden weak legs",
+        "age": 4,
+        "sex": "female",
+        "state": "Sokoto",
+        "lga": "Bodinga",
+        "settlement": "Bodinga"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 28117.5,
+    "input_tokens": 14304,
+    "output_tokens": 2882,
+    "cost_usd": 0.077528,
+    "clarification_turns": 2,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 1
+  }
+}

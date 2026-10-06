@@ -1,0 +1,617 @@
+{
+  "scenario_id": "CLAR-10",
+  "model": "gpt-6-luna",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 16354.3,
+    "input_tokens": 1297,
+    "output_tokens": 1279,
+    "cost_usd": 0.001962,
+    "clarification_turns": 2,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 1
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "CLAR-10",
+    "model": "gpt-6-luna",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 2,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 12,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "CORRECT",
+      "confirmation_fidelity": "CORRECT",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "symptom_equivalence": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 12,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_treat_irrelevant_answer_as_age",
+      "cursor": 1,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_resolve_after_delayed_answer",
+      "cursor": 2,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 2,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 2,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_resolve_after_delayed_answer",
+      "cursor": 3,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_confirm_before_accept",
+      "cursor": 3,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_not_drop_known_case_state",
+      "cursor": 3,
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_only_accept_after_confirmation",
+      "cursor": 3,
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "20 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'age' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "28 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'age' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "98 chars"
+    },
+    {
+      "task": "confirmation_fidelity",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": ""
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 4,
+      "source": "det",
+      "detail": "114 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the child's age"
+        ],
+        "assistant_message": "How old is the girl?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 416,
+        "output_tokens": 47
+      },
+      "latency_ms": 99.3,
+      "cost_usd": 1.7472e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "sex: female",
+          "settlement: Bodinga",
+          "lga: Bodinga",
+          "state: Sokoto",
+          "symptom: sudden weak legs"
+        ],
+        "assistant_message": "How old is the girl?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "CORRECT": 0.98,
+        "PARTIAL": 0.01
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 446,
+        "output_tokens": 47
+      },
+      "latency_ms": 98.1,
+      "cost_usd": 1.8732000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "How old is the girl?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.99
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 401,
+        "output_tokens": 47
+      },
+      "latency_ms": 80.6,
+      "cost_usd": 1.6842000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "How old is the girl?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 401,
+        "output_tokens": 47
+      },
+      "latency_ms": 130.4,
+      "cost_usd": 1.6842000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the child's age"
+        ],
+        "assistant_message": "Thanks. How old is the girl?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 418,
+        "output_tokens": 47
+      },
+      "latency_ms": 150.4,
+      "cost_usd": 1.7556e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "sex: female",
+          "settlement: Bodinga",
+          "lga: Bodinga",
+          "state: Sokoto",
+          "symptom: sudden weak legs"
+        ],
+        "assistant_message": "Thanks. How old is the girl?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 0.99,
+        "PARTIAL": 0.01
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 448,
+        "output_tokens": 47
+      },
+      "latency_ms": 82.8,
+      "cost_usd": 1.8816000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thanks. How old is the girl?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.9400000000000001,
+        "PARTIAL": 0.06,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.9,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 403,
+        "output_tokens": 47
+      },
+      "latency_ms": 92.0,
+      "cost_usd": 1.6926000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thanks. How old is the girl?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 403,
+        "output_tokens": 47
+      },
+      "latency_ms": 117.2,
+      "cost_usd": 1.6926000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "symptom_equivalence",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "reported_symptom": "sudden weak legs",
+        "recorded_symptom": "sudden weak legs"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 443,
+        "output_tokens": 47
+      },
+      "latency_ms": 97.7,
+      "cost_usd": 1.8606e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "confirmation_fidelity",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "case_state": [
+          {
+            "age": 4,
+            "sex": "female",
+            "settlement": "Bodinga",
+            "symptom": "sudden weak legs",
+            "state": "Sokoto",
+            "lga": "Bodinga"
+          }
+        ],
+        "confirmation_message": "I have: a 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.99,
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 556,
+        "output_tokens": 46
+      },
+      "latency_ms": 176.3,
+      "cost_usd": 2.3352e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I have: a 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.75,
+        "PARTIAL": 0.24,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.63,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 427,
+        "output_tokens": 47
+      },
+      "latency_ms": 106.0,
+      "cost_usd": 1.7934e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I have: a 4-year-old girl in Bodinga, Bodinga LGA, Sokoto, with sudden weak legs. Is this correct?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.01,
+        "CORRECT": 0.97,
+        "INCORRECT": 0.02
+      },
+      "confidence": 0.96,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 427,
+        "output_tokens": 47
+      },
+      "latency_ms": 110.3,
+      "cost_usd": 1.7934e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. The report for the 4-year-old girl with sudden weak legs in Bodinga, Bodinga LGA, Sokoto, is confirmed."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.08,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.92
+      },
+      "confidence": 0.87,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 428,
+        "output_tokens": 47
+      },
+      "latency_ms": 62.8,
+      "cost_usd": 1.7976000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. The report for the 4-year-old girl with sudden weak legs in Bodinga, Bodinga LGA, Sokoto, is confirmed."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.96,
+        "PARTIAL": 0.03,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.94,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 428,
+        "output_tokens": 47
+      },
+      "latency_ms": 102.0,
+      "cost_usd": 1.7976000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "final_action": "ACCEPT",
+        "message": "Thank you. The report for the 4-year-old girl with sudden weak legs in Bodinga, Bodinga LGA, Sokoto, is confirmed."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 434,
+        "output_tokens": 45
+      },
+      "latency_ms": 72.9,
+      "cost_usd": 1.8228000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 4,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": []
+}

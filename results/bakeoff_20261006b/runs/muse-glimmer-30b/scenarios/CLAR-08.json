@@ -1,0 +1,704 @@
+{
+  "scenario_id": "CLAR-08",
+  "title": "Ambiguous symptom becomes AFP-relevant",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "My neighbour’s daughter is not using her leg well today in Majawa.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My neighbour’s daughter is not using her leg well today in Majawa."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My neighbour’s daughter is not using her leg well today in Majawa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"not using her leg well today\",\"age\":null,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[\"age\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"age\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?\"}",
+          "raw_response": {
+            "id": "p46Hekx-7ArivV-a46196fd0e5676fd",
+            "object": "chat.completion",
+            "created": 1791257451,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"not using her leg well today\",\"age\":null,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[\"age\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"age\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My neighbour’s daughter is not using her leg well today in Majawa.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}\n\nWe need to parse. Report: neighbour's daughter not using her leg well today in Majawa. Symptom: not using leg well. Could be AFP suspected? AFP is acute flaccid paralysis. \"not using her leg well\" suggests weakness. Need age, sex? Sex: daughter => female. Age unknown. Location resolved: Jigawa, Kafin Hausa, Majawa.\n\nWe have symptom, sex, location, but age missing. Also need confirm it's acute? \"today\" suggests acute. Might be enough? Need age for AFP case. Probably need age. Also need symptom specifics. Could ask for age.\n\nWe have no case yet. Need to create case. Cases array empty. We should create case_1 with symptom: \"not using her leg well today\", sex female, state Jigawa, lga Kafin Hausa, settlement Majawa, age null.\n\nWe need to ask clarification. At most one focused question per turn. Ask age. Also maybe clarify symptom details? The principle: Extract information already provided before asking. We have sex female, location resolved, symptom.\n\nWe need classification AFP_SUSPECTED? Might be. Could be OTHER_VPD? No.\n\nWe need to ask for age. Possibly also confirm symptom is sudden weakness? Could ask age first.\n\nAction should be CLARIFY. Clarification target age? Could be symptom? The symptom is vague. Might need more detail about weakness. But age is required. Could ask for age.\n\nWe should also note missing information: age.\n\nThe output JSON must include cases with case_id etc. We have no case yet but we can create partial case.\n\nShould we create case with symptom? Yes.\n\nMissing_information: [\"age\"] maybe.\n\nClarification attempt_number: 1? Clarification attempts 0 currently. This is first clarification. So attempt_number =1? The field clarification.attempt_number is number of attempts made? Probably current attempt count. Let's set attempt_number 1? Might be 0 then increment? The spec: clarification_attempts 0 in input. We are making first clarification. Possibly attempt_number =1. We'll set 1.\n\nresponse should be short, clear, appropriate for SMS. Ask age.\n\nPossibly also ask about sudden onset? \"today\" suggests. Could ask age.\n\nWe need to preserve location resolution. location_resolution array with case_id, raw_location, inferred_fields, confidence.\n\ninferred_fields: [\"lga\",\"state\"]? Settlement resolved directly. Raw location \"Majawa\". Inferred fields lga and state. Confidence high.\n\nWe need to output JSON.\n\nLet's craft:\n\nclassification: AFP_SUSPECTED? Is it suspected? Symptom of leg weakness. Could be AFP suspected. Yes.\n\nother_vpd false.\n\naction CLARIFY\n\npriority NORMAL\n\ncases: [{\"case_id\":\"case_1\",\"symptom\":\"not using her leg well today\",\"age\":null,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}]\n\nlocation_resolution: [{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}]\n\nmissing_information: [\"age\"]\n\npotential_duplicate false\n\nduplicate_candidate_ids []\n\nescalation required false reason null\n\nclarification target age? Could be age. target: \"age\"\n\nattempt_number 1\n\nconfirmation status NOT_READY? Probably NOT_READY.\n\nresponse: \"How old is your neighbour's daughter?\"\n\nMake sure JSON valid.\n\nPotential nuance: symptom extraction: \"not using her leg well today\". Might be \"not using her leg well\". Keep as is.\n\nWe could also ask for clarification about which leg? But ask one question.\n\nProceed.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2724,
+              "total_tokens": 3901,
+              "completion_tokens": 1177,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 208,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 212,
+            "output_tokens": 1177,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 16955.3,
+          "cost_usd": 0.0027189,
+          "stop_reason": "end_turn",
+          "request_id": "p46Hekx-7ArivV-a46196fd0e5676fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "not using her leg well today",
+            "age": null,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [
+          "age"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "age",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "It became weak suddenly this morning. She is 6 years old.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "It became weak suddenly this morning. She is 6 years old.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My neighbour’s daughter is not using her leg well today in Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?"
+          },
+          {
+            "role": "user",
+            "content": "It became weak suddenly this morning. She is 6 years old."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "not using her leg well today",
+              "age": null,
+              "sex": "female",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My neighbour’s daughter is not using her leg well today in Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?\"}, {\"role\": \"user\", \"content\": \"It became weak suddenly this morning. She is 6 years old.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"not using her leg well today\", \"age\": null, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"not using her leg well today; became weak suddenly this morning\",\"age\":6,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: 6-year-old girl in Majawa, Kafin Hausa, Jigawa, with leg not used well today and sudden weakness this morning. Is this correct?\"}",
+          "raw_response": {
+            "id": "p46HjoR-fdNmn-a46197670d8b76fd",
+            "object": "chat.completion",
+            "created": 1791257468,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"not using her leg well today; became weak suddenly this morning\",\"age\":6,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: 6-year-old girl in Majawa, Kafin Hausa, Jigawa, with leg not used well today and sudden weakness this morning. Is this correct?\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My neighbour’s daughter is not using her leg well today in Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?\"}, {\"role\": \"user\", \"content\": \"It became weak suddenly this morning. She is 6 years old.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"not using her leg well today\", \"age\": null, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {...}}\n\nWe need to update case state. Symptom now: \"not using her leg well today\" plus \"It became weak suddenly this morning.\" Could combine. Age 6. Sex female. Location resolved.\n\nWe have enough info for AFP suspected? Symptom: leg weakness sudden. Age 6. That's plausible AFP. We have symptom, age, sex, state, lga, settlement.\n\nWe need to confirm before accept. The user gave age 6 and clarification about weakness sudden this morning. We should update symptom to reflect sudden weakness. Possibly symptom: \"sudden weakness in leg this morning\" or \"not using her leg well today, became weak suddenly this morning\". Preserve.\n\nNow we need to present concise structured summary and ask sender to confirm or correct. Action = CONFIRM. classification = AFP_SUSPECTED. other_vpd = false. priority NORMAL.\n\ncases array with case_id case_1, symptom updated, age 6, sex female, state Jigawa, lga Kafin Hausa, settlement Majawa.\n\nlocation_resolution: we have resolver resolved. Need to provide location_resolution array with case_id, raw_location, inferred_fields, confidence. raw_location \"Majawa\". inferred_fields [\"lga\",\"state\"]? Could be high confidence.\n\nmissing_information: []? Possibly we could have more specific symptom? Probably enough.\n\nclarification attempt_number? clarification_attempts =0. We asked age, got it. So clarification target null? attempt_number 0? Or 1? The clarification_attempts count is 0 currently. We made one clarification question. But we got answer. Maybe clarification attempt_number stays 0? The field clarification.attempt_number maybe count of unsuccessful attempts. Hmm.\n\nWe need to output JSON.\n\nresponse: \"I have: 6-year-old girl in Majawa, Kafin Hausa, Jigawa, with sudden leg weakness this morning. Is this correct?\" Something short.\n\nWe need to preserve symptom. Might say \"not using her leg well today, became weak suddenly this morning\". Could combine.\n\nBefore CONFIRM, present concise structured summary.\n\nAlso need confirmation status PENDING.\n\nPotential duplicate false.\n\nEscalation required false.\n\nClarification target null.\n\nMake sure JSON matches schema.\n\nLet's craft:\n\nclassification: \"AFP_SUSPECTED\"\nother_vpd: false\naction: \"CONFIRM\"\npriority: \"NORMAL\"\ncases: [...]\nlocation_resolution: [{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}]\nmissing_information: []\npotential_duplicate: false\nduplicate_candidate_ids: []\nescalation: {\"required\":false,\"reason\":null}\nclarification: {\"target\":null,\"attempt_number\":0}\nconfirmation: {\"status\":\"PENDING\"}\nresponse: ...\n\nMake sure age is integer 6.\n\nSymptom: maybe \"leg weakness sudden this morning, not using leg well today\". Could be \"sudden weakness in leg this morning\". Use combined.\n\nWe should not invent. The original symptom \"not using her leg well today\". New info \"It became weak suddenly this morning.\" That's additional detail. So symptom could be \"not using her leg well today; became weak suddenly this morning\". Acceptable.\n\nLet's output.\n\nPotential note: location_resolver mentions unresolved_fields [] so fine.\n\nWe must not ask for location. Already resolved.\n\nNow produce final JSON.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2851,
+              "total_tokens": 3932,
+              "completion_tokens": 1081,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 336,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 339,
+            "output_tokens": 1081,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 16927.6,
+          "cost_usd": 0.00261935,
+          "stop_reason": "end_turn",
+          "request_id": "p46HjoR-fdNmn-a46197670d8b76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "not using her leg well today; became weak suddenly this morning",
+            "age": 6,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 6-year-old girl in Majawa, Kafin Hausa, Jigawa, with leg not used well today and sudden weakness this morning. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "My neighbour’s daughter is not using her leg well today in Majawa."
+          },
+          {
+            "role": "assistant",
+            "content": "I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?"
+          },
+          {
+            "role": "user",
+            "content": "It became weak suddenly this morning. She is 6 years old."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 6-year-old girl in Majawa, Kafin Hausa, Jigawa, with leg not used well today and sudden weakness this morning. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "not using her leg well today; became weak suddenly this morning",
+              "age": 6,
+              "sex": "female",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My neighbour’s daughter is not using her leg well today in Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?\"}, {\"role\": \"user\", \"content\": \"It became weak suddenly this morning. She is 6 years old.\"}, {\"role\": \"assistant\", \"content\": \"I have: 6-year-old girl in Majawa, Kafin Hausa, Jigawa, with leg not used well today and sudden weakness this morning. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"not using her leg well today; became weak suddenly this morning\", \"age\": 6, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ACCEPT\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"not using her leg well today; became weak suddenly this morning\",\"age\":6,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"CONFIRMED\"},\"response\":\"Thank you, the report for the 6-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is recorded for follow-up.\"}",
+          "raw_response": {
+            "id": "p46Hppe-7ArivV-a46197d0ddf776fd",
+            "object": "chat.completion",
+            "created": 1791257485,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"ACCEPT\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"not using her leg well today; became weak suddenly this morning\",\"age\":6,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"CONFIRMED\"},\"response\":\"Thank you, the report for the 6-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is recorded for follow-up.\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"My neighbour’s daughter is not using her leg well today in Majawa.\"}, {\"role\": \"assistant\", \"content\": \"I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?\"}, {\"role\": \"user\", \"content\": \"It became weak suddenly this morning. She is 6 years old.\"}, {\"role\": \"assistant\", \"content\": \"I have: 6-year-old girl in Majawa, Kafin Hausa, Jigawa, with leg not used well today and sudden weakness this morning. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"not using her leg well today; became weak suddenly this morning\", \"age\": 6, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {...}}\n\nWe need to produce output JSON. Conversation shows user confirmed summary. So we should ACCEPT.\n\nWe have case_1 with symptom, age 6, sex female, state Jigawa, lga Kafin Hausa, settlement Majawa.\n\nClassification AFP_SUSPECTED? Symptom: not using leg well, sudden weakness. That's AFP suspected. Yes.\n\nother_vpd false.\n\naction ACCEPT.\n\npriority NORMAL.\n\ncases array.\n\nlocation_resolution: need array with case_id, raw_location, inferred_fields, confidence. Raw location \"Majawa\". Inferred fields [\"lga\",\"state\"]? Possibly settlement resolved. Could be high confidence.\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status? Should be CONFIRMED? The confirmation status field. After acceptance, maybe CONFIRMED. The schema expects confirmation status. Previously pending. Now confirmed. Could set status CONFIRMED.\n\nresponse: should be short acknowledgment? For ACCEPT, maybe confirm acceptance. The guidelines: Use ACCEPT only after sender explicitly confirms. Response should be short clear appropriate for SMS. Maybe \"Thank you, the report is recorded for follow-up.\" Something.\n\nWe must return JSON only.\n\nCheck output contract: cases with fields case_id, symptom, age, sex, state, lga, settlement.\n\nWe have.\n\nlocation_resolution array: we need raw_location, inferred_fields, confidence. Provide.\n\nmissing_information [].\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status CONFIRMED? Might be CONFIRMED.\n\nresponse: \"Thank you, the report for the 6-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is recorded for follow-up.\"\n\nMake sure JSON valid.\n\nPotential nuance: symptom string maybe combine. Already.\n\nShould we keep symptom as \"not using her leg well today; became weak suddenly this morning\". OK.\n\nEnsure sex is female.\n\nProvide location_resolution entry.\n\nConfidence high.\n\ninferred_fields: [\"lga\",\"state\"] or also settlement? Raw location Majawa resolved to settlement, state, lga. inferred_fields maybe [\"state\",\"lga\"] because settlement directly matched. Could include all. Use [\"lga\",\"state\"].\n\nEnsure JSON keys match exactly.\n\nNo commentary.\n\nReturn JSON."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2923,
+              "total_tokens": 3876,
+              "completion_tokens": 953,
+              "prompt_tokens_details": {
+                "cached_tokens": 2528,
+                "created_cache_tokens": 384,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 395,
+            "output_tokens": 953,
+            "cache_read_input_tokens": 2528,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 13035.3,
+          "cost_usd": 0.00245255,
+          "stop_reason": "end_turn",
+          "request_id": "p46Hppe-7ArivV-a46197d0ddf776fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "not using her leg well today; became weak suddenly this morning",
+            "age": 6,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you, the report for the 6-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is recorded for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "My neighbour’s daughter is not using her leg well today in Majawa."
+    },
+    {
+      "role": "assistant",
+      "content": "I have a report of your neighbour’s daughter in Majawa, Kafin Hausa, Jigawa, not using her leg well today. How old is she?"
+    },
+    {
+      "role": "user",
+      "content": "It became weak suddenly this morning. She is 6 years old."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 6-year-old girl in Majawa, Kafin Hausa, Jigawa, with leg not used well today and sudden weakness this morning. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you, the report for the 6-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden leg weakness is recorded for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "not using her leg well today; became weak suddenly this morning",
+        "age": 6,
+        "sex": "female",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 46918.2,
+    "input_tokens": 946,
+    "output_tokens": 3211,
+    "cost_usd": 0.007791,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "scenario_id": "VPD-20",
+  "title": "Meningitis-like fever and neck stiffness",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "OTHER_VPD",
+      "sender_message": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto North",
+              "settlement": "Sokoto town",
+              "listed": true
+            },
+            {
+              "state": "Sokoto",
+              "lga": "Sokoto South",
+              "settlement": "Sokoto town",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Sokoto town",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "settlement": "Sokoto town"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto North",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                },
+                {
+                  "state": "Sokoto",
+                  "lga": "Sokoto South",
+                  "settlement": "Sokoto town",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [
+                "lga"
+              ],
+              "requires": [
+                "lga"
+              ],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 15 year old in Sokoto town suddenly developed fever and a stiff neck.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Sokoto town\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"settlement\": \"Sokoto town\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"unresolved_fields\": [\"lga\"], \"requires\": [\"lga\"], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"OTHER_VPD\", \"other_vpd\": true, \"action\": \"OTHER_VPD\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"fever and stiff neck\", \"age\": 15, \"sex\": \"unknown\", \"state\": \"Sokoto\", \"lga\": null, \"settlement\": \"Sokoto town\"}], \"location_resolution\": [], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I have recorded a report of fever and stiff neck in a 15-year-old in Sokoto town, Sokoto State. This will be passed to surveillance staff.\"}",
+          "raw_response": {
+            "id": "p46NP9U-7ArivV-a461ad86183976fd",
+            "object": "chat.completion",
+            "created": 1791258374,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\": \"OTHER_VPD\", \"other_vpd\": true, \"action\": \"OTHER_VPD\", \"priority\": \"NORMAL\", \"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"fever and stiff neck\", \"age\": 15, \"sex\": \"unknown\", \"state\": \"Sokoto\", \"lga\": null, \"settlement\": \"Sokoto town\"}], \"location_resolution\": [], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 0}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I have recorded a report of fever and stiff neck in a 15-year-old in Sokoto town, Sokoto State. This will be passed to surveillance staff.\"}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 15 year old in Sokoto town suddenly developed fever and a stiff neck.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Sokoto town\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"settlement\": \"Sokoto town\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Sokoto North\", \"settlement\": \"Sokoto town\", \"listed\": true}, {\"state\": \"Sokoto\", \"lga\": \"Sokoto South\", \"settlement\": \"Sokoto town\", \"listed\": true}], \"unresolved_fields\": [\"lga\"], \"requires\": [\"lga\"], \"notes\": []}]}\n\nWe need to interpret. Report: 15 year old in Sokoto town suddenly developed fever and stiff neck.\n\nAFP suspected? AFP is acute flaccid paralysis. Fever and stiff neck is meningitis? Not AFP. Could be other VPD? Fever and stiff neck could be meningitis, maybe vaccine-preventable? Could be other disease. The instructions: If message appears to describe another relevant disease or syndrome rather than AFP, preserve signal and stop. Do not begin disease-specific follow-up conversation.\n\nWe have symptom fever and stiff neck. Not AFP. AFP symptoms are flaccid paralysis. So classification? Could be OTHER_VPD? Fever and stiff neck could be meningitis (meningococcal). That's vaccine-preventable? Possibly. The instruction: If a message appears to describe another surveillance-relevant disease or syndrome rather than AFP, preserve the signal and stop. Do not begin a disease-specific follow-up conversation.\n\nIs fever + stiff neck surveillance relevant? Possibly meningitis. Might be OTHER_VPD. The classification options: AFP_SUSPECTED, OTHER_VPD, HEALTH_RELATED_UNCLEAR, NOT_RELEVANT, UNINTELLIGIBLE.\n\nWe have age 15, location Sokoto town ambiguous LGA. Symptom fever and stiff neck. No paralysis mentioned.\n\nWe could classify as OTHER_VPD? Or HEALTH_RELATED_UNCLEAR? Fever and stiff neck is a classic meningitis sign. That's surveillance relevant. Might be OTHER_VPD.\n\nThe instruction: Preserve all reports of other vaccine-preventable or priority diseases. So we should capture.\n\nBut do we need to clarify location? For OTHER_VPD, we should preserve signal and stop. Do not begin disease-specific follow-up conversation. The output says action = OTHER_VPD. classification = OTHER_VPD. other_vpd = true. Preserve information and stop rather than starting another disease-specific follow-up.\n\nShould we still ask for LGA? The location resolver is ambiguous. For OTHER_VPD, we preserve signal and stop. Does that mean we don't need to clarify location? The general principles say extract information already provided before asking follow-up. Ask only for information still needed. But for OTHER_VPD, we should preserve signal and stop. Do not begin disease-specific follow-up conversation. Possibly we still need location? The instruction says preserve the signal and stop. Do not begin a disease-specific follow-up conversation.\n\nThe decision definitions: Use OTHER_VPD when a non-AFP but surveillance-relevant disease or syndrome is recognized. Preserve the information and stop rather than starting another disease-specific follow-up conversation.\n\nSo we should not ask clarification? It says preserve and stop. We could still have missing location. But maybe we can still output with what we have. The location resolver ambiguous for LGA. But we have state Sokoto, settlement Sokoto town. LGA unresolved. Should we ask? The instruction for OTHER_VPD says preserve signal and stop. Do not begin disease-specific follow-up conversation.\n\nPotentially we can still output classification OTHER_VPD, action OTHER_VPD, cases? The schema expects cases array. For OTHER_VPD, we might still have case info? It says preserve information. Could we still have case with partial location? Might be okay.\n\nThe output contract: cases array for all case state. It expects symptom, age, sex, state, lga, settlement.\n\nWe have age 15, symptom fever and stiff neck, state Sokoto, settlement Sokoto town, lga null (ambiguous). Sex unknown.\n\nShould we ask clarification for LGA? The instruction says if message appears to describe another relevant disease rather than AFP, preserve signal and stop. Do not begin disease-specific follow-up conversation. That suggests we should not ask further questions. So we should just output OTHER_VPD.\n\nBut also location resolver ambiguous. If we stop, we leave LGA null.\n\nPotential duplicate? No.\n\nThe action = OTHER_VPD.\n\nclassification = OTHER_VPD\n\nother_vpd = true\n\npriority = NORMAL\n\ncases: one case with symptom \"fever and stiff neck\", age 15, sex unknown, state Sokoto, lga null?, settlement Sokoto town.\n\nLocation resolution? Possibly we need to include location_resolution array. Could leave empty.\n\nmissing_information? Might be LGA unresolved. But if we stop, maybe we don't need.\n\nThe instruction: If a message appears to describe another relevant disease or syndrome rather than AFP, preserve the signal and stop. Do not begin a disease-specific follow-up conversation.\n\nThus we should not ask clarification. So we output action OTHER_VPD.\n\nThe response should be short, clear, appropriate for SMS. Maybe acknowledge receipt? But says preserve and stop. Possibly respond with confirmation of receipt.\n\nWe need to follow output shape. response field should be user-facing short clear.\n\nMaybe: \"Thank you, I have recorded a report of fever and stiff neck in a 15 year old in Sokoto town. This will be passed to surveillance staff.\"\n\nBut is that starting disease-specific follow-up? It's just acknowledgement.\n\nThe instruction says do not begin a disease-specific follow-up conversation. Acknowledgement might be okay.\n\nBetter to just say we have recorded.\n\nThe schema requires response.\n\nLet's produce JSON.\n\ncases[0]:\ncase_id case_1\nsymptom \"fever and stiff neck\"\nage 15\nsex unknown\nstate \"Sokoto\"\nlga null\nsettlement \"Sokoto town\"\n\nlocation_resolution: maybe include raw_location \"Sokoto town\", inferred_fields [\"state\"], confidence low? Could be medium? Since ambiguous. Might omit.\n\nmissing_information: []? Could include lga missing. But if we stop, maybe not needed.\n\nclarification target null, attempt_number 0.\n\nconfirmation status? For OTHER_VPD action, confirmation maybe not needed.\n\nescalation required false.\n\npotential_duplicate false.\n\nWe need other_vpd true.\n\nclassification OTHER_VPD\n\naction OTHER_VPD\n\npriority NORMAL\n\nresponse: \"I have recorded a report of fever and stiff neck in a 15-year-old in Sokoto town, Sokoto State. This will be passed to surveillance staff.\"\n\nThat seems fine.\n\nCheck rules: Never invent missing information. Sex unknown is okay.\n\nLocation resolver says unresolved_fields lga. We could leave lga null.\n\nShould we set state to Sokoto? Resolver resolved state: resolved includes state Sokoto. Yes.\n\nSettlement Sokoto town.\n\nOk.\n\nPotential nuance: Could this be AFP? Fever and stiff neck not flaccid paralysis. So not AFP.\n\nCould be HEALTH_RELATED_UNCLEAR? Fever and stiff neck is clear meningitis sign. So OTHER_VPD seems appropriate.\n\nSome might argue it's not necessarily vaccine preventable. Could be HEALTH_RELATED_UNCLEAR. But instruction says preserve reports of other vaccine-preventable or priority diseases. Meningitis is priority. So OTHER_VPD.\n\nIf uncertain, maybe HEALTH_RELATED_UNCLEAR is safer? The instruction says if message appears to describe another relevant disease or syndrome rather than AFP, preserve signal and stop. Fever and stiff neck is meningitis-like. That's relevant.\n\nI'll output OTHER_VPD.\n\nMake sure JSON fields match.\n\nOutput JSON with cases array.\n\nlocation_resolution maybe empty array.\n\nmissing_information empty.\n\nclarification attempt_number 0.\n\nconfirmation status? Not defined for OTHER_VPD, but schema expects confirmation object with status. Could set NOT_READY.\n\nWe'll set confirmation status NOT_READY.\n\nProceed.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2798,
+              "total_tokens": 4809,
+              "completion_tokens": 2011,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 272,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 286,
+            "output_tokens": 2011,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 29230.8,
+          "cost_usd": 0.0039958,
+          "stop_reason": "end_turn",
+          "request_id": "p46NP9U-7ArivV-a461ad86183976fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "OTHER_VPD",
+        "other_vpd": true,
+        "action": "OTHER_VPD",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "fever and stiff neck",
+            "age": 15,
+            "sex": "unknown",
+            "state": "Sokoto",
+            "lga": null,
+            "settlement": "Sokoto town"
+          }
+        ],
+        "location_resolution": [],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I have recorded a report of fever and stiff neck in a 15-year-old in Sokoto town, Sokoto State. This will be passed to surveillance staff."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 15 year old in Sokoto town suddenly developed fever and a stiff neck."
+    },
+    {
+      "role": "assistant",
+      "content": "I have recorded a report of fever and stiff neck in a 15-year-old in Sokoto town, Sokoto State. This will be passed to surveillance staff."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "fever and stiff neck",
+        "age": 15,
+        "sex": "unknown",
+        "state": "Sokoto",
+        "lga": null,
+        "settlement": "Sokoto town"
+      }
+    ]
+  },
+  "gold_actions": [
+    "OTHER_VPD"
+  ],
+  "model_actions": [
+    "OTHER_VPD"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 29230.8,
+    "input_tokens": 286,
+    "output_tokens": 2011,
+    "cost_usd": 0.003996,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

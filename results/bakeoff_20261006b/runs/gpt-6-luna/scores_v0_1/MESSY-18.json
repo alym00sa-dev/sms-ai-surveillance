@@ -1,0 +1,217 @@
+{
+  "scenario_id": "MESSY-18",
+  "model": "gpt-6-luna",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 4753.8,
+    "input_tokens": 232,
+    "output_tokens": 412,
+    "cost_usd": 0.000527,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "MESSY-18",
+    "model": "gpt-6-luna",
+    "scores": {
+      "classification": 0,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 2,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 10,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT",
+      "no_fabricated_information": "CORRECT"
+    },
+    "notes": [
+      "classification: turn 1: classification NOT_RELEVANT (expected HEALTH_RELATED_UNCLEAR)"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 10,
+  "rubric": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 2,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_overtrigger_afp",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "classification",
+      "status": "FAIL",
+      "severity": 0,
+      "detail": "NOT_RELEVANT"
+    },
+    {
+      "check": "must_not_reask_explicitly_answered_onset",
+      "cursor": 0,
+      "route": "JEV",
+      "dimension": "conversation_quality",
+      "status": "PASS",
+      "severity": null,
+      "detail": "no clarification at this turn"
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "101 chars"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "This describes a longstanding weak leg with no recent change, so it is not an acute paralysis report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.16,
+        "INCORRECT": 0.12,
+        "CORRECT": 0.72
+      },
+      "confidence": 0.58,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 415,
+        "output_tokens": 47
+      },
+      "latency_ms": 111.3,
+      "cost_usd": 1.743e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "This describes a longstanding weak leg with no recent change, so it is not an acute paralysis report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.05,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.94
+      },
+      "confidence": 0.91,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 415,
+        "output_tokens": 47
+      },
+      "latency_ms": 171.5,
+      "cost_usd": 1.743e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "final_action": "NOT_RELEVANT",
+        "message": "This describes a longstanding weak leg with no recent change, so it is not an acute paralysis report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.02,
+        "CORRECT": 0.98,
+        "PARTIAL": 0.0
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 45
+      },
+      "latency_ms": 97.6,
+      "cost_usd": 1.7724000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "no_fabricated_information",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "sender_message": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.",
+        "assistant_message": "This describes a longstanding weak leg with no recent change, so it is not an acute paralysis report."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.76,
+        "INCORRECT": 0.23,
+        "PARTIAL": 0.01
+      },
+      "confidence": 0.65,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 453,
+        "output_tokens": 48
+      },
+      "latency_ms": 116.5,
+      "cost_usd": 1.9026e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 1,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "classification: turn 1: classification NOT_RELEVANT (expected HEALTH_RELATED_UNCLEAR)"
+  ]
+}

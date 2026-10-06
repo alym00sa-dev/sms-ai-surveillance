@@ -1,0 +1,663 @@
+{
+  "scenario_id": "CLAR-09",
+  "title": "Location ambiguity requires clarification",
+  "model_key": "gemini-3.1-pro-preview",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "7 year old boy in Kura suddenly weak in one leg.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy in Kura suddenly weak in one leg."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "settlement": "Kura"
+              },
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga"
+              ],
+              "requires": [
+                "state",
+                "lga"
+              ],
+              "notes": [
+                "more than one place has this name; the benchmark does not list them"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy in Kura suddenly weak in one leg.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"settlement\": \"Kura\"}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\"], \"requires\": [\"state\", \"lga\"], \"notes\": [\"more than one place has this name; the benchmark does not list them\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [],\n      \"confidence\": \"low\"\n    }\n  ],\n  \"missing_information\": [\n    \"state\",\n    \"lga\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for reporting. There is more than one Kura. Could you please specify which State and Local Government Area (LGA) this Kura is in?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [],\n      \"confidence\": \"low\"\n    }\n  ],\n  \"missing_information\": [\n    \"state\",\n    \"lga\"\n  ],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you for reporting. There is more than one Kura. Could you please specify which State and Local Government Area (LGA) this Kura is in?\"\n}",
+                      "thoughtSignature": "EvcFCvQFAWkUfRPf7NZaqkWulDStVYXpZeTCSyb1rwD/NWNoYGKR4lcNSByWizZZt9HIWPIZDrJJUBGcRXnyQUhrRLd7pcuzNcXgpx+SsZo5/UWEU5tiHhA2E3QUhhkXSFvzyd0fSoqbd4PDow9/Et81kCoWRDs9+JUYmAGzlFWlbhM95esn5dAgAfA41PT0SVN3V2W7lmZ3g0y3tASVYBXAXraa27Oj1w5jHGlG6NKeQqHmAOnNw2Edp+WREACwi7sgkiS7sF2l7A1Bz0qxta5uS8K0MMVgZdgayzOkp3ryaG4T+En3DTR4CVNnn+IkuZuKsLoe02nTHL7adkdDbM57pbnKOWfcAvXkTwnYKkfZLE1D6zKa4R/JGu892tlLdMxW5TWom1lBEIQhZ1/aQDjV0nmm5wD0mwgPuBb1IY4cgU1aCMeil8i8xk6GhS03LOHVUv9YaDWZR7dxjgYrXIban8J9f3+Rbj9fu6u5IPoAeWeUUNL/WKibWfH/gSunmncLKy1580NrxmS2+DL9FhQbDAK3rCzbGzdh5HE5Ov2Cs27vsffA97Kt/hT4VLmDnk8ToMb350dGXaX9nfktVkX6UhZM/POZ57DKVlxAH/iGOgcnhSP7eTRKnUa5a3eEzEt4pRw+/V3cIJmsLlIjdeWTW0lTzykcRYQUmum4P/A+dz80cH204Pjki6eAa1LlVT8AtAyHQ6Gly3YdzIRJhAGTuXVwO7olE67E6VFhwprUwE956mPWsu1Z0ex4AJ5shZDay6s/Kl1mrnyRD0MyMd5sRJ8+puHLp0odED2wc6XvschSCXPH0hQLDTIqZo+bJn8aMVFZK6rd2LsLoreZYSicBGJuXyX1WkIH53t7LxL0xJQoGgA6qS/d7MTVUTqSYITZ4iakGvWizeO23NW32cMks7sHe7FU0TSbjySOk8LG6uVbVm7KqonDmyAoGTetQOOEP6SZNCp0We7zF/b/EDnMx8cHtfqIkKWRQDkYzCmq04czJxUqWqmh"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2877,
+              "candidatesTokenCount": 331,
+              "totalTokenCount": 3405,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2877
+                }
+              ],
+              "thoughtsTokenCount": 197,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "72jEar2kKe-tz7IPzfmioQI"
+          },
+          "usage": {
+            "input_tokens": 2877,
+            "output_tokens": 528,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 197
+          },
+          "latency_ms": 5207.2,
+          "cost_usd": 0.01209,
+          "stop_reason": "end_turn",
+          "request_id": "72jEar2kKe-tz7IPzfmioQI",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly weak in one leg",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [],
+            "confidence": "low"
+          }
+        ],
+        "missing_information": [
+          "state",
+          "lga"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you for reporting. There is more than one Kura. Could you please specify which State and Local Government Area (LGA) this Kura is in?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Kano State, Kura LGA.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "Kano State, Kura LGA.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy in Kura suddenly weak in one leg."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for reporting. There is more than one Kura. Could you please specify which State and Local Government Area (LGA) this Kura is in?"
+          },
+          {
+            "role": "user",
+            "content": "Kano State, Kura LGA."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly weak in one leg",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy in Kura suddenly weak in one leg.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for reporting. There is more than one Kura. Could you please specify which State and Local Government Area (LGA) this Kura is in?\"}, {\"role\": \"user\", \"content\": \"Kano State, Kura LGA.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly weak in one leg\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\n        \"state\",\n        \"lga\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?\"\n}",
+                      "thoughtSignature": "EsMFCsAFAWkUfRM3jAx83jgAVrISdTV1NdWlhEd7xl6jKaMK28ctiDV8q1Oh/g9UjZPl09ozJA7xzxSJ1f2Ux1AKKuLJNNdecZn6gRrmLv9z/S2MAm7qrwfbn9o7u5q3hi7nlaDNOANOYFrahyQHSbyUmGMcJo7pegww4pQrrNHzzlsfGtwYwyWV7FS9vJnYQFeXA+QRVHfpv4ucCOIz6fmTSMkLFcYBZFGWxaVDH251ywaBT4s4BS5sTQ8zF+k6prDKSwHrMxUUTpbvv5wFT4xSQK5fjl3euFvlAVizVCi4SzlqPhNYJNrafw3X/8PPcQcuXJbeP+eRgBFH9ohyU4O4o5meH+bvra5OA5w4KdxOlTQ/hrxqTZG7LRkazY9a82i1QrgPSb2Bxg/eGW9cD26g0PF5HWoqSNMF+W1a4LxHDP1zsMEX2l4zUv1PXJsTyHiQhWM49nS9TNagoAscG17ay1hpTacyL24OLBIj5xaS5KSL3NVP+nEyRQ2nqH+hLqQnGuM0IcePqkjnWjWMyCR8HIh25I3/lZw7e/lWf46m0DRNdLzXRLi91UUqvwo+wXXIKynODdrpEk16umXHuwCFoAq/iqXVpqiCFjwr6W2Y+w5gLmVaB1knfxLbF8UR4Lt1qcVnE4a0vOpn4usJC344H+rsDqakuxMDUhdRxflF2edH0hD2S9BoOFLeWX0qnCIXrMz/asiYtkVDK5NHAce6oIs4QDzp+VYEn7rRLeqCyOrbUL1mP5Yf41cadGSlkjyAWHS9IbRlcz5Lju481PBzVdKj2zq2ysRc/bOANENhFmWnpG5DQ3nRGQ145DSVDGZknuWT5rnFRAQQYI69RwenddGGxMt+SBA/YyESVMfZeOT4xVwoPRsxrmXUpXhUoVwsXjPX4Sx6HOzKx+lwbMTQ9aQS+jlnDufii0KjiahIvYtRpjU="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3032,
+              "candidatesTokenCount": 331,
+              "totalTokenCount": 3532,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3032
+                }
+              ],
+              "thoughtsTokenCount": 169,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "9GjEarrWNMvUz7IP4MusuQM"
+          },
+          "usage": {
+            "input_tokens": 3032,
+            "output_tokens": 500,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 169
+          },
+          "latency_ms": 5530.0,
+          "cost_usd": 0.012064,
+          "stop_reason": "end_turn",
+          "request_id": "9GjEarrWNMvUz7IP4MusuQM",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly weak in one leg",
+            "age": 7,
+            "sex": "male",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "one"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "7 year old boy in Kura suddenly weak in one leg."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for reporting. There is more than one Kura. Could you please specify which State and Local Government Area (LGA) this Kura is in?"
+          },
+          {
+            "role": "user",
+            "content": "Kano State, Kura LGA."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly weak in one leg",
+              "age": 7,
+              "sex": "male",
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "gemini-3.1-pro-preview",
+            "generationConfig": {
+              "maxOutputTokens": 16000,
+              "temperature": 0.7,
+              "responseMimeType": "application/json",
+              "responseJsonSchema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"7 year old boy in Kura suddenly weak in one leg.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for reporting. There is more than one Kura. Could you please specify which State and Local Government Area (LGA) this Kura is in?\"}, {\"role\": \"user\", \"content\": \"Kano State, Kura LGA.\"}, {\"role\": \"assistant\", \"content\": \"I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly weak in one leg\", \"age\": 7, \"sex\": \"male\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. Your report has been submitted to the health authorities.\"\n}",
+          "raw_response": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly weak in one leg\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you for confirming. Your report has been submitted to the health authorities.\"\n}",
+                      "thoughtSignature": "EpEDCo4DAWkUfRM7WIcRQk799lOHjdYQcDNir0vf++IZ90i9RKS6U1QWVVn9hQhD78WjfzzlFsSRDRKtSFANWpwD6uF7Og6YevDLZ68h5cEsEVyT3kusunRyRP3xPzOZl03w0sAM6s5SjS0503YPv24UQwJbflKpbjGtmlFFORKIv4tcwcvQhWspZ64cVmAbLxwU9onJWATwKZqrh+5iDgUIk3UKB7ZKox102bvjtKFKwzenAhMIUpI03KijgN0eC/t/A/IwA0FRROXI94hwwa99OoFXsIAOJhv0rEjosbjs2eBXV+4CYcW9IsYfNVY7UyWNR2p4cyJ6GR4cN8Xm0og9747jRwzSU/MggeJOG3vSrqLboTzm6PlsHaHSYH/HDArPZY0GKUhPmBfpykpHCn1+nj0TFsyMuSny8dOd2oZv+jKsSOxxFEuV72Gfqp/gZXviS59pKUeZolPwapvvCJ+Jb9y9VROsLt//97RBjzM2qo2UrOMZgDBCWsisSKirr8bBy1NfY1ymAFtkSSY4tamA8YA="
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 3095,
+              "candidatesTokenCount": 314,
+              "totalTokenCount": 3494,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 3095
+                }
+              ],
+              "thoughtsTokenCount": 85,
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.1-pro-preview",
+            "responseId": "-mjEarTJGM7rz7IPvo3z-AI"
+          },
+          "usage": {
+            "input_tokens": 3095,
+            "output_tokens": 399,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 85
+          },
+          "latency_ms": 4536.8,
+          "cost_usd": 0.010978,
+          "stop_reason": "end_turn",
+          "request_id": "-mjEarTJGM7rz7IPvo3z-AI",
+          "model": "gemini-3.1-pro-preview",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly weak in one leg",
+            "age": 7,
+            "sex": "male",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you for confirming. Your report has been submitted to the health authorities."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "7 year old boy in Kura suddenly weak in one leg."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for reporting. There is more than one Kura. Could you please specify which State and Local Government Area (LGA) this Kura is in?"
+    },
+    {
+      "role": "user",
+      "content": "Kano State, Kura LGA."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden weakness in one leg. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for confirming. Your report has been submitted to the health authorities."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly weak in one leg",
+        "age": 7,
+        "sex": "male",
+        "state": "Kano",
+        "lga": "Kura",
+        "settlement": "Kura"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 3,
+    "api_calls": 3,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 15274.0,
+    "input_tokens": 9004,
+    "output_tokens": 1427,
+    "cost_usd": 0.035132,
+    "clarification_turns": 1,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

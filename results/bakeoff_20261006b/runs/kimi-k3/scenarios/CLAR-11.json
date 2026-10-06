@@ -1,0 +1,904 @@
+{
+  "scenario_id": "CLAR-11",
+  "title": "Correction after structured confirmation overrides earlier value",
+  "model_key": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "A 7 year old boy in Kura suddenly lost power in both legs.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "AMBIGUOUS",
+          "candidates": [],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "AMBIGUOUS",
+              "match_level": "settlement",
+              "resolved": {
+                "settlement": "Kura"
+              },
+              "candidates": [],
+              "unresolved_fields": [
+                "state",
+                "lga"
+              ],
+              "requires": [
+                "state",
+                "lga"
+              ],
+              "notes": [
+                "more than one place has this name; the benchmark does not list them"
+              ]
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"AMBIGUOUS\", \"candidates\": [], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"AMBIGUOUS\", \"match_level\": \"settlement\", \"resolved\": {\"settlement\": \"Kura\"}, \"candidates\": [], \"unresolved_fields\": [\"state\", \"lga\"], \"requires\": [\"state\", \"lga\"], \"notes\": [\"more than one place has this name; the benchmark does not list them\"]}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden loss of power in both legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"settlement\"],\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"missing_information\": [\"state\", \"lga\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5b3bc871cda084388e",
+            "object": "chat.completion",
+            "created": 1791258999,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden loss of power in both legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": null,\n      \"lga\": null,\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"settlement\"],\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"missing_information\": [\"state\", \"lga\"],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"location\",\n    \"attempt_number\": 1\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?\"\n}",
+                  "reasoning_content": "Let me analyze this input.\n\nThe user message: \"A 7 year old boy in Kura suddenly lost power in both legs.\"\n\nThis is an AFP-relevant signal: sudden loss of power in both legs in a 7-year-old boy. That's classic AFP symptom description.\n\nExtracted:\n- symptom: sudden loss of power/weakness in both legs\n- age: 7\n- sex: male\n- settlement: Kura (per resolver, resolved at settlement level)\n- state: null (ambiguous, resolver requires state and lga)\n- lga: null\n\nLocation resolver: status AMBIGUOUS, \"Kura\" matches more than one place. Candidates empty. resolved: settlement = Kura. unresolved_fields: state, lga. requires: state, lga.\n\nPer instructions: status AMBIGUOUS — do not choose or guess. Leave fields listed in requires as null and ask one focused question for them. Use confirmed parts (settlement = Kura).\n\nSo action = CLARIFY, clarification target = location (or state/lga). The allowed targets include \"location\", \"state\", \"lga\", \"settlement\". Since we need state and lga, target \"location\" seems appropriate (or \"state\"). The target enum allows only one. I'd pick \"location\" since we ask for both state and LGA. Attempt number: 1 (this is the first clarification attempt).\n\nmissing_information: [\"state\", \"lga\"]\n\nclassification: AFP_SUSPECTED.\n\npriority: NORMAL (no high-priority rule supplied).\n\nconfirmation status: NOT_READY.\n\nresponse: short SMS-style question asking for state and LGA of Kura. E.g., \"Thank you. A 7-year-old boy in Kura with sudden loss of power in both legs has been recorded. Which state and LGA is Kura in?\"\n\nlocation_resolution: case_1, raw_location \"Kura\", inferred_fields: [\"settlement\"], confidence: maybe \"medium\"? The resolver resolved settlement but ambiguous overall. Confidence enum high/medium/low. Since settlement resolved but state/lga ambiguous, I'd say \"medium\" or \"low\". The settlement itself is established, so confidence in settlement is high, but overall location ambiguous. I'll use \"medium\". Actually, inferred_fields should reflect what was inferred. The resolver resolved settlement: Kura. inferred_fields: [\"settlement\"]. Confidence — given ambiguity, \"low\" or \"medium\". I'll go with \"medium\".\n\nHmm, but \"inferred_fields\" — the settlement was stated by the user, not inferred. But in the example, raw_location \"Majawa\" with inferred lga and state. Here nothing inferred beyond what's said; settlement resolved from mention. I could set inferred_fields to [] and confidence low. But the schema requires inferred_fields as array (can be empty). Let me set inferred_fields: [\"settlement\"] since the resolver established settlement = Kura. Confidence \"medium\" given ambiguity.\n\npotential_duplicate: false, duplicate_candidate_ids: [].\n\nescalation: required false, reason null.\n\nclarification: target \"location\", attempt_number 1.\n\ncases: one case with case_id \"case_1\", symptom \"sudden loss of power in both legs\", age 7, sex \"male\", state null, lga null, settlement \"Kura\".\n\nResponse should ask one focused question: which state and LGA is this Kura in?"
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3412,
+              "completion_tokens": 1014,
+              "total_tokens": 4426,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 705
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3412,
+            "output_tokens": 1014,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 705
+          },
+          "latency_ms": 11148.0,
+          "cost_usd": 0.022901400000000002,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5b3bc871cda084388e",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden loss of power in both legs",
+            "age": 7,
+            "sex": "male",
+            "state": null,
+            "lga": null,
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "settlement"
+            ],
+            "confidence": "medium"
+          }
+        ],
+        "missing_information": [
+          "state",
+          "lga"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "location",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Kura LGA in Kano State.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CONFIRM",
+      "sender_message": "Kura LGA in Kano State.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?"
+          },
+          {
+            "role": "user",
+            "content": "Kura LGA in Kano State."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden loss of power in both legs",
+              "age": 7,
+              "sex": "male",
+              "state": null,
+              "lga": null,
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?\"}, {\"role\": \"user\", \"content\": \"Kura LGA in Kano State.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden loss of power in both legs\", \"age\": 7, \"sex\": \"male\", \"state\": null, \"lga\": null, \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden loss of power in both legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"Thank you. I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5b66d3704387d90d2c",
+            "object": "chat.completion",
+            "created": 1791259010,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"CONFIRM\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden loss of power in both legs\",\n      \"age\": 7,\n      \"sex\": \"male\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"state\", \"lga\", \"settlement\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"PENDING\"\n  },\n  \"response\": \"Thank you. I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"\n}",
+                  "reasoning_content": "The conversation: user reported a 7-year-old boy in Kura with sudden loss of power in both legs. Assistant asked which state/LGA. User said Kura LGA in Kano State. Resolver confirms RESOLVED: Kano, Kura LGA, Kura settlement.\n\nNow all information is complete: symptom, age, sex, state, LGA, settlement. Action should be CONFIRM with a structured summary. Confirmation status PENDING. Priority NORMAL. No duplicates."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3581,
+              "completion_tokens": 406,
+              "total_tokens": 3987,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 98
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3581,
+            "output_tokens": 406,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 98
+          },
+          "latency_ms": 2467.4,
+          "cost_usd": 0.0151497,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5b66d3704387d90d2c",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden loss of power in both legs",
+            "age": 7,
+            "sex": "male",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "state",
+              "lga",
+              "settlement"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "Thank you. I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "Actually, it is a girl, not a boy.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CONFIRM",
+      "sender_message": "Actually, it is a girl, not a boy.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?"
+          },
+          {
+            "role": "user",
+            "content": "Kura LGA in Kano State."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Actually, it is a girl, not a boy."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden loss of power in both legs",
+              "age": 7,
+              "sex": "male",
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?\"}, {\"role\": \"user\", \"content\": \"Kura LGA in Kano State.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Actually, it is a girl, not a boy.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden loss of power in both legs\", \"age\": 7, \"sex\": \"male\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden loss of power in both legs\",\"age\":7,\"sex\":\"female\",\"state\":\"Kano\",\"lga\":\"Kura\",\"settlement\":\"Kura\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Kura\",\"inferred_fields\":[\"state\",\"lga\",\"settlement\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"Thank you for the correction. I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5b708a76a99d86e9e9",
+            "object": "chat.completion",
+            "created": 1791259013,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"sudden loss of power in both legs\",\"age\":7,\"sex\":\"female\",\"state\":\"Kano\",\"lga\":\"Kura\",\"settlement\":\"Kura\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Kura\",\"inferred_fields\":[\"state\",\"lga\",\"settlement\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"Thank you for the correction. I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}",
+                  "reasoning_content": "The sender corrected sex from male to female during confirmation. Update case state, preserve other fields, and present new confirmation summary. Action = CONFIRM, confirmation status PENDING."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3655,
+              "completion_tokens": 242,
+              "total_tokens": 3897,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 35
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3655,
+            "output_tokens": 242,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 35
+          },
+          "latency_ms": 2688.0,
+          "cost_usd": 0.013135500000000001,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5b708a76a99d86e9e9",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden loss of power in both legs",
+            "age": 7,
+            "sex": "female",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "state",
+              "lga",
+              "settlement"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "Thank you for the correction. I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "both"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 3,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?"
+          },
+          {
+            "role": "user",
+            "content": "Kura LGA in Kano State."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you. I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Actually, it is a girl, not a boy."
+          },
+          {
+            "role": "assistant",
+            "content": "Thank you for the correction. I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "sudden loss of power in both legs",
+              "age": 7,
+              "sex": "female",
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Kano",
+              "lga": "Kura",
+              "settlement": "Kura",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Kura",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Kano",
+                "lga": "Kura",
+                "settlement": "Kura"
+              },
+              "candidates": [
+                {
+                  "state": "Kano",
+                  "lga": "Kura",
+                  "settlement": "Kura",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 7 year old boy in Kura suddenly lost power in both legs.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?\"}, {\"role\": \"user\", \"content\": \"Kura LGA in Kano State.\"}, {\"role\": \"assistant\", \"content\": \"Thank you. I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Actually, it is a girl, not a boy.\"}, {\"role\": \"assistant\", \"content\": \"Thank you for the correction. I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"sudden loss of power in both legs\", \"age\": 7, \"sex\": \"female\", \"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Kura\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\"}, \"candidates\": [{\"state\": \"Kano\", \"lga\": \"Kura\", \"settlement\": \"Kura\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden loss of power in both legs\",\n      \"age\": 7,\n      \"sex\": \"female\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. Your report has been recorded: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Health workers will follow up.\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5b7afc778e99f98ac5",
+            "object": "chat.completion",
+            "created": 1791259015,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"sudden loss of power in both legs\",\n      \"age\": 7,\n      \"sex\": \"female\",\n      \"state\": \"Kano\",\n      \"lga\": \"Kura\",\n      \"settlement\": \"Kura\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Kura\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. Your report has been recorded: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Health workers will follow up.\"\n}",
+                  "reasoning_content": "The sender has confirmed the corrected summary. So action = ACCEPT, confirmation status = CONFIRMED.\n\nCase: 7-year-old girl, Kura settlement, Kura LGA, Kano State, sudden loss of power in both legs. Classification AFP_SUSPECTED, priority NORMAL.\n\nLocation resolution: raw \"Kura\", inferred fields lga, state (settlement was the raw mention). Confidence high.\n\nResponse: short confirmation message."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3723,
+              "completion_tokens": 396,
+              "total_tokens": 4119,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 90
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3723,
+            "output_tokens": 396,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 90
+          },
+          "latency_ms": 3659.3,
+          "cost_usd": 0.0153981,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5b7afc778e99f98ac5",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "sudden loss of power in both legs",
+            "age": 7,
+            "sex": "female",
+            "state": "Kano",
+            "lga": "Kura",
+            "settlement": "Kura"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Kura",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. Your report has been recorded: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Health workers will follow up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 7 year old boy in Kura suddenly lost power in both legs."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. I have recorded a 7-year-old boy in Kura with sudden loss of power in both legs. There is more than one place called Kura. Which state and LGA is this Kura in?"
+    },
+    {
+      "role": "user",
+      "content": "Kura LGA in Kano State."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. I have: 7-year-old boy in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Actually, it is a girl, not a boy."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you for the correction. I have: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Your report has been recorded: 7-year-old girl in Kura, Kura LGA, Kano State, with sudden loss of power in both legs. Health workers will follow up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "sudden loss of power in both legs",
+        "age": 7,
+        "sex": "female",
+        "state": "Kano",
+        "lga": "Kura",
+        "settlement": "Kura"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CONFIRM",
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 19962.7,
+    "input_tokens": 14371,
+    "output_tokens": 2058,
+    "cost_usd": 0.066585,
+    "clarification_turns": 1,
+    "confirmation_turns": 2,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "scenario_id": "MESSY-18",
+  "title": "Clearly chronic weakness should not be treated as AFP",
+  "model_key": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "NOT_RELEVANT",
+      "sender_message": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"NOT_RELEVANT\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg since infancy (long-standing, no sudden change today)\",\n      \"age\": 10,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. A weak leg present since he was a baby, with no sudden change, is not a new (acute) paralysis case, so no AFP alert is needed. If a leg or arm suddenly becomes weak or floppy, please report immediately.\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f5d34967399b909c361",
+            "object": "chat.completion",
+            "created": 1791259128,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"NOT_RELEVANT\",\n  \"other_vpd\": false,\n  \"action\": \"NOT_RELEVANT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"weak leg since infancy (long-standing, no sudden change today)\",\n      \"age\": 10,\n      \"sex\": \"male\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"Thank you. A weak leg present since he was a baby, with no sudden change, is not a new (acute) paralysis case, so no AFP alert is needed. If a leg or arm suddenly becomes weak or floppy, please report immediately.\"\n}",
+                  "reasoning_content": "The report: \"A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.\"\n\nAFP surveillance is about acute (sudden onset) flaccid paralysis. A weak leg since babyhood is chronic, not acute. \"Nothing changed today\" — no sudden onset. This is not AFP. Is it another VPD? Chronic weakness since infancy isn't a typical VPD syndrome (like measles rash, neonatal tetanus, etc.). It's health-related but not AFP and not clearly another surveillance-relevant syndrome.\n\nClassification options: HEALTH_RELATED_UNCLEAR seems appropriate — it's a health report but not AFP (not acute). Action: NOT_RELEVANT? Hmm. The classification must be one of the enums. The report is clearly not AFP because paralysis is longstanding, not acute. It's not clearly another VPD. So classification = HEALTH_RELATED_UNCLEAR, action = NOT_RELEVANT (clearly outside surveillance use case since not acute). Or could CLARIFY be used to ask whether there was any sudden change? The sender explicitly said \"Nothing changed today\" and \"since he was a baby\" — the onset question is already answered. No clarification needed.\n\nPriority: NORMAL.\n\nCases: Should we still record the case? The output contract uses cases array for all case state. We can include the case with extracted info but classification NOT_RELEVANT... Actually classification options don't include NOT_RELEVANT... wait yes they do: classification enum includes NOT_RELEVANT. And action NOT_RELEVANT.\n\nHEALTH_RELATED_UNCLEAR vs NOT_RELEVANT: The message is health-related but not a surveillance signal for AFP or VPD. \"HEALTH_RELATED_UNCLEAR\" seems to fit a health report whose relevance is unclear. But here it's fairly clear it's not acute AFP. Hmm. The chronic condition is health-related but unclear relevance. I'd go with HEALTH_RELATED_UNCLEAR with action NOT_RELEVANT? Action options: NOT_RELEVANT. The pairing could be classification=NOT_RELEVANT, action=NOT_RELEVANT. But it is health-related. The guidance: \"Use NOT_RELEVANT when the message is clearly outside the surveillance use case\" — chronic weakness since babyhood with no acute change is clearly outside AFP surveillance use case. But it's still health-related. HEALTH_RELATED_UNCLEAR is for when we can't tell if it's relevant. Here we can tell it's not acute.\n\nI think classification = HEALTH_RELATED_UNCLEAR might lead to CLARIFY. But the sender already told us onset: since baby, nothing changed. So no clarification needed. I'll classify as HEALTH_RELATED_UNCLEAR? Hmm, let me think about what's most defensible.\n\nAFP case definition: sudden onset of flaccid paralysis in a child under 15. This child has had a weak leg since infancy — not sudden onset. So not AFP. Not another VPD syndrome. The report is health-related but does not meet AFP signal. The best classification: HEALTH_RELATED_UNCLEAR captures \"health-related but not classifiable as AFP/other VPD\". Action: NOT_RELEVANT since no further follow-up warranted... but action NOT_RELEVANT pairs with classification NOT_RELEVANT per decision definitions: \"Use NOT_RELEVANT when the message is clearly outside the surveillance use case.\" A chronic condition with no acute change is outside the AFP surveillance use case. Either could be argued.\n\nI'll go with classification = HEALTH_RELATED_UNCLEAR, action = NOT_RELEVANT? That seems inconsistent. Actually the definitions allow mixing. But cleaner: classification NOT_RELEVANT means clearly outside use case. A chronic weak leg is a health matter but not a surveillance-relevant signal. I think HEALTH_RELATED_UNCLEAR is for ambiguous health messages where we might clarify. Since onset is known chronic, it's clearly not AFP. I'll use HEALTH_RELATED_UNCLEAR with action NOT_RELEVANT... hmm.\n\nLet me reconsider: The system says \"while preserving relevant reports of other vaccine-preventable or priority diseases.\" Polio causes AFP acutely; chronic weakness since baby could be old polio sequela but not a surveillance case. The proper response: explain this doesn't appear to be a new/sudden paralysis, so no AFP alert; suggest seeking care if needed.\n\nI'll choose classification = HEALTH_RELATED_UNCLEAR? No — I'll choose NOT_RELEVANT because the case clearly doesn't meet AFP (not acute) and isn't another VPD. Actually \"HEALTH_RELATED_UNCLEAR\" literally means health related, unclear whether relevant. Here it's clear it's not relevant to AFP surveillance. So NOT_RELEVANT with a polite response.\n\nHmm, but is it \"clearly outside the surveillance use case\"? The surveillance use case is AFP + VPDs. Chronic weakness is outside. Yes. NOT_RELEVANT.\n\nCases array: include the case with extracted data? For a NOT_RELEVANT, probably still record what was said. I'll include case_1 with symptom \"weak leg since infancy (chronic, no sudden change)\", age 10, sex male, location resolved Majawa/Kafin Hausa/Jigawa. That preserves info.\n\nLocation resolution: include entry with inferred state/lga, confidence high.\n\nmissing_information: [].\n\nclarification: target null, attempt_number 0.\n\nconfirmation: NOT_READY.\n\nResponse: short SMS: \"Thank you. A weak leg present since infancy with no sudden change is not a new paralysis case, so no AFP alert is needed. If the leg suddenly becomes weaker or a new weakness appears, please report immediately.\"\n\nKeep concise."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3474,
+              "completion_tokens": 1467,
+              "total_tokens": 4941,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 1145
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3474,
+            "output_tokens": 1467,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 1145
+          },
+          "latency_ms": 12652.3,
+          "cost_usd": 0.0291843,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f5d34967399b909c361",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "NOT_RELEVANT",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "weak leg since infancy (long-standing, no sudden change today)",
+            "age": 10,
+            "sex": "male",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Thank you. A weak leg present since he was a baby, with no sudden change, is not a new (acute) paralysis case, so no AFP alert is needed. If a leg or arm suddenly becomes weak or floppy, please report immediately."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. A weak leg present since he was a baby, with no sudden change, is not a new (acute) paralysis case, so no AFP alert is needed. If a leg or arm suddenly becomes weak or floppy, please report immediately."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "weak leg since infancy (long-standing, no sudden change today)",
+        "age": 10,
+        "sex": "male",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 12652.3,
+    "input_tokens": 3474,
+    "output_tokens": 1467,
+    "cost_usd": 0.029184,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

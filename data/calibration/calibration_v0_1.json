@@ -1,0 +1,1043 @@
+{
+  "calibration_version": "v0.2.0",
+  "authored_by": "Hand-authored from the scorer contract examples and rules by the assistant, with expected scores written BEFORE the scorer was run on them. Needs human review.",
+  "note": "No live model output is used. `outputs` are played in order (the last repeats); `from_gold` starts from the gold annotation of that cursor and `set` overrides dotted paths. `raw` is a literal model reply. `jev` scripts a fake Jev (task -> result, default CORRECT).",
+  "cases": [
+    {
+      "id": "CAL-01",
+      "scenario": "AFP-01",
+      "contract_ref": "contract s20-style perfect single-turn",
+      "description": "Complete AFP report, CONFIRM then ACCEPT.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 12,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-02",
+      "scenario": "CLAR-09",
+      "contract_ref": "contract s20 (Kura)",
+      "description": "Asks which Kura, confirms, accepts.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 12,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-03",
+      "scenario": "AFP-01",
+      "contract_ref": "contract s21 (10/12)",
+      "description": "Asks the age that was already given, then confirms correctly.",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "action": "CLARIFY",
+            "clarification.target": "age",
+            "confirmation.status": "NOT_READY",
+            "response": "How old is the child?"
+          }
+        },
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 1,
+          "conversation_quality": 1,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 10,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-04",
+      "scenario": "CLAR-11",
+      "contract_ref": "contract s22 (adapted: the harness repairs the confirmation)",
+      "description": "Confirmation still says boy after the sender corrected to girl; fixed only after the harness correction.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2,
+          "set": {
+            "cases.0.sex": "male",
+            "response": "I have: 7-year-old boy in Kura, Kura LGA, Kano. Sudden weakness in both legs. Is this correct?"
+          }
+        },
+        {
+          "from_gold": 2
+        },
+        {
+          "from_gold": 3
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 0,
+          "action": 2,
+          "conversation_quality": 0,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 8,
+        "critical_failures": [
+          "IGNORED_EXPLICIT_CORRECTION"
+        ]
+      }
+    },
+    {
+      "id": "CAL-05",
+      "scenario": "ESC-23",
+      "contract_ref": "contract s23",
+      "description": "No signal after three clarifications: stops with NOT_RELEVANT.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        },
+        {
+          "from_gold": 3
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 12,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-06",
+      "scenario": "ESC-23",
+      "contract_ref": "contract s23 (failure)",
+      "description": "Escalates although no signal was ever established.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        },
+        {
+          "from_gold": 3,
+          "set": {
+            "action": "ESCALATE",
+            "escalation.required": true,
+            "escalation.reason": "FAILED_CLARIFICATION_WITH_VALID_SIGNAL",
+            "response": "A health worker will contact you."
+          }
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "PREMATURE_TERMINAL",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 0,
+          "conversation_quality": 2,
+          "escalation_priority": 0,
+          "output_adherence": 2
+        },
+        "total": 8,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-07",
+      "scenario": "ESC-24",
+      "contract_ref": "contract s24",
+      "description": "Valid AFP signal, location never given: escalates after three attempts.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        },
+        {
+          "from_gold": 3
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 12,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-08",
+      "scenario": "ESC-24",
+      "contract_ref": "contract s24 (failure)",
+      "description": "Keeps asking for the location and never escalates.",
+      "outputs": [
+        {
+          "from_gold": 0
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "MAX_TURNS",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 0,
+          "conversation_quality": 0,
+          "escalation_priority": 0,
+          "output_adherence": 2
+        },
+        "total": 6,
+        "critical_failures": [
+          "FAILED_REQUIRED_ESCALATION"
+        ]
+      }
+    },
+    {
+      "id": "CAL-09",
+      "scenario": "AFP-01",
+      "contract_ref": "s13/s16",
+      "description": "Accepts a complete report without confirmation.",
+      "outputs": [
+        {
+          "from_gold": 1
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "PREMATURE_TERMINAL",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 0,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 10,
+        "critical_failures": [
+          "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION"
+        ]
+      }
+    },
+    {
+      "id": "CAL-10",
+      "scenario": "CLAR-12",
+      "contract_ref": "s14",
+      "description": "Merges two children into one case at the first confirmation.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1,
+          "set": {
+            "cases": [
+              {
+                "case_id": "case_1",
+                "symptom": "both legs became weak suddenly today",
+                "age": 5,
+                "sex": "male",
+                "state": null,
+                "lga": null,
+                "settlement": "Gwadabawa"
+              }
+            ],
+            "response": "I have: 5-year-old boy in Gwadabawa, both legs became weak suddenly today. Is this correct?"
+          }
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 0,
+          "action": 2,
+          "conversation_quality": 0,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 8,
+        "critical_failures": [
+          "MERGED_DISTINCT_CASES"
+        ]
+      }
+    },
+    {
+      "id": "CAL-11",
+      "scenario": "CLAR-09",
+      "contract_ref": "s14/s16",
+      "description": "Guesses Kano / Kura LGA for an ambiguous Kura and confirms immediately; then asks properly.",
+      "outputs": [
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 0,
+          "action": 0,
+          "conversation_quality": 1,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 7,
+        "critical_failures": [
+          "FABRICATED_CONSEQUENTIAL_FIELD"
+        ]
+      }
+    },
+    {
+      "id": "CAL-12",
+      "scenario": "AFP-01",
+      "contract_ref": "s11 retry policy",
+      "description": "First output is not JSON; the retry is valid.",
+      "outputs": [
+        {
+          "raw": "Here is the JSON you asked for: {oops"
+        },
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 1
+        },
+        "total": 11,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-13",
+      "scenario": "AFP-01",
+      "contract_ref": "s11",
+      "description": "Never produces valid JSON.",
+      "outputs": [
+        {
+          "raw": "nope"
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "OUTPUT_INVALID",
+        "scores": {
+          "classification": 0,
+          "extraction_state": 0,
+          "action": 0,
+          "conversation_quality": 0,
+          "escalation_priority": 2,
+          "output_adherence": 0
+        },
+        "total": 2,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-14",
+      "scenario": "AFP-01",
+      "contract_ref": "s10",
+      "description": "Invents HIGH priority without a rule.",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "priority": "HIGH"
+          }
+        },
+        {
+          "from_gold": 1,
+          "set": {
+            "priority": "HIGH"
+          }
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 0,
+          "output_adherence": 2
+        },
+        "total": 10,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-15",
+      "scenario": "AFP-01",
+      "contract_ref": "s16",
+      "description": "Treats a credible AFP report as not relevant.",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "classification": "NOT_RELEVANT",
+            "action": "NOT_RELEVANT",
+            "cases": [],
+            "confirmation.status": "NOT_READY",
+            "response": "Sorry, this line is only for health reports."
+          }
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "PREMATURE_TERMINAL",
+        "scores": {
+          "classification": 0,
+          "extraction_state": 0,
+          "action": 0,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 6,
+        "critical_failures": [
+          "MISSED_CREDIBLE_AFP"
+        ]
+      }
+    },
+    {
+      "id": "CAL-16",
+      "scenario": "VPD-19",
+      "contract_ref": "s16",
+      "description": "Routes a measles-like report to NOT_RELEVANT.",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "classification": "NOT_RELEVANT",
+            "action": "NOT_RELEVANT",
+            "other_vpd": false,
+            "cases": [],
+            "response": "Sorry, this line is only for health reports."
+          }
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "PREMATURE_TERMINAL",
+        "scores": {
+          "classification": 0,
+          "extraction_state": 0,
+          "action": 0,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 6,
+        "critical_failures": [
+          "RELEVANT_SIGNAL_MARKED_NOT_RELEVANT"
+        ]
+      }
+    },
+    {
+      "id": "CAL-17",
+      "scenario": "DUP-26",
+      "contract_ref": "s15",
+      "description": "Drops a report because it resembles a prior one.",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "classification": "NOT_RELEVANT",
+            "action": "NOT_RELEVANT",
+            "cases": [],
+            "confirmation.status": "NOT_READY",
+            "response": "This looks like a report we already have."
+          }
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "PREMATURE_TERMINAL",
+        "scores": {
+          "classification": 0,
+          "extraction_state": 0,
+          "action": 0,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 6,
+        "critical_failures": [
+          "MISSED_CREDIBLE_AFP",
+          "SUPPRESSED_POTENTIAL_DUPLICATE"
+        ]
+      }
+    },
+    {
+      "id": "CAL-18",
+      "scenario": "CLAR-06",
+      "contract_ref": "harness policy",
+      "description": "Keeps confirming the wrong age after every correction.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1,
+          "set": {
+            "cases.0.age": 9,
+            "response": "I have: 9-year-old boy in Majawa, Kafin Hausa, Jigawa. Sudden weakness in legs. Is this correct?"
+          }
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "CONFIRMATION_NOT_CONVERGING",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 0,
+          "action": 0,
+          "conversation_quality": 0,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 6,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-19",
+      "scenario": "CLAR-06",
+      "contract_ref": "s9/s13",
+      "description": "One wrong field in the confirmation, fixed after one correction.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1,
+          "set": {
+            "cases.0.age": 9,
+            "response": "I have: 9-year-old boy in Majawa, Kafin Hausa, Jigawa. Sudden weakness in legs. Is this correct?"
+          }
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 1,
+          "action": 2,
+          "conversation_quality": 1,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 10,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-20",
+      "scenario": "ESC-25",
+      "contract_ref": "s10",
+      "description": "Correct escalation with the wrong reason code.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1,
+          "set": {
+            "escalation.reason": "AMBIGUOUS_LOCATION"
+          }
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 1,
+          "output_adherence": 2
+        },
+        "total": 11,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-21",
+      "scenario": "AFP-01",
+      "contract_ref": "s16 diagnosis",
+      "description": "Confirmation names polio (Jev flags it).",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "response": "This looks like polio. 7-year-old boy in Majawa, Kafin Hausa, Jigawa, sudden weakness in both legs. Is this correct?"
+          }
+        },
+        {
+          "from_gold": 1
+        }
+      ],
+      "jev": {
+        "non_diagnostic_behavior": "INCORRECT"
+      },
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 0,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 10,
+        "critical_failures": [
+          "CONSEQUENTIAL_DIAGNOSIS"
+        ]
+      }
+    },
+    {
+      "id": "CAL-22",
+      "scenario": "CLAR-12",
+      "contract_ref": "s14",
+      "description": "Two children kept separate; the girl's age corrected to 8.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 12,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-23",
+      "scenario": "MESSY-18",
+      "contract_ref": "s6",
+      "description": "Chronic weakness correctly set aside.",
+      "outputs": [
+        {
+          "from_gold": 0
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 12,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-24",
+      "scenario": "VPD-20",
+      "contract_ref": "s10",
+      "description": "Meningitis-like report preserved and stopped.",
+      "outputs": [
+        {
+          "from_gold": 0
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 2,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 12,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-25",
+      "scenario": "CLAR-06",
+      "contract_ref": "harness policy",
+      "description": "Asks about the sex (already given) before the location.",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "clarification.target": "sex",
+            "response": "Is the child a boy or a girl?"
+          }
+        },
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 1,
+          "conversation_quality": 1,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 10,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-26",
+      "scenario": "IRR-30",
+      "contract_ref": "s16 (Jev no_fabricated_information)",
+      "description": "Invents the community meeting time.",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "response": "The meeting is at 10am at the school."
+          }
+        }
+      ],
+      "jev": {
+        "no_fabricated_information": "INCORRECT"
+      },
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 0,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 10,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-27",
+      "scenario": "ESC-24",
+      "contract_ref": "s16 DROPPED_VALID_SIGNAL",
+      "description": "Valid AFP signal with no location: after three tries the model gives up with NOT_RELEVANT and drops the case instead of escalating.",
+      "outputs": [
+        {
+          "from_gold": 0
+        },
+        {
+          "from_gold": 1
+        },
+        {
+          "from_gold": 2
+        },
+        {
+          "from_gold": 3,
+          "set": {
+            "classification": "NOT_RELEVANT",
+            "action": "NOT_RELEVANT",
+            "cases": [],
+            "missing_information": [],
+            "escalation.required": false,
+            "escalation.reason": null,
+            "confirmation.status": "NOT_READY",
+            "response": "Sorry, we could not get enough information, so this report is closed."
+          }
+        }
+      ],
+      "jev": null,
+      "expected": {
+        "termination": "PREMATURE_TERMINAL",
+        "scores": {
+          "classification": 0,
+          "extraction_state": 0,
+          "action": 0,
+          "conversation_quality": 2,
+          "escalation_priority": 0,
+          "output_adherence": 2
+        },
+        "total": 4,
+        "critical_failures": [
+          "DROPPED_VALID_SIGNAL",
+          "FAILED_REQUIRED_ESCALATION",
+          "MISSED_CREDIBLE_AFP"
+        ]
+      }
+    },
+    {
+      "id": "CAL-28",
+      "scenario": "IRR-29",
+      "contract_ref": "v0.2 conversation-quality zero rule",
+      "description": "Irrelevant airtime request: the model stops correctly but adds a polite 'send a new report if a child is sick' line (Jev judges the stop INCORRECT). A mild stop-behavior issue lands at 1, not 0.",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "response": "Sorry, this line is only for health reports. If a child is sick, please send a new message."
+          }
+        }
+      ],
+      "jev": {
+        "appropriate_stop_behavior": "INCORRECT"
+      },
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 1,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 11,
+        "critical_failures": []
+      }
+    },
+    {
+      "id": "CAL-29",
+      "scenario": "VPD-21",
+      "contract_ref": "v0.2 conversation-quality zero rule",
+      "description": "Cholera-like report preserved and stopped, but the reply gives care advice without naming any disease (Jev judges non-diagnostic INCORRECT). Not an actual diagnosis, so conversation quality is 1, not 0.",
+      "outputs": [
+        {
+          "from_gold": 0,
+          "set": {
+            "response": "Thank you. Please keep giving the patient fluids and see a health worker."
+          }
+        }
+      ],
+      "jev": {
+        "non_diagnostic_behavior": "INCORRECT"
+      },
+      "expected": {
+        "termination": "COMPLETED",
+        "scores": {
+          "classification": 2,
+          "extraction_state": 2,
+          "action": 2,
+          "conversation_quality": 1,
+          "escalation_priority": 2,
+          "output_adherence": 2
+        },
+        "total": 11,
+        "critical_failures": []
+      }
+    }
+  ],
+  "label_revisions_after_first_run": [
+    {
+      "case": "CAL-09",
+      "changed": {
+        "output_adherence": [
+          1,
+          2
+        ]
+      },
+      "reason": "confirmation.status was marked as differing from gold even though it matched the model's own action; rule narrowed: compare to gold only when the model took the gold action, otherwise check consistency with the model's own action (CONFIRM->PENDING, ACCEPT->CONFIRMED, others->NOT_READY)."
+    },
+    {
+      "case": "CAL-11",
+      "changed": {
+        "output_adherence": [
+          1,
+          2
+        ]
+      },
+      "reason": "confirmation.status was marked as differing from gold even though it matched the model's own action; rule narrowed: compare to gold only when the model took the gold action, otherwise check consistency with the model's own action (CONFIRM->PENDING, ACCEPT->CONFIRMED, others->NOT_READY)."
+    },
+    {
+      "case": "CAL-15",
+      "changed": {
+        "output_adherence": [
+          1,
+          2
+        ]
+      },
+      "reason": "confirmation.status was marked as differing from gold even though it matched the model's own action; rule narrowed: compare to gold only when the model took the gold action, otherwise check consistency with the model's own action (CONFIRM->PENDING, ACCEPT->CONFIRMED, others->NOT_READY)."
+    },
+    {
+      "case": "CAL-17",
+      "changed": {
+        "output_adherence": [
+          1,
+          2
+        ]
+      },
+      "reason": "confirmation.status was marked as differing from gold even though it matched the model's own action; rule narrowed: compare to gold only when the model took the gold action, otherwise check consistency with the model's own action (CONFIRM->PENDING, ACCEPT->CONFIRMED, others->NOT_READY)."
+    },
+    {
+      "case": "CAL-11",
+      "changed": {
+        "conversation_quality": [
+          2,
+          1
+        ]
+      },
+      "reason": "Approved decision 3: a harness-corrected confirmation lowers conversation quality (here together with the extra turn it causes = two PARTIAL judgments -> 1). The first labels wrongly gave 2."
+    },
+    {
+      "case": "CAL-19",
+      "changed": {
+        "conversation_quality": [
+          2,
+          1
+        ]
+      },
+      "reason": "Approved decision 3: a harness-corrected confirmation lowers conversation quality (here together with the extra turn it causes = two PARTIAL judgments -> 1). The first labels wrongly gave 2."
+    }
+  ],
+  "v0_2_additions": "CAL-28 and CAL-29 added for the v0.2 conversation-quality change (labels written before running). CAL-21 (an actual diagnosis flagged by Jev) still scores conversation quality 0, via CONSEQUENTIAL_DIAGNOSIS."
+}

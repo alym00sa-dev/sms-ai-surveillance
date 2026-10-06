@@ -1,0 +1,221 @@
+{
+  "scenario_id": "MESSY-18",
+  "model": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 1,
+    "api_calls": 1,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 12652.3,
+    "input_tokens": 3474,
+    "output_tokens": 1467,
+    "cost_usd": 0.029184,
+    "clarification_turns": 0,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "MESSY-18",
+    "model": "kimi-k3",
+    "scores": {
+      "classification": 0,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 1,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 9,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "PARTIAL",
+      "non_diagnostic_behavior": "PARTIAL",
+      "appropriate_stop_behavior": "CORRECT",
+      "no_fabricated_information": "CORRECT"
+    },
+    "notes": [
+      "classification: turn 1: classification NOT_RELEVANT (expected HEALTH_RELATED_UNCLEAR)",
+      "conversation: non_diagnostic_behavior: PARTIAL",
+      "conversation: sms_conciseness: PARTIAL"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 9,
+  "rubric": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_overtrigger_afp",
+      "cursor": 0,
+      "route": "DIMENSION",
+      "dimension": "classification",
+      "status": "FAIL",
+      "severity": 0,
+      "detail": "NOT_RELEVANT"
+    },
+    {
+      "check": "must_not_reask_explicitly_answered_onset",
+      "cursor": 0,
+      "route": "JEV",
+      "dimension": "conversation_quality",
+      "status": "PASS",
+      "severity": null,
+      "detail": "no clarification at this turn"
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "213 chars"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. A weak leg present since he was a baby, with no sudden change, is not a new (acute) paralysis case, so no AFP alert is needed. If a leg or arm suddenly becomes weak or floppy, please report immediately."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "CORRECT": 0.47,
+        "PARTIAL": 0.49,
+        "INCORRECT": 0.04
+      },
+      "confidence": 0.22,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 445,
+        "output_tokens": 47
+      },
+      "latency_ms": 165.7,
+      "cost_usd": 1.8690000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. A weak leg present since he was a baby, with no sudden change, is not a new (acute) paralysis case, so no AFP alert is needed. If a leg or arm suddenly becomes weak or floppy, please report immediately."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "PARTIAL": 0.46,
+        "INCORRECT": 0.32,
+        "CORRECT": 0.22
+      },
+      "confidence": 0.19,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 445,
+        "output_tokens": 47
+      },
+      "latency_ms": 126.2,
+      "cost_usd": 1.8690000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "final_action": "NOT_RELEVANT",
+        "message": "Thank you. A weak leg present since he was a baby, with no sudden change, is not a new (acute) paralysis case, so no AFP alert is needed. If a leg or arm suddenly becomes weak or floppy, please report immediately."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.99,
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.98,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 452,
+        "output_tokens": 45
+      },
+      "latency_ms": 101.4,
+      "cost_usd": 1.8984000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "no_fabricated_information",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "sender_message": "A 10 year old boy in Majawa has had a weak leg since he was a baby. Nothing changed today.",
+        "assistant_message": "Thank you. A weak leg present since he was a baby, with no sudden change, is not a new (acute) paralysis case, so no AFP alert is needed. If a leg or arm suddenly becomes weak or floppy, please report immediately."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.02,
+        "INCORRECT": 0.31,
+        "CORRECT": 0.67
+      },
+      "confidence": 0.52,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 483,
+        "output_tokens": 48
+      },
+      "latency_ms": 138.9,
+      "cost_usd": 2.0286000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 1,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "classification: turn 1: classification NOT_RELEVANT (expected HEALTH_RELATED_UNCLEAR)",
+    "conversation: non_diagnostic_behavior: PARTIAL",
+    "conversation: sms_conciseness: PARTIAL"
+  ]
+}

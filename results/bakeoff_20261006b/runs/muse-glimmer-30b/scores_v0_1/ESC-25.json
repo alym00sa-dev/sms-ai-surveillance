@@ -1,0 +1,566 @@
+{
+  "scenario_id": "ESC-25",
+  "model": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 122109.5,
+    "input_tokens": 901,
+    "output_tokens": 8561,
+    "cost_usd": 0.016758,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "ESC-25",
+    "model": "muse-glimmer-30b",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 0,
+      "conversation_quality": 0,
+      "escalation_priority": 1,
+      "output_adherence": 2
+    },
+    "total": 7,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "INCORRECT",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "CORRECT",
+      "appropriate_stop_behavior": "CORRECT"
+    },
+    "notes": [
+      "action: turn 2: CLARIFY where ESCALATE expected",
+      "action: turn 3: CLARIFY where ESCALATE expected",
+      "conversation: clarification_target_quality: INCORRECT",
+      "conversation: turn_efficiency: INCORRECT",
+      "escalation: escalated with reason 'FAILED_CLARIFICATION_WITH_VALID_SIGNAL' (expected 'CONFLICTING_INFORMATION')"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 1,
+    "output_adherence": 2
+  },
+  "total": 7,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 1,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_invent_case_identity",
+      "cursor": 1,
+      "route": "CRITICAL",
+      "code": "FABRICATED_CONSEQUENTIAL_FIELD",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "127 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'location' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "134 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "INCORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'location' is not what the report still needs"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "131 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "INCORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "target 'location' is not what the report still needs"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 4,
+      "source": "det",
+      "detail": "126 chars"
+    },
+    {
+      "task": "turn_efficiency",
+      "result": "INCORRECT",
+      "turn": null,
+      "source": "det",
+      "detail": "2 extra turn(s)"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the specific village or community"
+        ],
+        "assistant_message": "I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?"
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "CORRECT": 0.07,
+        "INCORRECT": 0.02,
+        "PARTIAL": 0.91
+      },
+      "confidence": 0.87,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 444,
+        "output_tokens": 47
+      },
+      "latency_ms": 133.0,
+      "cost_usd": 1.8648e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 7",
+          "sex: male",
+          "symptom: sudden weak legs"
+        ],
+        "assistant_message": "I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.64,
+        "INCORRECT": 0.02,
+        "PARTIAL": 0.34
+      },
+      "confidence": 0.46,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 455,
+        "output_tokens": 47
+      },
+      "latency_ms": 59.6,
+      "cost_usd": 1.9109999999999998e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.08,
+        "INCORRECT": 0.17,
+        "CORRECT": 0.75
+      },
+      "confidence": 0.62,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 428,
+        "output_tokens": 47
+      },
+      "latency_ms": 96.1,
+      "cost_usd": 1.7976000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have a 7-year-old boy with sudden weak legs near Majawa. Can you tell me the exact village/town and LGA/state where he lives?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.2,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.79
+      },
+      "confidence": 0.69,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 428,
+        "output_tokens": 47
+      },
+      "latency_ms": 60.7,
+      "cost_usd": 1.7976000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "which child and which village",
+          "the village or community"
+        ],
+        "assistant_message": "I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.65,
+        "PARTIAL": 0.34,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.48,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 445,
+        "output_tokens": 47
+      },
+      "latency_ms": 104.4,
+      "cost_usd": 1.8690000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 7",
+          "sex: male",
+          "symptom: sudden weak legs"
+        ],
+        "assistant_message": "I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.98,
+        "PARTIAL": 0.01,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.97,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 449,
+        "output_tokens": 47
+      },
+      "latency_ms": 78.9,
+      "cost_usd": 1.8858e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.34,
+        "CORRECT": 0.66
+      },
+      "confidence": 0.49,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 47
+      },
+      "latency_ms": 64.8,
+      "cost_usd": 1.7724000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I understand you are unsure which child or village. Can you provide the village/town name where the child with sudden weak legs lives?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.07,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.93
+      },
+      "confidence": 0.89,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 47
+      },
+      "latency_ms": 162.2,
+      "cost_usd": 1.7724000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "which child and which village",
+          "the village or community"
+        ],
+        "assistant_message": "I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?"
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "CORRECT": 0.05,
+        "PARTIAL": 0.07,
+        "INCORRECT": 0.88
+      },
+      "confidence": 0.82,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 445,
+        "output_tokens": 48
+      },
+      "latency_ms": 86.7,
+      "cost_usd": 1.8690000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 7",
+          "sex: male",
+          "symptom: sudden weak legs"
+        ],
+        "assistant_message": "I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.02,
+        "CORRECT": 0.97,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.95,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 449,
+        "output_tokens": 47
+      },
+      "latency_ms": 159.1,
+      "cost_usd": 1.8858e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.21,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.78
+      },
+      "confidence": 0.67,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 47
+      },
+      "latency_ms": 124.4,
+      "cost_usd": 1.7724000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I understand you’re unsure which child or village. Can you tell me the state where you heard about the child with sudden weak legs?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.12,
+        "CORRECT": 0.87
+      },
+      "confidence": 0.82,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 47
+      },
+      "latency_ms": 79.2,
+      "cost_usd": 1.7724000000000002e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "I have a report of a 7-year-old boy with sudden weak legs but no confirmed location. I will escalate this for human follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.19,
+        "CORRECT": 0.75,
+        "INCORRECT": 0.06
+      },
+      "confidence": 0.64,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 424,
+        "output_tokens": 47
+      },
+      "latency_ms": 67.0,
+      "cost_usd": 1.7808e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "I have a report of a 7-year-old boy with sudden weak legs but no confirmed location. I will escalate this for human follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 0.63,
+        "PARTIAL": 0.37
+      },
+      "confidence": 0.44,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 424,
+        "output_tokens": 47
+      },
+      "latency_ms": 81.5,
+      "cost_usd": 1.7808e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "final_action": "ESCALATE",
+        "message": "I have a report of a 7-year-old boy with sudden weak legs but no confirmed location. I will escalate this for human follow-up."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 430,
+        "output_tokens": 45
+      },
+      "latency_ms": 86.1,
+      "cost_usd": 1.8060000000000003e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 4,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "action: turn 2: CLARIFY where ESCALATE expected",
+    "action: turn 3: CLARIFY where ESCALATE expected",
+    "conversation: clarification_target_quality: INCORRECT",
+    "conversation: turn_efficiency: INCORRECT",
+    "escalation: escalated with reason 'FAILED_CLARIFICATION_WITH_VALID_SIGNAL' (expected 'CONFLICTING_INFORMATION')"
+  ]
+}

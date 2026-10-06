@@ -1,0 +1,496 @@
+{
+  "scenario_id": "DUP-27",
+  "title": "Similar location but clearly different child",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "A 4 year old girl in Majawa suddenly cannot move her right arm.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 4 year old girl in Majawa suddenly cannot move her right arm."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [
+          {
+            "case_id": "CASE-1002",
+            "age": 8,
+            "sex": "male",
+            "settlement": "Majawa",
+            "symptom": "sudden weakness in both legs",
+            "reported_at": "1 hour earlier"
+          }
+        ],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 4 year old girl in Majawa suddenly cannot move her right arm.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1002\", \"age\": 8, \"sex\": \"male\", \"settlement\": \"Majawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"1 hour earlier\"}], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly cannot move right arm\",\"age\":4,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, suddenly cannot move right arm. Is this correct?\"}",
+          "raw_response": {
+            "id": "p46QYhz-7ArivV-a461b7d6398b76fd",
+            "object": "chat.completion",
+            "created": 1791258796,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly cannot move right arm\",\"age\":4,\"sex\":\"female\",\"state\":\"Jigawa\",\"lga\":\"Kafin Hausa\",\"settlement\":\"Majawa\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Majawa\",\"inferred_fields\":[\"lga\",\"state\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, suddenly cannot move right arm. Is this correct?\"}",
+                  "tool_calls": [],
+                  "reasoning": "We need to process. The user says: \"A 4 year old girl in Majawa suddenly cannot move her right arm.\"\n\nWe need to convert to surveillance signal for AFP. AFP suspected: acute flaccid paralysis. Symptoms: cannot move right arm, sudden weakness. Age 4, sex female, location Majawa, state Jigawa, LGA Kafin Hausa. Settlement Majawa.\n\nCurrent case state cases empty. We have candidate prior reports: CASE-1002 age8 male settlement Majawa symptom sudden weakness both legs reported 1 hour earlier. That might be potential duplicate? Not duplicate, different age/sex/symptom. But could be related? It's a different case. Potential duplicate flag? Probably not. Could be multiple cases. The conversation currently has one report. Could be related to prior report? No.\n\nWe need to determine classification: AFP_SUSPECTED. other_vpd false. Action? We have enough information? We have symptom, age, sex, state, LGA, settlement. That seems sufficient for surveillance alert. According to rule: Once enough information exists for surveillance staff to reasonably identify and follow up, do NOT immediately ACCEPT. First use CONFIRM. Present concise structured summary and ask sender to confirm or correct.\n\nSo we should output classification AFP_SUSPECTED, action CONFIRM, priority NORMAL. cases array with one case. Need case_id. Use case_1. Symptom: \"sudden inability to move right arm\" or \"suddenly cannot move her right arm\". Use as given. Age 4, sex female, state Jigawa, lga Kafin Hausa, settlement Majawa.\n\nLocation resolution: we have raw_location Majawa, inferred_fields lga, state? Actually resolved includes all. Might output location_resolution with case_id case_1, raw_location \"Majawa\", inferred_fields [\"lga\",\"state\"]? Possibly inferred_fields [\"lga\",\"state\"] because settlement given. Confidence high.\n\nmissing_information [].\n\npotential_duplicate false? Possibly check candidate_prior_reports. It's a different case. Might not be duplicate. The prior report is 8 year old male sudden weakness both legs. Different. So potential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false.\n\nclarification target null, attempt_number 0.\n\nconfirmation status PENDING.\n\nresponse: short clear SMS appropriate. \"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, suddenly cannot move right arm. Is this correct?\" That matches.\n\nMake sure JSON shape correct.\n\nWe must not invent missing info. We have all.\n\nPotential nuance: The symptom is cannot move right arm. That's acute flaccid paralysis? Could be arm. AFP typically involves limbs, could be arm. Acceptable.\n\nWe should preserve uncertainty? No.\n\nMake sure case_id consistent.\n\nLocation resolution array: maybe empty if not needed? The spec shows example with location_resolution. Could include.\n\nWe need to ensure fields: symptom, age, sex, state, lga, settlement.\n\nAge is integer 4.\n\nSex female.\n\nState Jigawa, lga Kafin Hausa, settlement Majawa.\n\nmissing_information empty list.\n\npotential_duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target null attempt_number 0.\n\nconfirmation status PENDING.\n\nresponse string.\n\nMake sure JSON output only.\n\nPotential duplicate flag: The candidate_prior_reports is about same settlement Majawa, but different case. Might be potential duplicate? No. Could be separate case. The system may want to flag potential duplicate if same settlement and similar symptom? The prior report is sudden weakness both legs, different. So not duplicate.\n\nWe should check location_resolver: status RESOLVED, candidates one place. Mentions unresolved_fields [].\n\nAll good.\n\nOne nuance: The instruction says \"Preserve all previously established information that has not been corrected.\" No prior.\n\nAlso \"Support more than one reported child/case\". Not needed.\n\nWe need to output classification AFP_SUSPECTED.\n\nAction CONFIRM.\n\nPriority NORMAL.\n\nOk.\n\nEnsure JSON fields exactly as required. The output contract shows fields: classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nMake sure case_id is case_1.\n\nSymptom string: maybe \"suddenly cannot move right arm\". Use original wording.\n\nProbably better to normalize: \"suddenly cannot move right arm\". Good.\n\nOutput.\n\nCheck enum values: sex female ok.\n\nlocation confidence high.\n\ninferred_fields: [\"lga\",\"state\"]? The raw_location is Majawa, inferred fields lga and state. Could also include settlement? The raw_location is Majawa which is settlement. So inferred fields are lga and state. Yes.\n\nThe location_resolution object: case_id, raw_location, inferred_fields, confidence.\n\nOk.\n\nReturn JSON.\n\nPotential nuance: The user may have reported a 4 year old girl. Should we ask for clarification about onset? Might be enough. AFP criteria includes acute onset. \"suddenly\" qualifies.\n\nNo further info needed.\n\nThus CONFIRM.\n\nMake sure response is short clear appropriate for SMS.\n\nMaybe \"I have a 4-year-old girl in Majawa, Kafin Hausa, Jigawa, who suddenly cannot move her right arm. Is this correct?\" That's fine.\n\nReturn JSON.\n\nCheck formatting: ensure no trailing commas.\n\nProceed."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2775,
+              "total_tokens": 4087,
+              "completion_tokens": 1312,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 256,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 263,
+            "output_tokens": 1312,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 17874.5,
+          "cost_usd": 0.00293925,
+          "stop_reason": "end_turn",
+          "request_id": "p46QYhz-7ArivV-a461b7d6398b76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move right arm",
+            "age": 4,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, suddenly cannot move right arm. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "arm"
+              ],
+              "laterality": [
+                "one",
+                "right"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A 4 year old girl in Majawa suddenly cannot move her right arm."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, suddenly cannot move right arm. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move right arm",
+              "age": 4,
+              "sex": "female",
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [
+          {
+            "case_id": "CASE-1002",
+            "age": 8,
+            "sex": "male",
+            "settlement": "Majawa",
+            "symptom": "sudden weakness in both legs",
+            "reported_at": "1 hour earlier"
+          }
+        ],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Jigawa",
+              "lga": "Kafin Hausa",
+              "settlement": "Majawa",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Majawa",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Jigawa",
+                "lga": "Kafin Hausa",
+                "settlement": "Majawa"
+              },
+              "candidates": [
+                {
+                  "state": "Jigawa",
+                  "lga": "Kafin Hausa",
+                  "settlement": "Majawa",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 4 year old girl in Majawa suddenly cannot move her right arm.\"}, {\"role\": \"assistant\", \"content\": \"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, suddenly cannot move right arm. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move right arm\", \"age\": 4, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1002\", \"age\": 8, \"sex\": \"male\", \"settlement\": \"Majawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"1 hour earlier\"}], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Majawa\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}, \"candidates\": [{\"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move right arm\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report for the 4-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to move right arm is recorded for follow-up.\"\n}",
+          "raw_response": {
+            "id": "p46Qe2S-7ArivV-a461b845fe4476fd",
+            "object": "chat.completion",
+            "created": 1791258814,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move right arm\",\n      \"age\": 4,\n      \"sex\": \"female\",\n      \"state\": \"Jigawa\",\n      \"lga\": \"Kafin Hausa\",\n      \"settlement\": \"Majawa\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Majawa\",\n      \"inferred_fields\": [\n        \"lga\",\n        \"state\"\n      ],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. The report for the 4-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to move right arm is recorded for follow-up.\"\n}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A 4 year old girl in Majawa suddenly cannot move her right arm.\"}, {\"role\": \"assistant\", \"content\": \"I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, suddenly cannot move right arm. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move right arm\", \"age\": 4, \"sex\": \"female\", \"state\": \"Jigawa\", \"lga\": \"Kafin Hausa\", \"settlement\": \"Majawa\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [{\"case_id\": \"CASE-1002\", \"age\": 8, \"sex\": \"male\", \"settlement\": \"Majawa\", \"symptom\": \"sudden weakness in both legs\", \"reported_at\": \"1 hour earlier\"}], \"location_resolver\": {...}}\n\nWe need to process. The user confirmed. The prior assistant asked confirmation. User said yes that is correct.\n\nNow we should ACCEPT.\n\nWe have case state. Classification AFP_SUSPECTED? Symptom is sudden inability to move right arm. That's acute flaccid paralysis? Possibly. The system says detect and structure reported symptoms. Do not diagnose. But classification is AFP_SUSPECTED. The symptom is sudden inability to move right arm. That's acute flaccid paralysis suspected. Age 4, sex female, state Jigawa, LGA Kafin Hausa, settlement Majawa.\n\nWe need to output JSON with classification AFP_SUSPECTED, other_vpd false, action ACCEPT, priority NORMAL.\n\nCases array with case_id case_1.\n\nlocation_resolution? We have resolver resolved. Should we include location_resolution? The example shows location_resolution array with case_id, raw_location, inferred_fields, confidence. Might be required? The output contract shows location_resolution field. Possibly we should populate. The current_case_state includes cases. Location resolver status RESOLVED. Could add location_resolution entry.\n\nMissing_information [].\n\npotential_duplicate? Candidate prior reports: CASE-1002 age 8 male settlement Majawa symptom sudden weakness both legs reported 1 hour earlier. That's different age/sex/symptom. Could be duplicate? Might be different case. Not duplicate. Potential duplicate false. Could flag? The rule: If report resembles prior report, flag as potential duplicate but continue. Resembles? Same settlement Majawa, both AFP symptoms. Different age sex symptom. Probably not duplicate. Could be separate case. Might be potential duplicate false.\n\nDuplicate_candidate_ids [].\n\nescalation required false.\n\nclarification attempt_number 0.\n\nconfirmation status? After accept, confirmation status? Possibly CONFIRMED. The confirmation status enum: NOT_READY, PENDING, CONFIRMED. After acceptance, maybe CONFIRMED.\n\nResponse should be short, clear, appropriate for SMS. After acceptance, maybe acknowledge acceptance.\n\nThe instructions: Before ACCEPT, present concise structured summary and ask sender to confirm. Already done. Now user confirmed. So we ACCEPT.\n\nOutput JSON.\n\nWe need to ensure fields match exactly.\n\nRequired JSON output shape includes classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\nProvide response: e.g., \"Thank you. The report for the 4-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to move right arm is recorded for follow-up.\"\n\nMake sure response is short.\n\nPotential duplicate? Might be similar settlement but different case. Could be potential duplicate false.\n\nThe candidate_prior_reports shows a prior report. Maybe we should flag potential duplicate? The guideline: Potential duplicate reports should be flagged, not discarded. If a report resembles a prior report, flag it as potential duplicate but continue to preserve new surveillance signal. Never automatically delete... Duplicate status is internal metadata and does not need to be surfaced.\n\nResembles? Same settlement, same type of symptom (acute flaccid paralysis). Could be considered potential duplicate? Age different, sex different, symptom different (right arm vs both legs). Could be different child. Probably not duplicate.\n\nBetter to leave potential_duplicate false.\n\nShould we include location_resolution? The example shows location_resolution with inferred_fields. The resolver gave resolved fields. Could add entry:\n\n{\n  \"case_id\": \"case_1\",\n  \"raw_location\": \"Majawa\",\n  \"inferred_fields\": [\"lga\", \"state\"],\n  \"confidence\": \"high\"\n}\n\nMake confidence high.\n\nClarification target null, attempt_number 0.\n\nConfirmation status CONFIRMED? Or PENDING? After acceptance maybe CONFIRMED. Let's set confirmation status to CONFIRMED.\n\nAction ACCEPT.\n\nClassification AFP_SUSPECTED.\n\nother_vpd false.\n\npriority NORMAL.\n\nMissing information [].\n\nEscalation required false reason null.\n\nReturn JSON only.\n\nEnsure no commentary.\n\nLet's output."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2892,
+              "total_tokens": 4248,
+              "completion_tokens": 1356,
+              "prompt_tokens_details": {
+                "cached_tokens": 2528,
+                "created_cache_tokens": 352,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 364,
+            "output_tokens": 1356,
+            "cache_read_input_tokens": 2528,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 20637.6,
+          "cost_usd": 0.0030461999999999998,
+          "stop_reason": "end_turn",
+          "request_id": "p46Qe2S-7ArivV-a461b845fe4476fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move right arm",
+            "age": 4,
+            "sex": "female",
+            "state": "Jigawa",
+            "lga": "Kafin Hausa",
+            "settlement": "Majawa"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Majawa",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. The report for the 4-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to move right arm is recorded for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A 4 year old girl in Majawa suddenly cannot move her right arm."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: 4-year-old girl in Majawa, Kafin Hausa, Jigawa, suddenly cannot move right arm. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. The report for the 4-year-old girl in Majawa, Kafin Hausa, Jigawa with sudden inability to move right arm is recorded for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot move right arm",
+        "age": 4,
+        "sex": "female",
+        "state": "Jigawa",
+        "lga": "Kafin Hausa",
+        "settlement": "Majawa"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 38512.1,
+    "input_tokens": 627,
+    "output_tokens": 2668,
+    "cost_usd": 0.005985,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

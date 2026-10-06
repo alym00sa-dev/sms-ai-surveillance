@@ -1,0 +1,579 @@
+{
+  "scenario_id": "ESC-24",
+  "model": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 36026.7,
+    "input_tokens": 13829,
+    "output_tokens": 5403,
+    "cost_usd": 0.110279,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  },
+  "scorer_version": "v0.2",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "ESC-24",
+    "model": "kimi-k3",
+    "scores": {
+      "classification": 2,
+      "extraction_state": 2,
+      "action": 2,
+      "conversation_quality": 1,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 11,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": true
+    },
+    "jev_judgments": {
+      "sms_conciseness": "CORRECT",
+      "clarification_target_quality": "CORRECT",
+      "appropriate_stop_behavior": "PARTIAL",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "PARTIAL"
+    },
+    "notes": [
+      "conversation: appropriate_stop_behavior: PARTIAL",
+      "conversation: non_diagnostic_behavior: PARTIAL"
+    ],
+    "scorer_version": "v0.2",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 11,
+  "rubric": {
+    "classification": 2,
+    "extraction_state": 2,
+    "action": 2,
+    "conversation_quality": 1,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_drop_credible_afp_signal",
+      "cursor": 3,
+      "route": "CRITICAL",
+      "code": "DROPPED_VALID_SIGNAL",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    },
+    {
+      "check": "must_escalate_when_important_field_unresolved",
+      "cursor": 3,
+      "route": "CRITICAL",
+      "code": "FAILED_REQUIRED_ESCALATION",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "153 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'location' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "146 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "target 'location' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "151 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "CORRECT",
+      "turn": 3,
+      "source": "det",
+      "detail": "target 'location' is needed"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 4,
+      "source": "det",
+      "detail": "214 chars"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "result": "PARTIAL",
+      "turn": 4,
+      "source": "det",
+      "detail": "terminal turn still carries a clarification target"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the location (village or community, LGA, or state)"
+        ],
+        "assistant_message": "Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.99,
+        "INCORRECT": 0.0,
+        "PARTIAL": 0.01
+      },
+      "confidence": 0.99,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 481,
+        "output_tokens": 47
+      },
+      "latency_ms": 85.2,
+      "cost_usd": 2.0202e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 6",
+          "sex: male",
+          "symptom: sudden inability to move both legs"
+        ],
+        "assistant_message": "Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.26,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.74
+      },
+      "confidence": 0.61,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 462,
+        "output_tokens": 47
+      },
+      "latency_ms": 125.3,
+      "cost_usd": 1.9404e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.02,
+        "CORRECT": 0.79,
+        "PARTIAL": 0.19
+      },
+      "confidence": 0.69,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 432,
+        "output_tokens": 47
+      },
+      "latency_ms": 194.2,
+      "cost_usd": 1.8144e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. I have noted a 6-year-old boy who suddenly cannot move both legs. Where is the child? Please tell me the village or settlement, LGA and state."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.05,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.95
+      },
+      "confidence": 0.92,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 432,
+        "output_tokens": 47
+      },
+      "latency_ms": 306.7,
+      "cost_usd": 1.8144e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the location (village or community, LGA, or state)"
+        ],
+        "assistant_message": "I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.95,
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.01
+      },
+      "confidence": 0.93,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 481,
+        "output_tokens": 47
+      },
+      "latency_ms": 132.3,
+      "cost_usd": 2.0202e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 6",
+          "sex: male",
+          "symptom: sudden inability to move both legs"
+        ],
+        "assistant_message": "I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 462,
+        "output_tokens": 47
+      },
+      "latency_ms": 115.9,
+      "cost_usd": 1.9404e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 0.74,
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.25
+      },
+      "confidence": 0.62,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 432,
+        "output_tokens": 47
+      },
+      "latency_ms": 155.9,
+      "cost_usd": 1.8144e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "I understand, but I need a place name to help the child. What is the name of your village or town? If you know the LGA and state, please add them."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 432,
+        "output_tokens": 47
+      },
+      "latency_ms": 169.4,
+      "cost_usd": 1.8144e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "still_needed": [
+          "the location (village or community, LGA, or state)"
+        ],
+        "assistant_message": "I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.16,
+        "INCORRECT": 0.02,
+        "CORRECT": 0.82
+      },
+      "confidence": 0.73,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 478,
+        "output_tokens": 47
+      },
+      "latency_ms": 88.5,
+      "cost_usd": 2.0076e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "age: 6",
+          "sex: male",
+          "symptom: sudden inability to move both legs"
+        ],
+        "assistant_message": "I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 459,
+        "output_tokens": 47
+      },
+      "latency_ms": 118.5,
+      "cost_usd": 1.9278e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.22,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.77
+      },
+      "confidence": 0.66,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 429,
+        "output_tokens": 47
+      },
+      "latency_ms": 109.8,
+      "cost_usd": 1.8018e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 3,
+      "source": "jev",
+      "state": {
+        "message": "I understand. Please give any place name that can help health workers find the child: the nearest town, market, school or mosque, or your LGA or state."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.04,
+        "INCORRECT": 0.0,
+        "CORRECT": 0.96
+      },
+      "confidence": 0.94,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 429,
+        "output_tokens": 47
+      },
+      "latency_ms": 121.7,
+      "cost_usd": 1.8018e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. I have recorded a 6-year-old boy who suddenly cannot move both legs. Because the location is still unknown, I am passing this report to a health worker who will follow up with you to help find the child."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.06,
+        "CORRECT": 0.49,
+        "PARTIAL": 0.45
+      },
+      "confidence": 0.23,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 47
+      },
+      "latency_ms": 247.2,
+      "cost_usd": 1.8564e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "message": "Thank you. I have recorded a 6-year-old boy who suddenly cannot move both legs. Because the location is still unknown, I am passing this report to a health worker who will follow up with you to help find the child."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "CORRECT": 0.25,
+        "PARTIAL": 0.75,
+        "INCORRECT": 0.0
+      },
+      "confidence": 0.62,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 442,
+        "output_tokens": 47
+      },
+      "latency_ms": 134.5,
+      "cost_usd": 1.8564e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 4,
+      "source": "jev",
+      "state": {
+        "final_action": "ESCALATE",
+        "message": "Thank you. I have recorded a 6-year-old boy who suddenly cannot move both legs. Because the location is still unknown, I am passing this report to a health worker who will follow up with you to help find the child."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.16,
+        "INCORRECT": 0.01,
+        "CORRECT": 0.83
+      },
+      "confidence": 0.74,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 448,
+        "output_tokens": 45
+      },
+      "latency_ms": 155.5,
+      "cost_usd": 1.8816000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1,
+      "reused_from": "earlier scoring"
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 4,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "conversation: appropriate_stop_behavior: PARTIAL",
+    "conversation: non_diagnostic_behavior: PARTIAL"
+  ]
+}

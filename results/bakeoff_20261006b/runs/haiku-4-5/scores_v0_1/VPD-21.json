@@ -1,0 +1,354 @@
+{
+  "scenario_id": "VPD-21",
+  "model": "haiku-4-5",
+  "termination": {
+    "reason": "PREMATURE_TERMINAL",
+    "detail": "NOT_RELEVANT; expected=OTHER_VPD"
+  },
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 7806.5,
+    "input_tokens": 9574,
+    "output_tokens": 568,
+    "cost_usd": 0.012414,
+    "clarification_turns": 1,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 1
+  },
+  "scorer_version": "v0.1",
+  "status": "SCORED",
+  "provisional": false,
+  "provisional_reasons": [],
+  "score": {
+    "scenario_id": "VPD-21",
+    "model": "haiku-4-5",
+    "scores": {
+      "classification": 0,
+      "extraction_state": 2,
+      "action": 0,
+      "conversation_quality": 0,
+      "escalation_priority": 2,
+      "output_adherence": 2
+    },
+    "total": 6,
+    "critical_failures": [],
+    "deterministic_checks": {
+      "confirmation_before_accept": true,
+      "correction_applied": true,
+      "case_count_match": true,
+      "completed": false
+    },
+    "jev_judgments": {
+      "sms_conciseness": "PARTIAL",
+      "clarification_target_quality": "INCORRECT",
+      "known_information_reasked": "CORRECT",
+      "non_diagnostic_behavior": "INCORRECT",
+      "appropriate_stop_behavior": "CORRECT",
+      "no_fabricated_information": "INCORRECT"
+    },
+    "notes": [
+      "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected OTHER_VPD)",
+      "action: turn 1: CLARIFY where OTHER_VPD expected",
+      "action: turn 2: NOT_RELEVANT where OTHER_VPD expected",
+      "action: scenario ended PREMATURE_TERMINAL",
+      "conversation: clarification_target_quality: INCORRECT",
+      "conversation: no_fabricated_information: INCORRECT",
+      "conversation: non_diagnostic_behavior: INCORRECT",
+      "conversation: sms_conciseness: PARTIAL",
+      "conversation: turn_efficiency: PARTIAL"
+    ],
+    "scorer_version": "v0.1",
+    "mapping_sha256": "b3d4f3dce6dc158673ed64b53fb9e4559eab1b2df4b671cdae60a5a909a420fc"
+  },
+  "scores": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "total": 6,
+  "rubric": {
+    "classification": 0,
+    "extraction_state": 2,
+    "action": 0,
+    "conversation_quality": 0,
+    "escalation_priority": 2,
+    "output_adherence": 2
+  },
+  "critical_findings": [],
+  "diagnosis_review_turns": [],
+  "checks": [
+    {
+      "check": "must_not_discard_non_afp_signal",
+      "cursor": 0,
+      "route": "CRITICAL",
+      "code": "RELEVANT_SIGNAL_MARKED_NOT_RELEVANT",
+      "status": "PASS",
+      "severity": null,
+      "detail": ""
+    }
+  ],
+  "judgments": [
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "105 chars"
+    },
+    {
+      "task": "clarification_target_quality",
+      "result": "INCORRECT",
+      "turn": 1,
+      "source": "det",
+      "detail": "target 'age' is not what the report still needs"
+    },
+    {
+      "task": "sms_conciseness",
+      "result": "CORRECT",
+      "turn": 2,
+      "source": "det",
+      "detail": "278 chars"
+    },
+    {
+      "task": "turn_efficiency",
+      "result": "PARTIAL",
+      "turn": null,
+      "source": "det",
+      "detail": "1 extra turn(s)"
+    },
+    {
+      "task": "clarification_target_quality",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "still_needed": [],
+        "assistant_message": "I have a man in Gwadabawa, Sokoto, with severe watery diarrhoea, weakness and dehydration. How old is he?"
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "PARTIAL": 0.0,
+        "INCORRECT": 0.97,
+        "CORRECT": 0.03
+      },
+      "confidence": 0.96,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 435,
+        "output_tokens": 48
+      },
+      "latency_ms": 96.2,
+      "cost_usd": 1.827e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "known_information_reasked",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "facts_already_given": [
+          "settlement: Gwadabawa",
+          "lga: Gwadabawa",
+          "state: Sokoto",
+          "symptom: acute watery diarrhoea with severe dehydration"
+        ],
+        "assistant_message": "I have a man in Gwadabawa, Sokoto, with severe watery diarrhoea, weakness and dehydration. How old is he?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.01,
+        "PARTIAL": 0.11,
+        "CORRECT": 0.88
+      },
+      "confidence": 0.83,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 474,
+        "output_tokens": 47
+      },
+      "latency_ms": 99.8,
+      "cost_usd": 1.9908e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have a man in Gwadabawa, Sokoto, with severe watery diarrhoea, weakness and dehydration. How old is he?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.06,
+        "INCORRECT": 0.03,
+        "CORRECT": 0.91
+      },
+      "confidence": 0.86,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 47
+      },
+      "latency_ms": 64.3,
+      "cost_usd": 1.7892e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 1,
+      "source": "jev",
+      "state": {
+        "message": "I have a man in Gwadabawa, Sokoto, with severe watery diarrhoea, weakness and dehydration. How old is he?"
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "PARTIAL": 0.31,
+        "INCORRECT": 0.05,
+        "CORRECT": 0.64
+      },
+      "confidence": 0.45,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 426,
+        "output_tokens": 47
+      },
+      "latency_ms": 84.7,
+      "cost_usd": 1.7892e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "sms_conciseness",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you for reporting. This presentation (severe watery diarrhoea with dehydration) is not consistent with AFP. Please continue to support the patient's hydration and refer to health facility if not improving. AFP surveillance focuses on sudden paralysis or weakness in limbs."
+      },
+      "result": "PARTIAL",
+      "probabilities": {
+        "CORRECT": 0.39,
+        "PARTIAL": 0.54,
+        "INCORRECT": 0.07
+      },
+      "confidence": 0.3,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 448,
+        "output_tokens": 47
+      },
+      "latency_ms": 175.6,
+      "cost_usd": 1.8816000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "non_diagnostic_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "message": "Thank you for reporting. This presentation (severe watery diarrhoea with dehydration) is not consistent with AFP. Please continue to support the patient's hydration and refer to health facility if not improving. AFP surveillance focuses on sudden paralysis or weakness in limbs."
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "PARTIAL": 0.36,
+        "INCORRECT": 0.64,
+        "CORRECT": 0.0
+      },
+      "confidence": 0.46,
+      "low_confidence": true,
+      "usage": {
+        "input_tokens": 448,
+        "output_tokens": 48
+      },
+      "latency_ms": 94.2,
+      "cost_usd": 1.8816000000000004e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "appropriate_stop_behavior",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "final_action": "NOT_RELEVANT",
+        "message": "Thank you for reporting. This presentation (severe watery diarrhoea with dehydration) is not consistent with AFP. Please continue to support the patient's hydration and refer to health facility if not improving. AFP surveillance focuses on sudden paralysis or weakness in limbs."
+      },
+      "result": "CORRECT",
+      "probabilities": {
+        "INCORRECT": 0.0,
+        "CORRECT": 1.0,
+        "PARTIAL": 0.0
+      },
+      "confidence": 1.0,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 455,
+        "output_tokens": 45
+      },
+      "latency_ms": 75.7,
+      "cost_usd": 1.9109999999999998e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    },
+    {
+      "task": "no_fabricated_information",
+      "turn": 2,
+      "source": "jev",
+      "state": {
+        "sender_message": "I don't know.",
+        "assistant_message": "Thank you for reporting. This presentation (severe watery diarrhoea with dehydration) is not consistent with AFP. Please continue to support the patient's hydration and refer to health facility if not improving. AFP surveillance focuses on sudden paralysis or weakness in limbs."
+      },
+      "result": "INCORRECT",
+      "probabilities": {
+        "CORRECT": 0.19,
+        "INCORRECT": 0.81,
+        "PARTIAL": 0.0
+      },
+      "confidence": 0.71,
+      "low_confidence": false,
+      "usage": {
+        "input_tokens": 466,
+        "output_tokens": 49
+      },
+      "latency_ms": 77.7,
+      "cost_usd": 1.9572e-05,
+      "request_id": null,
+      "model": "jev-1.13.0",
+      "attempts": 1
+    }
+  ],
+  "jev_errors": [],
+  "resolver_compliance": {
+    "turns_checked": 2,
+    "noncompliant_turns": 0,
+    "rate": 0.0,
+    "details": []
+  },
+  "notes": [
+    "classification: turn 1: classification HEALTH_RELATED_UNCLEAR (expected OTHER_VPD)",
+    "action: turn 1: CLARIFY where OTHER_VPD expected",
+    "action: turn 2: NOT_RELEVANT where OTHER_VPD expected",
+    "action: scenario ended PREMATURE_TERMINAL",
+    "conversation: clarification_target_quality: INCORRECT",
+    "conversation: no_fabricated_information: INCORRECT",
+    "conversation: non_diagnostic_behavior: INCORRECT",
+    "conversation: sms_conciseness: PARTIAL",
+    "conversation: turn_efficiency: PARTIAL"
+  ]
+}

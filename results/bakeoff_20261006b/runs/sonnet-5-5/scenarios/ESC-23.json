@@ -1,0 +1,681 @@
+{
+  "scenario_id": "ESC-23",
+  "title": "Repeated unclear messages with no established signal -> stop, do not escalate",
+  "model_key": "sonnet-5-5",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "child thing bad there",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-sonnet-5-5",
+            "max_tokens": 16000,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"HEALTH_RELATED_UNCLEAR\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw.\"}",
+          "raw_response": {
+            "id": "msg_011CfkEEg3vNYVjAr3DBhZGQ",
+            "container": null,
+            "content": [
+              {
+                "signature": "CAQSwwoKEAgSGAI4AUIIdGhpbmtpbmcSDLPj1mI35To2ykzGLhoMTnndpkZ/ms8JAlfXIjC01o7h/srOVWBjV5gB5XWW5zj5dNLWbkLf4FYpz2oI3OHFsT2xlcsF5f9z1Nv9YKIq4AkJCrfbDs8LnSjRQgbbr4H2xiJMP9/hsL3xrCIMnwRSRvqSwJW9WlFHaw+Vx/CdKymj2nMMAJ4ySGfueqmdbTIby3ZmovTu4fxS7/TKp7I8F6mBJk3eqj+5mGKMrLrbV1/acnpwWASTmrorBcIJs8YChj+XJ7dsFzE6LGdl76KJTp+9m4Y5Kke2/IAt3sAGU32saL7b33J+lGhFsO9tosCWQkRhvUVmVf+SGZ1jXO3X++reje1Zrq47WtrzYx5ZWeW5PDdv+beYEI2eHENSH9ZqFZpEP2v9JKMVsRAymvjH+40hRho5bT4RUpylPjFAf1CWUWm2TYzSPgRaeDlD6n5sPJs2BDqo4E+8BErzL5C/1eO8jE2Or6BZHbitJNwbTMD576Y/ISAvY1d4GXISP0DMiEyYeOsjHNu+oR0RXdLjQQl81ZvSmrXh8/Ph4R+6VcJD7QTUiCgq1z0Z0o8VI2kNitV1kl7N3iQOPodWm0Pm9znw8HrQEcUBKCjDs5gsugRmng3Tx0fZi+JExHppOX8Y9rR4WhrUohPbCc+dPqCU+YUAtwXN44Flx1xlUgKuMt7SSGkU24sJ2wxUcmR0GAdS9F86Ngc51fOCC/EPedmV6qP4bQxeNgwqTRaeisFoUi35VtI+IykBaJs3NK30LANkA98vIYN+YDC/V+2YqhiGhExIv4OkWniJwJ7jBlCI5gqybDzxpbmUiqoEqGilMfEGmfo7dLqCjyGLA3e2OikKZtaBps0Pk2M/dNDK9y5Ow5IBvsTQIMs3m67s16X0k1iIOR+CmWOz2qedK8QD/WfekCKbV6EgnsL0XlYcNlA446bNL7TIWZe+nXSddEm/ZBCx5gcYZ8AXvv5JqkQZzkUHPv+yjwxJye0ZovWTRESbeSYsNtf+ybJEWkdYQpPLK8YvxwoV427Ca/FQoPEVjg9uu4XSUzICP9gYDdE/14yG3sgS4gUggp/6TfRgRD9+L3zv2mhsJmeBs3XfNa6yu1Ebt9J6zqw1aaf5TN+UdTi1kPAgd2tv43ujBOXsuqaSJnrr2wRklzV/tfjnLQTPFt+/Pcy8LxrV9hjSDCPM2914sM7RzbXAkNamW6t36o+0k2oM7h3VYSmwmaFyAsACrcGPq+qDP/GBRlVcFs2dK5J4qsT6NdrxZGjTK7VpG7NGP/oFGZcrMIjve4x3NL7iYBMOWTVzOha6V3kiGzAfd1TCSg+kJIvseFf5pGa2iuij41dFlxh/xrGH2lIdSj/DGNmfhGy6/VrWfAoQ3LzTMLhzzbjCtBFEuq5D8LgvXmbvO9fLAVCxA9+P+OuhP1D5Fl4WVH0UglEjFW14ZkD+/hkNgt6NJCr8dr90RfSibkn61dauP/PErex5A0MSKXVD3sX0kUIJ74oJSqjk7oC/R98bgTftAexbfzT9aea0KNCJJZZbqs1bGD+pTFFWb75u5odRO+jEqnqZTL7BQhbgfleCYtcdIR54sm5G2cag5EgTHGg42ozqIvw6o9o5iOFiAeD4IT6YrPSElk/DOGp8zmA9INAl6NnR+EKnWaOmPM9AszlJ3H6j+SrR4KcRZZMBnoMEAiR1DQPhVKKHkdoVsMV+47LSIUI3K9Lhqv7lFhYJkaknSeiU5uVGwnskiMq9ptV7rtTac9HTjpwbkRtdVGjICdsYAQ==",
+                "thinking": "",
+                "type": "thinking"
+              },
+              {
+                "text": "{\"classification\":\"HEALTH_RELATED_UNCLEAR\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":1},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw.\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-sonnet-5-5",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "global",
+              "input_tokens": 6212,
+              "output_tokens": 507,
+              "service_tier": "standard",
+              "output_tokens_details": {
+                "thinking_tokens": 286
+              }
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 6212,
+            "output_tokens": 507,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 5102.1,
+          "cost_usd": 0.017494,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkEEfhqaxWXrcc5vhdin",
+          "model": "claude-sonnet-5-5",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "the thing I said",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CLARIFY",
+      "sender_message": "the thing I said",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw."
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-sonnet-5-5",
+            "max_tokens": 16000,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw.\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"UNINTELLIGIBLE\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"location\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":2},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I still do not understand. Is a child sick or unable to move or walk? Please tell us in simple words what happened to the child.\"}",
+          "raw_response": {
+            "id": "msg_011CfkEF5BiCxRd2qMfD3kpr",
+            "container": null,
+            "content": [
+              {
+                "signature": "CAQSgAsKEAgSGAI4AUIIdGhpbmtpbmcSDI6dSxU9Ho86Yxy2ZxoM6EE7AF2aeVNcNTt/IjDoI0Pz7dFNOv891aBvvluSSjrJXymcebmO92VLO/tPcoh2GY9qgWvU5ZB8ONfnzGkqnQr1XJvTjsKdwaiHKqbNaKj1XxoCB4d7+eVAZqkQC7Lx+LB97KPBLyjtm4AvojF/GCCZ3LG4hM9OWZGprcMoW87QZDuf5keFZgPHcNXfGYxJCj73sDxI6ZoGZggJSAdcYNIWh6w3eKcnOObKWsSDq9NihN90IJFYORpm06S+nwRRXg6TBtmow4fL0yFxFkt4TgU1owswQG373cYVRKSKArP5aAFDK9271+9/HF+KkK62nzseqfj3O992r2O3sHMGTZAYsIG98vGoyliw7hJjB277vA66sUwvqIVXWN7a22lfJ6uEzji8Iy3tc5FZsfUkznmSXwIKo0e4SiyP0JfyURFP7xwt1UvXRunmtPqZs/LsVz7Qm69DHbmQQC1CtFO0CE1HwfeZYsFM0/TYki0vYm6EY5unUIya/w66nHqjgAaTKheUW0vQTTETesyOrIpa4t6WQKD1lvfiAVGGF5xvJ9BEqViNho4iAKD64Lj1hbTZcmVZ+QDYC/GM7mrNzsn8+SfhYXDft8Z4/HOr7JVcCuLM1kIGhwLl9cVtIBvMNYxGSAx6/YQI6jisCecDxgykVyBr+J/DZ0T4NbMwtYKi3MCZLTjAxD1wYbCOJD56JSKQMsX5bMDUSAy++qkdb0BsswM0IvqAQTGwRwrtQWr2dUc6BpDKOSQqdVgQ88syNiqHhPaFJndXFzuyCrIMBCwPIheDqFp/nPv6Xx1JNBDQGf/o/T9+bYggK7wkCXQQeGMQgfv1EIpTAf45Z86SV/ZxS2AMNBKwMP/ZTNFPDljmVqfLmq829t2cnXXSIr/6tCbZG+UV36LsNIaAy0lr1OF8lMsG1JpClW+n2aN94KNT0DHv5LgaPa86eL5M6aFeO72wisne6NpE+bNIEIdRqdI0joDabUDlyn2+fCqQGREZIhkKEpjGUrnUjZD62DPwyzMxzbq1JNUlDbO5okCBHV5yudwVmA5slAfoixUA51e1o4FPDPK7azb9rusExkLBtE/kkUyVIVAk0NtGRZueVHS36I3fxbxbZJEwudfJNJNnGFAgLSw9LlrURNDD+apZRg1DBIEyow7/PfjnPfazVAEuoa3i0XnLJUxq5RHZpHrLknti/YW5n02RD6lmRpChyQaftEDPFulFcSVrSFxI/78enc0v/Re7aLXhTjjxz9utQpXLk7yDYbLDZKpjHKIL80gO2+NLmdfU+mMb1m7wNWiIO6Zdzuj9SmUUC29DsuYpcgmJ/VzbXGIrIb/OhGC1pZzoE5v2Bl/VGiCHlDQEeW3Hj8s3nRo6RINVZ9UaGRinLQ6yR8G0Fh9WBddAx4WwwzgGCqm6gavYgRKJYS1N9dfErHTDFtuzZ1oMR7kiXfPmH54aNgKV09X1+SzCG6gSHzlSyPLjoJTJzDOa/UZ0REPr6cTdmXu/3e7V+ztjLDi5+mxnTOTnhE1BV9Z+TabmdvQpM865RoOkphSDOuerlXaIbCj2gSTRhz11VjMGnvIQjQMBHv6xTAZ0G4CFN0PbOT8USYhKiqsDB5ugF6kq6ZqCUNSTD6Bax5xiESlYaHNT7LIIBRTHH2YWyNoFEO2STBZx+4ztJQ/Mp9jwzycvU9siaBzQ6l1+OwsrgLL07lJz5LCmTzmxEd9soZkG0LVvBnqnKuhF+cEJ4tK1kjPe6ANOuN7ZrlLKWO0nqsvEb0gck26xsGoFCB/91D7s2CDbn9BvbNBUeXyDwz1K593u0ZfPgvL2i383wPBPQwnwTSZbGAE=",
+                "thinking": "",
+                "type": "thinking"
+              },
+              {
+                "text": "{\"classification\":\"UNINTELLIGIBLE\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"location\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":2},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I still do not understand. Is a child sick or unable to move or walk? Please tell us in simple words what happened to the child.\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-sonnet-5-5",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "global",
+              "input_tokens": 6282,
+              "output_tokens": 553,
+              "service_tier": "standard",
+              "output_tokens_details": {
+                "thinking_tokens": 338
+              }
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 6282,
+            "output_tokens": 553,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 5570.8,
+          "cost_usd": 0.018094,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkEF3ZyABTxam1ADMGCL",
+          "model": "claude-sonnet-5-5",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "UNINTELLIGIBLE",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "location"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Sorry, I still do not understand. Is a child sick or unable to move or walk? Please tell us in simple words what happened to the child."
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "you know the child problem",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CLARIFY",
+      "sender_message": "you know the child problem",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw."
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry, I still do not understand. Is a child sick or unable to move or walk? Please tell us in simple words what happened to the child."
+          },
+          {
+            "role": "user",
+            "content": "you know the child problem"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-sonnet-5-5",
+            "max_tokens": 16000,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw.\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}, {\"role\": \"assistant\", \"content\": \"Sorry, I still do not understand. Is a child sick or unable to move or walk? Please tell us in simple words what happened to the child.\"}, {\"role\": \"user\", \"content\": \"you know the child problem\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"UNINTELLIGIBLE\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"location\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, we still cannot tell what happened. Is a child sick, weak, or unable to move an arm or leg? Please reply with one short sentence, for example: 'A child cannot walk since yesterday.'\"}",
+          "raw_response": {
+            "id": "msg_011CfkEFTj33r3TvVkpwsNXN",
+            "container": null,
+            "content": [
+              {
+                "signature": "CAQSoQsKEAgSGAI4AUIIdGhpbmtpbmcSDPJ3kp8m9dZq5xqu9hoMzxO6MGqxcX247q1YIjCPKQOEzvhFLH3oQDOysFvjW21rJTYUXwwCbh0uoC9C9Sn2/WIMOarhHP0beIQdrJ4qvgqJp7ju/qem9UKgCpFOaCXiZpv49bdsct2erQWpnXkF1OqRB6SDLHgBVTw+89+e0s8ZZNkNEWrWB/LB3q5pgMVtsnxJxqN77+VKD4Dy9vl5GZuBImcWIgA8anIQEBYtXFOwec+z0dnaLlK51PxCm2+FT5/eLOUESSKKeTNVwDpuzj+A2MprVAdUUXgpsqqBU3zLNEZDWTrOOZ4rGieBYoAreTgKkwOQYhcVx9C2KYpjpHU1nVLC4H3o3nKSmKIlN+lduYLdBGaeWGc5kmAyd27IWcRpuxTMgV76DoA4q14TPgRnsl+fb6IZarQCj6HFMkDYX9SgMVvlGdqR+/qtFWFhyOA6UusiI2zT83poyDdcRTS1ZlArGxyuavsFC/KTUi2wndWFMMd3iY0ftO+P0ikly6noihwS09nb3XAZYHCncx31Y46c3ny/+MkzBeQZ8ni0MK1peGZCLNBCySEv1IMFLkUqbBbJ1JW6E/92LY9z4zOb98gINByhC6x6ouCS98jg7lrJlSmu1IbDRV2pc1c6EaS6qtEvSrUUJTbnPyLx44ZGUk053U3M9hFH1zuOik+vhuNXIsYmH+sv0YCFLh7xWbsN+g29P6yqkvD4tfkYS7mRfOpSGf6ZLd4jpsxJF7aiBb3lL2g1I3NN68teqkgUS90bvug8JYmqswo+2RXq8OH1zxhd+/pi8FBgkl5EDm+aBy+uOS9HJlv0vfSG0Q0T7corjPOzmsv8/R77cF41FeGe4xpRBhpf/reFKMkTH6t18O2Mi47I8jzadjFRpmcSW9m1jrgGs5dn3hVmLSpGCbFXw573lDIH9rFIzI9/3IyepQMljvDGVVol2k8yCWj6yQxb5G34FhcmnOjXlWhM0zuPlb0oPwKgGzn3qYOvvlgADE+KnRavTCyPG1Ojb+UoCZMIEAj3tLkmAvl59Ax+b935vX2/lmYFHblj1G7JLO8EdLr6SHq+Xugg9eNHiNZEgGdYwzUUZP2qQ2TURjiz/EZWlcNTJstQSSY+70MnqKpGIeQ/au3ihlHpRAX1s+RMiOdu0wqloFSRs1oxIWPu2plGTXx/9dvMD0xVclZUshFOkbx56jMeqREH3KT1/3NBuJMM7LVqVe9G4WGJ0MHr3Ag8CLS8WsEv1fYHn4CNgWGlzBLXs1juwVPlS9ZszhvzLufsDGTKsj4Q7MMnbuNTYTmu6tjBuC2dCwlcTOjxjCej985Z+5Kohmbux/0l9hKRaS/SlyOVs/xMdGEa0Oz/B1G8kxdeUli9awGlWEHrERUhqaEYSXLYXw1yMNZdORcOyHjf9y95N9YbI8As7Dyd1c6sj5Q6QUogDgkmbt1gF10s3Py9SAJ+qFwxxL0bJ4XJA2dsN6InAaLhnM1nGeFh5PgudbuBC4GkvJYQpJ2X8O4LhqpvPFOy2AsxdUxcsQ1bU8/PvsEIefuZJIm1lSf7EqM0h/S7vEDYp0gRJLhxgxQl6gMGEsYdXTmIt10ICIuEVQRQ+iWxWtJl482f8gSnzIiN+Rc31veT5hJQ4iCQ6YeakKdz1/w0jwIGea1MwL1u62PJWTptRRFlwNgInIcVrZwst5u0pwTr763EMvHxvChLN6hbWp9ZcptbaZE48ezYv9IPUdJJiojtq/KeanT1Bej1olb2woLjMmdQg+llSsITCnJA5TrCPA+y32dbGmCj4TMGEKsGaIkG0SFpBNc8WAxyyTiGDC0JqqFThFsSLjI/YMyHwKiPbiZg+bTtNa8q8yfrLk+H1/+wRS+Gwh/sBHwKIn2P8Y1C+0DC/GR3GAE=",
+                "thinking": "",
+                "type": "thinking"
+              },
+              {
+                "text": "{\"classification\":\"UNINTELLIGIBLE\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"location\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, we still cannot tell what happened. Is a child sick, weak, or unable to move an arm or leg? Please reply with one short sentence, for example: 'A child cannot walk since yesterday.'\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-sonnet-5-5",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "global",
+              "input_tokens": 6360,
+              "output_tokens": 593,
+              "service_tier": "standard",
+              "output_tokens_details": {
+                "thinking_tokens": 352
+              }
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 6360,
+            "output_tokens": 593,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 5661.1,
+          "cost_usd": 0.01865,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkEFTND8J53RjoLkMe53",
+          "model": "claude-sonnet-5-5",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "UNINTELLIGIBLE",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "location"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Sorry, we still cannot tell what happened. Is a child sick, weak, or unable to move an arm or leg? Please reply with one short sentence, for example: 'A child cannot walk since yesterday.'"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "same thing",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 3
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 3,
+      "gold_action": "NOT_RELEVANT",
+      "sender_message": "same thing",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw."
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry, I still do not understand. Is a child sick or unable to move or walk? Please tell us in simple words what happened to the child."
+          },
+          {
+            "role": "user",
+            "content": "you know the child problem"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry, we still cannot tell what happened. Is a child sick, weak, or unable to move an arm or leg? Please reply with one short sentence, for example: 'A child cannot walk since yesterday.'"
+          },
+          {
+            "role": "user",
+            "content": "same thing"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 3,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "claude-sonnet-5-5",
+            "max_tokens": 16000,
+            "output_config": {
+              "format": {
+                "type": "json_schema",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            }
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw.\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}, {\"role\": \"assistant\", \"content\": \"Sorry, I still do not understand. Is a child sick or unable to move or walk? Please tell us in simple words what happened to the child.\"}, {\"role\": \"user\", \"content\": \"you know the child problem\"}, {\"role\": \"assistant\", \"content\": \"Sorry, we still cannot tell what happened. Is a child sick, weak, or unable to move an arm or leg? Please reply with one short sentence, for example: 'A child cannot walk since yesterday.'\"}, {\"role\": \"user\", \"content\": \"same thing\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 3, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"UNINTELLIGIBLE\",\"other_vpd\":false,\"action\":\"NOT_RELEVANT\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, we could not understand your report. If a child is sick or cannot move an arm or leg, please send a new message with a short description and the location.\"}",
+          "raw_response": {
+            "id": "msg_011CfkEFtCwfeWspbx2qtTkN",
+            "container": null,
+            "content": [
+              {
+                "text": "{\"classification\":\"UNINTELLIGIBLE\",\"other_vpd\":false,\"action\":\"NOT_RELEVANT\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"state\",\"lga\",\"settlement\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":3},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, we could not understand your report. If a child is sick or cannot move an arm or leg, please send a new message with a short description and the location.\"}",
+                "type": "text"
+              }
+            ],
+            "model": "claude-sonnet-5-5",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "inference_geo": "global",
+              "input_tokens": 6461,
+              "output_tokens": 225,
+              "service_tier": "standard",
+              "output_tokens_details": {
+                "thinking_tokens": 0
+              }
+            },
+            "diagnostics": null
+          },
+          "usage": {
+            "input_tokens": 6461,
+            "output_tokens": 225,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0
+          },
+          "latency_ms": 3037.5,
+          "cost_usd": 0.015172,
+          "stop_reason": "end_turn",
+          "request_id": "req_011CfkEFso8bTpGx2JgyeV2L",
+          "model": "claude-sonnet-5-5",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "UNINTELLIGIBLE",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "state",
+          "lga",
+          "settlement"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Sorry, we could not understand your report. If a child is sick or cannot move an arm or leg, please send a new message with a short description and the location."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 3,
+      "clarification_attempts_after": 3
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "child thing bad there"
+    },
+    {
+      "role": "assistant",
+      "content": "Sorry, I did not understand. What is wrong with the child? Please describe the illness or symptoms you saw."
+    },
+    {
+      "role": "user",
+      "content": "the thing I said"
+    },
+    {
+      "role": "assistant",
+      "content": "Sorry, I still do not understand. Is a child sick or unable to move or walk? Please tell us in simple words what happened to the child."
+    },
+    {
+      "role": "user",
+      "content": "you know the child problem"
+    },
+    {
+      "role": "assistant",
+      "content": "Sorry, we still cannot tell what happened. Is a child sick, weak, or unable to move an arm or leg? Please reply with one short sentence, for example: 'A child cannot walk since yesterday.'"
+    },
+    {
+      "role": "user",
+      "content": "same thing"
+    },
+    {
+      "role": "assistant",
+      "content": "Sorry, we could not understand your report. If a child is sick or cannot move an arm or leg, please send a new message with a short description and the location."
+    }
+  ],
+  "final_state": {
+    "cases": []
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 19371.5,
+    "input_tokens": 25315,
+    "output_tokens": 1878,
+    "cost_usd": 0.06941,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  }
+}

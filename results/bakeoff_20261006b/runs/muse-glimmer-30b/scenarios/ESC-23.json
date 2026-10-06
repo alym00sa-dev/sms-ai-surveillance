@@ -1,0 +1,700 @@
+{
+  "scenario_id": "ESC-23",
+  "title": "Repeated unclear messages with no established signal -> stop, do not escalate",
+  "model_key": "muse-glimmer-30b",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CLARIFY",
+      "sender_message": "child thing bad there",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"HEALTH_RELATED_UNCLEAR\", \"other_vpd\": false, \"action\": \"CLARIFY\", \"priority\": \"NORMAL\", \"cases\": [], \"location_resolution\": [], \"missing_information\": [\"symptom\", \"age\", \"sex\", \"location\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": \"symptom\", \"attempt_number\": 1}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I didn't understand. Can you tell me what symptoms the child is showing?\"}",
+          "raw_response": {
+            "id": "p46Nnzh-fdNmn-a461af7b592976fd",
+            "object": "chat.completion",
+            "created": 1791258454,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\": \"HEALTH_RELATED_UNCLEAR\", \"other_vpd\": false, \"action\": \"CLARIFY\", \"priority\": \"NORMAL\", \"cases\": [], \"location_resolution\": [], \"missing_information\": [\"symptom\", \"age\", \"sex\", \"location\"], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": \"symptom\", \"attempt_number\": 1}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"I didn't understand. Can you tell me what symptoms the child is showing?\"}",
+                  "tool_calls": [],
+                  "reasoning": "We need to interpret. The user says \"child thing bad there\". Very vague. Could be AFP suspected? \"child thing bad there\" unclear. We need to detect and structure reported symptoms. Do not diagnose. Extract information already provided before asking follow-up. Ask only for information still needed. At most one focused clarification question per turn.\n\nWe have no case info. classification? Probably HEALTH_RELATED_UNCLEAR or UNINTELLIGIBLE? The message \"child thing bad there\" is unintelligible regarding symptom. Could be health related unclear.\n\nGeneral principles: Detect and structure reported symptoms. Do not diagnose. Extract info already provided before asking. Ask only for info still needed.\n\nWe have no symptom, age, sex, state, LGA, settlement.\n\nLocation resolver status UNRESOLVED, candidates empty, mentions empty.\n\nWe need to decide action. Possibly CLARIFY. Since report is potentially relevant and one important piece can reasonably be obtained through another question. The message mentions child thing bad there. Might be health related. We should ask for clarification about symptoms.\n\nClassification? AFP_SUSPECTED? Not enough. Could be HEALTH_RELATED_UNCLEAR. The classification options: AFP_SUSPECTED, OTHER_VPD, HEALTH_RELATED_UNCLEAR, NOT_RELEVANT, UNINTELLIGIBLE.\n\n\"child thing bad there\" is unintelligible. Could be UNINTELLIGIBLE. But maybe it's health related unclear. Let's see guidelines: If message appears to describe another relevant disease or syndrome rather than AFP, preserve signal and stop. Not case.\n\nProbably classify as HEALTH_RELATED_UNCLEAR. Action CLARIFY.\n\nWe need to output JSON with cases array empty? Probably we can create a case? No info. Maybe we should not create case yet. Could create case with missing info.\n\nBetter to ask clarification: What happened to the child? What symptoms?\n\nWe need to maintain structured case state across turns. Could create a placeholder case? Might be premature.\n\nThe output requires cases array. If no case, empty array.\n\nMissing_information: maybe symptom, age, sex, location.\n\nClarification target: symptom? Or other? Could be symptom.\n\nAttempt number: clarification_attempts is 0 currently. This is first clarification attempt. So attempt_number = 1? The field clarification.attempt_number should reflect current attempt? The state says clarification_attempts: 0. After we ask, we increment? Probably attempt_number = 1.\n\nWe need to produce response short clear appropriate for SMS.\n\nWe should ask: \"Can you tell me what happened to the child? What symptoms are you seeing?\"\n\nWe must not ask multiple questions? At most one focused clarification question per turn. Could ask about symptoms.\n\nAlso location unresolved. Could ask location? Might ask symptom first.\n\nLet's choose clarification target = symptom.\n\nClassification: HEALTH_RELATED_UNCLEAR? Or AFP_SUSPECTED? The phrase \"child thing bad there\" could imply illness. Might be health related unclear.\n\nI think classification = HEALTH_RELATED_UNCLEAR. action = CLARIFY. priority NORMAL.\n\nmissing_information: [\"symptom\", \"age\", \"sex\", \"location\"]? Could list.\n\nCases empty.\n\nlocation_resolution empty.\n\npotential_duplicate false.\n\nescalation required false.\n\nclarification target symptom, attempt_number 1.\n\nconfirmation status NOT_READY? Or PENDING? Probably NOT_READY.\n\nresponse: \"Can you tell me what symptoms the child has?\"\n\nKeep short.\n\nCheck output contract: cases array with objects containing case_id, symptom, age, sex, state, lga, settlement. If no case, empty.\n\nMissing_information array.\n\nWe could also set classification to UNINTELLIGIBLE? The message is unintelligible. \"child thing bad there\" is unintelligible. Might be UNINTELLIGIBLE. The guidelines: UNINTELLIGIBLE classification. When to use? When message is not understandable.\n\nHealth related unclear maybe better.\n\nLet's pick HEALTH_RELATED_UNCLEAR.\n\nWe need other_vpd false.\n\nAction CLARIFY.\n\nPriority NORMAL.\n\nResponse: \"I didn't understand. Can you tell me what symptoms the child has?\"\n\nBetter: \"Can you describe what is wrong with the child?\"\n\nOne question.\n\nLet's produce JSON.\n\nMake sure fields match exactly.\n\nOutput JSON with keys: classification, other_vpd, action, priority, cases, location_resolution, missing_information, potential_duplicate, duplicate_candidate_ids, escalation, clarification, confirmation, response.\n\ncases [].\n\nlocation_resolution [].\n\nmissing_information: [\"symptom\",\"age\",\"sex\",\"state\",\"lga\",\"settlement\"]? Might be too many. Could be [\"symptom\",\"location\"]. Let's keep minimal.\n\nThe guidelines: Ask only for information that is still needed. Ask at most one focused clarification question per turn. So missing_information could list all missing.\n\nWe'll list symptom, age, sex, location.\n\nPotentially duplicate false.\n\nduplicate_candidate_ids [].\n\nescalation required false reason null.\n\nclarification target symptom, attempt_number 1.\n\nconfirmation status NOT_READY.\n\nresponse: \"Can you tell me what symptoms the child is showing?\"\n\nMake sure JSON valid.\n\nProceed."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2583,
+              "total_tokens": 3787,
+              "completion_tokens": 1204,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 64,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 71,
+            "output_tokens": 1204,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 14972.8,
+          "cost_usd": 0.0027100500000000003,
+          "stop_reason": "end_turn",
+          "request_id": "p46Nnzh-fdNmn-a461af7b592976fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "location"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 1
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I didn't understand. Can you tell me what symptoms the child is showing?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "the thing I said",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 1
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "CLARIFY",
+      "sender_message": "the thing I said",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "I didn't understand. Can you tell me what symptoms the child is showing?"
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 1,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"I didn't understand. Can you tell me what symptoms the child is showing?\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 1, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"HEALTH_RELATED_UNCLEAR\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"location\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":2},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?\"}",
+          "raw_response": {
+            "id": "p46NsVP-fdNmn-a461afd90b6a76fd",
+            "object": "chat.completion",
+            "created": 1791258469,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"HEALTH_RELATED_UNCLEAR\",\"other_vpd\":false,\"action\":\"CLARIFY\",\"priority\":\"NORMAL\",\"cases\":[],\"location_resolution\":[],\"missing_information\":[\"symptom\",\"age\",\"sex\",\"location\"],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":\"symptom\",\"attempt_number\":2},\"confirmation\":{\"status\":\"NOT_READY\"},\"response\":\"Sorry, I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?\"}",
+                  "tool_calls": [],
+                  "reasoning": "We need to parse. Conversation: user says \"child thing bad there\". Assistant asked what symptoms. User says \"the thing I said\". That's unclear. We have clarification attempts =1. Clarification attempt unsuccessful? The sender reply does not resolve. We may need to ask for symptoms. But we have up to 3 unsuccessful clarification attempts. We can make up to 3 unsuccessful attempts. Currently clarification_attempts is 1. That is count of attempts done? Probably attempts made. User didn't provide symptom. We need to ask for symptoms again.\n\nWe need to extract information. No symptom, no age, no sex, no location. Classification? Possibly HEALTH_RELATED_UNCLEAR? The message \"child thing bad there\" suggests health related unclear. Could be AFP suspected? No symptom. We cannot classify as AFP_SUSPECTED without symptom. The general principles: detect and structure reported symptoms. Do not diagnose. We need symptom.\n\nWe should ask one focused clarification question. Ask what symptoms child is showing. Possibly ask location? The location resolver unresolved. But first need symptom to know if AFP relevant.\n\nThe user says \"the thing I said\". That's unintelligible. Maybe we should classify as UNINTELLIGIBLE? The conversation started with \"child thing bad there\". Could be health related unclear. The assistant asked for symptoms. User replied \"the thing I said\". That's not providing info. Could be UNINTELLIGIBLE.\n\nDecision definitions: classification must be exactly one of AFP_SUSPECTED, OTHER_VPD, HEALTH_RELATED_UNCLEAR, NOT_RELEVANT, UNINTELLIGIBLE.\n\nAction must be CLARIFY, etc.\n\nIf message is unintelligible, classification UNINTELLIGIBLE, action ? Probably CLARIFY? Or NOT_RELEVANT? Let's think.\n\nThe agent should preserve relevant reports. Possibly health related unclear. The user may be trying to say something about child. Could be language barrier. Might be UNINTELLIGIBLE.\n\nThe instruction: If necessary information remains unresolved after repeated clarification attempts, escalate only when conversation already contains plausible surveillance-relevant health signal. After 3 unsuccessful clarification attempts: ESCALATE only if conversation already contains enough meaningful information to indicate plausible surveillance-relevant health signal, but important detail needed for follow-up remains unresolved. Do NOT escalate solely because sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using appropriate non-escalation classification/action.\n\nWe have only \"child thing bad there\". That suggests a child is ill. Possibly plausible signal. But symptom unknown.\n\nWe have clarification_attempts =1. We can attempt up to 3 unsuccessful. So we can ask again.\n\nWe need to ask at most one focused clarification question per turn. Ask for symptoms.\n\nWe need to output JSON with cases array empty? Current case state cases [].\n\nWe could create a case with unknown? Probably not.\n\nWe should set classification = HEALTH_RELATED_UNCLEAR? Could be. The user mentions child thing bad there. That's health related unclear.\n\nAction = CLARIFY.\n\nMissing_information: symptom, age, sex, location? Maybe symptom first.\n\nClarification target: symptom.\n\nAttempt_number? The clarification_attempts in input is 1. That means previous attempt made. Now we are making second attempt? The clarification object should have attempt_number? Probably count of attempts made so far? The spec says clarification attempt_number. Might be current attempt number. Let's assume we are about to make second attempt, attempt_number =2? Or we increment? The input clarification_attempts =1. That is number of attempts already made. We are about to make second. The output clarification attempt_number should be? Possibly 2? Or 1? Might be the number of attempts used so far. The previous assistant asked symptom. That's attempt 1. Now we ask again, that's attempt 2. Could set attempt_number =2.\n\nAlternatively keep at 1? Hmm.\n\nBetter to increment. The spec says clarification_attempts is input. We need to output clarification.attempt_number. Probably reflects current attempt count. Let's set 2.\n\nWe need response short clear appropriate for SMS. Ask what symptoms.\n\nWe cannot invent location. Location resolver unresolved.\n\nNo cases yet because no symptom identified.\n\nPotentially we could create a case with symptom unknown? Probably not.\n\nWe should keep cases empty.\n\nclassification = HEALTH_RELATED_UNCLEAR? Could be UNINTELLIGIBLE because user says \"the thing I said\". That's unintelligible.\n\nThe general principles: Detect and structure reported symptoms. Do not diagnose. Extract information already provided before asking follow-up.\n\nInformation provided: child thing bad there. That's vague.\n\nPossibly classify as HEALTH_RELATED_UNCLEAR.\n\nAction CLARIFY.\n\npriority NORMAL.\n\nmissing_information: symptom? Could list symptom, age, sex, location.\n\nWe should output cases [].\n\nlocation_resolution [].\n\npotential_duplicate false.\n\nescalation required false.\n\nclarification target symptom.\n\nconfirmation status NOT_READY? Or pending? Confirmation not ready.\n\nResponse: \"I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?\"\n\nBut need short.\n\nWe must follow output contract. Provide JSON.\n\nLet's produce:\n\nclassification: \"HEALTH_RELATED_UNCLEAR\"\nother_vpd: false\naction: \"CLARIFY\"\npriority: \"NORMAL\"\ncases: []\nlocation_resolution: []\nmissing_information: [\"symptom\",\"age\",\"sex\",\"location\"]\npotential_duplicate false\nduplicate_candidate_ids []\nescalation required false reason null\nclarification target symptom attempt_number 2\nconfirmation status NOT_READY? The spec allows NOT_READY, PENDING, CONFIRMED. Since not ready, use NOT_READY.\n\nresponse: \"Sorry, I didn't understand. Can you tell me what symptoms the child is showing?\"\n\nEnsure JSON valid.\n\nPotential nuance: Could be UNINTELLIGIBLE. The user says \"the thing I said\". That's unintelligible. The classification UNINTELLIGIBLE might be more appropriate. But HEALTH_RELATED_UNCLEAR might be okay.\n\nThe instruction: If message appears to describe another relevant disease or syndrome rather than AFP, preserve signal and stop. Not relevant.\n\nWe have child thing bad there. Could be health related unclear.\n\nI think HEALTH_RELATED_UNCLEAR is appropriate.\n\nLet's output.\n\nAlso missing_information array maybe empty? Could be.\n\nLet's output.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2624,
+              "total_tokens": 4066,
+              "completion_tokens": 1442,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 112,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 112,
+            "output_tokens": 1442,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 20565.9,
+          "cost_usd": 0.0030813999999999998,
+          "stop_reason": "end_turn",
+          "request_id": "p46NsVP-fdNmn-a461afd90b6a76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [
+          "symptom",
+          "age",
+          "sex",
+          "location"
+        ],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Sorry, I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "you know the child problem",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 1,
+      "clarification_attempts_after": 2
+    },
+    {
+      "turn": 3,
+      "gold_cursor": 2,
+      "gold_action": "CLARIFY",
+      "sender_message": "you know the child problem",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "I didn't understand. Can you tell me what symptoms the child is showing?"
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry, I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?"
+          },
+          {
+            "role": "user",
+            "content": "you know the child problem"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 2,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"I didn't understand. Can you tell me what symptoms the child is showing?\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}, {\"role\": \"assistant\", \"content\": \"Sorry, I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?\"}, {\"role\": \"user\", \"content\": \"you know the child problem\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I still don't understand. Can you please tell me in simple words what the child is experiencing, for example weakness in arms or legs?\"\n}",
+          "raw_response": {
+            "id": "p46NyYX-7ArivV-a461b0597afb76fd",
+            "object": "chat.completion",
+            "created": 1791258489,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"HEALTH_RELATED_UNCLEAR\",\n  \"other_vpd\": false,\n  \"action\": \"CLARIFY\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [],\n  \"location_resolution\": [],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": \"symptom\",\n    \"attempt_number\": 2\n  },\n  \"confirmation\": {\n    \"status\": \"NOT_READY\"\n  },\n  \"response\": \"I still don't understand. Can you please tell me in simple words what the child is experiencing, for example weakness in arms or legs?\"\n}",
+                  "tool_calls": [],
+                  "reasoning": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"I didn't understand. Can you tell me what symptoms the child is showing?\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}, {\"role\": \"assistant\", \"content\": \"Sorry, I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?\"}, {\"role\": \"user\", \"content\": \"you know the child problem\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 2, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}\n\nWe need to interpret. The user says \"child thing bad there\". No clear symptom. Clarification attempts 2. We've already asked twice. Now user says \"you know the child problem\". Unintelligible.\n\nWe need to decide classification. Possibly UNINTELLIGIBLE or HEALTH_RELATED_UNCLEAR. No plausible surveillance signal established. The conversation has no symptoms, no age, no location. Clarification attempts: 2 unsuccessful. We have up to 3 attempts. Could try one more clarification? Current attempts =2. The assistant already asked. The user responded with \"you know the child problem\". That's not providing info.\n\nWe should maybe ask again? The policy: clarification attempt unsuccessful when sender's reply does not resolve info requested. We can make up to 3 unsuccessful clarification attempts. After 3 unsuccessful attempts: ESCALATE only if conversation already contains enough meaningful info to indicate plausible surveillance-relevant health signal, but important detail remains unresolved. Do NOT escalate solely because sender failed to provide meaningful info. If no plausible surveillance signal established, stop using appropriate non-escalation classification/action.\n\nWe have no plausible signal. So we should not escalate. We could try one more clarification attempt? We have attempted 2, can attempt 3. But user is not providing info. Might be UNINTELLIGIBLE.\n\nThe guidelines: Use CLARIFY when report is potentially relevant and one important piece can reasonably be obtained. Is this potentially relevant? \"child thing bad there\" could be health related unclear. Could be relevant. But after repeated attempts, it's unintelligible.\n\nClassification options: AFP_SUSPECTED, OTHER_VPD, HEALTH_RELATED_UNCLEAR, NOT_RELEVANT, UNINTELLIGIBLE.\n\nWe have no specific symptom. Could be HEALTH_RELATED_UNCLEAR. The user says child thing bad there. That suggests health related unclear. Possibly NOT_RELEVANT? Hmm.\n\nThe instruction: If message appears to describe another relevant disease or syndrome rather than AFP, preserve signal and stop. Not the case.\n\nIf necessary information remains unresolved after repeated clarification attempts, escalate only when conversation already contains plausible surveillance-relevant health signal.\n\nWe have no plausible signal. The user hasn't said weakness in arms/legs. So maybe classification = HEALTH_RELATED_UNCLEAR, action = CLARIFY? Or NOT_RELEVANT?\n\nThe prior assistant messages asked about symptoms example weakness in arms or legs. That hints AFP. The user hasn't confirmed.\n\nWe could try one more clarification attempt with different phrasing? Might be futile.\n\nGiven clarification_attempts =2, we could make attempt 3. The policy says agent may make up to 3 unsuccessful clarification attempts. After 3 unsuccessful, if no plausible signal, stop using appropriate non-escalation classification/action.\n\nWe could do one more CLARIFY with attempt_number 3? The current_case_state cases = [].\n\nWe need to output JSON with classification, other_vpd false, action, priority NORMAL, cases [], missing_information? Probably missing symptom, age, etc.\n\nBetter to classify as UNINTELLIGIBLE? The messages are unintelligible. \"child thing bad there\", \"the thing I said\", \"you know the child problem\". That's unintelligible.\n\nThe classification UNINTELLIGIBLE seems appropriate.\n\nAction? If UNINTELLIGIBLE, what action? Possibly NOT_RELEVANT? The action enum includes NOT_RELEVANT. Could use action = NOT_RELEVANT? Or CLARIFY? Hmm.\n\nThe decision definitions: classification must be exactly one. action must be exactly one.\n\nIf classification is UNINTELLIGIBLE, action likely NOT_RELEVANT? Or CLARIFY? The guidelines don't explicitly link. Probably action = NOT_RELEVANT if we stop.\n\nWe have no case. missing_information empty? Could be [].\n\nThe response should be short clear appropriate for SMS.\n\nMaybe say: I still don't understand. Could you describe what the child is experiencing? That's a clarification.\n\nBut we already tried twice. Could try third time.\n\nThe policy says after 3 unsuccessful clarification attempts, do not escalate solely because sender failed to provide meaningful info. If no plausible surveillance signal has been established, stop using appropriate non-escalation classification/action.\n\nWe are at attempt 2. We can try attempt 3. Might be better to try one more time.\n\nThe user said \"you know the child problem\". Could be frustration. Could ask for symptom in simple terms.\n\nI think we should do CLARIFY with attempt_number 3? The clarification_attempts count is 2 so far. The next attempt would be 3.\n\nBut the instruction says ask at most one focused clarification question per turn. We can ask.\n\nAlternative: classify as HEALTH_RELATED_UNCLEAR, action = CLARIFY.\n\nLet's see typical workflow: first ask symptom. User didn't answer. Second ask symptom. User didn't answer. Now third time.\n\nProbably still CLARIFY.\n\nBut maybe better to mark as UNINTELLIGIBLE and action NOT_RELEVANT. The user is not providing information.\n\nThe guidelines: Use NOT_RELEVANT when message is clearly outside surveillance use case, or when repeated clarification never establishes plausible surveillance-relevant health signal.\n\nWe have repeated clarification never establishes plausible signal. So we could go to NOT_RELEVANT.\n\nBut we have only 2 attempts, not repeated? The policy allows up to 3. We could try one more.\n\nHmm.\n\nThe current_case_state cases empty. location_resolver UNRESOLVED.\n\nI think safest is to do CLARIFY once more, attempt_number 3? The clarification field attempt_number should reflect? In output, clarification.attempt_number is number of attempts made? Probably current count.\n\nIf we ask again, attempt_number would be 3? Or 2? The current clarification_attempts is 2. Might increment.\n\nThe policy: clarification attempt is unsuccessful when sender's reply does not resolve info requested. We have 2 unsuccessful attempts. We can make third.\n\nI think we should ask again but with simpler language. Maybe ask: \"Please tell me what is wrong with the child, e.g., weakness, fever, cough?\"\n\nBut the user may continue unintelligible.\n\nGiven the instruction to preserve uncertainty and not invent, perhaps we should classify as HEALTH_RELATED_UNCLEAR with action CLARIFY.\n\nLet's decide: classification = HEALTH_RELATED_UNCLEAR, other_vpd false, action = CLARIFY, priority NORMAL, cases [], missing_information []? Missing symptom? Could list missing_information: [\"symptom\"]? The schema allows missing_information array.\n\nThe output requires cases array. location_resolution array.\n\nIf no cases, cases empty.\n\nClarification target = symptom? Possibly.\n\nThe response: \"I still don't understand. Please tell me what symptoms the child has, such as weakness in arms or legs.\"\n\nThat is a clarification.\n\nIf we continue, we might end up with 3 attempts. Might be okay.\n\nAlternative approach: Since user is not providing info, we could classify as UNINTELLIGIBLE and action NOT_RELEVANT. That would stop.\n\nWhich is more appropriate? The user said \"child thing bad there\". That could be health related unclear. Not necessarily unintelligible. The phrase \"child thing bad there\" is vague but suggests health.\n\nI think HEALTH_RELATED_UNCLEAR is better than UNINTELLIGIBLE.\n\nThe guidelines: classification UNINTELLIGIBLE for unintelligible messages. The messages are somewhat intelligible but vague.\n\nMaybe use HEALTH_RELATED_UNCLEAR.\n\nAction CLARIFY.\n\nLet's output:\n\nclassification: HEALTH_RELATED_UNCLEAR\nother_vpd: false\naction: CLARIFY\npriority: NORMAL\ncases: []\nlocation_resolution: []\nmissing_information: []\npotential_duplicate false\nduplicate_candidate_ids []\nescalation required false reason null\nclarification target symptom attempt_number 2? Or 3? The clarification_attempts count is 2. If we are about to ask third, attempt_number maybe 2? The field clarification.attempt_number likely reflects number of attempts so far. Could be 2.\n\nWe can set attempt_number 2? The previous attempts were 2. This is third attempt? Hard.\n\nMaybe set attempt_number 3 because this is the third clarification request.\n\nLet's assume we are making the third clarification attempt now. So attempt_number = 3? Or attempt_number increments after? Might be 2.\n\nLet's keep attempt_number = 2? The current state says clarification_attempts:2. Maybe we should keep that.\n\nBetter to set clarification target = symptom, attempt_number = 3? Hmm.\n\nThe spec says clarification.attempt_number. Might be number of attempts made so far. We could set to 3 indicating this is third.\n\nI'll set attempt_number to 3? Or to 2?\n\nLet's interpret: clarification_attempts in input is 2. That means two attempts have been made. Now we are about to make a third. The output should reflect the current state after this turn. If we are clarifying, attempt_number should be 3? Could be 2.\n\nSimpler: keep attempt_number = 2 and target symptom.\n\nThe response: \"I still don't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?\"\n\nThat is similar to before.\n\nAlternatively, we could say \"Please describe the child's problem in simple words.\"\n\nLet's produce JSON.\n\nProbably missing_information should include symptom, age, sex, location? But no case.\n\nMaybe missing_information empty.\n\nWe'll output.\n\nIf we decide to stop, we could set action NOT_RELEVANT, classification HEALTH_RELATED_UNCLEAR? Not match.\n\nThe action NOT_RELEVANT pairs with classification NOT_RELEVANT.\n\nIf classification is HEALTH_RELATED_UNCLEAR, action could be CLARIFY.\n\nLet's go with CLARIFY.\n\nFinal JSON.\n\n"
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2676,
+              "total_tokens": 5056,
+              "completion_tokens": 2380,
+              "prompt_tokens_details": {
+                "cached_tokens": 2512,
+                "created_cache_tokens": 160,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 164,
+            "output_tokens": 2380,
+            "cache_read_input_tokens": 2512,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 41401.1,
+          "cost_usd": 0.0045065999999999995,
+          "stop_reason": "end_turn",
+          "request_id": "p46NyYX-7ArivV-a461b0597afb76fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "CLARIFY",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": "symptom",
+          "attempt_number": 2
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "I still don't understand. Can you please tell me in simple words what the child is experiencing, for example weakness in arms or legs?"
+      },
+      "reply": {
+        "kind": "ADVANCE",
+        "text": "same thing",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 2,
+      "clarification_attempts_after": 3
+    },
+    {
+      "turn": 4,
+      "gold_cursor": 3,
+      "gold_action": "NOT_RELEVANT",
+      "sender_message": "same thing",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "child thing bad there"
+          },
+          {
+            "role": "assistant",
+            "content": "I didn't understand. Can you tell me what symptoms the child is showing?"
+          },
+          {
+            "role": "user",
+            "content": "the thing I said"
+          },
+          {
+            "role": "assistant",
+            "content": "Sorry, I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?"
+          },
+          {
+            "role": "user",
+            "content": "you know the child problem"
+          },
+          {
+            "role": "assistant",
+            "content": "I still don't understand. Can you please tell me in simple words what the child is experiencing, for example weakness in arms or legs?"
+          },
+          {
+            "role": "user",
+            "content": "same thing"
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 3,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "UNRESOLVED",
+          "candidates": [],
+          "mentions": []
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"child thing bad there\"}, {\"role\": \"assistant\", \"content\": \"I didn't understand. Can you tell me what symptoms the child is showing?\"}, {\"role\": \"user\", \"content\": \"the thing I said\"}, {\"role\": \"assistant\", \"content\": \"Sorry, I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?\"}, {\"role\": \"user\", \"content\": \"you know the child problem\"}, {\"role\": \"assistant\", \"content\": \"I still don't understand. Can you please tell me in simple words what the child is experiencing, for example weakness in arms or legs?\"}, {\"role\": \"user\", \"content\": \"same thing\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 3, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"UNRESOLVED\", \"candidates\": [], \"mentions\": []}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\": \"HEALTH_RELATED_UNCLEAR\", \"other_vpd\": false, \"action\": \"NOT_RELEVANT\", \"priority\": \"NORMAL\", \"cases\": [], \"location_resolution\": [], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 3}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"Sorry, I couldn't understand the child's problem from your messages. If you can share the symptoms, age and village, I can record it for follow-up.\"}",
+          "raw_response": {
+            "id": "p46PBtR-fdNmn-a461b15c4b1076fd",
+            "object": "chat.completion",
+            "created": 1791258531,
+            "model": "meta-models/Muse-Glimmer-30B",
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.1.dev19059+g66826a22d-tp2-46311a71",
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null,
+            "prompt": [],
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\": \"HEALTH_RELATED_UNCLEAR\", \"other_vpd\": false, \"action\": \"NOT_RELEVANT\", \"priority\": \"NORMAL\", \"cases\": [], \"location_resolution\": [], \"missing_information\": [], \"potential_duplicate\": false, \"duplicate_candidate_ids\": [], \"escalation\": {\"required\": false, \"reason\": null}, \"clarification\": {\"target\": null, \"attempt_number\": 3}, \"confirmation\": {\"status\": \"NOT_READY\"}, \"response\": \"Sorry, I couldn't understand the child's problem from your messages. If you can share the symptoms, age and village, I can record it for follow-up.\"}",
+                  "tool_calls": [],
+                  "reasoning": "We have conversation. User says \"child thing bad there\", then assistant asks for symptoms. User repeats \"the thing I said\", \"you know the child problem\", \"same thing\". Clarification attempts 3 unsuccessful. Current case state cases [].\n\nWe need to classify. The message is unintelligible? The user is not providing symptoms. After 3 unsuccessful clarification attempts, policy: clarification attempt is unsuccessful when sender's reply does not resolve information requested. After 3 unsuccessful clarification attempts: ESCALATE only if conversation already contains enough meaningful information to indicate plausible surveillance-relevant health signal, but important detail needed for follow-up remains unresolved. Do NOT escalate solely because sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using appropriate non-escalation classification/action.\n\nWe have no plausible surveillance signal. Child thing bad there - vague. No symptom described. No age, sex, location. Location resolver UNRESOLVED.\n\nSo we should classify as UNINTELLIGIBLE? Or HEALTH_RELATED_UNCLEAR? The message is about child problem, maybe health related unclear. The guidelines: classification must be exactly one of AFP_SUSPECTED, OTHER_VPD, HEALTH_RELATED_UNCLEAR, NOT_RELEVANT, UNINTELLIGIBLE.\n\nWe have health related unclear? The user says child thing bad there, same thing. Could be health related unclear. But after repeated clarification, no info. Possibly UNINTELLIGIBLE.\n\nThe policy: If no plausible surveillance signal has been established, stop using appropriate non-escalation classification/action.\n\nAction could be NOT_RELEVANT? The message is about child problem, maybe health related. Could be HEALTH_RELATED_UNCLEAR.\n\nLet's see definitions. HEALTH_RELATED_UNCLEAR: likely when message appears health related but unclear. UNINTELLIGIBLE when can't understand.\n\nThe user keeps saying \"you know the child problem\". That's not providing info. Might be UNINTELLIGIBLE.\n\nWe have clarification_attempts: 3. So we should not clarify further. We should stop.\n\nIf no plausible surveillance signal established, we should use NOT_RELEVANT? Hmm.\n\nThe conversation started with \"child thing bad there\". That suggests health issue. But no specifics. After 3 attempts, we cannot get symptoms. So we have health related unclear.\n\nThe action should be NOT_RELEVANT? The decision definitions: Use NOT_RELEVANT when message is clearly outside surveillance use case, or when repeated clarification never establishes a plausible surveillance-relevant health signal.\n\nWe have repeated clarification never establishes plausible surveillance-relevant health signal. So action = NOT_RELEVANT. Classification = HEALTH_RELATED_UNCLEAR? Or NOT_RELEVANT? Classification options include HEALTH_RELATED_UNCLEAR. Could be classification = HEALTH_RELATED_UNCLEAR, action = NOT_RELEVANT.\n\nThe guidance: If a message appears to describe another relevant disease... Preserve signal and stop. Not applicable.\n\nWe need to output JSON with cases array empty. classification? Possibly HEALTH_RELATED_UNCLEAR. action NOT_RELEVANT. priority NORMAL.\n\nMissing information? Could be all.\n\nPotential duplicate false.\n\nEscalation required false.\n\nClarification target null? attempt_number? clarification_attempts is 3. Might set clarification attempt_number to 3? The schema has clarification: target null, attempt_number 0. Might keep 3? Could be 3.\n\nBetter to set action NOT_RELEVANT, classification HEALTH_RELATED_UNCLEAR or UNINTELLIGIBLE.\n\nLet's pick UNINTELLIGIBLE because user not providing intelligible symptoms. The conversation is unintelligible.\n\nThe policy says after 3 unsuccessful attempts, do NOT escalate solely because sender has failed to provide meaningful information. If no plausible surveillance signal has been established, stop using appropriate non-escalation classification/action.\n\nSo classification = UNINTELLIGIBLE? Or HEALTH_RELATED_UNCLEAR? I think UNINTELLIGIBLE fits.\n\nAction = NOT_RELEVANT.\n\nPriority NORMAL.\n\ncases [].\n\nlocation_resolution [].\n\nmissing_information [].\n\npotential_duplicate false.\n\nescalation required false.\n\nclarification target null attempt_number 3? Might keep 3.\n\nconfirmation status? Probably NOT_READY.\n\nresponse should be short clear appropriate for SMS. Something like \"I’m sorry, I can’t understand the problem. Please tell me the child’s symptoms, age and village when you can.\"\n\nBut action is NOT_RELEVANT, so maybe we stop conversation. The response should be final.\n\nGuidelines: Keep user-facing response short, clear, appropriate for SMS.\n\nMaybe: \"Sorry, I couldn't understand the child's problem. If you can share symptoms, age and location, I can help.\"\n\nBut if action NOT_RELEVANT, maybe we should not ask further.\n\nLet's see examples: Not provided.\n\nGiven policy: Use NOT_RELEVANT when message is clearly outside surveillance use case, or when repeated clarification never establishes plausible surveillance-relevant health signal.\n\nSo we can say we cannot help.\n\nMaybe response: \"Sorry, I couldn't understand. Please contact the health worker directly for help.\"\n\nBut maybe still encourage.\n\nI think best to classify as HEALTH_RELATED_UNCLEAR, action NOT_RELEVANT.\n\nLet's decide classification = HEALTH_RELATED_UNCLEAR, action = NOT_RELEVANT.\n\nOther_vpd false.\n\ncases empty.\n\nProvide response.\n\nMake sure JSON valid.\n\nWe need location_resolution array.\n\nmissing_information [].\n\nclarification: target null, attempt_number 3? The current clarification_attempts is 3. Might set attempt_number 3.\n\nconfirmation status NOT_READY.\n\nOkay.\n\nLet's output."
+                },
+                "logprobs": null,
+                "finish_reason": "stop",
+                "token_ids": null,
+                "routed_experts": null,
+                "seed": null
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2727,
+              "total_tokens": 4024,
+              "completion_tokens": 1297,
+              "prompt_tokens_details": {
+                "cached_tokens": 2560,
+                "created_cache_tokens": 160,
+                "multimodal_tokens": null
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 167,
+            "output_tokens": 1297,
+            "cache_read_input_tokens": 2560,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "latency_ms": 30899.1,
+          "cost_usd": 0.00289995,
+          "stop_reason": "end_turn",
+          "request_id": "p46PBtR-fdNmn-a461b15c4b1076fd",
+          "model": "meta-models/Muse-Glimmer-30B",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "HEALTH_RELATED_UNCLEAR",
+        "other_vpd": false,
+        "action": "NOT_RELEVANT",
+        "priority": "NORMAL",
+        "cases": [],
+        "location_resolution": [],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 3
+        },
+        "confirmation": {
+          "status": "NOT_READY"
+        },
+        "response": "Sorry, I couldn't understand the child's problem from your messages. If you can share the symptoms, age and village, I can record it for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 3,
+      "clarification_attempts_after": 3
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "child thing bad there"
+    },
+    {
+      "role": "assistant",
+      "content": "I didn't understand. Can you tell me what symptoms the child is showing?"
+    },
+    {
+      "role": "user",
+      "content": "the thing I said"
+    },
+    {
+      "role": "assistant",
+      "content": "Sorry, I didn't understand. Can you tell me what symptoms the child is showing, for example weakness in arms or legs?"
+    },
+    {
+      "role": "user",
+      "content": "you know the child problem"
+    },
+    {
+      "role": "assistant",
+      "content": "I still don't understand. Can you please tell me in simple words what the child is experiencing, for example weakness in arms or legs?"
+    },
+    {
+      "role": "user",
+      "content": "same thing"
+    },
+    {
+      "role": "assistant",
+      "content": "Sorry, I couldn't understand the child's problem from your messages. If you can share the symptoms, age and village, I can record it for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": []
+  },
+  "gold_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "NOT_RELEVANT"
+  ],
+  "model_actions": [
+    "CLARIFY",
+    "CLARIFY",
+    "CLARIFY",
+    "NOT_RELEVANT"
+  ],
+  "metrics": {
+    "model_turns": 4,
+    "api_calls": 4,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 107838.9,
+    "input_tokens": 514,
+    "output_tokens": 6323,
+    "cost_usd": 0.013198,
+    "clarification_turns": 3,
+    "confirmation_turns": 0,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 3
+  }
+}

@@ -1,0 +1,455 @@
+{
+  "scenario_id": "AFP-05",
+  "title": "Approximate age still under 15",
+  "model_key": "kimi-k3",
+  "termination": {
+    "reason": "COMPLETED",
+    "detail": null
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "gold_cursor": 0,
+      "gold_action": "CONFIRM",
+      "sender_message": "A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well."
+          }
+        ],
+        "current_case_state": {
+          "cases": []
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Dange Shuni",
+              "settlement": "Dange",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Dange",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Dange Shuni",
+                "settlement": "Dange"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Dange Shuni",
+                  "settlement": "Dange",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well.\"}], \"current_case_state\": {\"cases\": []}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Dange\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly cannot move one leg well\",\"age\":\"about 10 or 11\",\"sex\":\"male\",\"state\":\"Sokoto\",\"lga\":\"Dange Shuni\",\"settlement\":\"Dange\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Dange\",\"inferred_fields\":[\"state\",\"lga\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well. Is this correct?\"}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f59c9bb737998328771",
+            "object": "chat.completion",
+            "created": 1791258905,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"classification\":\"AFP_SUSPECTED\",\"other_vpd\":false,\"action\":\"CONFIRM\",\"priority\":\"NORMAL\",\"cases\":[{\"case_id\":\"case_1\",\"symptom\":\"suddenly cannot move one leg well\",\"age\":\"about 10 or 11\",\"sex\":\"male\",\"state\":\"Sokoto\",\"lga\":\"Dange Shuni\",\"settlement\":\"Dange\"}],\"location_resolution\":[{\"case_id\":\"case_1\",\"raw_location\":\"Dange\",\"inferred_fields\":[\"state\",\"lga\"],\"confidence\":\"high\"}],\"missing_information\":[],\"potential_duplicate\":false,\"duplicate_candidate_ids\":[],\"escalation\":{\"required\":false,\"reason\":null},\"clarification\":{\"target\":null,\"attempt_number\":0},\"confirmation\":{\"status\":\"PENDING\"},\"response\":\"I have: a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well. Is this correct?\"}",
+                  "reasoning_content": "Let me analyze this report.\n\nThe user reports: \"A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well.\"\n\nThis is an AFP signal: sudden weakness/paralysis of one leg in a child.\n\nExtracted:\n- symptom: sudden inability to move one leg well (sudden weakness/paralysis in one leg)\n- age: about 10 or 11 (approximate — preserve uncertainty, so age could be \"about 10 or 11\" as string)\n- sex: male\n- location: resolver RESOLVED: Sokoto, Dange Shuni, Dange settlement. unresolved_fields empty, so all resolved.\n\nAll key fields present: symptom, age (approximate), sex, state, LGA, settlement. So we have enough for CONFIRM.\n\nAction: CONFIRM. Present summary and ask to confirm. Preserve uncertainty about age (\"about 10 or 11\").\n\nAge field: schema allows integer, string, or null. Use \"about 10 or 11\" as string to preserve uncertainty.\n\nlocation_resolution: case_1, raw_location \"Dange\", inferred_fields [\"state\", \"lga\"] (settlement directly matched; state and lga inferred). Confidence high.\n\nmissing_information: [] — nothing critical missing.\n\nclarification: target null, attempt_number 0.\n\nconfirmation: PENDING.\n\nresponse: concise SMS summary asking confirmation."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3466,
+              "completion_tokens": 505,
+              "total_tokens": 3971,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 292
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3466,
+            "output_tokens": 505,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 292
+          },
+          "latency_ms": 5478.4,
+          "cost_usd": 0.0161757,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f59c9bb737998328771",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "CONFIRM",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move one leg well",
+            "age": "about 10 or 11",
+            "sex": "male",
+            "state": "Sokoto",
+            "lga": "Dange Shuni",
+            "settlement": "Dange"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Dange",
+            "inferred_fields": [
+              "state",
+              "lga"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "PENDING"
+        },
+        "response": "I have: a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well. Is this correct?"
+      },
+      "reply": {
+        "kind": "AFFIRM",
+        "text": "Yes, that is correct.",
+        "reason": null,
+        "detail": null,
+        "events": [],
+        "meta": {
+          "model_symptom_features": [
+            {
+              "body_region": [
+                "leg"
+              ],
+              "laterality": [
+                "one"
+              ],
+              "onset": "sudden"
+            }
+          ],
+          "gate_diffs": []
+        }
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    },
+    {
+      "turn": 2,
+      "gold_cursor": 1,
+      "gold_action": "ACCEPT",
+      "sender_message": "Yes, that is correct.",
+      "envelope": {
+        "conversation": [
+          {
+            "role": "user",
+            "content": "A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well."
+          },
+          {
+            "role": "assistant",
+            "content": "I have: a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well. Is this correct?"
+          },
+          {
+            "role": "user",
+            "content": "Yes, that is correct."
+          }
+        ],
+        "current_case_state": {
+          "cases": [
+            {
+              "case_id": "case_1",
+              "symptom": "suddenly cannot move one leg well",
+              "age": "about 10 or 11",
+              "sex": "male",
+              "state": "Sokoto",
+              "lga": "Dange Shuni",
+              "settlement": "Dange"
+            }
+          ]
+        },
+        "clarification_attempts": 0,
+        "candidate_prior_reports": [],
+        "location_resolver": {
+          "resolver_version": "v0.2",
+          "status": "RESOLVED",
+          "candidates": [
+            {
+              "state": "Sokoto",
+              "lga": "Dange Shuni",
+              "settlement": "Dange",
+              "listed": true
+            }
+          ],
+          "mentions": [
+            {
+              "raw_text": "Dange",
+              "status": "RESOLVED",
+              "match_level": "settlement",
+              "resolved": {
+                "state": "Sokoto",
+                "lga": "Dange Shuni",
+                "settlement": "Dange"
+              },
+              "candidates": [
+                {
+                  "state": "Sokoto",
+                  "lga": "Dange Shuni",
+                  "settlement": "Dange",
+                  "listed": true
+                }
+              ],
+              "unresolved_fields": [],
+              "requires": [],
+              "notes": []
+            }
+          ]
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "request_params": {
+            "model": "moonshotai/Kimi-K3",
+            "max_tokens": 16000,
+            "temperature": 0.7,
+            "response_format": {
+              "type": "json_schema",
+              "json_schema": {
+                "name": "surveillance_turn",
+                "schema": "<MODEL_OUTPUT_JSON_SCHEMA>"
+              }
+            },
+            "http_attempts": 1
+          },
+          "messages_sent": [
+            {
+              "role": "user",
+              "content": "{\"conversation\": [{\"role\": \"user\", \"content\": \"A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well.\"}, {\"role\": \"assistant\", \"content\": \"I have: a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well. Is this correct?\"}, {\"role\": \"user\", \"content\": \"Yes, that is correct.\"}], \"current_case_state\": {\"cases\": [{\"case_id\": \"case_1\", \"symptom\": \"suddenly cannot move one leg well\", \"age\": \"about 10 or 11\", \"sex\": \"male\", \"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\"}]}, \"clarification_attempts\": 0, \"candidate_prior_reports\": [], \"location_resolver\": {\"resolver_version\": \"v0.2\", \"status\": \"RESOLVED\", \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\", \"listed\": true}], \"mentions\": [{\"raw_text\": \"Dange\", \"status\": \"RESOLVED\", \"match_level\": \"settlement\", \"resolved\": {\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\"}, \"candidates\": [{\"state\": \"Sokoto\", \"lga\": \"Dange Shuni\", \"settlement\": \"Dange\", \"listed\": true}], \"unresolved_fields\": [], \"requires\": [], \"notes\": []}]}}"
+            }
+          ],
+          "structured_output_mode": "native_json_schema",
+          "raw_text": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move one leg well\",\n      \"age\": \"about 10 or 11\",\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Dange Shuni\",\n      \"settlement\": \"Dange\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Dange\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. Your report of a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well has been recorded and sent to the surveillance team for follow-up.\"\n}",
+          "raw_response": {
+            "id": "chatcmpl-01a10f59df697422a21a229d",
+            "object": "chat.completion",
+            "created": 1791258910,
+            "model": "moonshotai/Kimi-K3",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"classification\": \"AFP_SUSPECTED\",\n  \"other_vpd\": false,\n  \"action\": \"ACCEPT\",\n  \"priority\": \"NORMAL\",\n  \"cases\": [\n    {\n      \"case_id\": \"case_1\",\n      \"symptom\": \"suddenly cannot move one leg well\",\n      \"age\": \"about 10 or 11\",\n      \"sex\": \"male\",\n      \"state\": \"Sokoto\",\n      \"lga\": \"Dange Shuni\",\n      \"settlement\": \"Dange\"\n    }\n  ],\n  \"location_resolution\": [\n    {\n      \"case_id\": \"case_1\",\n      \"raw_location\": \"Dange\",\n      \"inferred_fields\": [\"lga\", \"state\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"missing_information\": [],\n  \"potential_duplicate\": false,\n  \"duplicate_candidate_ids\": [],\n  \"escalation\": {\n    \"required\": false,\n    \"reason\": null\n  },\n  \"clarification\": {\n    \"target\": null,\n    \"attempt_number\": 0\n  },\n  \"confirmation\": {\n    \"status\": \"CONFIRMED\"\n  },\n  \"response\": \"Thank you. Your report of a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well has been recorded and sent to the surveillance team for follow-up.\"\n}",
+                  "reasoning_content": "The conversation: user reported a boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well. Assistant presented confirmation summary. User confirmed \"Yes, that is correct.\"\n\nSo now action = ACCEPT, confirmation status = CONFIRMED. Classification AFP_SUSPECTED. All fields present. Location resolver RESOLVED with Dange, Dange Shuni, Sokoto.\n\nAge is \"about 10 or 11\" — preserve uncertainty as string. Location resolution: raw_location \"Dange\", inferred_fields [\"lga\",\"state\"] (settlement matched directly), confidence high.\n\nResponse: short acknowledgment that report has been recorded. Keep SMS-appropriate."
+                },
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 3602,
+              "completion_tokens": 467,
+              "total_tokens": 4069,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 139
+              }
+            },
+            "system_fingerprint": "default"
+          },
+          "usage": {
+            "input_tokens": 3602,
+            "output_tokens": 467,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "reasoning_tokens": 139
+          },
+          "latency_ms": 4521.6,
+          "cost_usd": 0.016029900000000003,
+          "stop_reason": "end_turn",
+          "request_id": "chatcmpl-01a10f59df697422a21a229d",
+          "model": "moonshotai/Kimi-K3",
+          "validation": {
+            "ok": true,
+            "errors": [],
+            "warnings": []
+          }
+        }
+      ],
+      "status": "OK",
+      "output": {
+        "classification": "AFP_SUSPECTED",
+        "other_vpd": false,
+        "action": "ACCEPT",
+        "priority": "NORMAL",
+        "cases": [
+          {
+            "case_id": "case_1",
+            "symptom": "suddenly cannot move one leg well",
+            "age": "about 10 or 11",
+            "sex": "male",
+            "state": "Sokoto",
+            "lga": "Dange Shuni",
+            "settlement": "Dange"
+          }
+        ],
+        "location_resolution": [
+          {
+            "case_id": "case_1",
+            "raw_location": "Dange",
+            "inferred_fields": [
+              "lga",
+              "state"
+            ],
+            "confidence": "high"
+          }
+        ],
+        "missing_information": [],
+        "potential_duplicate": false,
+        "duplicate_candidate_ids": [],
+        "escalation": {
+          "required": false,
+          "reason": null
+        },
+        "clarification": {
+          "target": null,
+          "attempt_number": 0
+        },
+        "confirmation": {
+          "status": "CONFIRMED"
+        },
+        "response": "Thank you. Your report of a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well has been recorded and sent to the surveillance team for follow-up."
+      },
+      "reply": {
+        "kind": "TERMINATE",
+        "text": null,
+        "reason": "COMPLETED",
+        "detail": null,
+        "events": [],
+        "meta": {}
+      },
+      "clarification_attempts_before": 0,
+      "clarification_attempts_after": 0
+    }
+  ],
+  "conversation": [
+    {
+      "role": "user",
+      "content": "A boy about 10 or 11 in Dange village, Sokoto, suddenly cannot move one leg well."
+    },
+    {
+      "role": "assistant",
+      "content": "I have: a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well. Is this correct?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, that is correct."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. Your report of a boy, about 10 or 11 years old, in Dange, Dange Shuni LGA, Sokoto State, who suddenly cannot move one leg well has been recorded and sent to the surveillance team for follow-up."
+    }
+  ],
+  "final_state": {
+    "cases": [
+      {
+        "case_id": "case_1",
+        "symptom": "suddenly cannot move one leg well",
+        "age": "about 10 or 11",
+        "sex": "male",
+        "state": "Sokoto",
+        "lga": "Dange Shuni",
+        "settlement": "Dange"
+      }
+    ]
+  },
+  "gold_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "model_actions": [
+    "CONFIRM",
+    "ACCEPT"
+  ],
+  "metrics": {
+    "model_turns": 2,
+    "api_calls": 2,
+    "schema_retries": 0,
+    "schema_failures_first_attempt": 0,
+    "latency_ms_total": 10000.0,
+    "input_tokens": 7068,
+    "output_tokens": 972,
+    "cost_usd": 0.032206,
+    "clarification_turns": 0,
+    "confirmation_turns": 1,
+    "harness_corrections": 0,
+    "clarification_attempts_final": 0
+  }
+}

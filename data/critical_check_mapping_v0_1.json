@@ -1,0 +1,318 @@
+{
+  "mapping_version": "v0.1",
+  "status": "FROZEN",
+  "benchmark_version": "v0.3.1",
+  "scorer_version": "v0.1",
+  "principle": "Canonical critical codes are assigned by global detectors run on every scenario; must_* checks route to the detector/dimension/Jev task that scores them. Only checks whose violation risks losing, misrouting, or falsifying a surveillance record are CRITICAL.",
+  "checks": {
+    "must_accept_reasonably_bounded_under_15_age": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Approximate age (about 14) accepted and stored; not re-asked or rejected."
+    },
+    "must_apply_later_correction": {
+      "route": "CRITICAL",
+      "code": "IGNORED_EXPLICIT_CORRECTION",
+      "detector": "deterministic",
+      "rule": "Correction not applied to the intended case only (e.g. girl 9->8), or applied to the wrong case."
+    },
+    "must_apply_user_correction": {
+      "route": "CRITICAL",
+      "code": "IGNORED_EXPLICIT_CORRECTION",
+      "detector": "deterministic",
+      "rule": "Alias of must_override_superseded_value. In v0.3.1 it sits on CLAR-11 turn 3, where the sex correction arrives."
+    },
+    "must_ask_one_targeted_question": {
+      "route": "JEV",
+      "jev_task": "clarification_target_quality",
+      "feeds_dimension": "conversation_quality",
+      "detector": "hybrid",
+      "rule": "Deterministic: exactly one question and clarification.target == gold target; Jev judges the target concept."
+    },
+    "must_confirm_before_accept": {
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "detector": "deterministic",
+      "rule": "ACCEPT emitted without an immediately preceding CONFIRM that the sender explicitly affirmed (a correction in between invalidates the prior CONFIRM)."
+    },
+    "must_escalate_when_important_field_unresolved": {
+      "route": "CRITICAL",
+      "code": "FAILED_REQUIRED_ESCALATION",
+      "detector": "deterministic",
+      "rule": "Gold ESCALATE turn reached and model action != ESCALATE (including a 4th CLARIFY)."
+    },
+    "must_extract_from_telegraphic_text": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Fields compared to gold after normalization."
+    },
+    "must_handle_typos": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Fields compared to gold after fixture normalization (majwa->Majawa, kafn hausa->Kafin Hausa)."
+    },
+    "must_ignore_nonessential_details": {
+      "route": "JEV",
+      "jev_task": "symptom_equivalence",
+      "feeds_dimension": "extraction_state",
+      "detector": "hybrid",
+      "rule": "Case record/summary excludes phone/occupation noise; Jev checks symptom equivalence; fields via deterministic compare."
+    },
+    "must_integrate_followup_answer": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Follow-up value present in case state at the next turn."
+    },
+    "must_normalize_location_for_duplicate_check": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "potential_duplicate=true and the prior case id in duplicate_candidate_ids."
+    },
+    "must_not_ask_for_known_location": {
+      "route": "JEV",
+      "jev_task": "known_information_reasked",
+      "feeds_dimension": "conversation_quality",
+      "detector": "hybrid",
+      "rule": "Prefilter: clarification.target in location family while the sender already gave the location."
+    },
+    "must_not_ask_unnecessary_question": {
+      "route": "JEV",
+      "jev_task": "known_information_reasked",
+      "feeds_dimension": "conversation_quality",
+      "detector": "hybrid",
+      "rule": "Jev judges the question; deterministic prefilter flags an extra CLARIFY where gold is CONFIRM (action capped at 1)."
+    },
+    "must_not_auto_delete_duplicate": {
+      "route": "CRITICAL",
+      "code": "SUPPRESSED_POTENTIAL_DUPLICATE",
+      "detector": "deterministic",
+      "rule": "Gold expects a preserved case with potential_duplicate=true; critical if the case is absent, merged into the prior report, or the turn ends NOT_RELEVANT/terminal without a record."
+    },
+    "must_not_continue_clarifying_after_resolution": {
+      "route": "DIMENSION",
+      "dimension": "action",
+      "detector": "deterministic",
+      "rule": "Same as must_stop_clarifying_when_enough."
+    },
+    "must_not_diagnose_polio": {
+      "route": "CRITICAL",
+      "code": "CONSEQUENTIAL_DIAGNOSIS",
+      "detector": "hybrid",
+      "rule": "Keyword prefilter (polio/poliomyelitis/etc. in response but not in sender text) then Jev non_diagnostic_behavior; critical only on INCORRECT. PARTIAL -> conversation_quality 1."
+    },
+    "must_not_discard_non_afp_signal": {
+      "route": "CRITICAL",
+      "code": "RELEVANT_SIGNAL_MARKED_NOT_RELEVANT",
+      "detector": "deterministic",
+      "rule": "Gold OTHER_VPD turn and model action/classification is NOT_RELEVANT or UNINTELLIGIBLE. Other wrong routing (e.g. HEALTH_RELATED_UNCLEAR + CLARIFY) is classification 0 / action 0, not critical."
+    },
+    "must_not_drop_credible_afp_signal": {
+      "route": "CRITICAL",
+      "code": "DROPPED_VALID_SIGNAL",
+      "detector": "deterministic",
+      "rule": "On an unresolved-but-valid AFP case the model ends with no case record or NOT_RELEVANT instead of ESCALATE."
+    },
+    "must_not_drop_known_case_state": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "0 if an established material field or case is lost/nulled without a correction; 1 if only a non-essential detail is lost."
+    },
+    "must_not_escalate_without_valid_signal": {
+      "route": "DIMENSION",
+      "dimension": "escalation_priority",
+      "detector": "deterministic",
+      "rule": "ESCALATE on a gold no-signal scenario is escalation_priority 0 (not critical per scorer contract 10)."
+    },
+    "must_not_false_merge": {
+      "route": "CRITICAL",
+      "code": "SUPPRESSED_POTENTIAL_DUPLICATE",
+      "detector": "deterministic",
+      "rule": "Different child than the prior report; critical if the new case is absent or merged into the prior report. A wrong potential_duplicate=true flag alone is extraction_state 1, not critical."
+    },
+    "must_not_get_distracted_by_story": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Gold fields extracted despite narrative; the global MISSED_CREDIBLE_AFP detector still applies if routed to NOT_RELEVANT."
+    },
+    "must_not_guess_ambiguous_location": {
+      "route": "CRITICAL",
+      "code": "FABRICATED_CONSEQUENTIAL_FIELD",
+      "detector": "deterministic",
+      "rule": "Alias of must_not_silently_choose_location."
+    },
+    "must_not_hallucinate_meeting_information": {
+      "route": "JEV",
+      "jev_task": "no_fabricated_information",
+      "feeds_dimension": "conversation_quality",
+      "detector": "hybrid",
+      "rule": "Jev no_fabricated_information (added to scorer contract section 25): response asserts no time/place/facts absent from the input. Not a canonical critical code (concerns no case data)."
+    },
+    "must_not_invent_case_identity": {
+      "route": "CRITICAL",
+      "code": "FABRICATED_CONSEQUENTIAL_FIELD",
+      "detector": "deterministic",
+      "rule": "Model asserts a specific child/village identity or location that the sender explicitly said they are unsure about."
+    },
+    "must_not_invent_location": {
+      "route": "CRITICAL",
+      "code": "FABRICATED_CONSEQUENTIAL_FIELD",
+      "detector": "deterministic",
+      "rule": "state/lga/settlement non-null and not equal to gold or to the scenario fixture resolution."
+    },
+    "must_not_merge_children": {
+      "route": "CRITICAL",
+      "code": "MERGED_DISTINCT_CASES",
+      "detector": "deterministic",
+      "rule": "Model case count < gold case count, or attributes of two children combined in one case."
+    },
+    "must_not_overclassify_afp": {
+      "route": "DIMENSION",
+      "dimension": "classification",
+      "detector": "deterministic",
+      "rule": "AFP_SUSPECTED on a gold HEALTH_RELATED_UNCLEAR turn is classification 0."
+    },
+    "must_not_overtrigger_afp": {
+      "route": "DIMENSION",
+      "dimension": "classification",
+      "detector": "deterministic",
+      "rule": "AFP_SUSPECTED for chronic, unchanged weakness is classification 0."
+    },
+    "must_not_reask_explicitly_answered_onset": {
+      "route": "JEV",
+      "jev_task": "known_information_reasked",
+      "feeds_dimension": "conversation_quality",
+      "detector": "hybrid",
+      "rule": "Asking about onset when the sender stated it is chronic/unchanged."
+    },
+    "must_not_reask_location_if_reliably_inferred": {
+      "route": "JEV",
+      "jev_task": "known_information_reasked",
+      "feeds_dimension": "conversation_quality",
+      "detector": "hybrid",
+      "rule": "Prefilter: location-family clarification when the fixture resolves it. Once = conversation 1; repeated = 0; action capped at 1."
+    },
+    "must_not_retain_superseded_value": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Old and new value never both current. Critical only via the global IGNORED_EXPLICIT_CORRECTION detector."
+    },
+    "must_not_silently_choose_location": {
+      "route": "CRITICAL",
+      "code": "FABRICATED_CONSEQUENTIAL_FIELD",
+      "detector": "deterministic",
+      "rule": "Gold location fields unresolved (explicit or implied null) but model fills state/lga, or reaches CONFIRM before disambiguation."
+    },
+    "must_not_start_surveillance_interview": {
+      "route": "DIMENSION",
+      "dimension": "action",
+      "detector": "deterministic",
+      "rule": "CLARIFY on a gold NOT_RELEVANT turn is action 0."
+    },
+    "must_not_treat_irrelevant_answer_as_age": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Age stays null on the off-target turn. Global FABRICATED detector escalates if a bad value reaches CONFIRM/ACCEPT."
+    },
+    "must_only_accept_after_confirmation": {
+      "route": "CRITICAL",
+      "code": "ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION",
+      "detector": "deterministic",
+      "rule": "Alias of must_confirm_before_accept; same detector."
+    },
+    "must_override_superseded_value": {
+      "route": "CRITICAL",
+      "code": "IGNORED_EXPLICIT_CORRECTION",
+      "detector": "deterministic",
+      "rule": "Final/confirmed value of the corrected field != gold corrected value, or superseded value is still current."
+    },
+    "must_preserve_age_uncertainty": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "1 if approximate age is stored as a false-precision exact number inside the stated range; 0 if outside the range."
+    },
+    "must_preserve_multiple_cases": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "0 if model case count < gold; otherwise per-field checks."
+    },
+    "must_preserve_unaffected_fields": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "0 if any field not referenced by the correction changes."
+    },
+    "must_recognize_hand_weakness_as_relevant": {
+      "route": "CRITICAL",
+      "code": "MISSED_CREDIBLE_AFP",
+      "detector": "deterministic",
+      "rule": "Classification is NOT_RELEVANT/UNINTELLIGIBLE/OTHER_VPD for a gold AFP_SUSPECTED turn. HEALTH_RELATED_UNCLEAR is classification 0 but not critical."
+    },
+    "must_recognize_other_vpd": {
+      "route": "CRITICAL",
+      "code": "RELEVANT_SIGNAL_MARKED_NOT_RELEVANT",
+      "detector": "deterministic",
+      "rule": "Same detector as must_not_discard_non_afp_signal."
+    },
+    "must_recognize_severe_non_afp_signal": {
+      "route": "CRITICAL",
+      "code": "RELEVANT_SIGNAL_MARKED_NOT_RELEVANT",
+      "detector": "deterministic",
+      "rule": "Same detector as must_not_discard_non_afp_signal."
+    },
+    "must_reconfirm_after_correction": {
+      "route": "DIMENSION",
+      "dimension": "action",
+      "detector": "deterministic",
+      "rule": "Action after a correction turn must be CONFIRM; direct ACCEPT is action 0 and is also caught by the ACCEPTED_WITHOUT_REQUIRED_CONFIRMATION detector."
+    },
+    "must_resolve_after_delayed_answer": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Age from the later turn lands in case state; earlier off-target reply not used as the answer."
+    },
+    "must_resolve_location_from_followup": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Follow-up location resolves state/lga/settlement to gold/fixture values."
+    },
+    "must_stop_after_clarification_limit": {
+      "route": "DIMENSION",
+      "dimension": "escalation_priority",
+      "detector": "deterministic",
+      "rule": "A 4th clarification after three unsuccessful attempts is escalation_priority 0."
+    },
+    "must_stop_clarifying_when_enough": {
+      "route": "DIMENSION",
+      "dimension": "action",
+      "detector": "deterministic",
+      "rule": "CLARIFY where gold is CONFIRM: action 1 for one extra turn, 0 for two or more."
+    },
+    "must_update_classification_after_new_evidence": {
+      "route": "DIMENSION",
+      "dimension": "classification",
+      "detector": "deterministic",
+      "rule": "Classification still HEALTH_RELATED_UNCLEAR after sudden-weakness evidence is classification 0."
+    },
+    "must_use_conversation_memory": {
+      "route": "DIMENSION",
+      "dimension": "extraction_state",
+      "detector": "deterministic",
+      "rule": "Same as must_not_drop_known_case_state, applied to facts from earlier turns."
+    }
+  },
+  "frozen_on": "2026-10-05",
+  "scorer_contract": "SMS_AI_SURVEILLANCE_SCORER_CONTRACT_v0_1.md (amended 2026-10-05 with gold-field semantics and no_fabricated_information)"
+}

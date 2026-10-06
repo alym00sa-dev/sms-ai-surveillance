@@ -1,0 +1,157 @@
+{
+  "fixture_version": "v0.1",
+  "benchmark_version": "v0.3.1",
+  "status": "DRAFT_PENDING_SME_SIGNOFF",
+  "purpose": "Benchmark-owned deterministic location resolver. Its output is provided to every candidate model as structured input (location_resolver) and is also the scoring reference. Not a geocoder; not a source of geographic truth.",
+  "normalization": {
+    "case": "casefold",
+    "punctuation": "strip",
+    "hyphen_as_space": true,
+    "whitespace": "collapse"
+  },
+  "aliases": {
+    "majwa": "Majawa",
+    "kafn hausa": "Kafin Hausa",
+    "kafin-hausa": "Kafin Hausa",
+    "wamako": "Wamakko",
+    "dange shuni": "Dange",
+    "dange-shuni": "Dange"
+  },
+  "lga_level": {
+    "Kafin Hausa": {
+      "state": "Jigawa",
+      "source": "benchmark gold annotation"
+    },
+    "Kafur": {
+      "state": "Katsina",
+      "source": "benchmark gold annotation"
+    },
+    "Kura": {
+      "state": "Kano",
+      "source": "benchmark gold annotation (CLAR-09/11 follow-up)"
+    },
+    "Sokoto North": {
+      "state": "Sokoto",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined"
+    },
+    "Sokoto South": {
+      "state": "Sokoto",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined"
+    }
+  },
+  "settlements": {
+    "Majawa": {
+      "state": "Jigawa",
+      "lga": "Kafin Hausa",
+      "confidence": "high",
+      "source": "benchmark spec (harness README s14; benchmark notes)"
+    },
+    "Gidan Waya": {
+      "state": "Katsina",
+      "lga": "Kafur",
+      "confidence": "high",
+      "source": "benchmark gold annotation (AFP-04 states all three levels)"
+    },
+    "Dange": {
+      "state": "Sokoto",
+      "lga": "Dange Shuni",
+      "confidence": "high",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined",
+      "lga_aliases": [
+        "Dange-Shuni",
+        "Dange"
+      ],
+      "note": "AFP-05 leaves lga unscored; any alias above is accepted."
+    },
+    "Gwadabawa": {
+      "state": "Sokoto",
+      "lga": "Gwadabawa",
+      "confidence": "high",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined"
+    },
+    "Wurno": {
+      "state": "Sokoto",
+      "lga": "Wurno",
+      "confidence": "high",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined"
+    },
+    "Tambuwal": {
+      "state": "Sokoto",
+      "lga": "Tambuwal",
+      "confidence": "high",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined"
+    },
+    "Bodinga": {
+      "state": "Sokoto",
+      "lga": "Bodinga",
+      "confidence": "high",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined"
+    },
+    "Tureta": {
+      "state": "Sokoto",
+      "lga": "Tureta",
+      "confidence": "high",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined"
+    },
+    "Wamakko": {
+      "state": "Sokoto",
+      "lga": "Wamakko",
+      "confidence": "high",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined",
+      "lga_aliases": [
+        "Wamako"
+      ]
+    }
+  },
+  "partial": {
+    "Sokoto town": {
+      "state": "Sokoto",
+      "lga": null,
+      "lga_candidates": [
+        "Sokoto North",
+        "Sokoto South"
+      ],
+      "note": "State resolvable; LGA is not. Only VPD-20 uses it and that turn does not score geography.",
+      "source": "LGA name verified against public Sokoto State LGA list (INEC); settlement-to-LGA mapping is benchmark-defined"
+    }
+  },
+  "ambiguous": {
+    "Kura": {
+      "requires": [
+        "state",
+        "lga"
+      ],
+      "candidates": [],
+      "resolves_to": [
+        {
+          "state": "Kano",
+          "lga": "Kura"
+        }
+      ],
+      "note": "Intentionally ambiguous in every scenario (CLAR-09, CLAR-11). No candidate is listed to the model until the SME supplies concrete places; the resolver only declares the ambiguity. It resolves to Kano / Kura LGA only after the sender states both state and LGA.",
+      "source": "benchmark gold annotation"
+    }
+  },
+  "scoring_rules": [
+    "If gold state/lga is a value: model value must match after normalization/aliases.",
+    "If gold state/lga is explicit null: model must leave it null (non-null = FABRICATED_CONSEQUENTIAL_FIELD at a CONFIRM/ACCEPT turn; extraction_state 0 otherwise).",
+    "If gold state/lga is omitted and the settlement has a settlements[] entry: a non-null model value must equal the fixture value; mismatch counts as fabrication. Null is acceptable (not scored).",
+    "If gold omits the field and the settlement is partial/ambiguous/unlisted: any non-null model value for the unresolved level is a fabrication.",
+    "If gold state is omitted and gold lga is a value listed in lga_level: a non-null model state must equal lga_level[lga].state (e.g. CLAR-13 \"near Kafin Hausa\" -> Jigawa).",
+    "Resolver compliance: RESOLVED -> model fields must equal the resolved values or be null; AMBIGUOUS -> fields that differ among candidates must stay null; UNRESOLVED -> state/lga/settlement not supplied by the sender must stay null."
+  ],
+  "states": [
+    "Jigawa",
+    "Katsina",
+    "Sokoto",
+    "Kano"
+  ],
+  "resolver_rules": [
+    "Scans only sender (user) messages, cumulatively across the conversation; model output is never an input.",
+    "Names match case-insensitively on whole tokens, longest match first; aliases map typos to canonical names.",
+    "A name followed by \"LGA\"/\"local government\" is LGA-level; followed by \"state\" is state-level; followed by \"village\"/\"town\"/\"community\" is settlement-level; otherwise settlement > LGA > state.",
+    "A settlement preceded within 3 tokens by near/nearby/around/beside/close is a proximity reference: UNRESOLVED, no hierarchy inferred. A proximity LGA mention still resolves at LGA level.",
+    "Stated LGA/state constrain candidates. An ambiguous settlement stays AMBIGUOUS (with only its listed candidates, currently none) until all of its `requires` fields are stated, then resolves via `resolves_to`.",
+    "Overall status: any AMBIGUOUS -> AMBIGUOUS; else any RESOLVED -> RESOLVED; else UNRESOLVED."
+  ]
+}
