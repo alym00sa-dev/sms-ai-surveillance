@@ -210,5 +210,3 @@ python -m src.preflight --models haiku-4-5  # cheap check that a model works
 python -m src.bakeoff all --out results/my_run --models haiku-4-5   # run + score (costs real money)
 ```
 Running all nine models costs roughly $6–9 in API fees. Your own keys go in `.env`, which is excluded from Git.
-
-# sms-ai-surveillance
